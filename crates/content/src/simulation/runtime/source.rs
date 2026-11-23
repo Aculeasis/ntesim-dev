@@ -119,7 +119,8 @@ impl PreparedSourceScenario {
         source_limits: CompileLimits,
         limits: &ExecutionLimits,
     ) -> Result<Self, Vec<Diagnostic>> {
-        let (script, config) = crate::dsl::inspection::prepare(source)?;
+        let (script, config) =
+            crate::dsl::inspection::prepare_with_event_limit(source, limits.max_events)?;
         let loc = &script.options[0].loc;
         Self::from_configuration(source, config, source_limits, limits, loc)
             .map_err(|diagnostic| vec![diagnostic])
@@ -553,7 +554,15 @@ impl PreparedSourceScenario {
         let mut request = self.request.clone();
         request.seed = seed;
         if seed != self.request.seed && self.config.has_stochastic_hurt() {
-            let (events, sources, bases) = self.config.sample_incoming_for_seed(seed)?;
+            let (events, sources, bases) = self
+                .config
+                .sample_incoming_for_seed(seed, self.limits.max_events)
+                .map_err(|diagnostic| {
+                    format!(
+                        "{} (line {}, column {})",
+                        diagnostic.message, diagnostic.loc.line, diagnostic.loc.column
+                    )
+                })?;
             request.incoming_damage_events = events;
             request.incoming_dummy_sources = sources;
             request.incoming_damage_basis = bases;

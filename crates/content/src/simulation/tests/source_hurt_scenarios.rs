@@ -2,6 +2,8 @@
 //! actor interruptions, combat transitions, and time stop integration.
 
 use crate::dsl::compiler::{CompileLimits, compile_scenario};
+use crate::dsl::validation::DiagnosticCode;
+use crate::execution::ExecutionLimits;
 use crate::simulation::runtime::PreparedSourceScenario;
 use crate::simulation::timer_queue::EventQueue as BinaryHeap;
 
@@ -12,6 +14,53 @@ mint add weapon=fork_lingganzhongjiezhe refine=1;
 target hp=10000000 def=0 resist=0;
 active mint;
 ";
+
+#[test]
+fn fixed_hurt_and_explicit_incoming_share_the_event_budget() {
+    let source = format!(
+        "{BASE_SCENARIO}\
+incoming mint at=500ms damage=1;
+hurt every interval=1s amount=1;
+hurt every interval=1s amount=2;
+wait(1);"
+    );
+    let mut limits = ExecutionLimits {
+        max_events: 3,
+        ..Default::default()
+    };
+    let program = PreparedSourceScenario::new(&source, CompileLimits::default(), &limits).unwrap();
+    assert_eq!(program.request().incoming_damage_events.len(), 3);
+
+    limits.max_events = 2;
+    let diagnostics = PreparedSourceScenario::new(&source, CompileLimits::default(), &limits)
+        .err()
+        .unwrap();
+    assert_eq!(diagnostics.len(), 1);
+    assert_eq!(diagnostics[0].code, DiagnosticCode::EventLimit);
+    assert_eq!(diagnostics[0].loc.line, 8);
+}
+
+#[test]
+fn reseeded_hurt_checks_the_incoming_event_budget() {
+    let source = format!(
+        "{BASE_SCENARIO}\
+incoming mint at=500ms damage=1;
+hurt every interval=400ms,800ms amount=1;
+wait(1);"
+    );
+    let limits = ExecutionLimits {
+        max_events: 2,
+        ..Default::default()
+    };
+    let program = PreparedSourceScenario::new(&source, CompileLimits::default(), &limits).unwrap();
+    assert_eq!(program.request().incoming_damage_events.len(), 2);
+
+    let error = program.run(9999).err().unwrap();
+    assert_eq!(
+        error,
+        "Incoming damage exceeds the limit of 2 events. (line 7, column 1)"
+    );
+}
 
 #[test]
 fn periodic_hurt_with_fixed_interval_and_amount_delivers_to_active_actor() {

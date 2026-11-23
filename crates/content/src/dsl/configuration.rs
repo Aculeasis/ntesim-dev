@@ -18,10 +18,10 @@ use super::{
     *,
 };
 use crate::{
-    HypothesisId, build::EquipmentProjection, simulation::GameActorCombatTransitionEvent,
-    simulation::GameActorDamageEvent, simulation::GameActorInterruptEvent,
-    simulation::GameDummyCombatEvent, simulation::GameIncomingDamageBasis,
-    simulation::GameTargetConfig,
+    HypothesisId, build::EquipmentProjection, execution::ExecutionLimits,
+    simulation::GameActorCombatTransitionEvent, simulation::GameActorDamageEvent,
+    simulation::GameActorInterruptEvent, simulation::GameDummyCombatEvent,
+    simulation::GameIncomingDamageBasis, simulation::GameTargetConfig,
 };
 
 #[derive(Clone, Debug)]
@@ -60,11 +60,17 @@ impl CompiledConfiguration {
         self.hurt_declarations.iter().any(|d| d.is_stochastic())
     }
 
-    pub fn sample_incoming_for_seed(&self, seed: u64) -> Result<SeededIncoming, String> {
+    pub fn sample_incoming_for_seed(
+        &self,
+        seed: u64,
+        max_events: u64,
+    ) -> Result<SeededIncoming, Diagnostic> {
         let sampled = hurt::sample_hurt_events(
             &self.hurt_declarations,
             seed,
             self.options.relative_duration_us,
+            &self.authored_incoming,
+            max_events,
         )?;
         let mut all = Vec::new();
         for (event, _) in sampled {
@@ -99,22 +105,39 @@ pub(crate) fn failure(message: String, loc: &SourceLocation) -> Diagnostic {
     }
 }
 
+pub(super) fn incoming_event_limit(max_events: u64, loc: &SourceLocation) -> Diagnostic {
+    Diagnostic {
+        code: DiagnosticCode::EventLimit,
+        message: format!("Incoming damage exceeds the limit of {max_events} events."),
+        loc: loc.clone(),
+    }
+}
+
 pub fn compile_configuration(
     script: &Script,
     tables: &BTreeMap<String, Value>,
+) -> Result<CompiledConfiguration, Vec<Diagnostic>> {
+    compile_configuration_with_event_limit(script, tables, ExecutionLimits::default().max_events)
+}
+
+pub(super) fn compile_configuration_with_event_limit(
+    script: &Script,
+    tables: &BTreeMap<String, Value>,
+    max_events: u64,
 ) -> Result<CompiledConfiguration, Vec<Diagnostic>> {
     let diagnostics = validate_bindings(script);
     if !diagnostics.is_empty() {
         return Err(diagnostics);
     }
     let options = compile_options(script)?;
-    compile(script, tables, options).map_err(|error| vec![error])
+    compile(script, tables, options, max_events).map_err(|error| vec![error])
 }
 
 fn compile(
     script: &Script,
     tables: &BTreeMap<String, Value>,
     options: CompiledOptions,
+    max_events: u64,
 ) -> Result<CompiledConfiguration, Diagnostic> {
     let start = script
         .options
@@ -238,7 +261,7 @@ fn compile(
     let (actors, mut model_assumptions) = finish_actors(drafts, tables)?;
 
     let (incoming_damage, incoming_dummy_sources, incoming_damage_basis) =
-        assemble_initial_damage(&hurt_declarations, &authored_incoming, &options, &start)?;
+        assemble_initial_damage(&hurt_declarations, &authored_incoming, &options, max_events)?;
 
     lower_declarations_assumptions(
         &actors,
@@ -316,14 +339,15 @@ fn assemble_initial_damage(
     hurt_declarations: &[CompiledHurtDeclaration],
     authored_incoming: &[CompiledIncomingEvent],
     options: &CompiledOptions,
-    loc: &SourceLocation,
+    max_events: u64,
 ) -> Result<AssembledDamage, Diagnostic> {
     let sampled_hurt = hurt::sample_hurt_events(
         hurt_declarations,
         options.seed,
         options.relative_duration_us,
-    )
-    .map_err(|msg| failure(msg, loc))?;
+        authored_incoming,
+        max_events,
+    )?;
     let mut all_damage = Vec::new();
     for (event, loc) in sampled_hurt {
         all_damage.push((event, None, None, loc));

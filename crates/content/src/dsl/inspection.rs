@@ -7,10 +7,12 @@ use ntesim_core::formula::Ratio;
 use serde::{Deserialize, Serialize};
 
 use super::{
-    SourceLocation, configuration::CompiledConfiguration, configuration::compile_configuration,
-    parse_nte, validation::Diagnostic,
+    SourceLocation,
+    configuration::{CompiledConfiguration, compile_configuration_with_event_limit},
+    parse_nte,
+    validation::Diagnostic,
 };
-use crate::simulation::GameActorStaticStats;
+use crate::{execution::ExecutionLimits, simulation::GameActorStaticStats};
 
 #[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(deny_unknown_fields)]
@@ -135,6 +137,13 @@ impl PartyInspection {
 pub(crate) fn prepare(
     source: &str,
 ) -> Result<(super::Script, CompiledConfiguration), Vec<Diagnostic>> {
+    prepare_with_event_limit(source, ExecutionLimits::default().max_events)
+}
+
+pub(crate) fn prepare_with_event_limit(
+    source: &str,
+    max_events: u64,
+) -> Result<(super::Script, CompiledConfiguration), Vec<Diagnostic>> {
     let script = {
         #[cfg(feature = "performance-diagnostics")]
         let _span = crate::performance::Span::new("source.parse");
@@ -143,7 +152,11 @@ pub(crate) fn prepare(
     let config = {
         #[cfg(feature = "performance-diagnostics")]
         let _span = crate::performance::Span::new("source.configuration");
-        compile_configuration(&script, ntesim_data::stat_projection::frozen_tables())?
+        compile_configuration_with_event_limit(
+            &script,
+            ntesim_data::stat_projection::frozen_tables(),
+            max_events,
+        )?
     };
     Ok((script, config))
 }

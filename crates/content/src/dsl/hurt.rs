@@ -3,8 +3,9 @@
 use super::{
     Declaration, DeclarationKind, SourceLocation,
     actor::ActorDraft,
-    configuration::failure,
+    configuration::{failure, incoming_event_limit},
     evaluate::{Bindings, Evaluator},
+    incoming::CompiledIncomingEvent,
     validation::Diagnostic,
 };
 use crate::rng::Rng;
@@ -160,23 +161,35 @@ pub(super) fn compile(
     })
 }
 
-pub fn sample_hurt_events(
+pub(super) fn sample_hurt_events(
     declarations: &[CompiledHurtDeclaration],
     seed: u64,
     relative_duration_us: u64,
-) -> Result<Vec<(GameActorDamageEvent, SourceLocation)>, String> {
-    let has_stochastic = declarations.iter().any(|d| d.is_stochastic());
-    let mut rng = if has_stochastic {
-        Some(Rng::new(
-            seed,
-            [(SCENARIO_STREAM.into(), SCENARIO_SEQUENCE)].into(),
-        )?)
+    authored: &[CompiledIncomingEvent],
+    max_events: u64,
+) -> Result<Vec<(GameActorDamageEvent, SourceLocation)>, Diagnostic> {
+    let Some(mut remaining) = max_events.checked_sub(authored.len() as u64) else {
+        return Err(incoming_event_limit(
+            max_events,
+            &authored[max_events as usize].loc,
+        ));
+    };
+    let mut rng = if let Some(decl) = declarations.iter().find(|d| d.is_stochastic()) {
+        Some(
+            Rng::new(seed, [(SCENARIO_STREAM.into(), SCENARIO_SEQUENCE)].into())
+                .map_err(|message| failure(message, &decl.loc))?,
+        )
     } else {
         None
     };
 
     let mut events = Vec::new();
     for decl in declarations {
+        // Even the longest possible interval must fit. For fixed intervals this count is exact.
+        if relative_duration_us / decl.interval_max_us > remaining {
+            return Err(incoming_event_limit(max_events, &decl.loc));
+        }
+        let fail = |message| failure(message, &decl.loc);
         let mut current_us = 0u64;
         while current_us < relative_duration_us {
             let interval = if decl.interval_min_us == decl.interval_max_us {
@@ -185,22 +198,27 @@ pub fn sample_hurt_events(
                 let span = decl.interval_max_us - decl.interval_min_us + 1;
                 let sample = rng
                     .as_mut()
-                    .ok_or("scenario RNG not initialized")?
-                    .uniform(SCENARIO_STREAM, span)?;
+                    .ok_or_else(|| fail("scenario RNG not initialized".into()))?
+                    .uniform(SCENARIO_STREAM, span)
+                    .map_err(fail)?;
                 decl.interval_min_us + sample.value
             };
             let timestamp_us = match current_us.checked_add(interval) {
                 Some(t) if t <= relative_duration_us => t,
                 _ => break,
             };
+            if remaining == 0 {
+                return Err(incoming_event_limit(max_events, &decl.loc));
+            }
             let amount = if decl.amount_min == decl.amount_max {
                 decl.amount_min
             } else {
                 let span = decl.amount_max - decl.amount_min + 1;
                 let sample = rng
                     .as_mut()
-                    .ok_or("scenario RNG not initialized")?
-                    .uniform(SCENARIO_STREAM, span)?;
+                    .ok_or_else(|| fail("scenario RNG not initialized".into()))?
+                    .uniform(SCENARIO_STREAM, span)
+                    .map_err(fail)?;
                 decl.amount_min + sample.value
             };
             events.push((
@@ -211,6 +229,7 @@ pub fn sample_hurt_events(
                 },
                 decl.loc.clone(),
             ));
+            remaining -= 1;
             current_us = timestamp_us;
         }
     }
