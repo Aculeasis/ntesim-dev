@@ -1,0 +1,15 @@
+options iteration=1 duration=31 crit=fixed;
+
+mint char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_energy=0 start_cycle=100;
+zero char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_energy=0;
+nanally char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_energy=0 start_cycle=100;
+iroi char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_energy=0 start_cycle=100;
+zero add weapon=fork_PoliceRat refine=1;
+target hp=100000000 def=0 resist=0 boss=false;
+target hp=100000000 def=0 resist=0 boss=false;
+active mint;
+
+# Supports belong to the admitted entry switches, with no manual QTE command.
+zero swap; wait(0.6); nanally swap;
+wait_until(15); zero swap; wait(0.6); iroi swap;
+wait_until(30); zero swap;

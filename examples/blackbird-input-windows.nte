@@ -1,0 +1,18 @@
+# Yield at owner gates; the following ordinary input performs the cancellation.
+options iteration=1 duration=50 seed=42 stamina_capacity=100 initial_stamina=100
+ stamina_use_efficiency=1 stamina_recovery_rate=0;
+blackbird char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_energy=100;
+target hp=100000000 def=1080 resist=0;
+target hp=100000000 def=1080 resist=0;
+active blackbird;
+
+repeat 2 {
+    blackbird attack[window=hold], attack[hold=200ms];
+}
+blackbird burst;
+repeat 2 {
+    blackbird attack;
+    blackbird attack[window=hold];
+    blackbird attack[hold=200ms,window=hold];
+    blackbird attack[hold=200ms];
+}

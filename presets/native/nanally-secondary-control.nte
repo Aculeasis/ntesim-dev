@@ -1,0 +1,16 @@
+# Actual Support/Riposte recovery, paid dodge and continuing native state.
+options duration=22 iteration=1 seed=42 stamina_capacity=60 initial_stamina=60 stamina_use_efficiency=1 stamina_recovery_rate=0;
+nanally char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_energy=0;
+zero char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_energy=0 start_cycle=100;
+sakiri char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_energy=0 start_cycle=100;
+target hp=100000000 def=1080 resist=0;
+active zero;
+nanally swap;
+if .time!=1.308275 {wait(99);}
+nanally dash[critical=true]; nanally attack;
+if .time!=2.946868 {wait(99);}
+sakiri swap;
+wait_until(17); nanally swap;
+if .time!=18.308275 {wait(99);}
+nanally dash[critical=true]; nanally attack;
+if .time!=19.946868 {wait(99);}

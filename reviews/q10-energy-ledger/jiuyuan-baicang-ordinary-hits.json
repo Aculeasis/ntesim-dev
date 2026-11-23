@@ -1,0 +1,142 @@
+{
+  "schema_version": 1,
+  "status": "modeled_and_tested",
+  "source_sha256": {
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json": "917b0c3675412c0425a0724d09e7dd8ae4d1ef9a100d2ea5669d7484d0901bf2",
+    "data/global-2026-10-04/tables/DT_SkillTeamChargeRelationData.json": "5e456919997b0f77c4b569ce812267a059bab553a1f87fcb863723c44b66363b"
+  },
+  "owners": [
+    {
+      "owner": "jiuyuan",
+      "character_id": "character:1055",
+      "hypothesis_id": "jiuyuan.ordinary_hit_energy_v1",
+      "element": "NATURE",
+      "packets": {
+        "Melee": {
+          "effects": [
+            "GE_Player_Kuhara_Melee1_Damage",
+            "GE_Player_Kuhara_Melee2_Damage",
+            "GE_Player_Kuhara_Melee2_1_Damage",
+            "GE_Player_Kuhara_Melee3_Damage",
+            "GE_Player_Kuhara_Melee3_1_Damage",
+            "GE_Player_Kuhara_Melee3_2_Damage",
+            "GE_Player_Kuhara_Melee4_Damage",
+            "GE_Player_Kuhara_Melee4_1_Damage",
+            "GE_Player_Kuhara_Melee4_2_Damage",
+            "GE_Player_Kuhara_Melee4_3_Damage",
+            "GE_Player_Kuhara_Melee5_Damage"
+          ],
+          "charge_milli": [
+            1365,
+            1511,
+            581,
+            2099,
+            320,
+            1619,
+            788,
+            1532,
+            1094,
+            636,
+            4754
+          ],
+          "total_milli": 16299
+        },
+        "Skill": {
+          "effects": [
+            "GE_Player_Kuhara_Skill1_Damage",
+            "GE_Player_Kuhara_Skill2_Damage",
+            "GE_Player_Kuhara_Skill2_Damage",
+            "GE_Player_Kuhara_Skill2_Damage",
+            "GE_Player_Kuhara_Skill2_Damage",
+            "GE_Player_Kuhara_Skill3_Damage"
+          ],
+          "charge_milli": [
+            852,
+            903,
+            903,
+            903,
+            903,
+            2636
+          ],
+          "total_milli": 7100
+        },
+        "Aim": {
+          "effects": [
+            "GE_Player_Kuhara_AimAttack_Damage"
+          ],
+          "charge_milli": [
+            1000
+          ],
+          "total_milli": 1000
+        }
+      },
+      "source_distribution": "1/1",
+      "living_ally_distribution": "3/5"
+    },
+    {
+      "owner": "baicang",
+      "character_id": "character:1023",
+      "hypothesis_id": "baicang.ordinary_hit_energy_v1",
+      "element": "INCANTATION",
+      "packets": {
+        "Melee": {
+          "effects": [
+            "GE_Player_Cang_Melee1_Damage",
+            "GE_Player_Cang_Melee2_Damage",
+            "GE_Player_Cang_Melee3_Damage",
+            "GE_Player_Cang_Melee4_Damage",
+            "GE_Player_Cang_Melee4_Damage",
+            "GE_Player_Cang_Melee4_Damage",
+            "GE_Player_Cang_Melee4_Damage",
+            "GE_Player_Cang_Melee4_Damage",
+            "GE_Player_Cang_Melee4_Damage",
+            "GE_Player_Cang_Melee4_Damage",
+            "GE_Player_Cang_Melee5_Damage"
+          ],
+          "charge_milli": [
+            2257,
+            2009,
+            5656,
+            1193,
+            1193,
+            1193,
+            1193,
+            1193,
+            1193,
+            1193,
+            4099
+          ],
+          "total_milli": 22372
+        },
+        "Skill": {
+          "effects": [
+            "GE_Player_Cang_Skill_Damage"
+          ],
+          "charge_milli": [
+            3400
+          ],
+          "total_milli": 3400
+        }
+      },
+      "source_distribution": "1/1",
+      "living_ally_distribution": "3/5"
+    }
+  ],
+  "decision": "Extend the shared OrdinaryHitEnergyOwner table and typed source registry. No self-only awakening, weapon, Burst or domain tick is treated as ordinary team regeneration.",
+  "hypothesis_rationale": "Reuse the tested eligibility and delivery-time recipient model from neighboring ordinary-hit owners; constants are independently transcribed from frozen per-packet ChargeAdd and team relation rows. Native caller evidence is unavailable.",
+  "checks": [
+    "Shared Rust ordinary_hit_energy causal suite for each new owner: Normal/Skill packet grants, exact efficiency/carry, overflow, dead recipients/targets, zero HP loss, delayed fatal hit after switch and typed receipt validation.",
+    "Actual CLI/WASM/Worker parity with independent per-packet constants, empty-energy full-chain rotations followed by owner and allied Mint Ultimates, aggregation and replay.",
+    "Jiuyuan aimed hit grants frozen 1 unit to source and 3/5 to living ally; Burst and Baicang domain ticks have no ordinary grants."
+  ],
+  "limits": [
+    "Eligibility, cadence, recipient and off-field rules remain tested hypotheses.",
+    "Only existing modeled packet trains on target zero are connected; complete kits, Pact settlement, Baicang execute and special resource models remain pending."
+  ],
+  "investigation_budget": {
+    "branch_minutes": 10,
+    "total_minutes": 10,
+    "stop_condition": "Reuse frozen rows and current packet models; no native caller investigation.",
+    "return_condition": "New native caller evidence for eligibility, recipient or cadence rules."
+  }
+}

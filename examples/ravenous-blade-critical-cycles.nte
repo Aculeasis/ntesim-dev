@@ -1,0 +1,13 @@
+options iteration=1 duration=65 seed=42;
+sakiri char lvl=80/80 awakening=0 talent=1,1,1 qte=1;
+sakiri add weapon=fork_DemonBlade refine=1;
+sakiri add stats dmg%=0.25 cr=0.55;
+mint char lvl=80/80 awakening=0 talent=1,1,1 qte=1;
+target hp=100000000 def=0 resist=0;
+active sakiri;
+
+# Sibling hits share one .3s ICD and all read critical damage before their proc.
+sakiri attack:11; mint swap; mint attack:5;
+# The old15s window expires off field. Actual Support starts the next generation.
+wait_until(32); sakiri swap; wait(1); sakiri attack:11;
+wait(16);

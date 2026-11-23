@@ -1,0 +1,13 @@
+options iteration=1 duration=60 seed=42;
+chaos char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_energy=100;
+chaos add weapon=fork_GoldWool refine=1;
+chaos add stats dmg%=0.25 cr=0.71;
+mint char lvl=80/80 awakening=0 talent=1,1,1 qte=1;
+target hp=100000000 def=0 resist=0;
+active chaos;
+
+# Burst refreshes the Skill's existing window; field exit preserves expiry.
+chaos skill; chaos burst; chaos attack; mint swap;
+wait_until(25); chaos swap; chaos attack;
+wait_until(30); chaos skill; chaos attack; mint swap;
+wait_until(53); chaos swap; chaos attack;

@@ -1,0 +1,11 @@
+# Partial unequipped Mint rotation: two Skill casts and one seven-hit Burst.
+# Timing uses the disclosed coincident-packet model; full kit/energy waiting is pending.
+options iteration=1 duration=10 crit=fixed;
+mint char lvl=80/80 awakening=0 talent=8,8,8 qte=8;
+sakiri char lvl=80/80 awakening=0 talent=8,8,8 qte=8;
+target hp=10000000 def=1080 resist=0;
+active mint;
+mint skill, burst;
+sakiri swap;
+wait(4);
+mint skill;

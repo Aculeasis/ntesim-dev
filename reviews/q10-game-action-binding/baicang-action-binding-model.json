@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "scope": "Baicang native primary actions and Judgment of Autumn domain packet train",
+  "quality": "partial executable model; complete kit pending",
+  "sources": [
+    "data/extracted/guide_baicang.json",
+    "data/extracted/neverness_cang.json",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json",
+    "data/global-2026-10-04/tables/DT_CangEffectFigure.json",
+    "data/global-2026-10-04/tables/1023AwakenEffect.json"
+  ],
+  "model": [
+    "GA_Cang_Melee public primary packet is GE_Player_Cang_Melee1_Damage. Native coefficients at Normal levels 1/8/9 are 0.475/0.814/0.879; category A/INCANTATION metadata stays source-bound.",
+    "GA_Cang_Skill public primary packet is GE_Player_Cang_Skill_Damage. Native coefficients at Skill levels 1/8/9 are 1.200/2.057/2.221; category E/INCANTATION metadata stays source-bound.",
+    "GA_Cang_UltraSkill public primary packet is GE_Player_Cang_UltraSkill2_Damage (initial burst expansion hit). Native coefficients at Burst levels 1/8/9 are 4.000/6.855/7.404; category Q/INCANTATION metadata stays source-bound.",
+    "Resonance 3 activates at awakening >= 3 and adds +1 level to Melee, Skill, and UltraSkill, selecting native coordinate level + 1 without manual overrides.",
+    "Existing A1 (crit rate on frozen targets), A2 (Power Word ATK stack on Melee/Skill cast), A4 (burst energy restoration), A5 (penance damage increase), and A6 (cooldown reduction / reset) remain preserved as partial kit models.",
+    "A successful GA_Cang_UltraSkill keeps one GE_Player_Cang_UltraSkill2_Damage expansion packet and starts a generation-checked native GE_Player_Cang_UltraSkill_Damage train on target zero at the frozen DT_CangEffectFigure period of 2s through the frozen Cang_FieldDuaration 12s endpoint (6 ticks) or Cang_FieldDuaration_Lv5 16s endpoint (8 ticks at A5+). The train captures effective Burst coordinate and native packet metadata, samples live owner ATK/buffs and target mitigation at each delivery, and preserves native FixedCritRate 0.5 under its explicit probability hypothesis. Recasts replace earlier trains; living off-field owners continue; defeated owners cancel; defeated targets receive no later hit.",
+    "The domain endpoint tick is inclusive while domain bonuses remain half-open, so an endpoint tick does not receive those bonuses. Before and after each domain expansion/DoT hit, exact u128 comparison rejects a living target below 10% HP as an unsupported execute branch; target kind is unavailable, so the general 10% description threshold is used conservatively. Fatal incoming damage to Baicang during an active domain rejects as unsupported immunity. These rules do not establish Silence/Objurgate/Bless, the boss-specific 5% execute branch, or a complete kit.",
+    "Canonical arbitrary awakening selections: Effect1/2 Power Word bonuses, Effect5 domain duration and Effect6 crit use selected identity; talent resonance_3 and domain team ATK resonance_6 use count. Existing unsupported owner mechanics remain pending."
+  ],
+  "pending": [
+    "Hold attack / heavy attack variations, freeze status interactions, Power Words Silence/Objurgate/Bless, boss-classification-specific 5% execute behavior, native fatal immunity behavior, and complete rotation resource models."
+  ],
+  "checks": [
+    "baicang_actions tests passed: independent damage oracles at 1000 ATK, 0 RES verify Normal across all five stages (11 hits, looping, resonance_3 and dynamic Power Word ATK progression), Skill (600/1, 2057/2, 2221/2 at A3 with 1.06 A2 ATK multiplier), and Burst (2000/1, 6855/2, 7404/2).",
+    "Off-field delivery attributes hits to Baicang; dead target settles 0 hits; horizon boundaries preserve pending events; strict mode accepts baicang.normal_chain_v1 hypothesis.",
+    "Focused native tests independently calculate each 1000-ATK non-crit DoT tick (200 at Lv1, 343 at Lv8, 370 at effective Lv9) and exact expansion-plus-train totals at six A0 and eight A5 ticks; fixed crit probability and owner-declared DoT tags remain visible in receipts.",
+    "The A6 equipment case includes all eight domain ticks and confirms the 18s endpoint tick has no active half-open domain bonus; its A0 comparison includes six ticks. Full ntesim-content tests and web typecheck pass.",
+    "presets/studio/baicang-domain.nte exercises Burst and off-field Sakiri Skill through the Worker; it does not invoke Baicang Normal because the associated Power Words branch is pending. Worker and full CLI/WASM report parity pass with current artifacts.",
+    "The existing web/tests/combat/baicang_actions.mjs consumer now covers Burst tick trains and the public preset in the same character_actions suite, including Worker comparisons; CLI/WASM full report parity passes in the same process as the selected owner suite.",
+    "TypeScript and production build pass. Frozen source hashes match the identities below."
+  ],
+  "source_sha256": {
+    "data/extracted/guide_baicang.json": "fa20529bce425f1b987dd340a81021df66ca96d3a4c12df4936286a3e7ede680",
+    "data/extracted/neverness_cang.json": "b9c6585e56826e0498750a472b2d61ee6618f005830941e37f152f66da081991",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json": "917b0c3675412c0425a0724d09e7dd8ae4d1ef9a100d2ea5669d7484d0901bf2",
+    "data/global-2026-10-04/tables/1023AwakenEffect.json": "4cf0420259c54f501e08a7ee8c3dfaf4176a2419c26fe15017c9f83d33ffe5d7",
+    "data/global-2026-10-04/tables/DT_CangEffectFigure.json": "05fdf692764d6c42bbabb2003767fdc34e1e09db8f8b40f3f4f46a2205b130a2"
+  }
+}

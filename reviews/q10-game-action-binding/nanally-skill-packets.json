@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "question": "How many ordinary damage instances belong to one Nanally Skill cast?",
+  "branch_budget_minutes": 10,
+  "total_investigation_budget_minutes": 15,
+  "sources": [
+    "data/extracted/guide_nanally.json#/skills/1",
+    "data/extracted/neverness_nanally.json#/skills/1",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json#/rows/GE_Player_Nanally_Skill1_Damage"
+  ],
+  "stop_condition": "Match saved five-instance description to production Skill1 arrays; implement native repeated packets with explicit unresolved timing.",
+  "return_condition": "New native timing, reachability, interruption or Authority recast evidence changes the model.",
+  "decision": "Both frozen descriptions specify five100% instances. Native Skill1 is the ordinary E/Nature row; admit it and schedule four repetitions with the admitted effective talent coordinate. Keep existing A3 follow-up/A1 energy/A5 ATK callbacks once per cast. No ordinary Skill packet is an awakening follow-up.",
+  "timing_hypothesis": "nanally.skill_five_hits_v1: ordered coincident delivery on target zero at selected primary impact time. Native intervals, area coverage, Authority recast early-end action and full kit remain pending. Same-time delivery precedes ProcCallback; results retain the assumption.",
+  "checks": [
+    "Independent1000ATK/DEF.5/RES0 oracle: five500 at level1, five857 at level8, five925.5 plus existing250 A3 follow-up at effective9. A5 effectiveL2 gives five550.8 plus255 follow-up and one A1 grant/one A5 callback.",
+    "Off-field ownership, five pending packets, lethal/dead target exclusion, rejected energy admission and strict hypothesis acceptance pass. Native/description Skill coefficients agree at all nine levels.",
+    "Two continuing unequipped Skill casts from empty energy produce ten hits without invented regeneration. Public DSL/actual Worker, full native/WASM reports, equipped gear regressions, content tests and modeled awakening/replay verifier pass.",
+    "Authority30% crit damage ends on expiry/field exit; a same-actor swap preserves it. Active Authority recasts reject explicitly instead of repeating a damage train. Full chains, ordinary team energy, precise timing/AoE and Underboss behavior remain incomplete; readiness flags stay false."
+  ],
+  "reference_sha256": {
+    "data/extracted/guide_nanally.json": "e79564371a9881d62be4db4a280e7de356270b441c437e6dd9b383645a8a074c",
+    "data/extracted/neverness_nanally.json": "6552cfa78edae737f9a209bf8d7c1685c7de9e2a07ce612f202d028404b3c675",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json": "917b0c3675412c0425a0724d09e7dd8ae4d1ef9a100d2ea5669d7484d0901bf2"
+  }
+}

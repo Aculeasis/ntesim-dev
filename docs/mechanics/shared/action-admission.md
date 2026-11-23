@@ -1,0 +1,27 @@
+# Local-clock action admission
+
+The `action` module provides an in-memory admission gate on one explicit local clock. It checks recovery, per-action cooldown and resource affordability atomically. It does not assert an NTE cooldown clock, duration, cost, resource scope or cancellation rule.
+
+Construction requires the clock ID, initial local time, initial recovery deadline, and a nonempty named action registry. Every action explicitly supplies `recovery_us`, `cooldown_us`, a `costs` map and `ready_at_us`. Costs refer to caller-selected pool IDs and integer quanta. An empty costs map or zero durations mean explicitly free/instant behavior; fields cannot be omitted to imply those values. Empty action/pool names are rejected.
+
+`start(action, clock, local_time, pools)` first checks the matching clock, existing action, nondecreasing admitted local time, recovery deadline and action's ready deadline. Equality with a deadline permits admission. It checks both new deadlines for overflow and verifies every referenced resource before charging any pool. Unknown resources remain errors even when their declared cost is zero.
+
+On success, all costs settle together; the actor's recovery deadline becomes `local_time + recovery_us`, only the chosen action's ready deadline becomes `local_time + cooldown_us`, and the last admitted time advances. The receipt records the action/clock/time, both deadlines and each paid cost. On any error, the entire gate and all pools remain byte-for-byte equivalent to their prior state. Errors do not wait, refill resources or advance the gate's last admitted time.
+
+The caller supplies a reading from the bound scheduler clock. Pauses and rate changes affect when that local reading reaches a deadline; real elapsed time alone cannot expire a paused local cooldown. The gate does not advance clocks or read ambient time. One gate's recovery blocks all its actions; action cooldowns remain independent. Gates can explicitly share pools by naming the same pool, or use different pool IDs. No scope is inferred.
+
+This initial technical policy starts recovery/cooldown on admission and binds both to one clock. Independent cooldown/recovery clocks, charges, cooldown reset/reduction, on/off-field requirements, forms, switches, counters, death, interrupts, cancellation/refunds and game action effects require further explicit contracts/evidence. An admitted action is not proof that subsequent effects or a game rotation are legal.
+
+Eight primitive tests cover deadline equality, separate actions, multi-pool atomic failure/retry, wrong clocks, backwards admitted time, overflow, zero-time actions, missing definitions, explicit JSON requirements, scheduler pauses and 16,384 generated admissions against an independent boolean/conservation oracle.
+
+## Synthetic actor invocation
+
+Both synthetic runners now accept `invoke_action` effects naming `actor` and `action`. Fixtures optionally declare an `actors` map. Each declared actor requires `clock`, `initial_time_us`, `locked_until_us` and a nonempty `actions` map. Every action requires its `rule`, `ready_at_us` and ordered `effects` array. Initial actor time must match its clock at combat start (currently zero). Omitting the entire actor map declares no actors; invoking an undeclared actor fails and does not create an implicit ready actor.
+
+Invocation commands must use the actor's bound clock. Before simulation, their selected dependency closure must contain the actor/action, every cost pool and every leaf effect's target/resource/clock, including formula output units. Selected actions require at least one effect. Nested actor invocations are rejected, preventing implicit recursion/cycles. Unused action effects do not enter the execution closure.
+
+At the invocation's effect event, admission pays all costs once and checks recovery/cooldown using the actual local clock reading. The runner schedules the action's leaf effects as a same-clock immediate causal batch, in definition order. Scheduler batch preflight leaves IDs, pending tasks and clock state intact on any failure. A scheduling failure also restores the admitted gate and all resource pools. Admission/scheduling errors return `ACTION_ADMISSION` and halt with a partial trace; later leaf effects/hits use their ordinary error contracts. Admission and scheduling are atomic together; downstream effects are not a rollback transaction.
+
+Reports include final actor deadlines and each admission receipt. Leaf effects and their delayed hits carry `action_origin` (actor, action and zero-based definition effect index); their `command_index` still joins to the original rotation source/repeat mapping. The causal chain is command -> invocation effect -> action leaf effect -> hit. For fixtures without actors/origins, these optional output fields are omitted. No on-field or switch legality is inferred from a synthetic invocation.
+
+The [actor fixture](../../../examples/synthetic-actions.json) and [rotation](../../../examples/synthetic-actions.nte) admit three continuous skills at local times 0/10/20, each paying two energy and one point, emitting ten delayed damage and an explicit one-energy gain. Final HP is 170, energy is 3, points are 0, recovery deadline is 23 and the skill's next ready deadline is 30. These numbers/timings are artificial. Current scheduler/runner/rotation/CLI checks cover failed admissions, causal mappings, scheduler-batch rollback, dependency rejection and pause behavior. Game models and game DPS remain incomplete.

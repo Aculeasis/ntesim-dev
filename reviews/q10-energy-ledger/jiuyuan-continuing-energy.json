@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "status": "implemented",
+  "owner": "jiuyuan",
+  "character_id": "character:1055",
+  "hypotheses": [
+    "jiuyuan.ordinary_hit_energy_v1",
+    "jiuyuan.normal_chain_v1",
+    "jiuyuan.skill_burst_packets_v1"
+  ],
+  "scenario": {
+    "source": "six Normal chains and one Skill from zero energy, one 100-energy Burst, then one Normal continuation chain",
+    "starting_energy": 0,
+    "energy_capacity": 100,
+    "charge_efficiency": "1/1",
+    "other_living_recipient_relation": "3/5",
+    "cost": "Burst pays its modeled 100 energy once",
+    "timing": "Normal inputs use 800ms recovery at 0..23.2s for the buildup and 28.0..31.2s for continuation; Skill starts at 24s with 1.2s recovery and 6s cooldown; Burst starts at 26s with 2s recovery. Rust and compiled NTE assert the same 32s-horizon schedule.",
+    "receipts": {
+      "normal_packets": 77,
+      "skill_packets": 6,
+      "burst_packets": 12,
+      "total_hit_packets": 95,
+      "energy_source_packets": 83
+    }
+  },
+  "independent_oracle": {
+    "normal_charge_add_milli_per_five_input_chain": [1365, 1511, 581, 2099, 320, 1619, 788, 1532, 1094, 636, 4754],
+    "skill_charge_add_milli_per_packet": [852, 903, 903, 903, 903, 2636],
+    "burst_charge_add_milli_per_packet": 0,
+    "pre_burst_charge_add": "6*16.299 + 7.100 = 104.894",
+    "pre_burst_settlement": "104 whole gross, 4 overflow at capacity 100; Burst spends 100 and leaves 0 with 894/1000 carry",
+    "post_burst_normal_chain": "16.299 ChargeAdd; final source energy 17 and 193/1000 carry",
+    "source_final": {
+      "granted": 121,
+      "spent": 100,
+      "overflow": 4,
+      "energy": 17,
+      "charge_remainder": "193/1000"
+    },
+    "each_other_living_recipient_final": {
+      "relation": "3/5",
+      "granted": 72,
+      "energy": 72,
+      "charge_remainder": "3579/5000"
+    },
+    "level_8_damage_at_1000_atk_and_0_5_defense_multiplier": {
+      "normal_five_input_chain": 2232.5,
+      "skill_cast_six_packets": 2573,
+      "burst_twelve_packets": 5140.5,
+      "total": "7*2232.5 + 2573 + 5140.5 = 23341"
+    },
+    "values_are_literal_test_expectations": true
+  },
+  "checks": [
+    "Rust ordinary_hit_energy scenario asserts exact action timestamps, all 95 packet identities and damage values, all 83 per-packet ChargeAdd grants, the 100-energy cost, recipient ledgers, cap/overflow, and continuation.",
+    "Authored NTE is compiled and checked through WASM and actual Worker parity; native CLI parity, observations, aggregation, and replay are reconciled by the focused browser test.",
+    "Focused checks passed: python tools/cargo.py test -p ntesim-content --locked --offline jiuyuan_zero_start_skill_burst_and_continuation_rotation; node tools/web.mjs test web/tests/ordinary_hit_energy_continuations.test.mjs. The stable-tree checkpoint is pending."
+  ],
+  "limits": [
+    "jiuyuan.ordinary_hit_energy_v1 remains a bounded hypothesis for positive-HP-loss Normal and Skill eligibility, per-packet grants, recipient distribution, and off-field ownership; native dispatcher evidence is unavailable.",
+    "Normal chain reset and packet timing are the existing jiuyuan.normal_chain_v1 hypothesis; coincident Skill and Burst child delivery follows jiuyuan.skill_burst_packets_v1 and does not establish native animation intervals.",
+    "The browser compiles authored inputs into a fixed timeline; this does not establish live readiness waits or a shared live interpreter.",
+    "Burst ChargeAdd is zero in the frozen rows. Aim/plunge attacks, bullet resource transitions, and BudBoom/BudEnd detonation triggers remain unmodeled."
+  ],
+  "source_sha256": {
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json": "917b0c3675412c0425a0724d09e7dd8ae4d1ef9a100d2ea5669d7484d0901bf2",
+    "data/global-2026-10-04/tables/DT_SkillTeamChargeRelationData.json": "5e456919997b0f77c4b569ce812267a059bab553a1f87fcb863723c44b66363b"
+  }
+}

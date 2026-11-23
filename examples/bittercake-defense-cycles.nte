@@ -1,0 +1,18 @@
+options iteration=1 duration=55 crit=fixed;
+adler char lvl=80/80 awakening=0 talent=1,1,1 qte=1;
+adler add weapon=fork_BitterCake refine=1;
+iroi char lvl=80/80 awakening=0 talent=1,1,1 qte=1;
+target hp=100000000 def=0 resist=0;
+
+# HP loss opens the DEF window; shield absorption does not refresh it.
+incoming adler at=0 damage=1;
+incoming adler at=5 damage=1;
+incoming adler at=8 damage=3000;
+incoming adler at=19 damage=1;
+incoming adler at=20 damage=1;
+incoming adler at=25 damage=3000;
+incoming adler at=45 damage=3000;
+active adler;
+wait_until(1); adler skill; wait_until(9); iroi swap;
+wait_until(21); adler swap; adler skill; wait_until(26); iroi swap;
+wait_until(41); adler swap; adler skill; wait_until(46); iroi swap;

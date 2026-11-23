@@ -1,0 +1,10 @@
+# Native Normal markers, actor-local contact pauses and continuing source recovery.
+options duration=18 iteration=1 seed=42;
+nanally char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_energy=0;
+target hp=100000000 def=1080 resist=0;
+active nanally;
+nanally attack:5;
+if .time!=5.337783 {wait(99);}
+wait_until(10);
+nanally attack:5;
+if .time!=15.337783 {wait(99);}

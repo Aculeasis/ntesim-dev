@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "status": "implemented",
+  "owner": "fadia",
+  "character_id": "character:1039",
+  "hypotheses": [
+    "fadia.ordinary_hit_energy_v1",
+    "fadia.normal_chain_v1",
+    "fadia.full_hp_initial_burst_v1"
+  ],
+  "scenario": {
+    "source": "six Normal chains from zero energy, one 100-energy Burst at full HP, Lilith window expiration, then one Normal continuation chain",
+    "starting_energy": 0,
+    "energy_capacity": 120,
+    "charge_efficiency": "1/1",
+    "other_living_recipient_relation": "3/5",
+    "cost": "Burst pays its modeled 100 energy once",
+    "timing": "Normal inputs use 800ms recovery at 0..23.2s for buildup and 30..33.2s for continuation; Burst starts at 24s with 2s recovery and enters a 5s Lilith form window expiring at 29s. Rust and compiled NTE assert the same 35s-horizon schedule.",
+    "receipts": {
+      "normal_packets": 56,
+      "skill_packets": 0,
+      "burst_packets": 6,
+      "total_hit_packets": 62,
+      "energy_source_packets": 56
+    }
+  },
+  "independent_oracle": {
+    "normal_charge_add_milli_per_five_input_chain": [2707, 1859, 2247, 4819, 1768, 2075, 1703, 5022],
+    "burst_charge_add_milli_per_packet": 0,
+    "pre_burst_charge_add": "6*22.200 = 133.200",
+    "pre_burst_settlement": "133 whole gross, 13 overflow at capacity 120; Burst spends 100 and leaves 20 with 1/5 carry",
+    "post_burst_normal_chain": "22.200 ChargeAdd; final source energy 42 and 2/5 carry",
+    "source_final": {
+      "granted": 155,
+      "spent": 100,
+      "overflow": 13,
+      "energy": 42,
+      "charge_remainder": "2/5"
+    },
+    "each_other_living_recipient_final": {
+      "relation": "3/5",
+      "granted": 93,
+      "energy": 93,
+      "charge_remainder": "6/25"
+    },
+    "level_8_damage_at_1000_atk_and_10000_hp": {
+      "normal_six_chains": 18261,
+      "burst_six_packets": 2590,
+      "normal_continuation_chain": 3043.5,
+      "total": "18261 + 2590 + 3043.5 = 23894.5"
+    },
+    "values_are_literal_test_expectations": true
+  },
+  "checks": [
+    "Rust ordinary_hit_energy scenario asserts exact action timestamps, all 62 packet identities and damage values, all 56 per-packet ChargeAdd grants, the 100-energy cost, recipient ledgers, cap/overflow, and continuation.",
+    "Authored NTE is compiled and checked through WASM and actual Worker parity; native CLI parity, observations, aggregation, and replay are reconciled by the focused browser test.",
+    "Focused checks passed: python tools/cargo.py test -p ntesim-content --locked --offline fadia_zero_start_burst_and_continuation_rotation; node tools/web.mjs test web/tests/fadia_continuing_rotation.test.mjs. The stable-tree checkpoint is pending."
+  ],
+  "limits": [
+    "fadia.ordinary_hit_energy_v1 remains a bounded hypothesis for positive-HP-loss Normal eligibility, per-packet grants, recipient distribution, and off-field ownership; native dispatcher evidence is unavailable.",
+    "Normal chain reset and packet timing are the existing fadia.normal_chain_v1 hypothesis; full-HP initial Burst and Lilith window follow fadia.full_hp_initial_burst_v1.",
+    "The browser compiles authored inputs into a fixed timeline; this does not establish live readiness waits or a shared live interpreter.",
+    "Burst ChargeAdd is zero in the frozen rows. Skill HP-scaling, damaged-HP burst thresholds, healing, Lilith form attacks, riposte, plunge, threshold damage redirection, and complete kit behavior remain unsupported."
+  ],
+  "source_sha256": {
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json": "917b0c3675412c0425a0724d09e7dd8ae4d1ef9a100d2ea5669d7484d0901bf2",
+    "data/global-2026-10-04/tables/DT_SkillTeamChargeRelationData.json": "5e456919997b0f77c4b569ce812267a059bab553a1f87fcb863723c44b66363b"
+  }
+}

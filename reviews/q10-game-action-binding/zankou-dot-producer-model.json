@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "question": "Can the frozen Zankou Skill-to-DoT application and automatically reached Scorch passive be modeled together from saved descriptions and native parameters?",
+  "branch_budget_minutes": 10,
+  "total_investigation_budget_minutes": 15,
+  "sources": [
+    "data/extracted/guide_zankou.json",
+    "data/global-2026-10-04/tables/DT_ZankouEffectFigure.json",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json"
+  ],
+  "stop_condition": "Identify applied stacks, tick lifetime/count and reached Scorch payload/refresh dependencies; implement one complete bounded branch or preserve explicit unsupported behavior and select unrelated supported work.",
+  "return_condition": "New source mapping/clock/stack/Scorch evidence or concrete cross-source coefficient method enables the blocked producer.",
+  "checks": [
+    "Read frozen DT_ZankouEffectFigure, DT_SkillDamageData, saved Reference guide description and current owner guard. No source package bytes or runtime semantics changed."
+  ],
+  "decision": "unsupported; defer the producer and continue supported Jiuyuan first-attack work",
+  "findings": [
+    "Saved Heartwrench/Vile Ash description and native parameters agree on 1.5% ATK per stack, 1-second period, 30-second duration and cap10. Enhanced Skill applies5 stacks; the ordinary Skill application count/refresh/cadence is not established by these descriptions.",
+    "Native Heartwrench damage belongs to GA_Zankou_Melee, while the applying Skill belongs to GA_Zankou_Skill. The current child projector inherits the admitted action coordinate, so it cannot establish the independent Normal-talent coefficient for this cross-action producer.",
+    "Automatically reached Silent Sunset reacts to DoT application on Scorch targets and replaces Scorch damage/type/duration. Its replacement payload, attribution, clock/refresh and non-recursive application need to be modeled together; suppressing the existing explicit unsupported guard is not a valid result."
+  ],
+  "source_sha256": {
+    "data/extracted/guide_zankou.json": "e899dc2cb54aaea320cd0b21be806960748c7bd9582055238965c31c0ebb5249",
+    "data/global-2026-10-04/tables/DT_ZankouEffectFigure.json": "bb71ec3db1a417b9c0bcc6e1f3d6d8447fa5da5ea2fcb292dcadaf2086bdcb08",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json": "917b0c3675412c0425a0724d09e7dd8ae4d1ef9a100d2ea5669d7484d0901bf2"
+  }
+}

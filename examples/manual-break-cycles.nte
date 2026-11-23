@@ -1,0 +1,15 @@
+# Explicit dummy assumptions; manual gauge changes are not character attacks.
+options duration=4 seed=42;
+mint char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_energy=0;
+zero char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_energy=0;
+target hp=100000000 def=1080 resist=0.2;
+target hp=100000000 def=1080 resist=0.2
+    break_gauge=30 max_break_gauge=30 broken_duration=1;
+active mint;
+
+let gauge=30;
+repeat 3 {
+    target t1 break_gauge=gauge-0.5;
+    target t1 break;
+    wait(1);
+}

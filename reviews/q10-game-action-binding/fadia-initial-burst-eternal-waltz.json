@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "quality": "partial executable model",
+  "scope": "Fadia A0 full-health six-hit initial Burst and Eternal Waltz equipped HP/Mental effects",
+  "hypotheses": ["fadia.full_hp_initial_burst_v1", "weapons.eternal_waltz_v1"],
+  "decision": "One native UltraSkill1 primary, four UltraSkill2 children and one UltraSkill3 child use admitted native HP coefficients and live runtime Max HP. Ordered coincident impacts on target zero are a timing hypothesis. Admission requires A0 and full HP, so lost-HP threshold enhancement and actual healing are not reached. Lilith lasts five seconds from admission and ends on field exit; unmodeled form inputs reject.",
+  "weapon": "Eternal Waltz adds buff_Arachne_Hp to native base HP in the additive HP-percent domain before integer settlement. Successful wearer Ultimate admission refreshes a wearer-only additive Mental bonus for ten seconds before same-time hits. Switching preserves it; exact expiry precedes hits. Mental and Psyche are distinct native packet types: Arachne's English Mental and Chinese 心灵 description agree with PSYCHICALLY, while PSYCHE uses 魂属性 and does not receive this bonus. Release availability remains unverified in the frozen catalog.",
+  "independent_oracles": [
+    "Reference guide level-one initial Burst display 3.9% + 1.2% x4 + 6.3% Max HP matches the native HP arrays. All nine source coordinates are checked in native projection tests; the extracted Neverness Burst stats list is empty and supplies description/count evidence only.",
+    "At runtime Max HP 10000, level-one Burst totals 1500 Mental damage, bypassing target defense; level eight totals 2590. Current HP is an admission condition, not a scaling input. ATK/DEF changes cannot affect it.",
+    "An isolated base HP 10000 with only R1 passive HP yields 12000 Max HP and 1980 Burst damage with the 10% Mental bonus; R5 yields 13200 and 2336.4 with 18%. A real equipped build additionally includes the weapon's native static HPMaxUp stat; these isolated examples exclude that separate stat.",
+    "Refinements 1-5 select HP ratios 0.20/0.23/0.26/0.29/0.32 and Mental ratios 0.10/0.12/0.14/0.16/0.18. At fixed base HP 10000, R5 minus R1 adds exactly 1200 HP; adding another 20% HP adds 2000, proving additivity."
+  ],
+  "checks": [
+    "Native content suite and static projection data tests pass; causal weapon checks cover admission, wearer scope, Mental/Psyche filtering, refresh, switches and equal-time expiry.",
+    "Fadia native tests cover pure HP source coordinates, six packet identities, max-HP scaling, caller replacement, strict declarations, full-health/A0 rejection and Lilith expiry. Rebuilt CLI/WASM/Worker public Eternal Waltz runs pass full report parity at all five refinements; Fadia Normal and Adler DEF regression scenarios pass. TypeScript, Rust/web formatting and production build pass.",
+    "Clippy passes with only collapsible_if, drop_non_drop and filter_next disabled: diagnostics in unchanged Nanally, the existing Fireflies hit callback and Lunarphase test were confirmed in HEAD. Unmodified strict clippy still fails on those diagnostics; new needless_borrow diagnostics were corrected."
+  ],
+  "pending": [
+    "Damaged-health thresholds, healing, awakening Burst variants, Lilith follow-ups, Skill, HP redirection/survival and full Fadia kit.",
+    "Dynamic HP percent/flat modifiers reject when reached by HP-scaled delivery; geometry, animation intervals and multi-target coverage remain unsupported.",
+    "Native full-console build compilation retains its fractional-HP legality gate; studio projection has its separately declared nearest-integer policy."
+  ],
+  "source_sha256": {
+    "data/extracted/guide_fadia.json": "c8d94f85ba3c2dd536ddb4d40bb5083c61c95c99a08c572bd876b075b17aac65",
+    "data/extracted/neverness_fadia.json": "2dd1415c0f26b512014613e9d9faef43743c71c07c87c934809af726af46a35a",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json": "917b0c3675412c0425a0724d09e7dd8ae4d1ef9a100d2ea5669d7484d0901bf2",
+    "data/global-2026-10-04/tables/DT_ForkItemData.json": "22f6f587ad9bf3d54905889e81bfe8f213fa29c49522499287c53d42fd6900a4",
+    "data/global-2026-10-04/tables/DT_ForkUpgradeStarDataTable.json": "b15f6c4cf4b8a6e1c982b431176b406a501f38861a67ddce45a0f589cdeed8c5",
+    "data/global-2026-10-04/tables/CT_ForkBuff.json": "93d1ed2069bc8e4358f98bfb5a3e212c13ad84e67eb6379e38414aa665539c15"
+  }
+}

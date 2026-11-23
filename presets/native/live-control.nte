@@ -1,0 +1,28 @@
+# Unequipped A0 source-executor fixture; no console stats are assumed.
+options duration=30 iteration=1 seed=42 crit=fixed;
+mint char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_energy=0;
+hotori char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_energy=0 start_timepiece=66.1;
+blackbird char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_energy=0 start_malice=0.1;
+chaos char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_energy=0 start_crime=100;
+target hp=100000000 def=1080 resist=0.2;
+active mint;
+
+let cycles=0;
+while cycles<2 {
+    if .mint.skill.ready && .mint.skill.cd==0 && .mint.normal==1 {
+        mint attack:5, skill;
+    }
+    wait_for_energy(1);
+    if .target.hp>0 && .actor.energy>=1
+        && .mint.energy==.actor.energy && .mint.energy<=.mint.energymax
+        && .mint.hpmax*.mint.hpratio==.mint.hp && .mint.onfield
+        && !.mint.support.ready {
+        if .hotori.resources.timepiece<66.1 || .hotori.mods.momentary_gaze!=0
+            || .hotori.time_stop.active || .hotori.rewind.active {wait(99);}
+        if .blackbird.resources.malice!=20.1 || .blackbird.transformed.active
+            || .blackbird.out_of_combat.active || .blackbird.mods.skill_permission!=0
+            || .chaos.resources.crime!=100 || .chaos.dread_echo.active {wait(99);}
+        wait(6);
+    }
+    cycles=cycles+1;
+}

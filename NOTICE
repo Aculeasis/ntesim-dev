@@ -1,0 +1,88 @@
+ntesim - Universal Neverness to Everness Combat Simulator
+Copyright (c) 2026 ntesim contributors
+
+This product includes software developed as part of the ntesim project.
+
+===============================================================================
+1. Original Code License
+===============================================================================
+Original source code in this repository is licensed under the MIT License
+(see LICENSE file).
+
+===============================================================================
+2. Third-Party Algorithms and Libraries
+===============================================================================
+This software incorporates or adapts the following third-party components:
+
+- PCG Random Number Generator (PCG32)
+  Origin: Melissa O'Neill, Harvey Mudd College / PCG Project
+  Website: https://www.pcg-random.org
+  Adapted transition/seeding is licensed under Apache License 2.0.
+  Complete license and notice: licenses/pcg32-APACHE-2.0.txt and
+  licenses/pcg32-NOTICE.txt.
+
+- Rust Crates (Cargo Workspace Dependencies)
+  * serde (MIT OR Apache-2.0)
+  * serde_json (MIT OR Apache-2.0)
+  * sha2 (MIT OR Apache-2.0)
+  * wasm-bindgen (MIT OR Apache-2.0); generated JavaScript glue is included in the browser build
+
+===============================================================================
+3. Game Assets, Intellectual Property, and Fair Use Notice
+===============================================================================
+"Neverness to Everness" (NTE), character names, weapon designs, skill names,
+game figures, icons, and related assets are trademarks and copyright of
+Hotta Studio and Perfect World Co., Ltd.
+
+The extracted game data, datamined configuration tables, and property figure
+fragments referenced or bundled in this repository are used strictly for:
+- Non-commercial computational research
+- Interoperability and mechanics reverse engineering
+- Auditable combat simulation and formula verification
+
+This project is an independent community research endeavor and is NOT affiliated
+with, endorsed by, sponsored by, or associated with Hotta Studio or Perfect World.
+
+===============================================================================
+4. Community Research Acknowledgments
+===============================================================================
+- Prydwen Institute: Published team tier lists, weapon recommendations, and
+  variant compositions (released Global content cutoff: October 4, 2026).
+- Community combat calculations and Drive Calculator: Reference formula models
+  and discrepancy isolation data.
+
+Browser visuals:
+- Studio uses original SVG icons and third-party Neverness to Everness character,
+  weapon, set and element illustrations from https://cdn.prydwen.gg/images/nte/.
+  Illustrations belong to their respective owners and are not covered by MIT;
+  no redistribution license for them is asserted. Source-site descriptions,
+  acquisition metadata and raw source exports are excluded from browser builds.
+- KQM Sim and gcsim were inspected as interface/architecture references. The
+  Studio implementation is original; no upstream UI code was copied.
+
+React/TypeScript browser toolchain:
+- React, React DOM and Scheduler are MIT-licensed Meta dependencies.
+  Their complete installed upstream license texts are copied into production
+  licenses/ and bound to exact lockfile identities in build-info.json.
+- TypeScript is Apache-2.0; Vite, its React plugin, tsx, Prettier and React/Node
+  type declarations use MIT-compatible licenses. npm distribution URLs,
+  resolved versions, licenses and integrity hashes are in web/package-lock.json;
+  installed dependency license files remain in cache/web/node_modules.
+- gcsim v2.47.2 (caf738dc807a646e2eee7e7b572f225dd6deb510) was read for
+  architecture only. The tag contains an MIT license. No upstream UI source
+  was copied or executed in this refactor.
+
+Native CLI artifacts:
+- tools/native_distribution.py includes only the host-native executable,
+  authored integration recipes and applicable license/notice texts. Its
+  manifest enumerates the exact native normal/build dependency closure, pinned
+  registry versions/checksums and full upstream license texts in licenses/.
+  This includes Unicode-3.0 obligations where declared by a dependency.
+- Rust's linked standard-library copyright document, MIT/Apache texts and LLVM
+  exception are retained under licenses/rust-standard-library/. The notice is
+  taken from the exact pinned toolchain used for the native build.
+- Native ZIPs exclude all browser/game artwork, source-site exports, datamined
+  tables, acquisition evidence, research data packages and dependency caches.
+  The artwork/data notices above describe material elsewhere in the repository;
+  they do not assert that such material is present in a native CLI artifact or
+  grant permission to redistribute it.

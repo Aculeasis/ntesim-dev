@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "scope": "Mint Normal primary packet and ordinary two-hit Skill/seven-hit Ultimate packet trains",
+  "quality": "partial executable model; complete kit pending",
+  "sources": [
+    "data/extracted/guide_mint.json",
+    "data/extracted/neverness_mint.json",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json",
+    "data/global-2026-10-04/tables/1019AwakenEffect1.json",
+    "data/global-2026-10-04/tables/DT_MintEffectFigure.json"
+  ],
+  "model": [
+    "GA_Mint019_Melee public primary packet is GE_Player_Mint_Melee1_Damage_New. Native coefficients at Normal levels 1/8/9 are 0.104/0.178/0.192; category A/Incantation metadata stays source-bound.",
+    "GA_Mint019_Skill admits GE_Player_Mint_Skill1_Damage_New and delivers it twice. Native coefficients at Skill levels 1/8/9 are 0.900/1.542/1.666 per hit; category E/Incantation metadata stays source-bound.",
+    "GA_Mint019_UltraSkill admits GE_Player_Mint_UtraSkill1_Damage_New, then delivers UtraSkill2..6 once each and UtraSkill7 once. At levels1/8/9, impact coefficients are1.326/2.273/2.454, each claw .588/1.008/1.088, slash3.735/6.401/6.913; category Q/Incantation metadata stays source-bound.",
+    "mint.skill_burst_packets_v1 discloses ordered coincident delivery at the selected impact time on target zero. Native intervals, AoE, travel and interruptions remain unresolved; same-time HitDelivery runs before ProcCallback, so Fireflies callbacks occur after the train. See mint-skill-burst-packets.json.",
+    "Resonance 3 activates at awakening >= 3 and adds +1 level to Melee, Skill, and UltraSkill, selecting native coordinate level + 1 without manual overrides.",
+    "Existing A2 Re-examination (+40% DMG bonus to Skill), A4 Lunch Break (+12% Crit Chance on single target), A5 First Instinct (+25% Crit DMG for 6s on Skill), A6 Elite Member (+15% DMG on target below 40% HP), and A6 Resonance 6 (+2 cycle energy on Skill) remain preserved as partial kit models.",
+    "Canonical arbitrary awakening selections: Ordinary Effect2/4/5/6 gates use selected identity. Talent resonance_3 and cycle energy resonance_6 use count; other packet/cycle applicability limits remain pending. Existing unsupported owner mechanics remain pending."
+  ],
+  "pending": [
+    "Complete attack sequences (Melee2..Melee8, AirAttack, Evade1/4/5, Skill4), exact Skill/Burst intervals and AoE coverage, A1 Task Force Operation, and A3 Attendance Bonus."
+  ],
+  "checks": [
+    "mint_actions tests: at1000ATK, RES0, DEF.5, Skill produces450/771/1166.2 per hit at levels1/8/9 (effective9 includes A2). Burst seven-hit totals are4000.5/6857/7403.5. Both action trains retain one admission, native talent coordinates, pending/off-field ownership, dead-target exclusion, rejection and strict hypothesis acceptance.",
+    "A6 low HP damage bonus verified: target below 40% HP receives +15% DMG bonus (322/5 at Lv1+1 from A6 resonance_3 vs 56/1 at >=40% HP).",
+    "Off-field delivery attributes hits to Mint; dead target settles 0 hits; horizon boundaries preserve pending events.",
+    "character_actions, weapon_passives, scenario_script and native_build web suites pass with NTESIM_VERIFY_NATIVE=1. CLI/WASM reports and actual Worker agree at levels1/8/effective9 and in examples/mint-packet-trains.nte (two Skill casts, one Burst and switching). verify_mint_kit checks description/native packet ratios at all nine levels, replay and seven awakening/target reports.",
+    "TypeScript and production build pass. Frozen source hashes match the identities below."
+  ],
+  "source_sha256": {
+    "data/extracted/guide_mint.json": "a2518a59d991df48c04641b467bee360759e2dac7e42d99b20cf9bedd704dd99",
+    "data/extracted/neverness_mint.json": "4b20818f74ffebf4bba0a11df7291ef157fa4433ab0636849bc8eee25995c70c",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json": "917b0c3675412c0425a0724d09e7dd8ae4d1ef9a100d2ea5669d7484d0901bf2",
+    "data/global-2026-10-04/tables/1019AwakenEffect1.json": "d09e08ce36ce1fb129bf2ada2d0a80e3bd2963ba2a77317097d0dd07ae1e5edd",
+    "data/global-2026-10-04/tables/DT_MintEffectFigure.json": "4bf87e2d44f24277ac465880eb6c0ad8024d6cd5ec71492eb7f48cc82ca5ff6b"
+  }
+}

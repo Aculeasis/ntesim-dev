@@ -1,0 +1,10 @@
+pub(crate) mod crimson;
+pub(crate) mod devils_blood;
+pub(crate) mod diabolos;
+pub(crate) mod fireflies;
+pub(crate) mod hp_suit;
+pub(crate) mod lost_radiance;
+pub(crate) mod quiet_manor;
+pub(crate) mod shadow_creed;
+pub(crate) mod speedy_hedgehog;
+pub(crate) mod street_boxer;

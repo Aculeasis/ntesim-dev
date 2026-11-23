@@ -1,0 +1,55 @@
+# Aurelia · Charge
+# Curated comparison profile: see teams.md for exact stat-line values and assumptions.
+options iteration=1000 duration=120 seed=42 start_fons=250000;
+# aurelia: 15 useful lines; recipe=crit; main=cd:.6.
+# C: cr,cd,dmg; III x4: cr,cd; IV: cr,cd; II: cr / cd.
+aurelia char lvl=80/80 awakening=[1,2,3,4,5,6] talent=8,8,8 qte=8;
+aurelia add weapon=fork_whale refine=1 lvl=80/80;
+aurelia add cartridge=devilsbloodcurse count=4;
+aurelia add stats hp=5600 atk=420 cr=0.28 cd=1.16 dmg%=0.1 atk%=0.4;
+# jiuyuan: 15 useful lines; recipe=crit; main=cd:.6.
+# C: cr,cd,dmg; III x4: cr,cd; IV: cr,cd; II: cr / cd.
+jiuyuan char lvl=80/80 awakening=[1] talent=8,8,8 qte=8;
+jiuyuan add weapon=fork_butterfly refine=1 lvl=80/80;
+jiuyuan add cartridge=firefliesandtheforest count=4;
+jiuyuan add stats hp=5600 atk=420 cr=0.40 cd=1.16 dmg%=0.1;
+# zero: 15 useful lines; recipe=ci; main=ci:180.
+# C: ci,cr,dmg; III x4: ci,atk; IV: ci,atk; II: ci / atk.
+zero char lvl=80/80 awakening=6 talent=8,8,8 qte=8;
+zero add weapon=fork_rishi refine=1 lvl=80/80;
+zero add cartridge=speedyhedgehog count=4;
+zero add stats hp=5600 atk=420 ci=348 cr=0.1 dmg%=0.1 atk%=0.6250;
+# hathor: 15 useful lines; recipe=crit; main=cd:.6.
+# C: cr,cd,dmg; III x4: cr,cd; IV: cr,cd; II: cr / cd.
+hathor char lvl=80/80 awakening=[1] talent=8,8,8 qte=8;
+hathor add weapon=fork_wushoutieyu refine=1 lvl=80/80;
+hathor add cartridge=streetboxer count=4;
+hathor add stats hp=5600 atk=420 cr=0.28 cd=1.16 dmg%=0.1 atk%=0.4;
+# Common stationary, control-susceptible Boss dummy; no incoming attacks or assumed parries.
+target lvl=80 hp=1000000000 max_hp=1000000000 def=1080 resist=0.2 boss=true control_immune=false original_atk=1000 break_gauge=30 max_break_gauge=30 broken_duration=10 discord_fraction=0.1;
+active aurelia;
+# Refresh short support windows, then preserve a sustained damage window.
+let next_support = 0;
+let last_burst = -20;
+while 1 {
+  if .time >= next_support {
+    zero swap;
+    if .zero.burst.ready { zero burst; }
+    if .zero.skill.ready { zero skill; }
+    jiuyuan swap;
+    if .jiuyuan.burst.ready { jiuyuan burst; }
+    if .jiuyuan.skill.ready { jiuyuan skill; }
+    # Spend Zero's renewed Cycle in the other branch while Buds are still alive.
+    zero swap;
+    while .zero.skill.cd>0 {wait(.zero.skill.cd);}
+    zero skill;
+    hathor swap;
+    if .hathor.skill.ready { hathor skill[hold=5s]; }
+    if .hathor.burst.ready { hathor burst; }
+    aurelia swap;
+    next_support = .time + 12;
+  }
+  if .aurelia.burst.ready { aurelia burst; }
+  if .aurelia.skill.ready { aurelia skill; }
+  aurelia attack;
+}

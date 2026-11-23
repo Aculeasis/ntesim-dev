@@ -1,0 +1,183 @@
+.name-search {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.name-search button {
+  border: 0;
+  font-weight: bold;
+  font-size: 16px;
+  padding: 12px;
+}
+
+.editor-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  justify-content: flex-end;
+  font-size: 13px;
+  margin: 0 0 8px;
+}
+
+.editor-toolbar > span {
+  margin-right: auto;
+  color: var(--muted);
+  font: 11px var(--mono);
+}
+
+.editor-toolbar button {
+  padding: 6px 10px;
+  font-size: 12px;
+}
+
+.editor-toolbar select {
+  padding: 5px;
+}
+
+.editor-shell {
+  --editor-font: 14px;
+  display: flex;
+  height: 440px;
+  min-height: 300px;
+  resize: vertical;
+  overflow: hidden;
+  background: #1d1f21;
+  border: 1px solid #3d3545;
+}
+
+.editor-shell pre,
+.editor-shell textarea {
+  font: var(--editor-font)/1.65 var(--mono);
+  tab-size: 2;
+  margin: 0;
+}
+
+.editor-shell #line-numbers {
+  color: #97a3ad;
+  background: #252a2e;
+  padding: 12px 10px;
+  min-width: 50px;
+  text-align: right;
+  overflow: hidden;
+  user-select: none;
+}
+
+.code-content {
+  position: relative;
+  min-width: 0;
+  flex: 1;
+  overflow: hidden;
+}
+
+.code-content pre,
+.code-content textarea {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  padding: 12px;
+  white-space: pre;
+  overflow: auto;
+  border: 0;
+  border-radius: 0;
+}
+
+.code-content textarea {
+  background: transparent;
+  color: transparent;
+  caret-color: #fff;
+  resize: none;
+  outline: none;
+}
+
+.code-content textarea::selection {
+  background: #b78be957;
+  color: transparent;
+}
+
+.code-content pre {
+  pointer-events: none;
+  color: #e5e2e8;
+}
+
+.wrapped pre,
+.wrapped textarea {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.tok-comment {
+  color: #969896;
+}
+
+.tok-string {
+  color: #b5bd68;
+}
+
+.tok-number {
+  color: #de935f;
+}
+
+.tok-keyword {
+  color: #c7a6df;
+}
+
+.tok-stat {
+  color: #f0c674;
+}
+
+.tok-function {
+  color: #81a2be;
+}
+
+.editor-shell[data-theme='monokai'] {
+  background: #272822;
+}
+
+.editor-shell[data-theme='monokai'] .tok-keyword {
+  color: #f92672;
+}
+
+.editor-shell[data-theme='light'] {
+  background: #fafafa;
+}
+
+.editor-shell[data-theme='light'] pre {
+  color: #24292e;
+}
+
+.editor-shell[data-theme='light'] textarea {
+  caret-color: #111;
+}
+
+.editor-shell[data-theme='light'] .tok-keyword {
+  color: #7b32a8;
+}
+
+.editor-shell[data-theme='light'] .tok-number {
+  color: #0757a0;
+}
+
+.editor-shell[data-theme='light'] .tok-string {
+  color: #257341;
+}
+
+.editor-status {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 6px 10px;
+  background: #302c34;
+  color: var(--muted);
+  font: 11px var(--mono);
+}
+
+#diagnostics {
+  border-left: 3px solid #ea927f;
+  padding: 12px;
+  margin: 8px 0;
+  background: #73363540;
+  font: 13px var(--mono);
+  white-space: pre-wrap;
+}

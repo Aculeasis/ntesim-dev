@@ -1,0 +1,6 @@
+# Two actions under the same horizon and initial state as the three-action baseline.
+clock 0;
+repeat 2 {
+  do attack;
+  wait 10;
+}

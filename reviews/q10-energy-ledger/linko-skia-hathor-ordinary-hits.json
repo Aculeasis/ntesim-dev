@@ -1,0 +1,190 @@
+{
+  "schema_version": 1,
+  "status": "modeled_and_tested",
+  "source_sha256": {
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json": "917b0c3675412c0425a0724d09e7dd8ae4d1ef9a100d2ea5669d7484d0901bf2",
+    "data/global-2026-10-04/tables/DT_SkillTeamChargeRelationData.json": "5e456919997b0f77c4b569ce812267a059bab553a1f87fcb863723c44b66363b"
+  },
+  "owners": [
+    {
+      "owner": "linko",
+      "character_id": "character:1072",
+      "hypothesis_id": "linko.ordinary_hit_energy_v1",
+      "element": "NATURE",
+      "packets": {
+        "Melee": {
+          "effects": [
+            "GE_Player_Radio072_Melee1_Damage",
+            "GE_Player_Radio072_Melee2_Damage",
+            "GE_Player_Radio072_Melee2_Damage",
+            "GE_Player_Radio072_Melee3_Damage",
+            "GE_Player_Radio072_Melee4_1_Damage",
+            "GE_Player_Radio072_Melee4_2_Damage",
+            "GE_Player_Radio072_Melee4_3_Damage",
+            "GE_Player_Radio072_Melee4_3_Damage",
+            "GE_Player_Radio072_Melee4_3_Damage",
+            "GE_Player_Radio072_Melee4_3_Damage",
+            "GE_Player_Radio072_Melee4_3_Damage",
+            "GE_Player_Radio072_Melee4_Damage",
+            "GE_Player_Radio072_Melee5_Damage"
+          ],
+          "charge_milli": [
+            3105,
+            1065,
+            1065,
+            2531,
+            835,
+            1867,
+            869,
+            869,
+            869,
+            869,
+            869,
+            2154,
+            4635
+          ],
+          "total_milli": 21602
+        },
+        "Skill": {
+          "effects": [
+            "GE_Player_Radio072_Skill1_Damage",
+            "GE_Player_Radio072_Skill2_Damage",
+            "GE_Player_Radio072_Skill3_Damage",
+            "GE_Player_Radio072_Skill4_Damage"
+          ],
+          "charge_milli": [
+            1493,
+            1162,
+            1996,
+            3749
+          ],
+          "total_milli": 8400
+        }
+      },
+      "source_distribution": "1/1",
+      "living_ally_distribution": "3/5"
+    },
+    {
+      "owner": "skia",
+      "character_id": "character:1008",
+      "hypothesis_id": "skia.ordinary_hit_energy_v1",
+      "element": "LAKSHANA",
+      "packets": {
+        "Melee": {
+          "effects": [
+            "GE_Player_Skia_Melee1_Damage",
+            "GE_Player_Skia_Melee2_Damage",
+            "GE_Player_Skia_Melee2_Damage",
+            "GE_Player_Skia_Melee4_Damage",
+            "GE_Player_Skia_Melee5_Damage",
+            "GE_Player_Skia_Melee6_Damage",
+            "GE_Player_Skia_Melee7_Damage",
+            "GE_Player_Skia_Melee8_Damage",
+            "GE_Player_Skia_Melee9_Damage"
+          ],
+          "charge_milli": [
+            2525,
+            306,
+            306,
+            1572,
+            2667,
+            3820,
+            3250,
+            2448,
+            4606
+          ],
+          "total_milli": 21500
+        },
+        "Skill": {
+          "effects": [
+            "GE_Player_Skia_Skill1_Damage",
+            "GE_Player_Skia_Skill1_Damage",
+            "GE_Player_Skia_Skill1_Damage",
+            "GE_Player_Skia_Skill1_Damage",
+            "GE_Player_Skia_Skill2_Damage",
+            "GE_Player_Skia_Skill3_Damage"
+          ],
+          "charge_milli": [
+            1080,
+            1080,
+            1080,
+            1080,
+            166,
+            914
+          ],
+          "total_milli": 5400
+        }
+      },
+      "source_distribution": "1/1",
+      "living_ally_distribution": "3/5"
+    },
+    {
+      "owner": "hathor",
+      "character_id": "character:1025",
+      "hypothesis_id": "hathor.ordinary_hit_energy_v1",
+      "element": "LAKSHANA",
+      "packets": {
+        "Melee": {
+          "effects": [
+            "GE_Player_Hathor_Melee1_Damage",
+            "GE_Player_Hathor_Melee2_Damage",
+            "GE_Player_Hathor_Melee2_1_Damage",
+            "GE_Player_Hathor_Melee2_1_Damage",
+            "GE_Player_Hathor_Melee2_1_Damage",
+            "GE_Player_Hathor_Melee2_1_Damage",
+            "GE_Player_Hathor_Melee3_Damage",
+            "GE_Player_Hathor_Melee3_Damage",
+            "GE_Player_Hathor_Melee4_Damage",
+            "GE_Player_Hathor_Melee4_1_Damage",
+            "GE_Player_Hathor_Melee4_2_Damage",
+            "GE_Player_Hathor_Melee5_Damage",
+            "GE_Player_Hathor_Melee5_1_Damage"
+          ],
+          "charge_milli": [
+            1219,
+            807,
+            681,
+            681,
+            681,
+            681,
+            664,
+            664,
+            1121,
+            2403,
+            4982,
+            2212,
+            5505
+          ],
+          "total_milli": 22301
+        },
+        "Skill": {
+          "effects": [
+            "GE_Player_Hathor_Skill1_Damage",
+            "GE_Player_Hathor_Skill1_Damage",
+            "GE_Player_Hathor_Skill11_Damage"
+          ],
+          "charge_milli": [
+            2833,
+            2833,
+            2833
+          ],
+          "total_milli": 8499
+        }
+      },
+      "source_distribution": "1/1",
+      "living_ally_distribution": "3/5"
+    }
+  ],
+  "decision": "Bind ordinary native Normal and Skill packets to the existing exact ordinary-hit energy adapter. Base values are frozen ChargeAdd scalars; each living recipient uses its own Charge Efficiency, fractional carry, capacity and overflow.",
+  "evidence_limits": "The tables establish scalar and elemental relation values, not native caller eligibility. Positive actual target-zero HP loss, fatal-hit eligibility, delivery-time recipients, independent per-packet grants and off-field source continuation reuse reviewed neighbor hypotheses. These rules remain named model assumptions and strict execution requires acceptance.",
+  "checks": [
+    "Focused table-driven Rust ordinary_hit_energy suite: initial Normal and full Skill packet train, recipient efficiency, exact carry, overflow, dead recipients/targets, zero HP loss, switch before delayed fatal impact, deterministic replay and typed receipt rejection.",
+    "web/tests/ordinary_hit_energy.test.mjs: actual native CLI/WASM/Worker report parity, validation, aggregation and replay; eight full ordinary chains from zero energy charge both owner and Mint Ultimates with independent packet constants.",
+    "Affected Linko/Skia/Hathor character action tests pass with native CLI/WASM parity; TypeScript check and Rust quality pass."
+  ],
+  "pending": [
+    "Animation timing, multi-target geometry and native caller evidence.",
+    "Alternate/enhanced forms, summons, QTE and unrelated special resource mechanics.",
+    "Complete kits and baseline readiness remain incomplete."
+  ]
+}

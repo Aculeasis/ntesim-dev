@@ -1,0 +1,13 @@
+options iteration=1 duration=16 crit=fixed stamina_capacity=60 initial_stamina=60 stamina_use_efficiency=1 stamina_recovery_rate=0;
+nanally char lvl=80/80 awakening=0 talent=1,1,8 qte=1 start_energy=100;
+mint char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_energy=0;
+nanally add stats dmg%=0.25;
+target hp=100000000 def=0 resist=0;
+target hp=100000000 def=0 resist=0;
+active nanally;
+
+# The first Riposte has a current Cat with separately captured Burst talent.
+# The second occurs after the same generation's real lifetime has expired.
+nanally burst; wait_until(3.757); nanally dash[critical=true]; nanally attack;
+wait(0.34); wait_until(12);
+nanally dash[critical=true]; nanally attack; wait(0.34);

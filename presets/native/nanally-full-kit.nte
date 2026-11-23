@@ -1,0 +1,30 @@
+// Legal A0 equipped baseline; all time, resources and pending effects continue.
+options duration=100 stamina_capacity=60 initial_stamina=60 stamina_use_efficiency=1 stamina_recovery_rate=0;
+nanally char lvl=80/80 awakening=0 talent=8,8,8 qte=8 start_energy=100 start_cycle=0;
+nanally add weapon=fork_wushoutieyu refine=1;
+zero char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_energy=0 start_cycle=100;
+edgar char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_energy=0 start_cycle=100;
+target hp=100000000 def=1080 resist=0;
+active nanally;
+for let visit=0; visit<2; visit=visit+1 {
+    nanally burst;
+    nanally skill;
+    nanally attack[hold=3s];
+    nanally plunge[airtime=800ms,height_bonus=1/2];
+    nanally attack;
+    nanally dash;
+    nanally attack:4;
+    wait(516ms);
+    nanally special;
+    nanally attack:2;
+    nanally special;
+    nanally dash[critical=true];
+    nanally attack;
+    repeat 4 { nanally attack:5; }
+    zero swap;
+    wait(500ms);
+    if visit==1 {edgar swap;}
+    nanally swap;
+}
+// The last handoff's existing Buds keep firing under this new Authority.
+nanally skill;

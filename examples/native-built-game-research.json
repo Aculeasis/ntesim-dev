@@ -1,0 +1,163 @@
+{
+  "schema_version": 1,
+  "projection_policy": "known_static_additive_v1",
+  "hypothesis": "Use the partial known static additive build constants for every hit, with native character element plus general bonus; passive application and game eligibility remain unresolved.",
+  "scenario": {
+    "schema_version": 1,
+    "content_id": "ntesim-current",
+    "seed": 42,
+    "active_actor_index": 0,
+    "actors": [
+      {
+        "slot": 0,
+        "character_id": "character:1019",
+        "character_level": 80,
+        "awakening": [],
+        "purchased_skill_level": 8,
+        "purchased_qte_level": 8,
+        "initial_hp": 17720,
+        "initial_hp_max": 17720,
+        "initial_energy": 100,
+        "energy_capacity": 100,
+        "weapon_id": "weapon:fork_lingganzhongjiezhe",
+        "weapon_tier": 5,
+        "set_id": "set:Suit2",
+        "static_stats": {
+          "base_atk": 1151,
+          "atk": "46383/20",
+          "hp": 17720,
+          "def": 727,
+          "crit_rate": "57/100",
+          "crit_damage_bonus": "47/50",
+          "elemental_bonus": "1/10"
+        },
+        "gear_procs": [
+          {
+            "kind": "mind_royale_energy",
+            "energy_grant": 18,
+            "cooldown_us": 20000000
+          },
+          {
+            "kind": "fireflies_crit_damage",
+            "crit_damage_per_stack": "2/25",
+            "max_stacks": 7,
+            "duration_us": 10000000
+          }
+        ]
+      }
+    ],
+    "targets": [
+      {
+        "target_index": 0,
+        "level": 80,
+        "hp_max": 10000000,
+        "hp_current": 10000000,
+        "defense": 1080,
+        "resistance": "1/5"
+      }
+    ],
+    "actions": [
+      {
+        "kind": "invoke_ability",
+        "timestamp_us": 0,
+        "actor_index": 0,
+        "ability_id": "GA_Mint019_Melee",
+        "array_index": 7,
+        "damage_effect_id": "GE_Player_Mint_Melee1_Damage_New",
+        "atk_rate": "89/500",
+        "energy_cost": 0,
+        "recovery_us": 800000,
+        "cooldown_us": 0,
+        "hit_delay_us": 0
+      },
+      {
+        "kind": "invoke_ability",
+        "timestamp_us": 1000000,
+        "actor_index": 0,
+        "ability_id": "GA_Mint019_Skill",
+        "array_index": 7,
+        "damage_effect_id": "GE_Player_Mint_Skill1_Damage_New",
+        "atk_rate": "771/500",
+        "energy_cost": 0,
+        "recovery_us": 1200000,
+        "cooldown_us": 6000000,
+        "hit_delay_us": 0
+      },
+      {
+        "kind": "invoke_ability",
+        "timestamp_us": 2500000,
+        "actor_index": 0,
+        "ability_id": "GA_Mint019_UltraSkill",
+        "array_index": 7,
+        "damage_effect_id": "GE_Player_Mint_UtraSkill1_Damage_New",
+        "atk_rate": "2273/1000",
+        "energy_cost": 100,
+        "recovery_us": 2000000,
+        "cooldown_us": 20000000,
+        "hit_delay_us": 0
+      }
+    ],
+    "stochastic_crit": {
+      "hypothesis": "Research hypothesis: independent crit rolls for each listed delivered effect; shared-roll and eligibility rules are not validated game evidence.",
+      "actor_sequences": {
+        "character:1019": 54
+      },
+      "eligible_effects": {
+        "character:1019": [
+          "GE_Player_Mint_Melee1_Damage_New",
+          "GE_Player_Mint_Skill1_Damage_New",
+          "GE_Player_Mint_UtraSkill1_Damage_New"
+        ]
+      },
+      "roll_policy": "independent_per_target_hit_v1"
+    },
+    "relative_duration_us": 20000000,
+    "clock_contract": "relative-combat-v1",
+    "timer_policy": "paused-world-v1",
+    "absolute_limit_us": 3600000000
+  },
+  "builds": [
+    {
+      "slot": 0,
+      "build": {
+        "schema_version": 1,
+        "content_id": "ntesim-current",
+        "character_id": "character:1019",
+        "character_level": 80,
+        "character_breakthrough": 6,
+        "weapon_id": "weapon:fork_lingganzhongjiezhe",
+        "weapon_level": 80,
+        "weapon_breakthrough": 6,
+        "weapon_tier": 5,
+        "set_id": "set:Suit2",
+        "set_count": 4,
+        "additive_attributes": {
+          "AtkAdd": {
+            "numerator": "420",
+            "denominator": "1"
+          },
+          "AtkUp": {
+            "numerator": "13",
+            "denominator": "20"
+          },
+          "CritBase": {
+            "numerator": "13",
+            "denominator": "25"
+          },
+          "CritDamageBase": {
+            "numerator": "11",
+            "denominator": "25"
+          },
+          "HPMaxAdd": {
+            "numerator": "5600",
+            "denominator": "1"
+          }
+        }
+      }
+    }
+  ],
+  "action_projection": {
+    "policy": "native_atk_coordinate_v1",
+    "hypothesis": "Use each explicit native array coordinate as an ATK-only coefficient with one delivered hit. This does not bind purchased skill level, dispatch, hit count, costs, resources or timing."
+  }
+}

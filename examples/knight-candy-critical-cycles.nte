@@ -1,0 +1,13 @@
+options iteration=1 duration=35 seed=42;
+adler char lvl=80/80 awakening=0 talent=1,1,1 qte=1;
+adler add weapon=fork_KnightCandy refine=1;
+adler add stats cr=0.95;
+iroi char lvl=80/80 awakening=0 talent=1,1,1 qte=1;
+target hp=100000000 def=0 resist=0;
+target hp=100000000 def=0 resist=0;
+active adler;
+
+# Native DoT packets build and refresh the wearer's stacks off field.
+adler skill; iroi swap;
+# The first train and its final refresh expire before the second Skill.
+wait_until(20); adler swap; adler skill; iroi swap;

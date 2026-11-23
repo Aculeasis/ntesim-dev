@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "question": "Which delivered packets receive Paper Plane's Anima Skill/Ultimate bonus?",
+  "branch_budget_minutes": 10,
+  "total_investigation_budget_minutes": 15,
+  "sources": [
+    "data/global-2026-10-04/tables/DT_ForkUpgradeStarDataTable.json#/rows/upgradestar_pack_fork_PaperPlane_1/Description",
+    "data/global-2026-10-04/tables/CT_ForkBuff.json#/rows/buff_PaperPlane_Up",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json#/rows/GE_Player_Mint_Skill1_Damage_New",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json#/rows/GE_Player_Mint_UtraSkill1_Damage_New",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json#/rows/GE_Player_Mint_QTE1_Damage"
+  ],
+  "decision": "Interpret the frozen NATURE element as Anima and packet DamageSourceCategory E/Q as Redirect Skill/Ultimate damage. Native A/H ordinary/QTE packets and other categorized sources are excluded. Add the refinement ratio in the additive damage-bonus zone at delivery, retaining the wearer through switches. Input roles/names never replace packet classification. Missing, NULL or unknown source classification on Anima packets fails explicitly.",
+  "availability": "Frozen coverage marks release availability unverified; retain that uncertainty in research execution and make no released-gear or strict-readiness claim.",
+  "stop_condition": "Check exact T1-T5 curves, ordinary/QTE/other-element exclusion, additive bonus math, independent input/packet classification, delayed off-field hits, invalid equipment and native/Worker/WASM execution.",
+  "return_condition": "New release or native packet-category/bonus-zone evidence conflicts with the explicit interpretation.",
+  "checks": [
+    "130 content tests pass; exact T1-T5 frozen bonuses 20/23.75/27.5/31.25/35 percent, extra parameter rejection, duplicate/mismatched equipment, packet/input independence, A/H and other-element exclusions, NULL/missing classification errors and delayed off-field ownership.",
+    "Independent native damage oracle: 1000 ATK * 1/2 DEF mitigation * (1 + .1 general + .2 eligible weapon) gives 650 eligible and 550 excluded damage.",
+    "Native build compiler projects compatible Mint/Clear Skies gear while preserving a source-bound Fireflies handler; ordinary damage is unchanged and eligible skill damage increases.",
+    "Public DSL Mint T1-T5 and Iroi T5 runs check additive general/Anima/weapon bonus arithmetic on real primary/child packets against an independently computed multiplier; the equipped native stats are held constant for the passive comparison.",
+    "NTESIM_VERIFY_NATIVE=1 in web/tests/weapon_passives.test.mjs compares full shared CLI/WASM reports, excluding only acquisition wrapper fields. Actual Mint/Iroi Worker reports match direct WASM.",
+    "Native-build, scenario-script, streaming-trial and architecture web modules pass. Typed and changed-file formatting checks pass; scoped clippy allows only the two pre-existing metadata lints recorded in blast-candy-model.json."
+  ]
+}

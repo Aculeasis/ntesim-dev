@@ -1,0 +1,6 @@
+# Explicit synthetic outcomes; no game crit or damage rule is asserted.
+clock 0;
+repeat 3 {
+  do attack;
+  wait 10;
+}

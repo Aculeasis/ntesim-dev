@@ -1,0 +1,11 @@
+# Partial unequipped Lacrimosa rotation: two Skill casts (1 hit each) and one Burst (5 hits).
+# Timing uses the disclosed coincident-packet model; animation delays and Nightmare ticks are pending.
+options iteration=1 duration=35 crit=fixed;
+lacrimosa char lvl=80/80 awakening=2 talent=8,8,8 qte=8 start_energy=120;
+mint char lvl=80/80 awakening=0 talent=8,8,8 qte=8;
+target hp=10000000 def=1080 resist=0;
+active lacrimosa;
+lacrimosa skill, burst;
+mint swap;
+wait(16);
+lacrimosa skill;

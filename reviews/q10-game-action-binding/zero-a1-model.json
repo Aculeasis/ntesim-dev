@@ -1,0 +1,20 @@
+{
+  "status": "implemented_as_tested_hypothesis",
+  "question": "Does Zero A1 apply once per target per Skill activation, and does its level boundary include equal-level enemies?",
+  "source_pointers": [
+    "data/global-2026-10-04/tables/1046AwakenEffect.json:/rows/1046/AwakenEffectStructList/0/Desc",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json:/rows/GE_Player_Female046_Skill_Kill_Damage_lv1",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json:/rows/GE_Player_Female046_Skill_Kill_Damage_lv2"
+  ],
+  "investigation_budget": {
+    "branch_minutes": 15,
+    "total_minutes": 20,
+    "stop_condition": "Use the preserved descriptions and owner packet rows to define one explicit tested lifecycle hypothesis; do not expand into animation timing or acquisition.",
+    "return_condition": "New applicable source evidence or a concrete method that distinguishes per-activation/per-target first-hit behavior or resolves the level translation conflict."
+  },
+  "decision": "Implement a visible tested hypothesis: first nonzero connected Skill hit per activation and target, target level <= Zero level; queue the extra packet on that same target after parent settlement. Child packets cannot retrigger. New admitted Skills have independent first-hit eligibility even when pending hits overlap.",
+  "rationale": "The Chinese source explicitly says target level not above the actor, while the English localization says lower level. Prefer the more explicit <= source-language relation and expose the conflict. First-hit wording supports a per-target activation gate, but the description alone does not establish event lifetime or zero-damage behavior.",
+  "verification": "crates/content/src/simulation/tests/zero_first_hit.rs",
+  "conflicts": ["English localization implies strict <; equal-level execution remains a model choice."],
+  "limits": ["Primary Skill packet train, target aiming/AoE and native animation timings remain incomplete.", "The connected-hit rule follows the runner's existing nonzero-damage dispatch hypothesis."]
+}

@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "scope": "Chaos executable Normal chain, two-bite Skill, and five-hit Suppression Burst packet train with selected awakening hooks",
+  "quality": "partial executable action model",
+  "sources": [
+    "data/extracted/guide_chaos.json",
+    "data/extracted/neverness_chaos.json",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json",
+    "data/global-2026-10-04/tables/1071AwakenEffect.json",
+    "data/global-2026-10-04/tables/DT_ChaosEffectFigure.json"
+  ],
+  "model": [
+    "GA_Chaos071_Melee public primary packet is GE_Player_Chaos_Melee1_Damage. Native coefficients at Normal levels 1/8/9 are 0.182/0.312/0.337; category A/LAKSHANA metadata stays source-bound. Five admitted ordinary inputs advance stages Melee1 through Melee5 with multiplicities 1,2,2,4,3 (12 hits) under chaos.normal_chain_v1.",
+    "GA_Chaos071_Skill public primary packet is GE_Player_Chaos_Skill1_Damage (Doubtmark first bite), delivering 2 native bites with child packet GE_Player_Chaos_Skill2_Damage at impact. Native coefficients at Skill levels 1/8/9 are 0.825/1.414/1.527 (bite 1) and 2.175/3.728/4.026 (bite 2); category E/LAKSHANA metadata stays source-bound. before_hit applies Warrant (+20% damage bonus).",
+    "GA_Chaos071_UltraSkill public primary packet is GE_Player_Chaos_UltraSkill1_Damage. Suppression delivers four native GE_Player_Chaos_UltraSkill1_Damage hits followed by one GE_Player_Chaos_UltraSkill2_Damage hit, using native Burst coefficients at levels 1/8/9 of 1.273/2.182/2.356 and 2.909/4.986/5.384; category Q/LAKSHANA metadata stays source-bound. Ordered coincident delivery at primary impact is the tested chaos.suppression_packets_v1 timing hypothesis. Every hit applies Warrant (+20% damage), A2 DEF ignore when applicable, A5 single-target damage when applicable, and A6 Lakshana resistance reduction; A3 casts grant +30% Crit DMG for 20s before the train.",
+    "Resonance 3 activates at awakening >= 3 and adds +1 level to GA_Chaos071_Melee, GA_Chaos071_Skill, and GA_Chaos071_UltraSkill without manual overrides.",
+    "Awakening 2 ignores 20% of target DEF when attacking enemies with Warrant.",
+    "Awakening 5 increases damage dealt by 20% when only 1 target with Warrant remains.",
+    "Resonance 6 reduces Lakshana resistance by 10% on enemies with Warrant.",
+    "Canonical arbitrary awakening selections gate modeled A2 DEF ignore, A3 Burst Crit DMG and A5 damage by effect identity. R3 talent bonuses and R6 Lakshana RES reduction use selection count. [3] grants the Burst Crit DMG buff without R3 or A2; [1,4,5] grants A5 and R3 without A2 or A3. Crime and Warrant transfer remain pending."
+  ],
+  "pending": [
+    "Branch attacks, QTE execution, Crime resource bar accumulation/restoration, Warrant multi-target extensions, transformed attacks/forms, team interactions, and secondary visual/sound cues."
+  ],
+  "checks": [
+    "chaos_actions tests use independent per-hit damage oracles at 1000 ATK, 0 RES for Normal across all five stages (12 hits, looping, resonance_3), Skill two bites, and all five Suppression hits at Burst levels 1/8/9 including A2 DEF ignore at A3. An A6 nonzero-RES case verifies A2/A5/A6 across all native Burst packets; the A5 single-target Skill oracle remains covered.",
+    "Off-field delivery attributes all five Suppression hits to Chaos; a dead target settles 0 hits; a horizon before impact preserves all five pending events and the exact impact settles all five. Strict mode rejects missing/mismatched chaos.suppression_packets_v1 and accepts its exact description.",
+    "Current integration checks: tools/verify_chaos_kit.py; independent mechanic assertions remain in Rust tests.",
+    "character_actions.test.mjs passes with NTESIM_VERIFY_NATIVE=1: full native CLI/WASM reports match across all character action cases; Chaos Worker, CLI, and WASM agree for Burst at levels 1, 8, A3, A5, and A6.",
+    "Frozen source hashes match the identities below."
+  ],
+  "source_sha256": {
+    "data/extracted/neverness_chaos.json": "77f67ac8dc9a52670c4c53840f25d957a20312627f58fc4ab00e4ff13cc6e6bb",
+    "data/extracted/guide_chaos.json": "09f8927437531cb1a6bef75e4908698b4c0ffbab709e59912342655c84270263",
+    "data/global-2026-10-04/tables/1071AwakenEffect.json": "36cebad46634439eff144020cef069550b71b440737f7ae81e353b618e4f1d18",
+    "data/global-2026-10-04/tables/DT_ChaosEffectFigure.json": "877e60c0eaac10ae945791a866bd4f1745adf338b5c5a1cbe52173f6428e1f15",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json": "917b0c3675412c0425a0724d09e7dd8ae4d1ef9a100d2ea5669d7484d0901bf2"
+  }
+}

@@ -1,0 +1,11 @@
+#!/usr/bin/env python3
+from pathlib import Path
+import runpy
+import sys
+
+directory = Path.cwd().resolve()
+root = next(path for path in (directory, *directory.parents) if (path / ".git").exists())
+script = root / "tools/checkpoint.py"
+sys.path.insert(0, str(script.parent))
+sys.argv = [str(script), "verify"]
+runpy.run_path(str(script), run_name="__main__")

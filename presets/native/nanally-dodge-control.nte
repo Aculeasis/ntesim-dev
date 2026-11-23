@@ -1,0 +1,14 @@
+// Dodge preserves reached heavy progress; each new press pays its own hold time.
+options duration=12 stamina_capacity=60 initial_stamina=60 stamina_use_efficiency=1 stamina_recovery_rate=0;
+nanally char lvl=80/80 awakening=0 talent=8,8,8 qte=8 start_energy=0 start_cycle=0;
+target hp=100000000 def=1080 resist=0;
+active nanally;
+nanally attack[hold=500ms];
+wait_until(1.516);
+nanally dash;
+nanally attack[hold=2s];
+wait_until(6);
+nanally attack[hold=500ms];
+wait_until(7.516);
+nanally dash;
+nanally attack[hold=2s];

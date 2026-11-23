@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "scope": "Chiz native primary action packet binding across Normal, Skill, and Ultimate",
+  "quality": "partial executable model; complete kit pending",
+  "sources": [
+    "data/extracted/guide_chiz.json",
+    "data/extracted/neverness_chiichan.json",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json",
+    "data/global-2026-10-04/tables/1073AwakenEffect.json"
+  ],
+  "model": [
+    "GA_Chiichan073_Melee admits GE_Player_Chiichan073_Melee1_Damage and advances five ordinary stages (12 hits: 1, 3, 1, 5, 2 across Melee1..5) per chiz.normal_chain_v1. Native coefficients at Normal levels 1 and 8 are 3.257 and 5.580 across the chain; category A/COSMOS metadata stays source-bound. Normal attack is excluded from resonance_3 level bonus. See chiz-normal-chain.json.",
+    "GA_Chiichan073_Skill public primary packet is GE_Player_Chiichan073_Skill1_1Damage. Category E/COSMOS metadata stays source-bound.",
+    "GA_Chiichan073_UltraSkill public primary packet is GE_Player_Chiichan073_UltraSkill1_Damage. Native price/settlement model is pending and rejects at boundary.",
+    "Resonance 3 activates at awakening >= 3 and grants Grain acquisition efficiency buff; no SkillLevel modifications exist in 1073AwakenEffect.json.",
+    "Canonical arbitrary awakening selections: Effect1 capacity, Effect4 acquisition and Effect5 initial Grain use selected identities. Normal resonance_3 has no level bonus; target Cosmos resistance remains count-six resonance_6. Existing unsupported owner mechanics remain pending."
+  ],
+  "pending": [
+    "Grain resource market update, loan conversion, fluctuating price settlement, and repayment."
+  ],
+  "checks": [
+    "chiz_actions tests passed: independent damage oracles at 1000 ATK, 0 RES verify Normal chain at level 1 (1628.5) and level 8 (2790.0).",
+    "Ability and field exit resets verify chain restarts at Melee1.",
+    "verify_normal_chain_sources.py verifies source hashes and ordered coefficient multiplicity at all nine published levels.",
+    "TypeScript and production build pass. Frozen source hashes match the identities below."
+  ],
+  "source_sha256": {
+    "data/extracted/guide_chiz.json": "77872b51b72be36336d908b3c8f7c402a5b35452ef64c282d7328f73c723decc",
+    "data/extracted/neverness_chiichan.json": "0291acc44b0dbcbe27ff00ba320138545afb647d63d2729a60a72cc55218ceb5",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json": "917b0c3675412c0425a0724d09e7dd8ae4d1ef9a100d2ea5669d7484d0901bf2",
+    "data/global-2026-10-04/tables/1073AwakenEffect.json": "5a25bf1cd379f9171fa42de75d8029f24fc36e6de657a2719691ccc7cd6ffc3c"
+  }
+}

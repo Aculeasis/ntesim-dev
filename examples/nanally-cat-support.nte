@@ -1,0 +1,14 @@
+options iteration=1 duration=15;
+
+nanally char lvl=80/80 awakening=2 talent=1,1,10 qte=1 start_energy=100;
+nanally add weapon=fork_goldrecord refine=1;
+nanally add stats cr=0.71;
+sakiri char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_cycle=100;
+target hp=100000000 def=0 resist=0 boss=false;
+target hp=100000000 def=0 resist=0 boss=false;
+target hp=100000000 def=0 resist=0 boss=false;
+active nanally;
+
+# Cat coordination uses the earlier Burst coordinate, not Support talent1.
+nanally burst; wait_until(4); sakiri swap; wait(0.6);
+wait_until(5); nanally swap; wait(1.31);

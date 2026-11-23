@@ -1,0 +1,152 @@
+{
+  "schema_version": 1,
+  "content_id": "ntesim-current",
+  "actors": [
+    {
+      "slot": 0,
+      "awakening": 0,
+      "initial_energy": 100.0,
+      "initial_hp_fraction": 1.0,
+      "build": {
+        "schema_version": 1,
+        "content_id": "ntesim-current",
+        "character_id": "character:1003",
+        "weapon_id": "weapon:fork_mofeikesi",
+        "weapon_tier": 1,
+        "set_id": "set:Suit11",
+        "set_count": 4,
+        "additive_attributes": {
+          "AtkAdd": {
+            "numerator": "420",
+            "denominator": "1"
+          },
+          "AtkUp": {
+            "numerator": "3",
+            "denominator": "8"
+          },
+          "DamageUpIncantationBase": {
+            "numerator": "27",
+            "denominator": "50"
+          },
+          "HPMaxAdd": {
+            "numerator": "5600",
+            "denominator": "1"
+          }
+        }
+      }
+    },
+    {
+      "slot": 1,
+      "awakening": 1,
+      "initial_energy": 50.0,
+      "initial_hp_fraction": 1.0,
+      "build": {
+        "schema_version": 1,
+        "content_id": "ntesim-current",
+        "character_id": "character:1004",
+        "weapon_id": "weapon:fork_Rose",
+        "weapon_tier": 1,
+        "set_id": "set:Suit11",
+        "set_count": 4,
+        "additive_attributes": {
+          "AtkAdd": {
+            "numerator": "420",
+            "denominator": "1"
+          },
+          "AtkUp": {
+            "numerator": "3",
+            "denominator": "8"
+          },
+          "DamageUpChaosBase": {
+            "numerator": "2",
+            "denominator": "5"
+          },
+          "HPMaxAdd": {
+            "numerator": "5600",
+            "denominator": "1"
+          }
+        }
+      }
+    },
+    {
+      "slot": 2,
+      "awakening": 0,
+      "initial_energy": 0.0,
+      "initial_hp_fraction": 1.0,
+      "build": {
+        "schema_version": 1,
+        "content_id": "ntesim-current",
+        "character_id": "character:1008",
+        "weapon_id": "weapon:fork_Kite",
+        "weapon_tier": 1,
+        "set_id": "set:Suit11",
+        "set_count": 4,
+        "additive_attributes": {
+          "AtkAdd": {
+            "numerator": "420",
+            "denominator": "1"
+          },
+          "AtkUp": {
+            "numerator": "39",
+            "denominator": "40"
+          },
+          "HPMaxAdd": {
+            "numerator": "5600",
+            "denominator": "1"
+          }
+        }
+      }
+    },
+    {
+      "slot": 3,
+      "awakening": 2,
+      "initial_energy": 0.0,
+      "initial_hp_fraction": 1.0,
+      "build": {
+        "schema_version": 1,
+        "content_id": "ntesim-current",
+        "character_id": "character:1010",
+        "weapon_id": "weapon:fork_GoldRecord",
+        "weapon_tier": 1,
+        "set_id": "set:Suit11",
+        "set_count": 4,
+        "additive_attributes": {
+          "AtkAdd": {
+            "numerator": "420",
+            "denominator": "1"
+          },
+          "AtkUp": {
+            "numerator": "3",
+            "denominator": "8"
+          },
+          "CritBase": {
+            "numerator": "6",
+            "denominator": "25"
+          },
+          "HPMaxAdd": {
+            "numerator": "5600",
+            "denominator": "1"
+          }
+        }
+      }
+    }
+  ],
+  "targets": [
+    {
+      "id": "target_boss",
+      "level": 90,
+      "base_hp": 5000000,
+      "base_def": 800,
+      "resistances": {
+        "INCANTATION": 0.1,
+        "CHAOS": 0.1,
+        "LAKSHANA": 0.1,
+        "NATURE": 0.1
+      },
+      "weakness": "INCANTATION",
+      "break_gauge": 1000
+    }
+  ],
+  "duration_us": 120000000,
+  "active_actor_slot": 0
+}

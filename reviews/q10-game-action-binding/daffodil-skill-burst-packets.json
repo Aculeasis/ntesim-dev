@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "question": "Which packets and multiplicities belong to ordinary Daffodil Skill/Burst casts?",
+  "branch_budget_minutes": 10,
+  "total_investigation_budget_minutes": 15,
+  "sources": [
+    "data/extracted/guide_daffodil.json#/skills/1",
+    "data/extracted/guide_daffodil.json#/skills/2",
+    "data/extracted/neverness_daffodill.json#/skills/1",
+    "data/extracted/neverness_daffodill.json#/skills/2",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json#/rows/GE_Player_Daffodill_Skill1_Damage",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json#/rows/GE_Player_Daffodill_Skill2_Damage",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json#/rows/GE_Player_Daffodill_Skill5_Damage",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json#/rows/GE_Player_Daffodill_UltraSkill1_Damage",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json#/rows/GE_Player_Daffodill_UltraSkill2_Damage",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json#/rows/GE_Player_Daffodill_UltraSkill4_Damage",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json#/rows/GE_Player_Daffodill_UltraSkill5_Damage"
+  ],
+  "stop_condition": "Identify packets/multiplicities from saved descriptions and native arrays; use a disclosed bounded timing hypothesis if intervals are absent.",
+  "return_condition": "New timing/reachability evidence changes Resonance 2x Skill1 + 5x Skill2 + 1x Skill5 or Finale 3x UltraSkill1 + 3x UltraSkill2 + 7x UltraSkill4 + 1x UltraSkill5, Phantom Step, or Parry Attack.",
+  "decision": "Resonance describes 8 instances totaling 40.9%*2 + 33.7%*5 + 49.8% at Lv1, matching native Skill1 (2 hits), Skill2 (5 hits), and Skill5 (1 hit). Finale describes 14 instances totaling 49.3%*3 + 25.3%*3 + 51.1%*7 + 218.3% at Lv1, matching native UltraSkill1 (3 hits), UltraSkill2 (3 hits), UltraSkill4 (7 hits), and UltraSkill5 (1 hit). Require each action's primary packet; schedule children once after admission with the admitted effective native coordinate. Each hit settles independently; A1 Skill DMG bonus (+100%), Insight DMG bonus (+10%), and A6 DEF ignore (15%) apply consistently across relevant hits.",
+  "timing_hypothesis": "daffodil.skill_burst_packets_v1: ordered coincident delivery on target zero at selected primary impact time. This supports packet totals and ownership, not native frame timing. Same-time delivery precedes queued gear callbacks; timing-sensitive results retain this assumption.",
+  "checks": [
+    "Independent content damage oracles: at 1000 ATK/DEF.5/RES0, Skill levels 1/8/effective9 total 3001/2, 5145/2, 5145/1 (A1 +100% dmg bonus), 5556/1 (A3 resonance + A1); Burst levels 1/8/effective9 total 43989/10, 15081/2, 81433/10 (with Insight +10% dmg bonus and A3 resonance).",
+    "Pending horizons, off-field ownership, dead/lethal targets, rejected energy admission and alternate primary are checked. Strict requires matching hypothesis acceptance.",
+    "Description and native arrays agree at all nine levels. Public two-Skill/one-Burst rotation produces 30 hits and spends 120 energy once; CLI/WASM/Worker agree. Full content, relevant character/gear web suites, replay and modeled awakening verifier pass.",
+    "No full kit/readiness claim. Normal chains, Phantom Step charges, Parry Attack extra damage, Break accumulation and full awakening mechanics remain pending."
+  ],
+  "reference_sha256": {
+    "data/extracted/neverness_daffodill.json": "d1a16a7feda253c23075528907da77ddf435455ced9dbee8530cf9a32bb95f34",
+    "data/extracted/guide_daffodil.json": "0faa68b96c2f1afb1576d2a89bfbbaa227e8f820d03f6532860b182971dc23ab",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json": "917b0c3675412c0425a0724d09e7dd8ae4d1ef9a100d2ea5669d7484d0901bf2"
+  }
+}

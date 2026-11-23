@@ -1,0 +1,16 @@
+# Lost Radiance 4pc: one pre-window hit, then the Ultimate-triggered 20s DEF-ignore window.
+# The caller-timing profile uses 800ms Normal recovery and 2s Ultimate recovery.
+# Ultimate admission is at 1.3s; a Normal at 20.5s is inside the window, the next
+# begins at the exact 21.3s expiry, and the final one begins after expiry.
+options iteration=1 duration=23 crit=fixed;
+mint char lvl=80/80 awakening=0 talent=8,8,8 qte=8;
+mint add cartridge=lostradiance count=4;
+target hp=10000000 def=1080 resist=0;
+active mint;
+mint attack;
+wait(0.5);
+mint burst;
+wait_until(20.5);
+mint attack;
+mint attack;
+mint attack;

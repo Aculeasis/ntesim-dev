@@ -1,0 +1,156 @@
+{
+  "schema_version": 1,
+  "status": "implemented",
+  "owner": "blackbird",
+  "character_id": "character:1042",
+  "scope": "A0 Normal → Skill → Burst → Normal continuing rotation",
+  "scenario": {
+    "level": 80,
+    "talent_levels": [8, 8, 8],
+    "awakening": 0,
+    "atk": 1000,
+    "target": {
+      "level": 80,
+      "defense": 1080,
+      "resistance": 0,
+      "hp": 10000000
+    },
+    "starting_energy": 0,
+    "energy_capacity": 100,
+    "actions": [
+      "six complete five-input Normal chains before Burst (30 inputs, 102 delivered hits)",
+      "one four-hit Skill packet train",
+      "one 100-energy nine-hit Burst packet train",
+      "one five-input Normal chain during the 15-second Requies Animarum ATK buff (17 delivered hits)"
+    ],
+    "modeled_timeline_us": {
+      "normal_inputs": "0 through 23200000 in 800000us steps",
+      "skill_start": 24000000,
+      "burst_start": 25200000,
+      "post_burst_normal_inputs": "27200000 through 30400000 in 800000us steps",
+      "horizon": 36000000
+    },
+    "caller_timing_hypothesis": {
+      "id": "actions.caller_timing_v1",
+      "attack_recovery_us": 800000,
+      "skill_recovery_us": 1200000,
+      "skill_cooldown_us": 6000000,
+      "burst_recovery_us": 2000000,
+      "burst_cooldown_us": 20000000,
+      "admission_note": "Burst starts exactly at the Skill recovery deadline; the shared timing gate admits at equality (it rejects only when now_us < locked_until_us)."
+    }
+  },
+  "damage_oracle": {
+    "defense_factor": "1/2",
+    "normal_chain_damage": 4735,
+    "normal_chains_before_burst": 6,
+    "normal_damage_before_burst": 28410,
+    "post_burst_normal_chain_damage": 5682,
+    "post_burst_normal_chain_buff": "Requies Animarum +20% ATK, active until 40200000us",
+    "total_normal_damage": 34092,
+    "skill_damage": 3428,
+    "burst_damage": 4320,
+    "total_damage": 41840,
+    "horizon_dps_exact": "10460/9",
+    "horizon_us": 36000000,
+    "hit_count": 132,
+    "packet_damage": {
+      "normal_per_chain": [
+        203,
+        417.5,
+        417.5,
+        258,
+        258,
+        258,
+        258,
+        221,
+        221,
+        221,
+        221,
+        221,
+        312,
+        312,
+        312,
+        312,
+        312
+      ],
+      "skill": [857, 857, 857, 857],
+      "burst": [480, 480, 480, 480, 480, 480, 480, 480, 480],
+      "buffed_normal_continuation": [243.6, 501, 501, 309.6, 309.6, 309.6, 309.6, 265.2, 265.2, 265.2, 265.2, 265.2, 374.4, 374.4, 374.4, 374.4, 374.4]
+    }
+  },
+  "energy_oracle": {
+    "hypothesis_id": "blackbird.ordinary_hit_energy_v1",
+    "charge_milli": {
+      "normal_per_chain": [
+        838,
+        1726,
+        1726,
+        1066,
+        1066,
+        1066,
+        1066,
+        913,
+        913,
+        913,
+        913,
+        913,
+        1289,
+        1289,
+        1289,
+        1289,
+        1289
+      ],
+      "normal_chain_total": 19564,
+      "skill": [1890, 1890, 1890, 1890],
+      "skill_total": 7560,
+      "burst": []
+    },
+    "normal_chain_count": 7,
+    "source_total_milli": 144508,
+    "source_distribution": "1/1",
+    "ally_distribution": "3/5",
+    "expected_final": {
+      "blackbird": {
+        "generated": 144,
+        "overflow": 24,
+        "spent": 100,
+        "energy": 20,
+        "charge_remainder": "127/250"
+      },
+      "ally": {
+        "generated": 86,
+        "overflow": 0,
+        "spent": 0,
+        "energy": 86,
+        "charge_remainder": "881/1250"
+      }
+    }
+  },
+  "implementation": [
+    "crates/content/src/simulation/tests/blackbird_actions.rs",
+    "web/tests/combat/blackbird_actions.mjs",
+    "examples/blackbird-zero-start-continuation.nte",
+    "docs/mechanics/known/characters/blackbird/action-damage.md"
+  ],
+  "validation": {
+    "focused_checks": [
+      {
+        "command": "python tools/cargo.py test -p ntesim-content blackbird_empty_start_normal_skill_burst_rotation_reconciles_damage_and_energy",
+        "status": "passed"
+      },
+      {
+        "command": "node tools/web.mjs test tests/character_actions.test.mjs",
+        "status": "passed"
+      }
+    ],
+    "coverage": "WASM execution, native CLI parity, actual Worker parity, independent damage and energy receipts",
+    "full_checkpoint": "run on this stable tree before commit"
+  },
+  "limits": [
+    "The energy grants use the existing blackbird.ordinary_hit_energy_v1 hypothesis; this integration does not add or strengthen its native caller, eligibility, cadence, recipient, or off-field claims. The 123 Normal and Skill packet hits per recipient grant ChargeAdd; the nine Burst hits grant none.",
+    "Only A0 level-eight Normal, Skill, and Burst packets are included. Burst is an energy spender and does not grant energy.",
+    "Evolve transitions, Malice, AirAttack/riposte, Branch actions, and other alternate-form or summon sources remain unsupported.",
+    "Passing focused checks and the repository checkpoint validate only the named modeled scenario; they do not turn the adapter or caller-timing hypotheses into native-game facts."
+  ]
+}

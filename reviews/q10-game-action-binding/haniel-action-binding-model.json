@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "scope": "Haniel native primary action packet binding across Normal, Skill, and Ultimate",
+  "quality": "partial executable model; complete kit pending",
+  "sources": [
+    "data/extracted/guide_haniel.json",
+    "data/extracted/neverness_haniel.json",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json",
+    "data/global-2026-10-04/tables/1020AwakenEffect.json"
+  ],
+  "model": [
+    "GA_Haniel_Melee public primary packet is GE_Player_Haniel_Melee1_Damage. Native coefficients at Normal levels 1/8/9 are 0.419/0.718/0.776; category A/PSYCHE metadata stays source-bound.",
+    "GA_Haniel_Skill delivers 2 instances of GE_Player_Haniel_Skill1_Damage (1 primary + 1 child) under coincident timing hypothesis haniel.skill_burst_packets_v1. Native coefficients at Skill levels 1/8/9 are 1.000/1.714/1.851; category E/PSYCHE metadata stays source-bound.",
+    "GA_Haniel_UltraSkill public primary packet is GE_Player_Haniel_Ultraskill1_Damage. Native coefficients at Burst levels 1/8/9 are 3.000/5.141/5.553; category Q/PSYCHE metadata stays source-bound. on_cast enters Paranormal Ace state for 10s at every awakening. At A3, grants +20% Crit Rate. At A5, grants +30% Psyche DMG bonus. At resonance_6 (six selected effects), grants all allies +12% Crit Damage bonus.",
+    "Resonance 3 activates at awakening >= 3 and adds +1 level to Melee, Skill, and UltraSkill without manual overrides.",
+    "Existing A2 Hootie duration extension (8s to 12s), A3 Crit Rate buff (+20%), A5 Psyche DMG bonus (+30%), and resonance_6 team Crit Damage buff (+12%) remain preserved as partial kit models.",
+    "Canonical arbitrary selections gate Hootie duration (Effect2), Ace Crit Rate (Effect3) and Ace Psyche bonus (Effect5) by identity; skill resonance_3 and team Crit DMG resonance_6 use count. Independent selected-effect checks distinguish [3], [5], [6] and [1,4,5]; a 9-second continuing Normal after Skill proves [2] preserves the .10 base-ATK Hootie grant while [5] has expired it. Effect6 native Hootie cooldown reduction remains pending alongside Ensemble and summon mechanics."
+  ],
+  "pending": [
+    "Full attack sequences (Melee2..Melee5, Branch, AirAttack), buff recipients/capture/clock, and complete kit interactions."
+  ],
+  "checks": [
+    "haniel_actions tests passed: independent damage oracles at 1000 ATK, 0 RES verify Normal (419/2, 359/1, 388/1 at A3 resonance), Skill 2 hits (1000/1, 1714/1, 1851/1 at A3 resonance), Burst (1500/1, 5141/2, 5553/2 at A3 resonance), A3 Crit Rate buff (1/4), and A5 Psyche DMG bonus (72189/20).",
+    "Off-field delivery attributes hits to Haniel; dead target settles 0 hits; horizon boundaries preserve pending events; strict mode requires explicit accepted hypothesis haniel.skill_burst_packets_v1.",
+    "web/tests/combat/haniel_actions.mjs passes with native CLI/WASM/Worker parity, including 5-hit two-Skill/one-Burst rotation with 100 spent energy.",
+    "tools/verify_haniel_kit.py passes 5 awakening cases with 5 settled hits and monotonic damage/crit progression.",
+    "TypeScript and production build pass. Frozen source hashes match the identities below."
+  ],
+  "source_sha256": {
+    "data/extracted/guide_haniel.json": "f458f33f7919a1c7e1617ddde08fade9672990d63f546aa3f37d0a86582e2c0a",
+    "data/extracted/neverness_haniel.json": "d74f454ce1b6bc873ca3bedd200f1f31bc99a1f0b3ecd08d8d01e1715cd76980",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json": "917b0c3675412c0425a0724d09e7dd8ae4d1ef9a100d2ea5669d7484d0901bf2",
+    "data/global-2026-10-04/tables/1020AwakenEffect.json": "2c599bcc271466b4c870de90aeb1e4bafc08e23269fbd15a3250ac8f86f284e1"
+  }
+}

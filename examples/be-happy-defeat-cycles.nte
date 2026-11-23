@@ -1,0 +1,21 @@
+options iteration=1 duration=45 crit=fixed seed=42;
+
+skia char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_energy=100 start_hp%=0.25;
+skia add weapon=fork_vine refine=1;
+
+# Anonymous dummies: a surviving primary, two simultaneous first defeats,
+# and a target defeated by the second spread.
+target hp=100000000 def=0 resist=0;
+target hp=1 def=0 resist=0;
+target hp=2 def=0 resist=0;
+target hp=4000 def=0 resist=0;
+active skia;
+
+# Only the spread hits every living dummy; the three converge bites and all
+# ordinary attacks stay on the primary. Simultaneous defeats grant one heal.
+skia burst;
+skia attack:30;
+
+# Connected Normal packets pay for the next Burst. The original 20s healing
+# cooldown has elapsed, so the later spread defeat grants a second heal.
+wait_until(40); skia burst;

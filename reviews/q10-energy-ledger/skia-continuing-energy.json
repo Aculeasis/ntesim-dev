@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "status": "implemented",
+  "owner": "skia",
+  "character_id": "character:1008",
+  "hypotheses": [
+    "skia.ordinary_hit_energy_v1",
+    "skia.normal_chain_v1",
+    "skia.skill_burst_packets_v1"
+  ],
+  "scenario": {
+    "source": "five five-input Normal chains, two Skills, one 100-energy Burst from zero energy, then one Normal continuation chain",
+    "starting_energy": 0,
+    "energy_capacity": 100,
+    "charge_efficiency": "1/1",
+    "other_living_recipient_relation": "3/5",
+    "cost": "Burst spends 100 energy once",
+    "timing": "Normal inputs use 800ms recovery at 0..19.2s for buildup and 35.2..38.4s for continuation; Skills start at 20s and 26s with 1.2s recovery and 6s cooldown; Burst starts at 27.2s with 2s recovery. Rust and compiled NTE assert the same 40s-horizon schedule.",
+    "receipts": {
+      "normal_packets": 54,
+      "skill_packets": 12,
+      "burst_packets": 4,
+      "total_hit_packets": 70,
+      "energy_source_packets": 66
+    }
+  },
+  "independent_oracle": {
+    "normal_charge_add_milli_per_chain": [2525, 306, 306, 1572, 2667, 3820, 3250, 2448, 4606],
+    "skill_charge_add_milli_per_packet": [1080, 1080, 1080, 1080, 166, 914],
+    "burst_charge_add_milli_per_packet": 0,
+    "pre_burst_charge_add": "5*21.500 + 2*5.400 = 118.300",
+    "pre_burst_settlement": "118 whole source energy, 18 overflow at capacity 100; Burst spends 100",
+    "post_burst_normal_chain": "21.500 additional ChargeAdd; total generated is 139, overflow remains 18 from buildup, ending at 21 energy and 4/5 carry",
+    "source_final": {
+      "granted": 139,
+      "spent": 100,
+      "overflow": 18,
+      "energy": 21,
+      "charge_remainder": "4/5"
+    },
+    "each_other_living_recipient_final": {
+      "relation": "3/5",
+      "granted": 83,
+      "energy": 83,
+      "charge_remainder": "22/25"
+    },
+    "level_8_damage_at_1000_atk_and_0_5_defense_multiplier": {
+      "normal_five_input_chain": "4431/2",
+      "skill_cast_six_packets": 1285,
+      "burst_four_packets": 4284,
+      "total": "6*(4431/2) + 2*1285 + 4284 = 20147"
+    },
+    "values_are_literal_test_expectations": true
+  },
+  "checks": [
+    "Focused Rust ordinary_hit_energy::owner_rotations tests assert all 70 packet identities and damage values, all 66 per-packet ChargeAdd grants, the 100-energy cost, source/ally ledgers, capacity/overflow, and continuation.",
+    "Authored NTE is checked through WASM and the actual browser Worker; native CLI parity, observations, aggregation and replay reconcile with independent damage and energy ledgers.",
+    "Focused checks passed: python tools/cargo.py test -p ntesim-content ordinary_hit_energy::owner_rotations -- --nocapture; node tools/web.mjs test web/tests/ordinary_hit_owner_rotations.test.mjs. Stable-tree checkpoint pending."
+  ],
+  "limits": [
+    "skia.ordinary_hit_energy_v1 remains a bounded eligibility, positive-HP-loss, recipient and off-field ownership hypothesis; native caller evidence is unavailable.",
+    "Normal chain reset/delivery and coincident Skill/Burst packet timing use existing owner hypotheses, not native animation measurements.",
+    "Only A0 ordinary Normal/Skill/Burst inputs are exercised. Fang Thrust mark consumption, AirAttack/riposte, shadow clones, Shadow Hound Gnaw, alternate forms and complete awakening behavior remain outside the sequence.",
+    "The browser compiles authored inputs into a fixed timeline; this does not establish live readiness waits or a shared live interpreter."
+  ],
+  "source_sha256": {
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json": "917b0c3675412c0425a0724d09e7dd8ae4d1ef9a100d2ea5669d7484d0901bf2",
+    "data/global-2026-10-04/tables/DT_SkillTeamChargeRelationData.json": "5e456919997b0f77c4b569ce812267a059bab553a1f87fcb863723c44b66363b",
+    "reviews/q10-game-action-binding/skia-normal-chain.json": "4ef8d30144aa73a182c2ee8a4d63c9d388e6d8ba10bd1b46579de4e68eab855d",
+    "reviews/q10-game-action-binding/skia-skill-burst-packets.json": "8d4677aadc19f9903107cdfad68fea6b556a000d83144c47e4dcbe2b74590d43"
+  }
+}

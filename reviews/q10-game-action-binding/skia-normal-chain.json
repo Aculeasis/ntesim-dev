@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "scope": "Skia ordinary five-input Normal chain in the shared gameplay runner",
+  "quality": "executable modeled chain; complete kit pending",
+  "hypothesis_id": "skia.normal_chain_v1",
+  "sources": [
+    "data/extracted/neverness_skia.json: GA_Skia_Melee_1_des through Melee_5_des",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json: GE_Player_Skia_Melee1_Damage, Melee2_Damage and Melee4_Damage through Melee9_Damage",
+    "reviews/q10-game-action-binding/skia-action-binding-model.json: frozen source hashes"
+  ],
+  "decision": "Five admitted inputs deliver Melee1; Melee2 x2 followed by Melee4; Melee5 followed by Melee6; Melee7; Melee8 followed by Melee9. Native packet names do not follow stage numbering. Published coefficients establish this mapping at all nine levels. The five stages deliver nine hits and loop with effective talent projection including resonance_3.",
+  "hypotheses": [
+    "A different admitted ability or field exit resets the chain; a same-actor switch does not.",
+    "A gap greater than 2 seconds between input starts resets the chain; the exact boundary continues. This is a tested continuity convention pending animation/cancel evidence.",
+    "Each stage delivers ordered coincident packets at the research primary impact timestamp; travel, AoE and animation intervals remain unresolved."
+  ],
+  "independent_oracles": [
+    "1000 ATK, 0 RES and 0.5 DEF factor: level-one stages deal 152, 18.5*2+94.5, 160.5+229.5, 195.5, 147+277. Five inputs total 1293; sixth looping input gives 1445.",
+    "Level-eight stages deal 260.5, 31.5*2+162, 275+393.5, 335, 252+474.5. Five inputs total 2215.5; sixth gives 2476.",
+    "Purchased level eight at A3 projects level nine: 281.5, 34*2+175, 297+425, 362, 272+512.5. Five inputs total 2393; sixth gives 2674.5."
+  ],
+  "checks": [
+    "python tools/check.py -- python tools/verify_normal_chain_sources.py verifies source hashes and ordered coefficient multiplicity at all nine published levels.",
+    "Native damage tests verify every stage, packet identity, multiplicity, loop and effective talent projection at levels 1, 8 and A3.",
+    "Native causal tests verify ability/field/gap resets, no-op switches, strict hypothesis acceptance and all three second-stage packets settling after field exit at the exact horizon.",
+    "Public attack:5 scripts verify independent per-packet and total damage through Worker/WASM with complete native report parity."
+  ],
+  "pending": [
+    "Measured reset/cancel rules and packet intervals; return when frozen animation evidence supplies a concrete model.",
+    "Shadow Hound Gnaw, shadow clones, Fang Thrust mark consumption, ordinary energy, AoE, travel, plunge, riposte and remaining kit behavior."
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "name": "Film - MANISH on profile-produced Broken targets",
+  "content_id": "ntesim-current",
+  "cutoff": "2026-10-04",
+  "region": "Global",
+  "status": "modeled_hypothesis",
+  "owner": "weapon:fork_jiaojuan",
+  "source_receipt": "reviews/q1-jiaojuan/receipt.json",
+  "source_passive_key": "buff_fork_jiaojuan_effect",
+  "hypothesis_ids": [
+    "combat.unbal_value_as_target_gauge_v1",
+    "weapons.jiaojuan_v1",
+    "edgar.normal_chain_v1"
+  ],
+  "runtime_policy": {
+    "target_profile": "Only targets with an explicit exact break_profile run the content Broken lifecycle; omitted profiles remain unbreakable in this model.",
+    "break_order": "A positive-damage packet subtracts its frozen UnbalValue under the gauge hypothesis. Reaching zero applies the content-owned Broken tag after that packet's hit callback, so the packet that triggers Break cannot receive the Jiaojuan conditional bonus.",
+    "conditional_bonus": "The projected Jiaojuan Broken ratio joins the additive damage-bonus zone only on packet callbacks while the target's Broken tag is active.",
+    "recovery": "At configured broken_duration_us the Broken tag is removed and gauge restores to capacity; a later packet has no conditional damage bonus.",
+    "excluded": "No Break Damage, BI settlement, native target profile, gauge conversion, native eligibility, native recovery, or release-availability claim is added."
+  },
+  "independent_oracles": [
+    "T1 buff_oulaquantao_Up binds to 1/10 from the frozen refinement curve. Edgar level-eight normal coefficients are [0.530, 1.075, 0.668, 1.428, 1.196]; frozen UnbalValue for M1/M2 is 0.390/0.792.",
+    "With explicit capacity 1, current gauge 1/2 and 2,000,000 us Broken duration, M1 leaves 11/100 gauge and M2 reaches zero. Under the runner event order, only later M3/M4 packets get Jiaojuan's 11/10 damage ratio; the M5 packet after recovery matches the proc-less run.",
+    "At 1000 ATK, zero DEF and zero RES, the six settled Edgar receipts are 530, 1075, 3674/5, 3674/5, 7854/5 and 1196. The independent values follow the frozen coefficients and T1 additive-zone ratio.",
+    "Rust scenario assertions verify exact hit values, the single Broken transition and recovery deadline. Browser checks verify the same ratios, target-state timeline, replay aggregation, Worker parity and optional native parity."
+  ],
+  "unresolved_native_behavior": [
+    "Native enemy target gauge/profile, UnbalValue units, efficiency and recovery policy.",
+    "Which native target state makes a unit Broken and whether the conditional bonus includes the hit that triggers Broken.",
+    "Native Break Damage and static Break Intensity settlement, including multiple sources.",
+    "Global release availability of the weapon in the frozen catalog."
+  ],
+  "runtime_execution_validated": true
+}

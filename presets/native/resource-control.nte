@@ -1,0 +1,23 @@
+# Initial owner accounts remain independent of energy and Cycle.
+options duration=33 iteration=1 seed=42 stamina_capacity=40 initial_stamina=30 stamina_use_efficiency=1 stamina_recovery_rate=5;
+jiuyuan char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_bullets=4 start_energy=0;
+daffodil char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_resonance=2;
+lacrimosa char lvl=80/80 awakening=0 talent=1,1,1 qte=1;
+nanally char lvl=80/80 awakening=0 talent=1,1,1 qte=1;
+target hp=100000000 def=0 resist=0;
+active jiuyuan;
+if .nanally.authority.active || .nanally.underboss.active
+    || .nanally.mods.authority!=0 || .nanally.mods.underboss!=0 {wait(99);}
+if .team.stamina!=30 || .team.staminamax!=40 || .jiuyuan.aiming.active
+    || !.lacrimosa.ranged.active || .lacrimosa.melee.active {wait(99);}
+if .jiuyuan.resources.bullets!=4 || .jiuyuan.energy!=0 || .jiuyuan.resources.cycle!=0 {wait(99);}
+if .daffodil.resources.resonance!=2 || .daffodil.resources.phantom_steps!=0
+    || .daffodil.eyes.active || .daffodil.phantom_handle.active || .daffodil.mods.eyes!=0 {wait(99);}
+jiuyuan skill;
+if .jiuyuan.resources.bullets!=6 {wait(99);}
+wait_until(20);
+# The due Pact tick settles before this ordinary input at the same timestamp.
+jiuyuan skill;
+if .jiuyuan.resources.bullets!=6 {wait(99);}
+
+if .team.stamina!=40 || .team.staminamax!=40 || .jiuyuan.aiming.active {wait(99);}

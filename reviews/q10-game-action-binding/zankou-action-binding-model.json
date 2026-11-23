@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "scope": "Zankou ordinary five-input Normal chain in the shared gameplay runner",
+  "quality": "executable modeled chain; remaining kit pending",
+  "hypothesis_id": "zankou.normal_chain_v1",
+  "sources": [
+    "data/extracted/neverness_zankou.json: GA_Zankou_Melee_1_des through GA_Zankou_Melee_5_des",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json: GE_Player_Zankou_Melee1_Damage through Melee6_Damage",
+    "data/global-2026-10-04/tables/DT_GameplayAbilityTipsData.json: GA_Zankou_Melee describes up to five consecutive attacks",
+    "data/global-2026-10-04/tables/1036AwakenEffect.json: resonance_3 adds one skill level to GA_Zankou_Melee"
+  ],
+  "decision": "Model the ordinary Normal chain at A0 as five admitted inputs with packet groups [Melee1, Melee1_1], [Melee2], [Melee3, Melee3_1, Melee3_2], [Melee4, Melee4_1, Melee4_2, Melee4_3, Melee4_4], [Melee5, Melee5, Melee5_1, Melee5_1, Melee5_2, Melee6]. All seventeen source rows use native ATK ratios and Incantation metadata. The native source and Neverness display ratios agree at every published level 1-9.",
+  "hypotheses": [
+    "A different admitted ability or field exit resets the chain; a same-actor switch does not.",
+    "A gap greater than 2 seconds between input starts resets the chain; exactly 2 seconds continues.",
+    "The ordered packets within a multi-hit stage deliver at the primary impact timestamp; animation intervals and travel remain unresolved."
+  ],
+  "independent_oracles": [
+    "At 1000 ATK and the level-80 target DEF factor 0.5, the level-1 seventeen-hit chain is 79 + 137 + 176 + 289 + 91.5 + 176.5 + 341 + 123.5 + 114 + 261 + 51.5 + 182 + 182 + 63 + 63 + 482.5 + 317 = 3129.5 damage.",
+    "At the same conditions, the level-8 chain is 135.5 + 235 + 301.5 + 495.5 + 157 + 302.5 + 584.5 + 211.5 + 195.5 + 447.5 + 88.5 + 312 + 312 + 108 + 108 + 827 + 543.5 = 5365 damage.",
+    "At purchased level 8 with resonance_3 and A1 active, the projected level-9 chain with 1.4 damage multiplier is 204.4 + 354.9 + 456.4 + 749 + 237.3 + 457.1 + 883.4 + 319.9 + 295.4 + 676.2 + 133.7 + 471.8 + 471.8 + 163.1 + 163.1 + 1250.2 + 821.1 = 8108.8 damage."
+  ],
+  "checks": [
+    "Focused native tests verify all packet effects, exact per-hit damage, Incantation/category metadata, chain looping, resonance level projection, and invariance to Zankou HP, current HP, and DEF.",
+    "The normal-chain source verifier compares all nine published ratio levels to the seventeen frozen native ATK arrays.",
+    "Public five-input rotation checks use CLI/WASM/Worker parity and exact damage totals; strict mode requires the matching chain hypothesis."
+  ],
+  "pending": [
+    "Skill and UltraSkill DoT applications, MagicMelee, Branch, plunge, riposte, team passives, timing evidence and the rest of Zankou's kit."
+  ],
+  "source_sha256": {
+    "data/extracted/neverness_zankou.json": "b50a554b346b8b1526e689726e1d7b21c76ede22cd87a31408f2c44d222a0d4b",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json": "917b0c3675412c0425a0724d09e7dd8ae4d1ef9a100d2ea5669d7484d0901bf2",
+    "data/global-2026-10-04/tables/DT_GameplayAbilityTipsData.json": "5c0a0f929376891c033451a25208b55747c43e6bbb24b75506eb0ff50a23584f",
+    "data/global-2026-10-04/tables/1036AwakenEffect.json": "3d367ec8bde1f3f5749d4b58fd4fad4139c80f61fc21fdd10fd5571a2edb4636"
+  },
+  "awakening_selection": "Effect1 Hunt/Delusion, Effect2/4 Kindling and Effect6 final-hit damage use selected identity. Talent/ratio resonance_3 and timed ATK/Scorch resonance_6 remain count-based."
+}

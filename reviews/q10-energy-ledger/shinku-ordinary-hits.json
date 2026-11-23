@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "status": "modeled_and_tested",
+  "source_sha256": {
+    "data/global-2026-10-04/tables/DT_GameplayAbilityTipsData.json": "5c0a0f929376891c033451a25208b55747c43e6bbb24b75506eb0ff50a23584f",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json": "917b0c3675412c0425a0724d09e7dd8ae4d1ef9a100d2ea5669d7484d0901bf2",
+    "data/global-2026-10-04/tables/DT_SkillTeamChargeRelationData.json": "5e456919997b0f77c4b569ce812267a059bab553a1f87fcb863723c44b66363b"
+  },
+  "owners": [{
+    "owner": "shinku",
+    "character_id": "character:1076",
+    "hypothesis_id": "shinku.ordinary_hit_energy_v1",
+    "element": "COSMOS",
+    "packets": {
+      "Melee": {
+        "effects": ["GE_Player_Shinku_Melee1_1_Damage", "GE_Player_Shinku_Melee1_2_Damage", "GE_Player_Shinku_Melee1_2_1_Damage", "GE_Player_Shinku_Melee1_3_Damage", "GE_Player_Shinku_Melee1_3_1_Damage", "GE_Player_Shinku_Melee1_3_2_Damage", "GE_Player_Shinku_Melee1_3_3_Damage", "GE_Player_Shinku_Melee1_4_Damage", "GE_Player_Shinku_Melee1_4_1_Damage", "GE_Player_Shinku_Melee1_5_Damage"],
+        "charge_milli": [760, 1285, 853, 1225, 724, 820, 1753, 3399, 2075, 4706],
+        "total_milli": 17600
+      },
+      "Skill": {
+        "effects": ["GE_Player_Shinku_Skill1_1_Damage", "GE_Player_Shinku_Skill1_2_Damage", "GE_Player_Shinku_Skill1_3_Damage"],
+        "charge_milli": [750, 1000, 3450],
+        "total_milli": 5200
+      }
+    },
+    "source_distribution": "1/1",
+    "living_ally_distribution": "3/5"
+  }],
+  "decision": "Bind ordinary Normal/Skill packets outside the Charge reaction to shared exact team energy.",
+  "hypothesis_rationale": "Frozen ChargeAdd and element-relation rows supply exact constants. Delivery-time positive HP loss, living recipients, efficiency, carry and off-field eligibility reuse the shared tested hypothesis. DT_GameplayAbilityTipsData.GA_Shinku_Passive_1 labels equal off-field Charge as Charge Enhancement; it is treated as reaction-scoped and is not substituted for ordinary Ultimate Energy distribution.",
+  "independent_oracles": [
+    "One ordinary chain grants 17.6 owner and 10.56 per ally energy before efficiency. Twelve chains grant 211.2 owner and 126.72 ally gross energy before capacity/spend.",
+    "One ordinary Skill grants 5.2 owner and 3.12 per ally energy before efficiency. The example totals 216.4 owner and 129.84 ally gross energy, spends 100 each and retains carries 0.4 and 0.84."
+  ],
+  "checks": [
+    "Shared Rust ordinary_hit_energy causal suite: per-recipient efficiency/carry, capacity/overflow, dead targets/recipients, zero HP loss, fatal delayed hit after switching, replay and strict hypothesis requirement.",
+    "Twelve ordinary chains plus Skill from empty pools fund owner and allied Mint Ultimates through current CLI/WASM/Worker, with exact per-packet oracle, observation validation, aggregation and replay.",
+    "Existing Shinku action/equipment damage and CLI energy oracle suites."
+  ],
+  "limits": [
+    "Charge reaction state and Shinku's equal off-field Charge, AoE and timed ATK stacking callbacks remain unsupported. Ordinary runs here reach no Charge state.",
+    "Menacing Gaze, Rage packets and resources, later Ultimate inputs, QTE and other attack branches remain pending; this does not establish a complete kit."
+  ],
+  "charge_enhancement_investigation": {
+    "source_pointer": "data/global-2026-10-04/tables/DT_GameplayAbilityTipsData.json: rows.GA_Shinku_Passive_1.AbilityDescription[0].Description",
+    "branch_budget_minutes": 10,
+    "total_budget_minutes": 10,
+    "stop_condition": "Ordinary packet constants and reaction-scoped description resolve this adapter's boundary without reverse-engineering native callers.",
+    "return_condition": "Implement Charge reaction admission/state first, then specify equal off-field Charge units, recipients, trigger/ICD and AoE/ATK lifecycle with independent checks."
+  }
+}

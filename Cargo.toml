@@ -1,0 +1,59 @@
+[workspace]
+members = ["crates/contracts", "crates/core", "crates/data", "crates/content", "crates/research", "crates/cli", "crates/wasm"]
+resolver = "3"
+
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.98.1"
+license = "MIT"
+authors = ["ntesim contributors"]
+description = "Universal, auditable combat and damage simulator for Neverness to Everness (NTE)"
+readme = "README.md"
+
+[workspace.dependencies]
+serde = { version = "=1.0.228", features = ["derive"] }
+serde_json = { version = "=1.0.145", features = ["arbitrary_precision", "float_roundtrip"] }
+sha2 = "=0.10.9"
+ntesim-contracts = { path = "crates/contracts" }
+ntesim-core = { path = "crates/core" }
+ntesim-wasm = { path = "crates/wasm" }
+
+ntesim-data = { path = "crates/data" }
+ntesim-content = { path = "crates/content" }
+ntesim-research = { path = "crates/research" }
+clap = { version = "4.6.7", features = ["derive"] }
+
+[profile.dev]
+debug-assertions = true
+overflow-checks = true
+
+[profile.dev.package.serde_json]
+opt-level = 2
+
+[profile.dev.package.sha2]
+opt-level = 2
+
+[profile.dev.package.ntesim-data]
+opt-level = 1
+
+[profile.dev.package.ntesim-core]
+opt-level = 1
+
+[profile.dev.package.ntesim-content]
+opt-level = 1
+
+[profile.dev.package.ntesim-cli]
+opt-level = 1
+
+[profile.release]
+opt-level = 3
+lto = "thin"
+codegen-units = 1
+panic = "abort"
+strip = true
+
+[profile.profiling]
+inherits = "release"
+debug = 2
+strip = "none"

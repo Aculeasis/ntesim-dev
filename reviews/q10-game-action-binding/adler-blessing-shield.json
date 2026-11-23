@@ -1,0 +1,96 @@
+{
+  "schema_version": 1,
+  "name": "Adler Blessing shield settlement",
+  "hypothesis_id": "adler.blessing_shield_v1",
+  "status": "bounded_modeled_hypothesis",
+  "scope": "GA_Adler_Skill admission and primary packet only; live actor shield capacity/absorption and Solifugae Vita delivery-time ATK interaction.",
+  "cutoff": "2026-10-04",
+  "content_id": "ntesim-current",
+  "native_evidence": [
+    {
+      "source": "data/ntesim-current/tables/DT_AdlerEffectFigure.json",
+      "rows": [
+        "Adler_SkillShield_base",
+        "Adler_SkillShield_cofficient",
+        "Adler_SkillShield_time",
+        "Adler_SkillShield_lv6_time"
+      ],
+      "finding": "Frozen native curves provide flat and DEF-scaled capacity plus standard and Awakening Effect6 duration; the coefficient row spelling follows source."
+    },
+    {
+      "source": "data/ntesim-current/tables/DT_GameplayAbilityTipsData.json",
+      "row": "GA_Adler_Skill",
+      "finding": "Skill description identifies Adler Blessing shield behavior; admission is bound to the native Skill action."
+    },
+    {
+      "source": "data/ntesim-current/tables/DT_GameplayEffectMappingData.json",
+      "row": "GE_Player_Adler_Skill_Shield",
+      "finding": "Native gameplay effect mapping identifies the shield effect associated with Blessing."
+    },
+    {
+      "source": "data/ntesim-current/tables/1033AwakenEffect.json",
+      "rows": [
+        "Effect3",
+        "Effect4",
+        "Effect6",
+        "resonance_6"
+      ],
+      "finding": "Effect3 states Blessing shield capacity +20%; Effect4 states overflow absorption based on 50% Adler DEF at break; Effect6 extends Blessing duration to 12 seconds. The separate resonance_6 row grants team Incantation DMG +10% while protected. These descriptions do not establish simulator settlement details."
+    },
+    {
+      "source": "data/ntesim-current/tables/DT_AttributeStaticData.json",
+      "row": "DamageUpIncantationBase",
+      "finding": "Native attribute metadata labels this property Incantation DMG Bonus. It is the matching native-style additive damage-bonus property; the resonance_6 blueprint mapping itself remains unavailable."
+    },
+    {
+      "source": "data/extracted/guide_adler.json",
+      "finding": "Frozen published extraction; no shield-capacity trace used as numeric authority."
+    },
+    {
+      "source": "data/extracted/neverness_adler.json",
+      "finding": "Frozen published extraction; no shield-capacity trace used as numeric authority."
+    }
+  ],
+  "tested_hypotheses": [
+    "Successful Skill admission snapshots the active actor as recipient and exact effective DEF (base DEF after static+live DEF percent, then static+live flat DEF); failed admission schedules no grant.",
+    "Effective native Skill level selects flat and coefficient curves, including resonance 3; capacity is flat + coefficient * captured DEF.",
+    "Grant callback adds Adler static and live outgoing ShieldEfficiency, plus A3 0.2, in one additive shield-capacity zone; recipient outgoing efficiency does not contribute. This A3 stacking/zone rule is a tested hypothesis, not established by native text.",
+    "Round once after capacity and shield-efficiency factors; replacement is per (Adler source, captured recipient), preserving other shield sources.",
+    "Settled shield persists through switching; Adler source death after grant does not remove capacity; recipient death clears; expiry is half-open.",
+    "Solifugae Vita reads a positive, nonexpired shield on the living wearer at packet delivery and adds its frozen refinement percentage to live base-ATK-scaled ATK.",
+    "At hit delivery, a living R6 Adler grants one additive +10 percentage-point Incantation damage bonus to all team Incantation packets while any living actor holds that Adler source's positive, nonexpired Blessing shield. The packet owner and active field actor do not affect eligibility; shield depletion, half-open expiry, recipient death or source Adler death removes the bonus. Multiple eligible sources enable the same single +10% contribution without stacking. This is a tested bounded hypothesis based on 1033AwakenEffect.json resonance_6 text; the referenced Buff_Adler033_Level6_extra blueprint does not expose its property or protected-actor predicate in frozen evidence. DamageUpIncantationBase identifies the matching native-style stat, and the bonus is modeled in the additive damage-bonus zone.",
+    "Effect4 establishes the break trigger and a 50%-of-Adler-DEF basis. Because its referenced blueprint is unavailable, live settlement-time DEF instead of cast-time DEF, nearest-integer rounding, one-event cap, living-source eligibility, no ShieldEfficiency/A3 multiplier, no stored remainder, and first-broken-shield ordering across multiple sources are bounded choices. The chosen rule applies after ordinary shields and before HP/overkill; exact depletion records a zero amount. Expiry/removal/replacement do not trigger, and no shield/heal/revival is created."
+  ],
+  "remaining_gaps": [
+    "Native Skill Skill2/Skill3 activation, target, Blessing relationship and DoT timing remain unsupported; Burst repeats and the one-target branch remain unsupported. Other unmodeled Adler passives remain pending; this receipt does not claim complete kit behavior."
+  ],
+  "source_sha256": {
+    "data/ntesim-current/tables/DT_AdlerEffectFigure.json": "82c5d03e86f3f7b02db9b4a0432a90375624f2ba9c742f4caa1fdc0b570d33a8",
+    "data/ntesim-current/tables/DT_GameplayAbilityTipsData.json": "5c0a0f929376891c033451a25208b55747c43e6bbb24b75506eb0ff50a23584f",
+    "data/ntesim-current/tables/DT_GameplayEffectMappingData.json": "8852904aad6113a4406162d8912ccf55163ec24549b5bbe3b1ccd2db5ab2cbf8",
+    "data/ntesim-current/tables/DT_AttributeStaticData.json": "9cd2734e8ffbf6a5de542f3a9dc4c58e906e39c653d09d29c1d19e8103c79e3d",
+    "data/ntesim-current/tables/1033AwakenEffect.json": "cffec2770e9885089291628c3407d5386a0d536d76a63b05123a46934fa251f6",
+    "data/extracted/guide_adler.json": "3db5b0bd6013dc9117a5f4c20f21061cbc09506ea65ed6f2d0ce0764fc682b60",
+    "data/extracted/neverness_adler.json": "206697bb23abb0dfba41743a5af7b3889fe14e0a57dc8141a77ebef38da22778"
+  },
+  "independent_oracles": [
+    "Lv1 DEF1000 gives 1000 + 0.8*1000 = 1800; static ShieldEfficiency 0.2 gives 2160. Static 0.2 plus live 0.2 gives 2520 in one zone.",
+    "A3 with purchased Lv1 uses effective Lv2: (1080 + 0.86*1000)*(1 + 0.2 A3 + 0.2 static) = 2716. Purchased Lv8 gives 3084 at A0 and rounded 3997 at A3/effective Lv9.",
+    "Lv1 DEF1 and ShieldEfficiency 1/3 give 1000.8*4/3 = 1334.4, rounded once to 1334; rounding the base first would give 1335.",
+    "Snapshot DEF1000 with live 0.2 DEF and flat50 is 1250, producing shield2000 even after subsequent DEF modifiers change.",
+    "Solifugae T1 with base ATK1000 and compiled ATK2000 gives ATK2180 while shielded, not2360. Exact depletion and the half-open expiry remove the bonus.",
+    "A3 Blessing shield2328 from effective Lv2 at DEF1000 absorbs 400 of 2728 incoming damage with zero HP loss; 3000 incoming damage absorbs 500 more and loses172 HP. DEF1003 rounds the half-DEF cap to502. Exact depletion records zero effect absorption; the next hit has no cap.",
+    "R6 Adler effective Lv2 Melee1 at ATK1000, coefficient0.217 and zero DEF/RES gives325.5 with existing0.5 damage bonus,347.2 when R6 adds0.1, and238.7 with R6 alone. Protected Nature packets keep their original damage; team/off-field Sakiri packets with existing0.5 gain the independently expected16/15 ratio."
+  ],
+  "checks": [
+    "Focused Adler, Solifugae and Nacupeda native suites cover admission, snapshots, replacement, death, absorption, expiry, the R6 additive damage zone and source-shield eligibility.",
+    "Public Adler Skill/Normal with Solifugae and an exact-expiry Normal agree across refreshed native CLI, WASM and Worker reports; existing Adler and Nacupeda parity also pass.",
+    "Public R6 Adler Skill/Normal executes on refreshed native CLI, WASM and Worker with effective native coefficients and an independent additive damage expectation.",
+    "Source hashes match frozen bytes. Rust quality/format, TypeScript/format, scenario import/export, replay and offline checks pass."
+  ],
+  "limitations": [
+    "Global release/readiness is not promoted.",
+    "The receipt covers these modeled shield producers; it does not claim complete Adler A4/R6 behavior or complete kit coverage.",
+    "Solifugae Vita remains bounded to its existing wearer Group Five legality and frozen T1-T5 curves. Rainman remains pending."
+  ]
+}

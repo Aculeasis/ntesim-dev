@@ -1,0 +1,15 @@
+options iteration=1 duration=20 seed=42;
+
+baicang char lvl=80/80 awakening=5 talent=8,8,8 qte=8 start_energy=120;
+baicang add stats hp=12000 atk=1000 def=800 cr=0.25 cd=0.5 dmg%=0;
+
+sakiri char lvl=80/80 awakening=1 talent=8,8,8 qte=8 start_energy=120;
+sakiri add stats hp=5600 atk=830 def=500 cr=0.05 cd=0.5 dmg%=0;
+
+target lvl=80 hp=10000000 max_hp=10000000 def=1080 resist=0.2;
+
+active baicang;
+
+baicang burst;
+sakiri swap;
+sakiri skill;

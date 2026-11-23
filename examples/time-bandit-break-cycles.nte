@@ -1,0 +1,15 @@
+options iteration=1 duration=105 crit=fixed;
+
+haniel char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_energy=0;
+haniel add weapon=fork_Crowbar refine=1;
+mint char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_energy=0;
+target hp=100000000 def=0 resist=0 break_gauge=1/10 max_break_gauge=1/10 broken_duration=1;
+active haniel;
+
+# Recasts inside each 50s window cannot stack or refresh Picky.
+haniel skill; mint swap;
+wait_until(25); haniel swap; haniel skill; mint swap;
+wait_until(50.1); haniel swap; haniel attack;
+wait_until(52); haniel skill; mint swap;
+wait_until(76); haniel swap; haniel skill; mint swap;
+wait_until(102.1); haniel swap; haniel attack;

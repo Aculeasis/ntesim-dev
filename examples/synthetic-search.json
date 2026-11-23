@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "seeds": [42, 43, 44, 45, 46, 47, 48, 49],
+  "objective": {"target": "first", "metric": "hp_lost", "direction": "maximize"},
+  "candidates": [
+    {"id": "one_action", "source": "clock 0; do attack;"},
+    {"id": "two_actions", "source": "clock 0; repeat 2 { do attack; wait 10; }"},
+    {"id": "three_actions", "source": "clock 0; repeat 3 { do attack; wait 10; }"}
+  ]
+}

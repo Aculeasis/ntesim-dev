@@ -1,0 +1,178 @@
+{
+  "schema_version": 1,
+  "status": "modeled_and_tested",
+  "source_sha256": {
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json": "917b0c3675412c0425a0724d09e7dd8ae4d1ef9a100d2ea5669d7484d0901bf2",
+    "data/global-2026-10-04/tables/DT_SkillTeamChargeRelationData.json": "5e456919997b0f77c4b569ce812267a059bab553a1f87fcb863723c44b66363b"
+  },
+  "owners": [
+    {
+      "owner": "blackbird",
+      "character_id": "character:1042",
+      "hypothesis_id": "blackbird.ordinary_hit_energy_v1",
+      "element": "PSYCHE",
+      "packets": {
+        "Melee": {
+          "effects": [
+            "GE_Player_BlackBird_Melee1_Damage",
+            "GE_Player_BlackBird_Melee2_Damage",
+            "GE_Player_BlackBird_Melee2_Damage",
+            "GE_Player_BlackBird_Melee3_Damage",
+            "GE_Player_BlackBird_Melee3_Damage",
+            "GE_Player_BlackBird_Melee3_Damage",
+            "GE_Player_BlackBird_Melee3_Damage",
+            "GE_Player_BlackBird_Melee4_Damage",
+            "GE_Player_BlackBird_Melee4_Damage",
+            "GE_Player_BlackBird_Melee4_Damage",
+            "GE_Player_BlackBird_Melee4_Damage",
+            "GE_Player_BlackBird_Melee4_Damage",
+            "GE_Player_BlackBird_Melee5_Damage",
+            "GE_Player_BlackBird_Melee5_Damage",
+            "GE_Player_BlackBird_Melee5_Damage",
+            "GE_Player_BlackBird_Melee5_Damage",
+            "GE_Player_BlackBird_Melee5_Damage"
+          ],
+          "charge_milli": [
+            838,
+            1726,
+            1726,
+            1066,
+            1066,
+            1066,
+            1066,
+            913,
+            913,
+            913,
+            913,
+            913,
+            1289,
+            1289,
+            1289,
+            1289,
+            1289
+          ],
+          "total_milli": 19564
+        },
+        "Skill": {
+          "effects": [
+            "GE_Player_BlackBird_Skill_Damage",
+            "GE_Player_BlackBird_Skill_Damage",
+            "GE_Player_BlackBird_Skill_Damage",
+            "GE_Player_BlackBird_Skill_Damage"
+          ],
+          "charge_milli": [
+            1890,
+            1890,
+            1890,
+            1890
+          ],
+          "total_milli": 7560
+        }
+      },
+      "source_distribution": "1/1",
+      "living_ally_distribution": "3/5"
+    },
+    {
+      "owner": "aurelia",
+      "character_id": "character:1070",
+      "hypothesis_id": "aurelia.ordinary_hit_energy_v1",
+      "element": "PSYCHE",
+      "packets": {
+        "Melee": {
+          "effects": [
+            "GE_Player_Mitsuki_Melee1_Damage",
+            "GE_Player_Mitsuki_Melee2_Damage",
+            "GE_Player_Mitsuki_Melee3_Damage",
+            "GE_Player_Mitsuki_Melee3_Damage",
+            "GE_Player_Mitsuki_Melee3_Damage",
+            "GE_Player_Mitsuki_Melee4_Damage",
+            "GE_Player_Mitsuki_Melee4_Damage",
+            "GE_Player_Mitsuki_Melee4_Damage",
+            "GE_Player_Mitsuki_Melee4_Damage"
+          ],
+          "charge_milli": [
+            2168,
+            3936,
+            1872,
+            1872,
+            1872,
+            620,
+            620,
+            620,
+            620
+          ],
+          "total_milli": 14200
+        },
+        "Skill": {
+          "effects": [
+            "GE_Player_Mitsuki_Skill_Damage"
+          ],
+          "charge_milli": [
+            6700
+          ],
+          "total_milli": 6700
+        }
+      },
+      "source_distribution": "1/1",
+      "living_ally_distribution": "3/5"
+    },
+    {
+      "owner": "haniel",
+      "character_id": "character:1020",
+      "hypothesis_id": "haniel.ordinary_hit_energy_v1",
+      "element": "PSYCHE",
+      "packets": {
+        "Melee": {
+          "effects": [
+            "GE_Player_Haniel_Melee1_Damage",
+            "GE_Player_Haniel_Melee2_Damage",
+            "GE_Player_Haniel_Melee2_Damage",
+            "GE_Player_Haniel_Melee3_Damage",
+            "GE_Player_Haniel_Melee4_Damage",
+            "GE_Player_Haniel_Melee4_Damage",
+            "GE_Player_Haniel_Melee4_Damage",
+            "GE_Player_Haniel_Melee4_Damage",
+            "GE_Player_Haniel_Melee5_Damage"
+          ],
+          "charge_milli": [
+            2625,
+            701,
+            701,
+            3648,
+            979,
+            979,
+            979,
+            979,
+            3311
+          ],
+          "total_milli": 14902
+        },
+        "Skill": {
+          "effects": [
+            "GE_Player_Haniel_Skill1_Damage",
+            "GE_Player_Haniel_Skill1_Damage"
+          ],
+          "charge_milli": [
+            1800,
+            1800
+          ],
+          "total_milli": 3600
+        }
+      },
+      "source_distribution": "1/1",
+      "living_ally_distribution": "3/5"
+    }
+  ],
+  "decision": "Bind ordinary native Normal and Skill packets to the existing exact ordinary-hit energy adapter. Base values are frozen ChargeAdd scalars; each living recipient uses its own Charge Efficiency, fractional carry, capacity and overflow.",
+  "evidence_limits": "The tables establish scalar and elemental relation values, not native caller eligibility. Positive actual target-zero HP loss, fatal-hit eligibility, delivery-time recipients, independent per-packet grants and off-field source continuation reuse reviewed neighbor hypotheses. These rules remain named model assumptions and strict execution requires acceptance.",
+  "checks": [
+    "Focused table-driven Rust ordinary_hit_energy suite: initial Normal and full Skill packet train, recipient efficiency, exact carry, overflow, dead recipients/targets, zero HP loss, switch before delayed fatal impact, deterministic replay and typed receipt rejection.",
+    "web/tests/ordinary_hit_energy.test.mjs: actual native CLI/WASM/Worker report parity, validation, aggregation and replay; twelve full ordinary chains from zero energy charge both owner and Mint Ultimates with independent packet constants.",
+    "Affected Blackbird/Aurelia/Haniel character action tests pass with native CLI/WASM parity; TypeScript check and Rust quality pass."
+  ],
+  "pending": [
+    "Animation timing, multi-target geometry and native caller evidence.",
+    "Alternate/enhanced forms, summons, QTE and unrelated special resource mechanics.",
+    "Complete kits and baseline readiness remain incomplete."
+  ]
+}

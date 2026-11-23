@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "status": "modeled_and_tested",
+  "set_id": "set:Suit9",
+  "scope": "Thea's Night Tavern native two-piece HP and four-piece outgoing Healing Bonus in equipped build and Studio paths, including ordinary Edgar Ultimate callbacks",
+  "source_pointers": [
+    "DT_EquipmentSuitData.rows.Suit9.SuitStructList: thresholds 2/4 and Heal_2/Heal_4 modifiers; no dynamic SuitBuff",
+    "DT_EquipmentModifyData.rows.Heal_2: additive HPMaxUp 0.1",
+    "DT_EquipmentModifyData.rows.Heal_4: additive HealUp 0.2"
+  ],
+  "decision": "Consume native HealUp as static outgoing healing_bonus. Manual heal% maps to the same exact native additive attribute, with no duplicate proc or timed set instance.",
+  "hypothesis_id": "combat.live_healing_modifiers_v1",
+  "independent_oracles": [
+    "Two or three pieces: +10% HP and no outgoing Healing Bonus; four pieces: +10% HP and +20% outgoing Healing Bonus.",
+    "Four pieces plus 25% manual healing gives 9/20 static bonus. Call of the Twisted City T1 contributes 3/25 while live, giving 57/100 total outgoing bonus until its 10s expiry.",
+    "Edgar level-1 gross healing: round((350 + 11 * sourceMaxHP / 1000) * (1 + outgoingBonus)); apply HP capacity after rounding. Recipient outgoing bonuses do not enter this formula. The example's first callback heals the still-active full-HP source; later callbacks heal Mint after the admitted switch."
+  ],
+  "checks": [
+    "Native projector threshold cases 0-4, exact manual-plus-native addition, retained source evidence, no unmodeled HealUp.",
+    "Equipped Edgar build with fully occupied console and all four native required shapes projects 1/5 Healing Bonus; incomplete packing rejects.",
+    "Actual DSL/WASM/Worker and full CLI report parity: all set thresholds; off-field Edgar plus manual healing and T1 Castle; exact expiry and recipient outgoing-bonus isolation; report validation and energy replay.",
+    "Focused existing Edgar and Castle suites, native build browser checks, TypeScript, formatting and Rust quality guard."
+  ],
+  "limits": [
+    "Healing multiplier ordering and live callback sampling retain the explicit tested combat.live_healing_modifiers_v1 hypothesis.",
+    "Studio set_count declares native geometry applicability; full equipped builds validate actual geometry. Full gameplay acquisition/release availability remains unverified.",
+    "Actor HP replay is not implemented; exact final HP and callbacks are checked in reports, while replay checks use its existing energy contract."
+  ],
+  "source_sha256": {
+    "data/global-2026-10-04/tables/DT_EquipmentSuitData.json": "04aefd811ecd2f9fa0a8f3bed759f8a8d4fbdc1a61a08294e897c9ed0323fb3e",
+    "data/global-2026-10-04/tables/DT_EquipmentModifyData.json": "0c56827a36a3a580bc51894fc038c60e417935d5918ce81dae19bf72a2a35ef9"
+  }
+}

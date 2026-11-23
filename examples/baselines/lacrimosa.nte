@@ -1,0 +1,19 @@
+# Legal A0 source baseline; two continuing 150s periods, no combat resets.
+# Blue group-compatible Arc and declared two-piece static ATK bonus.
+options duration=300 seed=42 start_fons=0
+ stamina_capacity=200 initial_stamina=200 stamina_use_efficiency=1 stamina_recovery_rate=10;
+lacrimosa char lvl=80/80 awakening=0 talent=8,8,8 qte=8 start_energy=0;
+lacrimosa add weapon=fork_appliance refine=1;
+lacrimosa add cartridge=Suit8 count=2;
+lacrimosa add stats atk%=0.5 atk=300 cr=0.3 cd=0.5;
+target hp=100000000 def=1080 resist=0.2;
+target hp=100000000 def=1080 resist=0.2;
+active lacrimosa;
+
+repeat 2 {
+    let period=.time;
+    repeat 12 {lacrimosa attack:5;}
+    lacrimosa skill, burst, special, attack:5;
+    wait(5); lacrimosa special;
+    wait_until(period+150);
+}

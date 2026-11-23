@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "scope": "Hathor ordinary five-input Normal chain in the shared gameplay runner",
+  "quality": "executable modeled ordinary chain; stamina, positional movement and complete kit pending",
+  "hypothesis_id": "hathor.normal_chain_v1",
+  "sources": [
+    "data/extracted/neverness_hathor.json: GA_Hathor_Melee_1_des through GA_Hathor_Melee_5_des",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json: GE_Player_Hathor_Melee1_Damage through Melee5_1_Damage",
+    "reviews/q10-game-action-binding/hathor-action-binding-model.json: frozen source hashes"
+  ],
+  "decision": "Five admitted ordinary Normal inputs advance stages Melee1 through Melee5 with multiplicities 1,5,2,3,2 (thirteen hits). The chain loops, retaining native effective talent projection including resonance_3. Stamina and positional movement are not inferred from ordinary input execution.",
+  "hypotheses": [
+    "A different admitted ability or field exit resets the chain; a same-actor switch does not.",
+    "A gap greater than 2 seconds between input starts resets the chain; the exact boundary continues. This is a tested continuity convention pending animation/cancel evidence.",
+    "Each stage delivers ordered coincident packets at the research primary impact timestamp; travel, AoE and animation intervals remain unresolved."
+  ],
+  "independent_oracles": [
+    "1000 ATK, 0 RES and 0.5 DEF factor: level-one stages deal 121.5, 80.5+68*4, 66.5*2, 112+239.5+497, 220.5+549.5. Five inputs total 2225.5; sixth looping input gives 2347.",
+    "Level-eight stages deal 208, 138+116.5*4, 114*2, 192+410.5+852, 378+941.5. Five inputs total 3814; sixth gives 4022.",
+    "Purchased level eight at A3 projects level nine with +15% A3 damage bonus: 258.75, 171.35+144.9*4, 141.45*2, 238.625+510.025+1058, 469.2+1169.55. Five inputs total 4738; sixth gives 4996.75."
+  ],
+  "checks": [
+    "python tools/check.py -- python tools/verify_normal_chain_sources.py verifies source hashes and ordered coefficient multiplicity at all nine published levels.",
+    "Native damage tests verify every stage, packet identity, multiplicity, loop and effective talent projection at levels 1, 8 and A3.",
+    "Native causal tests verify ability/field/gap resets, no-op switches, strict hypothesis acceptance and all five second-stage packets settling after field exit at the exact horizon.",
+    "Public attack:5 scripts verify independent per-packet and total damage through Worker/WASM with complete native report parity."
+  ],
+  "pending": [
+    "Measured reset/cancel rules and packet intervals; return when frozen animation evidence supplies a concrete model.",
+    "Branch, AirAttack, detailed stamina/positional movements, secondary sound cues and remaining kit behavior."
+  ]
+}

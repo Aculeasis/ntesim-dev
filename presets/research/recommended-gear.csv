@@ -1,0 +1,142 @@
+character,kind,name,requested_T,level,catalogue_match,source_url,optimizer_selected
+adler,arc,Umbrella,5,80,True,https://www.prydwen.gg/neverness-to-everness/characters/adler,False
+adler,arc,The Great Thief,5,80,True,https://www.prydwen.gg/neverness-to-everness/characters/adler,False
+adler,set,Kingdom's Guard,,20,True,https://www.prydwen.gg/neverness-to-everness/characters/adler,False
+adler,set,Speedy Hedgehog,,20,True,https://www.prydwen.gg/neverness-to-everness/characters/adler,False
+baicang,arc,Camellia Society,1,80,True,https://www.prydwen.gg/neverness-to-everness/characters/baicang,False
+baicang,arc,A Time Will Come,5,80,True,https://www.prydwen.gg/neverness-to-everness/characters/baicang,False
+baicang,set,Crimson: Twin Butterflies,,20,True,https://www.prydwen.gg/neverness-to-everness/characters/baicang,False
+baicang,set,Shadow Creed,,20,True,https://www.prydwen.gg/neverness-to-everness/characters/baicang,False
+daffodil,arc,Youthful Fantasy,1,80,True,https://www.prydwen.gg/neverness-to-everness/characters/daffodil,False
+daffodil,arc,Fluff of Fleetness,1,80,True,https://www.prydwen.gg/neverness-to-everness/characters/daffodil,False
+daffodil,arc,Shiny Days,5,80,True,https://www.prydwen.gg/neverness-to-everness/characters/daffodil,False
+daffodil,arc,Mind Royale,5,80,True,https://www.prydwen.gg/neverness-to-everness/characters/daffodil,False
+daffodil,set,Diabolos,,20,True,https://www.prydwen.gg/neverness-to-everness/characters/daffodil,False
+jiuyuan,arc,Reality Refuge,1,80,True,https://www.prydwen.gg/neverness-to-everness/characters/jiuyuan,False
+jiuyuan,arc,Fluff of Fearlessness,1,80,True,https://www.prydwen.gg/neverness-to-everness/characters/jiuyuan,False
+jiuyuan,arc,Hethereau's Keeper,1,80,True,https://www.prydwen.gg/neverness-to-everness/characters/jiuyuan,False
+jiuyuan,arc,Day Off,1,80,True,https://www.prydwen.gg/neverness-to-everness/characters/jiuyuan,False
+jiuyuan,set,Fireflies and the Forest,,20,True,https://www.prydwen.gg/neverness-to-everness/characters/jiuyuan,False
+jiuyuan,set,Devil's Blood: Curse,,20,True,https://www.prydwen.gg/neverness-to-everness/characters/jiuyuan,False
+jiuyuan,set,Street Boxer,,20,True,https://www.prydwen.gg/neverness-to-everness/characters/jiuyuan,False
+jiuyuan,set,Shadow Creed,,20,True,https://www.prydwen.gg/neverness-to-everness/characters/jiuyuan,False
+mint,arc,Fluff of Fleetness,1,80,True,https://www.prydwen.gg/neverness-to-everness/characters/mint,False
+mint,arc,Mind Royale,5,80,True,https://www.prydwen.gg/neverness-to-everness/characters/mint,False
+mint,arc,Shiny Days,5,80,True,https://www.prydwen.gg/neverness-to-everness/characters/mint,False
+mint,arc,Clear Skies,5,80,True,https://www.prydwen.gg/neverness-to-everness/characters/mint,False
+mint,set,Fireflies and the Forest,,20,True,https://www.prydwen.gg/neverness-to-everness/characters/mint,False
+mint,set,Shadow Creed,,20,True,https://www.prydwen.gg/neverness-to-everness/characters/mint,False
+nanally,arc,Ready-Ready,1,80,True,https://www.prydwen.gg/neverness-to-everness/characters/nanally,False
+nanally,arc,Fluff of Fortitude,1,80,True,https://www.prydwen.gg/neverness-to-everness/characters/nanally,False
+nanally,arc,Raging Flames,1,80,True,https://www.prydwen.gg/neverness-to-everness/characters/nanally,False
+nanally,arc,Oraora!,5,80,True,https://www.prydwen.gg/neverness-to-everness/characters/nanally,False
+nanally,arc,Song of the Whale,1,80,True,https://www.prydwen.gg/neverness-to-everness/characters/nanally,False
+nanally,set,Fireflies and the Forest,,20,True,https://www.prydwen.gg/neverness-to-everness/characters/nanally,False
+nanally,set,Shadow Creed,,20,True,https://www.prydwen.gg/neverness-to-everness/characters/nanally,False
+nanally,set,Lost Radiance,,20,True,https://www.prydwen.gg/neverness-to-everness/characters/nanally,False
+sakiri,arc,Good Boy's Grand Adventure,1,80,True,https://www.prydwen.gg/neverness-to-everness/characters/sakiri,False
+sakiri,set,Speedy Hedgehog,,20,True,https://www.prydwen.gg/neverness-to-everness/characters/sakiri,False
+sakiri,set,Crimson: Twin Butterflies,,20,True,https://www.prydwen.gg/neverness-to-everness/characters/sakiri,False
+aurelia,arc,Ready-Ready,1,80,True,https://www.prydwen.gg/neverness-to-everness/characters/aurelia,False
+aurelia,arc,Stellar Veil,1,80,True,https://www.prydwen.gg/neverness-to-everness/characters/aurelia,False
+aurelia,arc,Fluff of Fortitude,1,80,True,https://www.prydwen.gg/neverness-to-everness/characters/aurelia,False
+aurelia,arc,Song of the Whale,1,80,True,https://www.prydwen.gg/neverness-to-everness/characters/aurelia,False
+aurelia,set,Devil's Blood: Curse,,20,True,https://www.prydwen.gg/neverness-to-everness/characters/aurelia,False
+aurelia,set,Lost Radiance,,20,True,https://www.prydwen.gg/neverness-to-everness/characters/aurelia,False
+aurelia,set,Shadow Creed,,20,True,https://www.prydwen.gg/neverness-to-everness/characters/aurelia,False
+fadia,arc,Eternal Waltz,1,80,True,https://www.prydwen.gg/neverness-to-everness/characters/fadia,False
+fadia,arc,The Great Thief,5,80,True,https://www.prydwen.gg/neverness-to-everness/characters/fadia,False
+fadia,set,Tiny Big Adventure,,20,True,https://www.prydwen.gg/neverness-to-everness/characters/fadia,False
+fadia,set,Quiet Manor,,20,True,https://www.prydwen.gg/neverness-to-everness/characters/fadia,False
+haniel,arc,Blow up the Crowd,1,80,True,https://www.prydwen.gg/neverness-to-everness/characters/haniel,False
+haniel,arc,Hethereau's Keeper,1,80,True,https://www.prydwen.gg/neverness-to-everness/characters/haniel,False
+haniel,arc,Day Off,1,80,True,https://www.prydwen.gg/neverness-to-everness/characters/haniel,False
+haniel,arc,The Forgotten,5,80,True,https://www.prydwen.gg/neverness-to-everness/characters/haniel,False
+haniel,arc,Time Bandit,5,80,True,https://www.prydwen.gg/neverness-to-everness/characters/haniel,False
+haniel,set,Speedy Hedgehog,,20,True,https://www.prydwen.gg/neverness-to-everness/characters/haniel,False
+haniel,set,Fireflies and the Forest,,20,True,https://www.prydwen.gg/neverness-to-everness/characters/haniel,False
+haniel,set,Devil's Blood: Curse,,20,True,https://www.prydwen.gg/neverness-to-everness/characters/haniel,False
+hathor,arc,Raging Flames,1,80,True,https://www.prydwen.gg/neverness-to-everness/characters/hathor,False
+hathor,arc,Fluff of Fortitude,1,80,True,https://www.prydwen.gg/neverness-to-everness/characters/hathor,False
+hathor,arc,Song of the Whale,1,80,True,https://www.prydwen.gg/neverness-to-everness/characters/hathor,False
+hathor,set,Street Boxer,,20,True,https://www.prydwen.gg/neverness-to-everness/characters/hathor,False
+hathor,set,Devil's Blood: Curse,,20,True,https://www.prydwen.gg/neverness-to-everness/characters/hathor,False
+hathor,set,Fireflies and the Forest,,20,True,https://www.prydwen.gg/neverness-to-everness/characters/hathor,False
+hathor,set,Shadow Creed,,20,True,https://www.prydwen.gg/neverness-to-everness/characters/hathor,False
+hotori,arc,Marching Beyond Time,1,80,True,https://www.prydwen.gg/neverness-to-everness/characters/hotori,False
+hotori,arc,Fluff of Fearlessness,1,80,True,https://www.prydwen.gg/neverness-to-everness/characters/hotori,False
+hotori,arc,The Rain That Shook the World,1,80,True,https://www.prydwen.gg/neverness-to-everness/characters/hotori,False
+hotori,arc,Hethereau's Keeper,1,80,True,https://www.prydwen.gg/neverness-to-everness/characters/hotori,False
+hotori,arc,Blow up the Crowd,1,80,True,https://www.prydwen.gg/neverness-to-everness/characters/hotori,False
+hotori,arc,Day Off,1,80,True,https://www.prydwen.gg/neverness-to-everness/characters/hotori,False
+hotori,set,Lost Radiance,,20,True,https://www.prydwen.gg/neverness-to-everness/characters/hotori,False
+skia,arc,Watch Your Heads!,5,80,True,https://www.prydwen.gg/neverness-to-everness/characters/skia,False
+skia,set,Street Boxer,,20,True,https://www.prydwen.gg/neverness-to-everness/characters/skia,False
+skia,set,Shadow Creed,,20,True,https://www.prydwen.gg/neverness-to-everness/characters/skia,False
+zero,arc,Day Off,1,80,True,https://www.prydwen.gg/neverness-to-everness/characters/zero,False
+zero,arc,Fluff of Fearlessness,1,80,True,https://www.prydwen.gg/neverness-to-everness/characters/zero,False
+zero,arc,The Rain That Shook the World,1,80,True,https://www.prydwen.gg/neverness-to-everness/characters/zero,False
+zero,arc,Hethereau's Keeper,1,80,True,https://www.prydwen.gg/neverness-to-everness/characters/zero,False
+zero,arc,Your Happiness is Priceless,1,80,True,https://www.prydwen.gg/neverness-to-everness/characters/zero,False
+zero,set,Speedy Hedgehog,,20,True,https://www.prydwen.gg/neverness-to-everness/characters/zero,False
+zero,set,Lost Radiance,,20,True,https://www.prydwen.gg/neverness-to-everness/characters/zero,False
+zero,set,Fireflies and the Forest,,20,True,https://www.prydwen.gg/neverness-to-everness/characters/zero,False
+zero,set,Shadow Creed,,20,True,https://www.prydwen.gg/neverness-to-everness/characters/zero,False
+iroi,arc,The Wrong Gate,1,80,True,https://www.prydwen.gg/neverness-to-everness/characters/iroi,False
+iroi,arc,The Last Rose,1,80,True,https://www.prydwen.gg/neverness-to-everness/characters/iroi,False
+iroi,arc,Youthful Fantasy,1,80,True,https://www.prydwen.gg/neverness-to-everness/characters/iroi,False
+iroi,arc,Fluff of Fleetness,1,80,True,https://www.prydwen.gg/neverness-to-everness/characters/iroi,False
+iroi,arc,Shiny Days,5,80,True,https://www.prydwen.gg/neverness-to-everness/characters/iroi,False
+iroi,arc,Clear Skies,5,80,True,https://www.prydwen.gg/neverness-to-everness/characters/iroi,False
+iroi,set,Speedy Hedgehog,,20,True,https://www.prydwen.gg/neverness-to-everness/characters/iroi,False
+iroi,set,Fireflies and the Forest,,20,True,https://www.prydwen.gg/neverness-to-everness/characters/iroi,False
+linko,arc,Voice of the Voyager,1,80,True,https://www.prydwen.gg/neverness-to-everness/characters/linko,False
+linko,arc,Ready-Ready,1,80,True,https://www.prydwen.gg/neverness-to-everness/characters/linko,False
+linko,arc,Fluff of Fortitude,1,80,True,https://www.prydwen.gg/neverness-to-everness/characters/linko,False
+linko,arc,Raging Flames,1,80,True,https://www.prydwen.gg/neverness-to-everness/characters/linko,False
+linko,arc,Song of the Whale,1,80,True,https://www.prydwen.gg/neverness-to-everness/characters/linko,False
+linko,set,Fireflies and the Forest,,20,True,https://www.prydwen.gg/neverness-to-everness/characters/linko,False
+linko,set,Lost Radiance,,20,True,https://www.prydwen.gg/neverness-to-everness/characters/linko,False
+zankou,arc,Ravenous Blade,1,80,True,https://www.prydwen.gg/neverness-to-everness/characters/zankou,False
+zankou,arc,Contemplative Cat,1,80,True,https://www.prydwen.gg/neverness-to-everness/characters/zankou,False
+zankou,arc,Watch Your Heads!,5,80,True,https://www.prydwen.gg/neverness-to-everness/characters/zankou,False
+zankou,arc,Fluff of Finesse,1,80,True,https://www.prydwen.gg/neverness-to-everness/characters/zankou,False
+zankou,arc,"Failing You, Heavy in My Heart",5,80,True,https://www.prydwen.gg/neverness-to-everness/characters/zankou,False
+zankou,set,Crimson: Twin Butterflies,,20,True,https://www.prydwen.gg/neverness-to-everness/characters/zankou,False
+zankou,set,Lost Radiance,,20,True,https://www.prydwen.gg/neverness-to-everness/characters/zankou,False
+zankou,set,Shadow Creed,,20,True,https://www.prydwen.gg/neverness-to-everness/characters/zankou,False
+blackbird,arc,Crime and Punishment,1,80,True,https://www.prydwen.gg/neverness-to-everness/characters/blackbird,False
+blackbird,arc,Fluff of Finesse,1,80,True,https://www.prydwen.gg/neverness-to-everness/characters/blackbird,False
+blackbird,arc,Ravenous Blade,1,80,True,https://www.prydwen.gg/neverness-to-everness/characters/blackbird,False
+blackbird,arc,"Cosmos Daze, Wild Reverie",5,80,True,https://www.prydwen.gg/neverness-to-everness/characters/blackbird,False
+blackbird,arc,Watch Your Heads!,5,80,True,https://www.prydwen.gg/neverness-to-everness/characters/blackbird,False
+blackbird,arc,"Failing You, Heavy in My Heart",5,80,True,https://www.prydwen.gg/neverness-to-everness/characters/blackbird,False
+blackbird,set,Devil's Blood: Curse,,20,True,https://www.prydwen.gg/neverness-to-everness/characters/blackbird,False
+blackbird,set,Lost Radiance,,20,True,https://www.prydwen.gg/neverness-to-everness/characters/blackbird,False
+blackbird,set,Street Boxer,,20,True,https://www.prydwen.gg/neverness-to-everness/characters/blackbird,False
+chaos,arc,What's Desired,1,80,True,https://www.prydwen.gg/neverness-to-everness/characters/chaos,False
+chaos,arc,Fluff of Ferocity,1,80,True,https://www.prydwen.gg/neverness-to-everness/characters/chaos,False
+chaos,arc,Camellia Society,1,80,True,https://www.prydwen.gg/neverness-to-everness/characters/chaos,False
+chaos,arc,A Time Will Come,5,80,True,https://www.prydwen.gg/neverness-to-everness/characters/chaos,False
+chaos,set,Street Boxer,,20,True,https://www.prydwen.gg/neverness-to-everness/characters/chaos,False
+chaos,set,Shadow Creed,,20,True,https://www.prydwen.gg/neverness-to-everness/characters/chaos,False
+lacrimosa,arc,The Last Rose,1,80,True,https://www.prydwen.gg/neverness-to-everness/characters/lacrimosa,False
+lacrimosa,arc,Youthful Fantasy,1,80,True,https://www.prydwen.gg/neverness-to-everness/characters/lacrimosa,False
+lacrimosa,arc,Fluff of Fleetness,1,80,True,https://www.prydwen.gg/neverness-to-everness/characters/lacrimosa,False
+lacrimosa,arc,Shiny Days,5,80,True,https://www.prydwen.gg/neverness-to-everness/characters/lacrimosa,False
+lacrimosa,set,Diabolos,,20,True,https://www.prydwen.gg/neverness-to-everness/characters/lacrimosa,False
+lacrimosa,set,Shadow Creed,,20,True,https://www.prydwen.gg/neverness-to-everness/characters/lacrimosa,False
+chiz,arc,Contemplative Cat,5,80,True,https://www.prydwen.gg/neverness-to-everness/characters/chiz,False
+chiz,set,Lost Radiance,,20,True,https://www.prydwen.gg/neverness-to-everness/characters/chiz,False
+chiz,set,Shadow Creed,,20,True,https://www.prydwen.gg/neverness-to-everness/characters/chiz,False
+edgar,arc,Call of the Twisted City,5,80,True,https://www.prydwen.gg/neverness-to-everness/characters/edgar,False
+edgar,arc,Mind Royale,5,80,True,https://www.prydwen.gg/neverness-to-everness/characters/edgar,False
+edgar,set,Thea's Night Tavern,,20,True,https://www.prydwen.gg/neverness-to-everness/characters/edgar,False
+edgar,set,Speedy Hedgehog,,20,True,https://www.prydwen.gg/neverness-to-everness/characters/edgar,False
+shinku,arc,Blushing Mirage,1,80,True,https://www.prydwen.gg/neverness-to-everness/characters/shinku,False
+shinku,arc,Fluff of Ferocity,1,80,True,https://www.prydwen.gg/neverness-to-everness/characters/shinku,False
+shinku,arc,Camellia Society,1,80,True,https://www.prydwen.gg/neverness-to-everness/characters/shinku,False
+shinku,arc,A Time Will Come,5,80,True,https://www.prydwen.gg/neverness-to-everness/characters/shinku,False
+shinku,set,Lost Radiance,,20,True,https://www.prydwen.gg/neverness-to-everness/characters/shinku,False
+shinku,set,Street Boxer,,20,True,https://www.prydwen.gg/neverness-to-everness/characters/shinku,False
+shinku,set,Fireflies and the Forest,,20,True,https://www.prydwen.gg/neverness-to-everness/characters/shinku,False

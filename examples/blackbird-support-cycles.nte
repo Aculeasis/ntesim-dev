@@ -1,0 +1,18 @@
+options duration=20 seed=42;
+lacrimosa char lvl=80/80 awakening=0 talent=8,8,8 qte=8 start_energy=0 start_cycle=100;
+lacrimosa add weapon=fork_BlackBook refine=1;
+blackbird char lvl=80/80 awakening=0 talent=1,8,1 qte=8 start_energy=0;
+blackbird add weapon=fork_twinbirds refine=1;
+skia char lvl=80/80 awakening=0 talent=8,8,8 qte=8 start_energy=0 start_cycle=100;
+skia add weapon=fork_twinbirds refine=1;
+target hp=100000000 def=1080 resist=0;
+target hp=100000000 def=1080 resist=0;
+active lacrimosa;
+
+# Two actual full outgoing pools qualify distinct entries without resource resets.
+blackbird swap;
+wait(2);
+skia swap;
+wait(2);
+blackbird swap;
+wait(2);

@@ -1,0 +1,26 @@
+[package]
+name = "ntesim-research"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+authors.workspace = true
+description = "Source-neutral research scenarios, search, trials and profiling"
+
+[features]
+throughput-bench = ["dep:sha2"]
+performance-diagnostics = ["ntesim-content/performance-diagnostics"]
+
+[[bin]]
+name = "ntesim-throughput"
+path = "src/bin/throughput.rs"
+required-features = ["throughput-bench"]
+
+[dependencies]
+ntesim-contracts.workspace = true
+ntesim-core.workspace = true
+ntesim-data.workspace = true
+ntesim-content.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+sha2 = { workspace = true, optional = true }

@@ -1,0 +1,9 @@
+# Synthetic microsecond timeline: three continuous cycles, no game timing claim.
+clock 0;
+do prepare;
+repeat 3 {
+    wait 10;
+    do attack;
+}
+wait 10;
+do heal;

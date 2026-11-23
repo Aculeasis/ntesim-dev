@@ -1,0 +1,15 @@
+options iteration=1 duration=80 crit=fixed seed=42;
+
+haniel char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_hp%=0.5;
+haniel add weapon=fork_Nakupeda refine=1;
+mint char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_hp%=0.1;
+target hp=100000000 def=0 resist=0;
+active haniel;
+
+# The first Ultimate rolls one seeded support outcome and starts the 30s ICD.
+haniel burst; haniel attack:5;
+# The peer keeps the lowest HP ratio while chains refill energy off field.
+mint swap; mint attack:5;
+wait_until(30); haniel swap; repeat 9 { haniel attack:5; }
+wait_for_energy(120); haniel burst;
+wait_until(70); mint swap; mint attack:5;

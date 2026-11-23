@@ -1,0 +1,14 @@
+options iteration=1 duration=86 crit=fixed seed=42;
+jiuyuan char lvl=80/80 awakening=0 talent=1,1,1 qte=1;
+jiuyuan add weapon=fork_nonos refine=1;
+mint char lvl=80/80 awakening=0 talent=1,1,1 qte=1;
+target hp=100000000 def=0 resist=0;
+target hp=100000000 def=0 resist=0;
+active jiuyuan;
+
+# Cast16 is inside the weapon ICD. Field changes do not reset either clock.
+jiuyuan skill; mint swap;
+wait_until(15); jiuyuan swap; wait_until(16); jiuyuan skill; mint swap;
+wait_until(31); jiuyuan swap; wait_until(32); jiuyuan skill; mint swap;
+# Exactly20s after the preceding grant, with its previous window expired.
+wait_until(51); jiuyuan swap; wait_until(52); jiuyuan skill; mint swap;

@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "id": "s1-mint-a0-review-v1",
+  "content_id": "ntesim-current",
+  "status": "INCOMPLETE",
+  "executable": false,
+  "build": "build.json",
+  "awakening": 0,
+  "purchased_skill_level": 8,
+  "passives": "all progression-unlocked passives require influence review",
+  "horizon": {"clock": "real", "duration_us": 20000000},
+  "initial": {
+    "actor_hp_fraction": 1,
+    "ultimate_energy": "full; native capacity is reviewed separately from runtime ownership",
+    "skill_readiness": "ready",
+    "precombat_buffs": false,
+    "precombat_reactions": false,
+    "innate_resources": null
+  },
+  "target": {
+    "count": 1,
+    "level": 80,
+    "hp_policy": null,
+    "hp_current": null,
+    "hp_max": null,
+    "defense": null,
+    "resistance_interpretation": "preset neutral 20%; scenario choice, not a verified enemy profile",
+    "position": null,
+    "break_enabled": false,
+    "incoming_attacks": []
+  },
+  "rotation_intent": ["GA_Mint019_Melee", "GA_Mint019_Skill", "GA_Mint019_UltraSkill"],
+  "rotation_timestamps_us": null,
+  "command_spacing_us": 250000,
+  "command_spacing_basis": "Reference guide preset integration choice; not an action recovery measurement",
+  "configured_s4_slots": ["mint", "sakiri", "iroi", "zero"],
+  "adapter_order": ["mint", "sakiri", "zero", "iroi"]
+}

@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "question": "Which packets and multiplicities belong to ordinary Hathor Skill/Burst casts?",
+  "branch_budget_minutes": 10,
+  "total_investigation_budget_minutes": 15,
+  "sources": [
+    "data/extracted/guide_hathor.json#/skills/1",
+    "data/extracted/guide_hathor.json#/skills/2",
+    "data/extracted/neverness_hathor.json#/skills/1",
+    "data/extracted/neverness_hathor.json#/skills/2",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json#/rows/GE_Player_Hathor_Skill1_Damage",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json#/rows/GE_Player_Hathor_Skill11_Damage",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json#/rows/GE_Player_Hathor_UltraSkill1_Damage",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json#/rows/GE_Player_Hathor_UltraSkill2_Damage"
+  ],
+  "stop_condition": "Identify packets/multiplicities from saved descriptions and native arrays; use a disclosed bounded timing hypothesis if intervals are absent.",
+  "return_condition": "New timing/reachability evidence changes Aerial Command 2x Skill1 + 1x Skill11 or Rider Express 2x UltraSkill1 + 1x UltraSkill2, Cyclone Strike, or Express Delivery Power stacks.",
+  "decision": "Aerial Command describes 3 instances totaling 100%*2 + 100% at Lv1, matching native Skill1 (2 hits) and Skill11 (1 hit). Rider Express describes 3 instances totaling 96.2%*2 + 507.6% at Lv1, matching native UltraSkill1 (2 hits) and UltraSkill2 (1 hit). Require each action's primary packet; schedule children once after admission with the admitted effective native coordinate. Each hit settles independently; Emergency Delivery ATK bonus (+15%), A4 Cyclone Strike Crit Rate (+25%), and A6 Crit DMG (+30%) buffs trigger consistently.",
+  "timing_hypothesis": "hathor.skill_burst_packets_v1: ordered coincident delivery on target zero at selected primary impact time. This supports packet totals and ownership, not native frame timing. Same-time delivery precedes queued gear callbacks; timing-sensitive results retain this assumption.",
+  "checks": [
+    "Independent content damage oracles: at 1000 ATK/DEF.5/RES0, Skill levels 1/8/effective9 total 1725/1, 59133/20, 2937537/800 (with +15% Emergency Delivery ATK buff and A3 non-Boss dmg bonus); Burst levels 1/8/effective9 total 4025/1, 275931/40, 6854253/800.",
+    "Pending horizons, off-field ownership, dead/lethal targets, rejected energy admission and alternate primary are checked. Strict requires matching hypothesis acceptance.",
+    "Description and native arrays agree at all nine levels. Public two-Skill/one-Burst rotation produces 9 hits and spends 100 energy once; CLI/WASM/Worker agree. Full content, relevant character/gear web suites, replay and modeled awakening verifier pass.",
+    "No full kit/readiness claim. Normal chains, charge hold variants, Cyclone Strike forms, Express Delivery Power accumulation and full awakening mechanics remain pending."
+  ],
+  "reference_sha256": {
+    "data/extracted/neverness_hathor.json": "68edb6f3d7d06a00de13b33771cece83adec785ac956933db5ef46f9623e501c",
+    "data/extracted/guide_hathor.json": "ea76c6dde1ef32ae0bce976fb17eccd476230d928727a81a0a26f812b3f2b75d",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json": "917b0c3675412c0425a0724d09e7dd8ae4d1ef9a100d2ea5669d7484d0901bf2"
+  }
+}

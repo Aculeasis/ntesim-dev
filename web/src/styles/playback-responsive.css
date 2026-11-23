@@ -1,0 +1,222 @@
+@media (min-width: 1600px) {
+  main {
+    padding: 0 24px 20px;
+  }
+  .character-header {
+    height: 150px;
+  }
+  .character-portrait {
+    height: 180px;
+  }
+  .rollup-card h3 {
+    font-size: 14px;
+  }
+  .rollup-value {
+    font-size: 30px;
+  }
+  .stat-grid {
+    font-size: 11px;
+  }
+  .total-stats {
+    font-size: 12px;
+  }
+  .total-stats > strong {
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 1050px) {
+  .rollup-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .team-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .three-column {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .stat-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .character-header {
+    padding: 15px 10px;
+    height: 137px;
+  }
+  .character-portrait {
+    width: 68%;
+  }
+  .character-level,
+  .character-talent {
+    font-size: 10px;
+  }
+  .panel {
+    padding: 14px;
+  }
+  .replay-portrait {
+    height: 140px;
+  }
+  .replay-portrait > img {
+    height: 175px;
+  }
+  .replay-target {
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 700px) {
+  main {
+    padding: 0 12px 16px;
+  }
+  .site-header {
+    height: auto;
+    min-height: 78px;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 14px;
+  }
+  .brand {
+    font-size: 25px;
+  }
+  .brand-mark {
+    width: 38px;
+    height: 38px;
+    font-size: 26px;
+    margin-right: 10px;
+  }
+  .view-tabs button {
+    padding: 12px 17px;
+    font-size: 12px;
+  }
+  .view-heading h1 {
+    font-size: 17px;
+  }
+  .team-grid,
+  .replay-actors {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .rollup-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .three-column,
+  .two-column {
+    grid-template-columns: 1fr;
+  }
+  .name-search {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .character-header {
+    height: 135px;
+  }
+  .character-portrait {
+    height: 165px;
+    right: -8%;
+    width: 66%;
+  }
+  .character-title {
+    font-size: 12px;
+  }
+  .rollup-card {
+    min-height: 155px;
+    padding: 15px 12px;
+  }
+  .rollup-card h3 {
+    font-size: 11px;
+    min-height: 30px;
+  }
+  .rollup-value {
+    font-size: 23px;
+    margin-bottom: 12px;
+  }
+  .stat-grid {
+    font-size: 9px;
+    gap: 4px;
+  }
+  .stat-grid span {
+    justify-content: space-between;
+  }
+  .editor-actions button {
+    min-width: 70px;
+    padding: 10px;
+    font-size: 12px;
+  }
+  .editor-actions #run-btn {
+    min-width: 120px;
+  }
+  .results-toolbar {
+    flex-wrap: wrap;
+  }
+  .results-toolbar > span {
+    width: 100%;
+    margin-bottom: 4px;
+  }
+  .results-toolbar button {
+    font-size: 10px;
+    padding: 8px 10px;
+  }
+  .replay-overview {
+    gap: 10px 15px;
+    font-size: 10px;
+    padding: 10px;
+  }
+  .replay-controls label {
+    font-size: 10px;
+  }
+  .replay-clock {
+    font-size: 11px;
+    margin: 0;
+  }
+  .replay-controls button {
+    padding: 8px 10px;
+  }
+  .replay-controls [data-replay='play'] {
+    min-width: 85px;
+  }
+  .replay-portrait {
+    height: 130px;
+  }
+  .replay-portrait > img {
+    height: 165px;
+  }
+  .replay-actor-body {
+    padding: 10px;
+  }
+  .rotation-heading {
+    gap: 8px;
+    align-items: flex-start;
+  }
+  .rotation-heading span {
+    font-size: 9px;
+  }
+  .rotation-row,
+  .rotation-axis {
+    grid-template-columns: 55px 1fr;
+    gap: 8px;
+  }
+  .rotation-row > span {
+    font-size: 9px;
+  }
+  .replay-target {
+    min-width: 100%;
+    gap: 8px;
+    font-size: 9px;
+  }
+  .replay-caption {
+    font-size: 10px;
+  }
+  .time-chart {
+    height: 240px;
+  }
+  .panel-heading {
+    gap: 8px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *:before,
+  *:after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}

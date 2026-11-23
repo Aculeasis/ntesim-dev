@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "status": "modeled_and_tested",
+  "owner": "hathor",
+  "character_id": "character:1025",
+  "scope": "Explicit direct Branch and AirAttack packet energy grants",
+  "hypothesis_id": "hathor.branch_airattack_direct_packet_energy_v1",
+  "input_hypothesis_id": "hathor.branch_airattack_direct_packet_inputs_v1",
+  "inputs": [
+    {
+      "ability_id": "GA_Hathor_Melee",
+      "damage_effect_id": "GE_Player_Hathor_Branch_Damage",
+      "charge_add_milli": 12000,
+      "normal_coefficients": [2.4, 4.113, 4.442],
+      "category": "A"
+    },
+    {
+      "ability_id": "GA_Hathor_Melee",
+      "damage_effect_id": "GE_Player_Hathor_AirAttack_Damage",
+      "charge_add_milli": 6300,
+      "normal_coefficients": [1.25, 2.142, 2.314],
+      "category": "X"
+    }
+  ],
+  "modeled_policy": {
+    "trigger": "one exact admitted direct packet delivered to target zero with positive actual HP loss",
+    "fatal_hit_qualifies": true,
+    "zero_loss_unavailable_target_or_cancelled_packet": "no grant",
+    "source_distribution": "1/1",
+    "each_other_living_recipient_distribution": "3/5",
+    "recipient_charge_efficiency_and_fractional_carry": "per recipient",
+    "capacity_overflow": "existing shared energy settlement",
+    "grant_event_kind": "hathor_direct_packet_energy_grant",
+    "ordinary_hit_hypothesis_used": false
+  },
+  "independent_oracle": {
+    "efficiencies": ["28/25", "3/2", "7/5"],
+    "branch_integer_grants_by_source_then_recipients": [13, 10, 10],
+    "airattack_integer_grants_by_source_then_recipients": [7, 6, 5],
+    "final_fractional_remainders_by_source_then_recipients": ["62/125", "47/100", "93/250"],
+    "delayed_branch_after_switch": "grant event records Hathor as source actor 0 while actor 1 is active",
+    "values_are_literal_test_expectations": true
+  },
+  "limits": [
+    "Native Branch/AirAttack energy eligibility is unresolved; this is a scenario hypothesis for the exact direct packet inputs.",
+    "Natural Branch/AirAttack dispatch, jump/dodge legality, stamina, costs, recovery, cadence, movement, extra packets, targets beyond zero, and callbacks remain unsupported."
+  ],
+  "source_sha256": {
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json": "917b0c3675412c0425a0724d09e7dd8ae4d1ef9a100d2ea5669d7484d0901bf2",
+    "data/global-2026-10-04/tables/DT_SkillTeamChargeRelationData.json": "5e456919997b0f77c4b569ce812267a059bab553a1f87fcb863723c44b66363b",
+    "data/global-2026-10-04/tables/DT_HathorEffectFigure.json": "d56d203bfd7c7b48215539388b74c71a1e0c892110c6fd5415918106e3ff41df"
+  },
+  "checks": [
+    "cargo test -p ntesim-content --lib hathor_",
+    "cargo test -p ntesim-content --lib hathor_",
+    "node tools/web.mjs test tests/ordinary_hit_energy_owners.test.mjs tests/character_actions.test.mjs"
+  ]
+}

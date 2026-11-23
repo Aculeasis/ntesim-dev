@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "question": "Do the existing Iroi Syringe/Trumpet/A2 child packets use native talent coordinates instead of frozen manual ATK constants?",
+  "branch_budget_minutes": 8,
+  "total_investigation_budget_minutes": 12,
+  "sources": [
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json#/rows/GE_Player_Oneiroi_Skill_Syringe_Damage",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json#/rows/GE_Player_Oneiroi_Skill_Trumpet_Damage",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json#/rows/GE_Damage_sheep_gun_awaken2"
+  ],
+  "stop_condition": "Check native coefficient arrays and owning packet bindings, replace supported constants, validate talent/resonance/assistance and preserve existing modeled scheduling/recipient behavior.",
+  "return_condition": "New copied/summon scaling or talent evidence conflicts with native arrays; remaining summon/Regression/heal branches remain pending.",
+  "checks": [
+    "182 content tests pass. Independent1000ATK oracle with team5%DEF ignore and self-excluded base ATK grant uses20/39 mitigation. Syringe/Trumpet coefficients at purchased level1 are.179/1.25, at8 are.307/2.142; A3 resonance selects9 with.331/2.314. A2 native assistance stays2.0; no A2 child at A0. Existing ally/A4/A5/expiry tests remain passing.",
+    "Child packets preserve parent command, target and selected impact; off-field delivery works. A99us horizon retains all four100us deliveries as pending. Failed admission schedules no children/buff. Invalid native coordinate fails and strict requires explicit acceptance of irois packet/timing hypothesis.",
+    "Public Iroi/Real Music R5 at level1/8 and A0/A2/A3 matches independent native ATK*coefficient*20/39*(1+.10general+.15Anima+.16Skill) for each Nature child. Full CLI/WASM reports agree for all four cases and existing Real Music scripts; actual Worker runs agree for all four. native_build/scenario_script and1000seed packet_crit checks pass; both lambs retain random-critical eligibility.",
+    "TypeScript and production build, changed Rust format and content clippy pass with only existing metadata collapsible_if/single_element_loop lints allowed. Native parity uses NTESIM_VERIFY_NATIVE=1 NTESIM_VERIFY_WEAPON=appliance. Remaining summon/Regression/heal/revival/resource/kit behavior is unchanged and incomplete; strict_ready=false/game_dps_computed=false remain."
+  ],
+  "decision": "Replace the existing manual level8 Syringe/Trumpet constants and A2 constant with the shared native child projector. The admitted command already carries its effective skill coordinate; children independently select their own source arrays at that coordinate. Preserve current scheduling, target zero, buff recipients and A2/A5 callbacks. Native A2 arrays remain2.0 at every coordinate; no special scalar path is needed.",
+  "artifact_sha256": {
+    "target/debug/ntesim.exe": "4d948fa6501e734989b516694afbe9a7be4390005d29fdb4675a4fc6bc017895",
+    "web/wasm/ntesim_wasm.wasm": "be526bef0f3651740965a22a55cb1c79ffe5844a7902bd4fa4bd94ee92c61722"
+  }
+}

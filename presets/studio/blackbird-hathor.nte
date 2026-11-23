@@ -1,0 +1,56 @@
+# Blackbird · Stain / Hathor
+# Curated comparison profile: see teams.md for exact stat-line values and assumptions.
+options iteration=1000 duration=120 seed=42 start_fons=250000;
+# blackbird: 15 useful lines; recipe=crit; main=cd:.6.
+# C: cr,cd,dmg; III x4: cr,cd; IV: cr,cd; II: cr / cd.
+blackbird char lvl=80/80 awakening=[] talent=8,8,8 qte=8;
+blackbird add weapon=fork_twinbirds refine=1 lvl=80/80;
+blackbird add cartridge=devilsbloodcurse count=4;
+blackbird add stats hp=5600 atk=420 cr=0.60 cd=1.16 dmg%=0.1;
+# sakiri: 15 useful lines; recipe=support; main=atk%:.375.
+# C: atk,cr,dmg; III x4: atk,cr; IV: atk,cr; II: atk / cr.
+sakiri char lvl=80/80 awakening=[6] talent=8,8,8 qte=8;
+sakiri add weapon=fork_mofeikesi refine=1 lvl=80/80;
+sakiri add cartridge=speedyhedgehog count=4;
+sakiri add stats hp=5600 atk=420 atk%=0.7250 cr=0.28 dmg%=0.1 incantation%=0.36;
+# lacrimosa: 15 useful lines; recipe=crit; main=cd:.6.
+# C: cr,cd,dmg; III x4: cr,cd; IV: cr,cd; II: cr / cd.
+lacrimosa char lvl=80/80 awakening=[] talent=8,8,8 qte=8;
+lacrimosa add weapon=fork_rose refine=1 lvl=80/80;
+lacrimosa add cartridge=diabolos count=4;
+lacrimosa add stats hp=5600 atk=420 cr=0.28 cd=1.16 dmg%=0.1 chaos%=0.4;
+# hathor: 15 useful lines; recipe=crit; main=cd:.6.
+# C: cr,cd,dmg; III x4: cr,cd; IV: cr,cd; II: cr / cd.
+hathor char lvl=80/80 awakening=[1] talent=8,8,8 qte=8;
+hathor add weapon=fork_wushoutieyu refine=1 lvl=80/80;
+hathor add cartridge=streetboxer count=4;
+hathor add stats hp=5600 atk=420 cr=0.28 cd=1.16 dmg%=0.1 atk%=0.4;
+# Common stationary, control-susceptible Boss dummy; no incoming attacks or assumed parries.
+target lvl=80 hp=1000000000 max_hp=1000000000 def=1080 resist=0.2 boss=true control_immune=false original_atk=1000 break_gauge=30 max_break_gauge=30 broken_duration=10 discord_fraction=0.1;
+active blackbird;
+blackbird skill;
+# Refresh short support windows, then preserve a sustained damage window.
+let next_support = 0;
+let last_burst = -20;
+while 1 {
+  if .time >= next_support && !.blackbird.transformed.active {
+    hathor swap;
+    if .hathor.skill.ready { hathor skill[hold=5s]; }
+    if .hathor.burst.ready { hathor burst; }
+    lacrimosa swap;
+    if .lacrimosa.burst.ready { lacrimosa burst; }
+    if .lacrimosa.skill.ready { lacrimosa skill; }
+    sakiri swap;
+    if .sakiri.burst.ready { sakiri burst; }
+    if .sakiri.skill.ready { sakiri skill; }
+    blackbird swap;
+    next_support = .time + 12;
+  }
+  if !.blackbird.transformed.active && .blackbird.skill.ready { blackbird skill; }
+  if .blackbird.burst.ready && (!.blackbird.transformed.active || .time - last_burst > 8) {
+    blackbird burst;
+    last_burst = .time;
+  }
+  if .blackbird.skill.ready { blackbird skill; }
+  blackbird attack;
+}

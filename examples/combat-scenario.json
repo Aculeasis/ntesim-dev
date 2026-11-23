@@ -1,0 +1,93 @@
+{
+  "schema_version": 1,
+  "content_id": "ntesim-current",
+  "attacker_level": 80,
+  "attacker_stats": {
+    "base_atk": 1094.0,
+    "base_hp": 13919.0,
+    "base_def": 909.0,
+    "atk_percent": 0.0,
+    "hp_percent": 0.0,
+    "def_percent": 0.0,
+    "atk_flat": 1322.55,
+    "hp_flat": 8164.0,
+    "def_flat": 0.0,
+    "crit_rate": 0.05,
+    "crit_damage": 0.5,
+    "damage_bonus": 0.0,
+    "elemental_bonuses": {
+      "Incantation": 0.54
+    },
+    "action_type_bonuses": {},
+    "defense_shred": 0.0,
+    "defense_ignore": 0.0,
+    "vulnerability": 0.0,
+    "healing_bonus": 0.0,
+    "incoming_healing_bonus": 0.0,
+    "shield_bonus": 0.0,
+    "break_efficiency": 0.0,
+    "energy_efficiency": 1.12,
+    "cycle_intensity": 0.0
+  },
+  "target_defense": 1080.0,
+  "target_resistance": 0.2,
+  "target_vulnerability": 0.0,
+  "buffs": [
+    {
+      "id": "team_atk_buff",
+      "stat": "atk_flat",
+      "amount": 300.0,
+      "stacking": "replace_by_source",
+      "duration_us": 15000000
+    }
+  ],
+  "direct_hits": [
+    {
+      "ratio": 3.2,
+      "stat": "atk",
+      "flat": 0.0,
+      "element": "Incantation",
+      "kind": "elemental",
+      "crit_rule": "normal",
+      "action_type": "skill",
+      "damage_bonus": 0.0,
+      "crit_damage_bonus": 0.0,
+      "final_multiplier": 1.0,
+      "special_multiplier": 1.0
+    },
+    {
+      "base": 1000.0,
+      "stat": "atk",
+      "flat": 0.0,
+      "element": "True",
+      "kind": "true",
+      "crit_rule": "normal",
+      "damage_bonus": 0.0,
+      "crit_damage_bonus": 0.0,
+      "final_multiplier": 1.0,
+      "special_multiplier": 1.0
+    }
+  ],
+  "healing_target": { "current_hp": 10000, "max_hp": 20000 },
+  "healings": [
+    {
+      "ratio": 0.25,
+      "stat": "hp",
+      "flat": 300.0,
+      "outgoing_bonus": 0.0,
+      "incoming_bonus": 0.0,
+      "rounding": "floor"
+    }
+  ],
+  "shields": [
+    {
+      "ratio": 0.15,
+      "stat": "hp",
+      "flat": 500.0,
+      "shield_bonus": 0.0,
+      "rounding": "floor"
+    }
+  ],
+  "negative_resistance_model": "standard_rational",
+  "rounding": "floor"
+}

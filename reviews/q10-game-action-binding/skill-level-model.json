@@ -1,0 +1,19 @@
+{
+  "question": "Which purchased Mint skill level and resonance bonus select a native damage-array coordinate?",
+  "source_pointers": [
+    "data/global-2026-10-04/tables/DT_CharacterAbilityConfig.json#/rows/1019/CharacterAbilityList",
+    "data/global-2026-10-04/tables/1019AwakenEffect1.json",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json",
+    "docs/DAMAGE_VALUES_CONTRACT.md"
+  ],
+  "branch_budget_minutes": 15,
+  "total_budget_minutes": 20,
+  "stop_condition": "Bind a visible tested level-to-coordinate hypothesis with native purchase prerequisites and Mint resonance_3; do not infer other characters' bonuses.",
+  "return_condition": "New level-dispatch evidence or independently validated coefficients can refine or replace the coordinate hypothesis.",
+  "decision": "tested_hypothesis",
+  "model": "Purchased level 1 is initial; native cost coordinate L buys L+1; damage coordinate is effective level minus one; Mint resonance_3 adds one at awakening 3..6 to the three listed skills only.",
+  "rationale": "Nine consecutive combat purchase coordinates 1..9 describe ten purchased levels; nonzero initial damage entries and monotonically growing coefficient arrays are consistent with the level-minus-one model. The resonance row explicitly names three skills and +1. The correspondence and awakening threshold remain modeled rather than proven by table length alone.",
+  "conflicts_and_limits": "Display/global curves use different coordinate units and are not substituted. Legacy S5 automatic-level wording was backed by manual preset coefficients. Full passive/awakening dispatch, costs, timing, other characters and bonus sources remain pending.",
+  "affected_scenarios": "Only explicit native_mint_skill_level_v1 built research requests; legacy coordinate projection remains available.",
+  "checks": "Rust progression/source/selection boundaries; original-export Fraction/PCG CLI oracle at purchased 1/8/10 and A0/A2/A3/A6; complete compiled-scenario native/WASM report parity."
+}

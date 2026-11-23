@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "status": "implemented",
+  "owner": "shinku",
+  "character_id": "character:1076",
+  "hypotheses": [
+    "shinku.ordinary_hit_energy_v1",
+    "shinku.normal_chain_v1",
+    "shinku.skill_packets_v1",
+    "shinku.burst_packets_v1"
+  ],
+  "scenario": {
+    "source": "six five-input Normal chains, two Skills, the initial 100-energy Burst train from zero energy, then one Normal continuation chain",
+    "starting_energy": 0,
+    "energy_capacity": 100,
+    "charge_efficiency": "1/1",
+    "other_living_recipient_relation": "3/5",
+    "cost": "initial Burst spends 100 energy once",
+    "timing": "Normal inputs use 800ms recovery at 0..23.2s for buildup and 39.2..42.4s for continuation; Skills start at 24s and 30s with 1.2s recovery and 6s cooldown; Burst starts at 31.2s. Surging Crimson is active before the first Skill packet and remains active for the complete Burst and continuation. Rust and compiled NTE assert the same 44s-horizon schedule.",
+    "receipts": {
+      "normal_packets": 70,
+      "skill_packets": 6,
+      "burst_packets": 9,
+      "total_hit_packets": 85,
+      "energy_source_packets": 76
+    }
+  },
+  "independent_oracle": {
+    "normal_charge_add_milli_per_chain": [760, 1285, 853, 1225, 724, 820, 1753, 3399, 2075, 4706],
+    "skill_charge_add_milli_per_packet": [750, 1000, 3450],
+    "burst_charge_add_milli_per_packet": 0,
+    "pre_burst_charge_add": "6*17.600 + 2*5.200 = 116.000",
+    "pre_burst_settlement": "116 whole source energy, 16 overflow at capacity 100; Burst spends 100",
+    "post_burst_normal_chain": "17.600 additional ChargeAdd; total generated is 133 whole plus 3/5 carry, overflow remains 16, ending at 17 energy",
+    "source_final": {
+      "granted": 133,
+      "spent": 100,
+      "overflow": 16,
+      "energy": 17,
+      "charge_remainder": "3/5"
+    },
+    "each_other_living_recipient_final": {
+      "relation": "3/5",
+      "gross_charge_add": "133.600*3/5 = 80.160",
+      "granted": 80,
+      "energy": 80,
+      "charge_remainder": "4/25"
+    },
+    "level_8_damage_at_1000_atk_and_0_5_defense_multiplier": {
+      "normal_five_input_chain_before_buff": 3619,
+      "skill_cast_three_packets_during_surging_crimson": "13364/10",
+      "initial_burst_nine_packets_during_surging_crimson": "26741/4",
+      "continuation_chain_during_surging_crimson": "47047/10",
+      "total": "6*3619 + 2*(13364/10) + 26741/4 + 47047/10 = 143107/4"
+    },
+    "values_are_literal_test_expectations": true
+  },
+  "checks": [
+    "Focused Rust ordinary_hit_energy::owner_rotations::shinku_empty_energy_rotation_spends_burst_and_continues asserts all 85 packet identities and exact damage values, all 76 per-packet ChargeAdd grants, the single 100-energy cost, source/ally ledgers, capacity/overflow, and continuation.",
+    "Authored NTE is checked through WASM and the actual browser Worker; native report parity, observations, aggregation and replay reconcile with the independent damage and energy ledgers.",
+    "Focused checks passed: python tools/cargo.py test --package ntesim-content shinku_empty_energy_rotation_spends_burst_and_continues; node tools/web.mjs test web/tests/ordinary_hit_owner_rotations.test.mjs. Stable-tree checkpoint pending."
+  ],
+  "limits": [
+    "shinku.ordinary_hit_energy_v1 remains a bounded eligibility, positive-HP-loss, recipient and off-field ownership hypothesis; native caller evidence is unavailable.",
+    "Normal-chain reset/delivery and coincident Skill/Burst packet timing use the existing owner hypotheses, not native animation measurements.",
+    "Only A0 ordinary Normal/Skill/initial Burst inputs are exercised. Charge reaction state and Shinku's equal off-field Charge, AoE and timed ATK callbacks remain unsupported; Rage packets/resources, Menacing Gaze, QTE and other branches are outside the sequence.",
+    "The browser compiles authored inputs into a fixed timeline; this does not establish live readiness waits or a shared live interpreter."
+  ],
+  "source_sha256": {
+    "data/global-2026-10-04/tables/DT_GameplayAbilityTipsData.json": "5c0a0f929376891c033451a25208b55747c43e6bbb24b75506eb0ff50a23584f",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json": "917b0c3675412c0425a0724d09e7dd8ae4d1ef9a100d2ea5669d7484d0901bf2",
+    "data/global-2026-10-04/tables/DT_SkillTeamChargeRelationData.json": "5e456919997b0f77c4b569ce812267a059bab553a1f87fcb863723c44b66363b",
+    "reviews/q10-game-action-binding/shinku-normal-chain.json": "35c4d96473347e03b0f69eb7b7118e6c68eb659b3788c051ef175afc49c11ab2",
+    "reviews/q10-game-action-binding/shinku-action-binding-model.json": "2069fc4af8bf789b7a0c7b70eda4d8d0d3718e55025bd7a20e5e74825e21a3e9"
+  }
+}

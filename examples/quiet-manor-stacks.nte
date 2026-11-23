@@ -1,0 +1,12 @@
+options duration=14 iteration=1 crit=fixed;
+fadia char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_energy=120;
+mint char lvl=80/80 awakening=0 talent=1,1,1 qte=1;
+fadia add weapon=fork_Arachne refine=1;
+fadia add cartridge=quietmanor count=4;
+fadia add stats dmg%=0.25;
+target hp=10000000 def=1080 resist=0.2;
+active fadia;
+fadia attack:5;
+wait_until(6);
+fadia burst;
+mint attack;

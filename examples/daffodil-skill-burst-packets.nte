@@ -1,0 +1,20 @@
+# Native A0 Daffodil: continuing chains, Resonance Skill, paid Finale and
+# an off-field Support followed by her charge-funded Phantom Step entry.
+options iteration=1 duration=120 seed=42;
+
+daffodil char lvl=80/80 awakening=0 talent=8,8,8 qte=8 start_resonance=2;
+daffodil add stats ce=0.1;
+zero char lvl=80/80 awakening=0 talent=8,8,8 qte=8;
+
+target hp=100000000 def=1080 resist=0;
+target hp=100000000 def=1080 resist=0;
+active daffodil;
+
+repeat 2 {
+    daffodil attack:5;
+    daffodil skill, burst;
+    zero swap;
+    wait(1);
+    daffodil swap;
+    repeat 6 {daffodil attack:5;}
+}

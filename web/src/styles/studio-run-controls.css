@@ -1,0 +1,147 @@
+.editor-actions {
+  display: grid;
+  grid-template-columns: 140px 1fr 1fr auto;
+  gap: 6px;
+  margin: 12px 0;
+}
+
+.editor-actions button {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.editor-actions #tools-btn {
+  max-width: 100%;
+  margin-left: 20%;
+}
+
+.tools-anchor {
+  position: relative;
+  display: flex;
+  max-width: 100%;
+  margin-left: 20%;
+}
+
+.tools-anchor #tools-btn {
+  width: 100%;
+  margin-left: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.dropdown-caret {
+  font-size: 11px;
+  opacity: 0.8;
+  pointer-events: none;
+}
+
+.tools-dropdown {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  z-index: 1000;
+  min-width: 250px;
+  max-width: calc(100vw - 24px);
+  max-height: calc(100vh - 32px);
+  overflow-y: auto;
+  background: #251e2b;
+  border: 1px solid #6e597c;
+  border-radius: 6px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.55);
+  display: flex;
+  flex-direction: column;
+  padding: 6px;
+  gap: 4px;
+}
+
+.tools-dropdown[data-placement='top'] {
+  top: auto;
+  bottom: calc(100% + 4px);
+  box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.55);
+}
+
+.tools-dropdown button {
+  background: transparent;
+  color: #f0e6f6;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 12px;
+  text-align: left;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.tools-dropdown button:hover,
+.tools-dropdown button:focus-visible {
+  background: #42354c;
+  outline: none;
+}
+
+.tools-dropdown [role='alert'] {
+  color: #ff8585;
+  font-size: 12px;
+  padding: 6px 12px;
+  margin: 0;
+}
+
+.run-button {
+  background: var(--accent);
+  color: #282031;
+  border-color: var(--accent);
+  font-weight: bold;
+}
+
+.run-button:hover {
+  background: #e6c5ff;
+}
+
+.run-status-panel {
+  background: #302a33;
+  border: 1px solid #67516c;
+  padding: 12px;
+  margin: 10px 0;
+}
+
+.run-message {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  font: 12px var(--mono);
+}
+
+#run-clock {
+  margin-left: auto;
+  color: #cab9d5;
+}
+
+.spinner {
+  display: none;
+  width: 16px;
+  height: 16px;
+  border: 2px solid #66516f;
+  border-top-color: #e0bbff;
+  border-radius: 50%;
+}
+
+.running .spinner {
+  display: block;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+progress {
+  display: block;
+  width: 100%;
+  height: 6px;
+  margin-top: 10px;
+  accent-color: var(--accent);
+}

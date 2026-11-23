@@ -1,0 +1,2 @@
+# Active verifiers
+tools/verify_wasm_parity.py

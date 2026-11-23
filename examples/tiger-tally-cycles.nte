@@ -1,0 +1,26 @@
+options iteration=1 duration=210 crit=fixed seed=42;
+
+hathor char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_energy=100;
+hathor add weapon=fork_TigerTally refine=1;
+hathor add stats dmg%=0.25;
+mint char lvl=80/80 awakening=0 talent=1,1,1 qte=1;
+target hp=100000000 def=0 resist=0 boss=true;
+active hathor;
+
+# Two opposite talismans open Arc; the Normal stacks expire independently.
+# Explicit waits place first-stage Normal contacts exactly on each deadline.
+# The216746us contact offset is the native first Normal's selected coordinate;
+# no action, recovery or damage metadata is overridden.
+for let i=0; i<2; i=i+1 {
+  while .time<i*100 {wait(i*100-.time);}
+  let skill_time=.time;
+  hathor skill[hold=0]; wait(1.5);
+  let burst_time=.time;
+  hathor burst; hathor attack;
+  while .time<burst_time+10-0.216746 {wait(burst_time+10-0.216746-.time);} hathor attack;
+  while .time<skill_time+15-0.216746 {wait(skill_time+15-0.216746-.time);} hathor attack;
+  while .time<burst_time+15-0.216746 {wait(burst_time+15-0.216746-.time);} hathor attack;
+  mint swap; mint attack:3; hathor swap;
+  # Continuing connected energy pays the next Burst without resetting state.
+  hathor attack:30;
+}

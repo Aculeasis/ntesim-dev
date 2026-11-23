@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "seeds": [42, 43, 0, 1, 999],
+  "timing_policy": "scale_recovery_and_hit_delay_v1",
+  "timing_hypothesis": "Worsen the declared preview recovery and hit delays by 10% and 20%; keep planned commands and cooldowns fixed, with no implicit rescheduling.",
+  "timing_multipliers": [
+    "1/1",
+    "11/10",
+    "6/5"
+  ],
+  "max_events_per_run": 100,
+  "max_total_events": 1500,
+  "max_run_receipt_bytes": 1000000
+}

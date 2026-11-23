@@ -1,0 +1,130 @@
+{
+ "checks": [
+  "Native content build projection binds all four source curves across T1..T5, checks the 1..4 DataList parameter order and percent unit hints, enforces ApplyGroupType THREE against the wearer group, and retains the native description receipt.",
+  "Independent T1 scenario oracle: 1000 static ATK + 1000 base ATK * 12/100 = 1120 non-crit damage at 0 DEF/0 RES versus 1000 without the proc (ratio 28/25).",
+  "Independent zone oracle: Broken-tagged target receives damage-bonus 3/25 plus atk_percent 3/25; untagged target receives atk_percent 3/25 and zero damage bonus.",
+  "Independent heal oracle: Broken kill at 100 Max HP / 50 HP heals gross 30; kills at +1us and +29.999999s share the trigger; a kill at exactly +30s retriggers; a second wearer heals independently; a dead wearer stays at 0 HP with the trigger consumed.",
+  "Validation rejects a non-fork_Whale weapon id, a zero kill-heal cooldown, duplicate whale procs, and cross-group (mint, group TWO) projection.",
+  "Web integration scenario (web/tests/combat/whale.mjs) checks T1..T5 proc values, the exact ATK damage ratio against a proc-less baseline, and group rejection; written for CI.",
+  "Reviewer applied the two shared-file additions (gear::RuntimeState.whale, ContentEvent::WhaleHeal + dispatch), fixed one test-fixture bug (research_action_metadata not truncated with actions), then cargo test -p ntesim-content whale:: : 8/8 pass. cargo check --tests clean.",
+ "T5 audit: whale_t5_broken_hit_end_to_end pins the hand-derived T5 zone oracles — end-to-end scenario 1200 with the proc / 1000 baseline, zone modifiers atk_percent 1/5 + damage bonus 1/5 on a Broken-tagged state (the 1440 engine round-trip is blocked on a scenario-level Broken declaration, see known_gaps); whale_teammate_kill_does_not_trigger_wearer_heal proves end-to-end that a teammate's fatal hit queues no whale_heal; whale_heal_rounds_fractional_gross_once proves the fractional quantization (Max 99 / HP 50 -> gross 30, applied 30, HP 80, overflow 0). Focused run: 12/12 whale tests pass."
+ ],
+ "checks_not_run": [
+  "Web tests were not run: no WASM build exists in this Linux environment (web/tests/native-compiler.ts requires target/wasm32-unknown-unknown/release/ntesim_wasm.wasm); the scenario file is written for CI."
+ ],
+ "combat_scope": "Unconditional wearer ATK percentage joining the live base-ATK-scaled ATK sum. Additive damage-bonus-zone ratio against Broken enemies only. On a Broken-enemy defeat, heal the wearer for the frozen fraction of live Max HP, settled with live healing modifiers, capped at missing HP, unable to revive, rounded once to nearest integer. One per-wearer 30s world-time cooldown starts on each qualifying defeat; simultaneous defeats share it and separate wearers are independent.",
+ "curves": {
+  "buff_Whale_AtkUp": {
+   "keys": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "unit": "ratio",
+   "values": [
+    0.12,
+    0.14,
+    0.16,
+    0.18,
+    0.2
+   ]
+  },
+  "buff_Whale_CD": {
+   "keys": [
+    1,
+    5
+   ],
+   "unit": "seconds",
+   "values": [
+    30.0,
+    30.0
+   ]
+  },
+  "buff_Whale_Hp": {
+   "keys": [
+    1,
+    5
+   ],
+   "unit": "ratio",
+   "values": [
+    0.3,
+    0.3
+   ]
+  },
+  "buff_Whale_Up": {
+   "keys": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "unit": "ratio",
+   "values": [
+    0.12,
+    0.14,
+    0.16,
+    0.18,
+    0.2
+   ]
+  }
+ },
+ "cutoff": "2026-10-04",
+ "exclusive_character_ids": [],
+ "exclusive_character_scope": "Frozen ExclusiveCharacterIDArray is empty and ExclusiveDesc has no string; equipment legality follows ApplyGroupType.",
+ "group": "ECharacterGroupType::CHARACTER_GROUP_TYPE_THREE",
+ "hypothesis_id": "weapons.whale_v1",
+ "independent_oracles": [
+  "T5 end-to-end zone oracle (0 DEF/0 RES, static 1000, base 1000): ATK = 1000 + 1000*1/5 = 1200; Broken-tagged zone modifiers atk_percent 1/5 + damage bonus 1/5, so the Broken hit is 1200*(1+1/5) = 1440; untagged 1200; no proc 1000. The 1440 engine round-trip is not reachable (see known_gaps). (whale_t5_broken_hit_end_to_end)",
+  "Heal is tier-invariant: buff_Whale_Hp = 0.3 constant across all tiers, so gross at 100 Max HP = 30 at T5 too.",
+  "Quantization (COMBAT_FORMULA_CONTRACT sections 5/6): Max HP 99 / HP 50, T1 -> gross = round(99*3/10) = round(29.7) = 30 (nearest, ties upward), applied 30 -> HP 80, overflow 0. (whale_heal_rounds_fractional_gross_once)"
+ ],
+ "known_gaps": [
+  "Global release availability is unverified in the frozen catalog.",
+  "No native break gauge exists in the runtime, so Broken defeats only occur when a scenario declares the content-owned Broken status tag; native break-triggered defeats are unmodeled.",
+  "The kill-heal callback settles at ProcCallback priority via a queued content event; exact native callback ordering relative to other same-time events is a modeled choice.",
+  "Strict scenarios must pre-accept weapons.whale_v1; the hypothesis is recorded on the wearer's defeat callback, not on cast (no cast hook is wired for this weapon).",
+  "GameScenarioRequest has no field to declare target Broken status at start, so the 1440 Broken-hit oracle is pinned through exact zone modifiers on a Broken-tagged state rather than an engine round-trip; a scenario-level Broken-status declaration for targets is the return condition."
+ ],
+ "name": "Song of the Whale",
+ "native_curve_rows": "CT_ForkBuff:/rows/buff_Whale_AtkUp,buff_Whale_Up,buff_Whale_Hp,buff_Whale_CD",
+ "native_item_row": "DT_ForkItemData:/rows/fork_Whale",
+ "native_refinement_rows": "DT_ForkUpgradeStarDataTable:/rows/upgradestar_pack_fork_Whale_1..5",
+ "content_id": "ntesim-current",
+ "passive_effect": {
+  "localized": "Increases ATK by {0}.\nIncreases the wearer's damage to Broken enemies by {1}. Restores {2} HP to the wearer if a Broken enemy is defeated. Triggers at most once every {3}s.",
+  "source": "攻击力提高{0}。\n装备者对处于倾陷状态的敌人造成的伤害提高{1}，如果敌人在倾陷状态下被击杀，则回复装备者{2}生命值，该效果{3}秒内最多触发1次。"
+ },
+ "passive_title": {
+  "localized": "Song of the Whale",
+  "source": null
+ },
+ "placeholder_mapping": {
+  "{0}": "buff_Whale_AtkUp (DataList order 1, percent)",
+  "{1}": "buff_Whale_Up (DataList order 2, percent)",
+  "{2}": "buff_Whale_Hp (DataList order 3, percent)",
+  "{3}": "buff_Whale_CD (DataList order 4, seconds)"
+ },
+ "region": "Global",
+ "schema_version": 1,
+ "source_sha256": {
+  "data/ntesim-current/tables/CT_ForkBuff.json": "93d1ed2069bc8e4358f98bfb5a3e212c13ad84e67eb6379e38414aa665539c15",
+  "data/ntesim-current/tables/DT_Character.json": "cce34c68a6286d9cfeb1525c7e0e05743370e8d5f96f6ddb8feb4ef8db0ab406",
+  "data/ntesim-current/tables/DT_ForkItemData.json": "22f6f587ad9bf3d54905889e81bfe8f213fa29c49522499287c53d42fd6900a4",
+  "data/ntesim-current/tables/DT_ForkUpgradeStarDataTable.json": "b15f6c4cf4b8a6e1c982b431176b406a501f38861a67ddce45a0f589cdeed8c5"
+ },
+ "status": "modeled_hypothesis",
+ "tested_hypotheses": [
+  "Broken state is detected through the content-owned ntesim.status.broken target status tag; the tag name is not asserted to be the native GameplayTag because the frozen tables expose no break-gauge binding and the runtime simulates no break gauge.",
+  "The {0} ATK percentage is unconditional and joins the live base-ATK-scaled ATK sum (base_atk * p added to ATK), never multiplying compiled static ATK.",
+  "The {1} Broken damage ratio joins the single additive damage-bonus zone (M_bonus) only while the target carries an active Broken tag; it is not a final, special, or multiplicative factor.",
+  "The {2} heal amount is a ratio of live Max HP (30% of effective_hp_max captured at defeat), settled with live healing modifiers, rounded once to nearest integer, capped at missing HP, and cannot revive a defeated wearer.",
+  "The 30s cooldown is reserved on each qualifying Broken defeat, including defeats while the wearer is already defeated; a dead wearer's queued callback settles with applied 0 and no revival.",
+  "Simultaneous Broken defeats share one wearer cooldown; the exact 30s boundary is ready again; separate wearers keep independent cooldowns.",
+  "Trigger credit is the wearer's own delivered fatal hit; teammate defeats do not trigger the wearer's heal.",
+  "Frozen package evidence does not establish Global release availability."
+ ],
+ "weapon_id": "weapon:fork_Whale"
+}

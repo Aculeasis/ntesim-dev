@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "content_id": "synthetic-v1",
+  "data_status": "synthetic",
+  "seed": 42,
+  "rng_streams": {"outcomes": 54},
+  "duration_us": 30,
+  "mode_clock": 0,
+  "clocks": [{"id": 0, "rate_ppm": 1000000}],
+  "targets": {"first": {"hp": 200, "max_hp": 200, "shield_order": "oldest_first"}},
+  "resources": {"energy": {"current": 3, "capacity": 3}},
+  "actors": {
+    "hero": {
+      "clock": 0,
+      "initial_time_us": 0,
+      "locked_until_us": 0,
+      "actions": {
+        "skill": {
+          "rule": {"recovery_us": 1, "cooldown_us": 10, "costs": {"energy": 1}},
+          "ready_at_us": 0,
+          "effects": [{"kind": "random_damage", "target": "first", "stream": "outcomes", "outcomes": [{"weight": 1, "amount": 10}, {"weight": 1, "amount": 25}], "hit_delay_us": 2}]
+        }
+      }
+    }
+  },
+  "actions": {"attack": [{"kind": "invoke_action", "actor": "hero", "action": "skill"}]}
+}

@@ -1,0 +1,14 @@
+options iteration=1000 duration=20 seed=42;
+mint char lvl=80/80 awakening=[1,2,3] talent=8,8,8 qte=8;
+mint add weapon=mindroyale refine=5;
+mint add cartridge=firefliesandtheforest count=4;
+mint add stats atk=500 cr=0.3;
+target hp=10000000 def=1080 resist=0.2 psyche=0.1 anima=0.3;
+active mint;
+
+repeat 2 {
+  mint attack:5;
+  wait(0.5);
+}
+mint skill;
+mint burst;

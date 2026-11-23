@@ -1,0 +1,25 @@
+# Two absolute 75-second native A0 periods: ordinary/transformed chains and two paid Verdicts each.
+# Console contributions are explicit; the declared cartridge owns its bonuses.
+options iteration=1 duration=150 seed=42;
+chaos char lvl=80/80 awakening=0 talent=8,8,8 qte=8 start_energy=0;
+chaos add weapon=fork_GoldWool refine=1;
+chaos add cartridge=Suit5 count=4;
+chaos add stats atk%=0.75 atk=420 cr=0.30 cd=0.92;
+target hp=100000000 def=1080 resist=0;
+active chaos;
+
+let period=0;
+repeat 2 {
+    repeat 6 {chaos attack:5;}
+    wait_until(period+33); chaos skill;
+    wait_until(period+35); chaos burst;
+    wait_until(period+40); chaos attack[hold=1];
+    wait_until(period+43); chaos attack:5;
+    # The Burst cinematic pauses the form timer. Dread Echo expires at 51.802493s in this period.
+    # The Verdict admitted at 50.65s retains its transformed second stage through that expiry.
+    wait_until(period+50.65); chaos attack[hold=1];
+    wait_until(period+54); chaos attack:5;
+    wait_until(period+75);
+    if .chaos.dread_echo.active || .chaos.resources.crime!=382 {wait(999);}
+    period=period+75;
+}

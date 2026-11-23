@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "scope": "Haniel ordinary five-input Normal chain in the shared gameplay runner",
+  "quality": "executable modeled chain; complete kit pending",
+  "hypothesis_id": "haniel.normal_chain_v1",
+  "sources": [
+    "data/extracted/neverness_haniel.json: GA_Haniel_Melee_1_des through GA_Haniel_Melee_5_des",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json: GE_Player_Haniel_Melee1_Damage through Melee5_Damage",
+    "reviews/q10-game-action-binding/haniel-action-binding-model.json: frozen source hashes"
+  ],
+  "decision": "Each admitted Normal input advances one of five stages, looping after stage five. Multiplicities are 1,2,1,4,1 (nine hits in five inputs), with native effective talent projection including Haniel resonance_3. Admission metadata records the input binding; delivery receipts record the actual native stage packets.",
+  "hypotheses": [
+    "A different admitted ability or field exit resets the chain; a same-actor switch does not.",
+    "A gap greater than 2 seconds between input starts resets the chain; the exact 2-second boundary continues. This continuity convention is tested but not measured animation timing.",
+    "Multi-hit stage packets deliver in order at the input's research primary impact time; animation and travel intervals remain unresolved."
+  ],
+  "independent_oracles": [
+    "At 1000 ATK and 0.5 DEF, level-one stages deal 209.5, 56*2, 291, 78*4, 264: five inputs total 1188.5; sixth looping input gives 1398.",
+    "Level-eight stages deal 359, 96*2, 498.5, 133.5*4, 452.5: five inputs total 2036; sixth gives 2395.",
+    "Purchased level eight at A3 projects level nine: 388, 103.5*2, 538.5, 144.5*4, 488.5: five inputs total 2200; sixth gives 2588."
+  ],
+  "checks": [
+    "Native independent per-packet and total damage tests verify all stages, multiplicities, looping, resets and no-op switches.",
+    "Strict requires the matching owner hypothesis; pending fourth-stage packets retain their actor after field exit and settle exactly at the delivery horizon.",
+    "Public attack:5 scripts verify per-packet/total damage at levels 1 and 8, including A3, through Worker/WASM and full native report parity."
+  ],
+  "pending": [
+    "Measured reset/cancel rules and packet intervals; return when frozen animation evidence supplies a concrete model.",
+    "AoE, travel, plunge, riposte, Four-Part Harmony, ordinary energy and remaining kit behavior."
+  ]
+}

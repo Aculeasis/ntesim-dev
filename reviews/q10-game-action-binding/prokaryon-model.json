@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "question": "Does Us. apply its Basic Attack damage bonus by delivered packet category independently of input role?",
+  "branch_budget_minutes": 5,
+  "total_investigation_budget_minutes": 10,
+  "sources": [
+    "data/global-2026-10-04/tables/DT_ForkUpgradeStarDataTable.json#/rows/upgradestar_pack_fork_Prokaryon_1",
+    "data/global-2026-10-04/tables/CT_ForkBuff.json#/rows/buff_Prokaryon_Up"
+  ],
+  "decision": "Interpret native DamageSourceCategory A as Basic Attack. Add the exact T1-T5 ratio in the additive damage-bonus zone for every wearer packet with that category, including delayed off-field packets. Missing or unknown packet categories fail. The effect is permanent; it has no trigger or expiry. Category mapping and packet-time eligibility remain explicit tested hypotheses.",
+  "availability": "Frozen Global release availability remains unverified.",
+  "stop_condition": "Check refinement curves/units, legal equipped build, independent damage arithmetic, all supported packet categories, delayed off-field ownership, invalid configurations and CLI/WASM/Worker parity.",
+  "return_condition": "New packet classification, release or damage-zone evidence conflicts with the model.",
+  "checks": [
+    "155 content tests pass: exact T1-T5 ratios and changed-parameter/unit rejection, legal Nanally/Us. native build and independently calculated additive damage multiplier.",
+    "Packet category/element cross-check: 1000 ATK * .5 DEF * (1 + .1 general + .12 weapon) = 610 for A packets; other categories remain 550. Delayed A delivery after switching remains wearer-only. Duplicate/mismatched gear and missing/unknown packet categories fail.",
+    "The Nanally first-attack packet is selected by the native content owner and published through the catalog; this is a partial primary-packet model, not a full ordinary chain or kit.",
+    "Public Nanally A0 level 80 talents 8/8/8 equipped Us. T1-T5: attack and skill execute; independent attack multiplier (1 + .1 general + .15 Anima + weapon)/(1 + .1 + .15), unaffected skill, incompatible weapon rejection and full CLI/WASM report equality. Real Worker executes the T5 script and agrees with direct WASM.",
+    "TypeScript and production build pass; weapon_passives, native_build and scenario_script modules pass. Command: NTESIM_VERIFY_NATIVE=1 NTESIM_VERIFY_WEAPON=prokaryon node tools/web.mjs test --test tests/weapon_passives.test.mjs tests/native_build.test.mjs tests/scenario_script.test.mjs (from web). Native parity is scoped to the changed weapon; the other weapons retain WASM/Worker checks.",
+    "Changed Rust files pass rustfmt. Content clippy passes with only the two existing metadata lints collapsible_if and single_element_loop allowed; unqualified -D warnings still fails on those pre-existing lints."
+  ],
+  "artifact_sha256": {
+    "target\\debug\\ntesim.exe": "48b6679e43e6065236037ee366f979e3c636936ad19ae444847a690c9e2dc533",
+    "web\\wasm\\ntesim_wasm.wasm": "965dcdc7cbe803fcd9207ff822dd5c411804b2ab9849d9d7f9336e4bd6f6c93d"
+  }
+}

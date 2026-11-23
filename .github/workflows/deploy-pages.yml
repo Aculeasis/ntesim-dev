@@ -1,0 +1,63 @@
+name: Deploy Studio to Pages
+
+on:
+  push:
+    tags: ['**']
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Exact tag in main history (blank builds fetched main)
+        required: false
+        type: string
+        default: ''
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-24.04
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    env:
+      NTESIM_BUILD_CPUS: all
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.13.9'
+      - name: Resolve and freeze source
+        env:
+          INPUT_TAG: ${{ inputs.tag }}
+        run: python tools/pages_deploy.py
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24.19.0'
+          package-manager-cache: false
+      - name: Install pinned Rust and WASM generator
+        shell: bash
+        run: |
+          rust_version=$(python -c 'import tomllib; print(tomllib.load(open("rust-toolchain.toml", "rb"))["toolchain"]["channel"])')
+          rustup toolchain install "$rust_version" --profile minimal
+          rustup target add --toolchain "$rust_version" wasm32-unknown-unknown
+          bindgen_version=$(python -c 'import sys; sys.path.insert(0, "tools"); from wasm_bindings import VERSION; print(VERSION)')
+          python tools/cargo.py install wasm-bindgen-cli --version "$bindgen_version" --locked --root cache/wasm-bindgen
+      - name: Install locked web dependencies
+        run: node tools/web.mjs install
+      - name: Build browser site
+        run: python tools/browser_distribution.py build --output target/ntesim-browser-pages.zip
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: target/web
+      - uses: actions/deploy-pages@v5
+        id: deployment

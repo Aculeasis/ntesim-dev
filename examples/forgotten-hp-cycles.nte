@@ -1,0 +1,19 @@
+options iteration=1 duration=45 crit=fixed;
+haniel char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_hp%=0.51;
+haniel add weapon=fork_wuhuakuang refine=1;
+iroi char lvl=80/80 awakening=0 talent=1,1,1 qte=1;
+iroi add stats atk=1000;
+target hp=100000000 def=0 resist=0;
+
+incoming haniel at=5 damage=1000;
+incoming haniel at=15 damage=1;
+incoming haniel at=30 damage=1000;
+active haniel;
+haniel attack;
+wait_until(10); haniel attack;
+wait_until(16); haniel attack;
+wait_until(20); iroi swap; iroi skill;
+wait_until(22); haniel swap; haniel attack;
+wait_until(32); haniel attack;
+wait_until(40); iroi swap; iroi skill;
+wait_until(42); haniel swap; haniel attack;

@@ -1,0 +1,86 @@
+{
+  "schema_version": 1,
+  "status": "modeled_and_tested",
+  "source_sha256": {
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json": "917b0c3675412c0425a0724d09e7dd8ae4d1ef9a100d2ea5669d7484d0901bf2",
+    "data/global-2026-10-04/tables/DT_SkillTeamChargeRelationData.json": "5e456919997b0f77c4b569ce812267a059bab553a1f87fcb863723c44b66363b"
+  },
+  "owners": [
+    {
+      "owner": "adler",
+      "character_id": "character:1033",
+      "hypothesis_id": "adler.ordinary_hit_energy_v1",
+      "element": "INCANTATION",
+      "packets": {
+        "Melee": {
+          "effects": [
+            "GE_Player_Adler_Melee1_Damage",
+            "GE_Player_Adler_Melee2_Damage",
+            "GE_Player_Adler_Melee3_Damage",
+            "GE_Player_Adler_Melee3_Damage",
+            "GE_Player_Adler_Melee3_Damage",
+            "GE_Player_Adler_Melee3_Damage",
+            "GE_Player_Adler_Melee3_Damage",
+            "GE_Player_Adler_Melee3_Damage",
+            "GE_Player_Adler_Melee3_Damage",
+            "GE_Player_Adler_Melee4_1_Damage",
+            "GE_Player_Adler_Melee4_2_Damage",
+            "GE_Player_Adler_Melee5_Damage"
+          ],
+          "charge_milli": [
+            1254,
+            3599,
+            963,
+            963,
+            963,
+            963,
+            963,
+            963,
+            963,
+            1364,
+            1440,
+            5458
+          ],
+          "total_milli": 19856
+        },
+        "Aim": {
+          "effects": [
+            "GE_Player_Adler_Aim_Damage"
+          ],
+          "charge_milli": [
+            700
+          ],
+          "total_milli": 700
+        },
+        "Skill": {
+          "effects": [
+            "GE_Player_Adler_Skill2_Damage"
+          ],
+          "charge_milli": [
+            4000
+          ],
+          "total_milli": 4000
+        }
+      },
+      "source_distribution": "1/1",
+      "living_ally_distribution": "3/5"
+    }
+  ],
+  "decision": "Bind modeled normal, aimed normal and ordinary Skill packets to shared exact team energy; Skill2 supplies4 charge while initial Skill3 and periodic Skill_Damage supply0. Burst remains outside this adapter.",
+  "hypothesis_rationale": "Frozen ChargeAdd and element-relation rows supply exact constants. Delivery-time positive HP loss, living recipients, efficiency, carry and off-field eligibility reuse the tested shared hypothesis.",
+  "independent_oracles": [
+    "One complete ordinary chain: 19.856 owner energy, 11.9136 per ally before efficiency. Twelve chains: 238.272 owner and 142.9632 ally gross energy before capacity/spend.",
+    "One aimed Normal: 0.7 owner and 0.42 per ally before efficiency.",
+    "One Skill:4 owner energy and2.4 per ally before their own efficiency, capacity, carry and spending."
+  ],
+  "checks": [
+    "Shared Rust ordinary_hit_energy causal suite: per-recipient efficiency/carry, capacity/overflow, dead targets/recipients, zero HP loss, fatal delayed hit after switching, replay and strict hypothesis requirement.",
+    "Twelve ordinary chains from empty pools fund allied Mint Ultimate through current CLI/WASM/Worker, with exact per-packet oracle, aggregation and replay.",
+    "Aimed Normal uses its separate frozen charge through current CLI/WASM/Worker.",
+    "Existing Adler damage and player input suites."
+  ],
+  "limits": [
+    "Skill multiplicity, impact/refresh timing and target geometry remain bounded hypotheses under the action owner; more than one declared target rejects.",
+    "Burst, defensive passives, further attack branches and full kit remain pending. Zero-charge sibling/periodic rows cannot establish unmodeled source eligibility."
+  ]
+}

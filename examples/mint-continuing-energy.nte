@@ -1,0 +1,17 @@
+# Mint A0 continuing rotation: build from empty energy, pay Burst, and continue.
+# Native packet timing is modeled by the compiled inputs; energy eligibility remains an owner hypothesis.
+options iteration=1 duration=55 crit=fixed;
+mint char lvl=80/80 awakening=0 talent=8,8,8 qte=8 start_energy=0;
+sakiri char lvl=80/80 awakening=0 talent=8,8,8 qte=8 start_energy=0;
+hathor char lvl=80/80 awakening=0 talent=8,8,8 qte=8 start_energy=0;
+target hp=100000000 def=1080 resist=0;
+active mint;
+
+repeat 8 { mint attack:5; }
+mint skill;
+wait(5.3);
+mint skill;
+mint attack:5;
+mint burst;
+wait(3);
+mint attack:5;

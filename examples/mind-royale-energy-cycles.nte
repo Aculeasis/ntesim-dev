@@ -1,0 +1,17 @@
+options iteration=1 duration=80 crit=fixed;
+
+mint char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_energy=100;
+mint add weapon=fork_lingganzhongjiezhe refine=1;
+adler char lvl=80/80 awakening=0 talent=1,1,1 qte=1;
+target hp=100000000 def=0 resist=0 break_gauge=1/1000 max_break_gauge=30 broken_duration=0.1;
+active mint;
+
+# The opening grant overflows; Burst spends the existing pool normally.
+mint skill; mint attack:5; mint burst; adler swap;
+
+# This admitted Skill is still inside the weapon's twenty-second ICD.
+while .time<10 {wait(10-.time);} mint swap; mint skill; mint attack:5;
+
+# Grants at20 and40 preserve exact deadlines, off-field time and the ledger.
+while .time<20 {wait(20-.time);} mint skill; repeat 3 { mint attack:5; }
+while .time<40 {wait(40-.time);} mint skill; repeat 2 { mint attack:5; } mint burst;

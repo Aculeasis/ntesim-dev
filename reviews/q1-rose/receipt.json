@@ -1,0 +1,134 @@
+{
+  "checks": [
+    "Native content build projection binds all four source curves across T1..T5 as exact fractions (ATK 7/50, 7/40, 21/100, 49/200, 7/25; CRIT DMG per stack 3/50, 3/40, 9/100, 21/200, 3/25; thorn duration 3_000_000 us) through the 1..4 DataList order (buff_Rose_AtkUp, buff_Rose_CritDamageUp, buff_Rose_CD, buff_Rose_UnbalTime) with bIsPercent unit hints pinned, enforces ApplyGroupType TWO against the wearer group, accepts the frozen cosmetic exclusive entry [\"1004\"] (skin-change-only), and retains the native description receipt.",
+    "Config validation: a proc on weapon:fork_Kite is rejected ('fork_Rose'); a zero thorn duration is rejected; cross-group wearers (group ONE) are rejected by projection.",
+    "Runtime: the unconditional ATK% is staged by the real gear dispatch (gear.rs:312) into HitModifiers.atk_percent via add_atk_percent, and the live hit path adds base_atk * atk_percent to the ATK-scaled packet (simulation/hit/calculation.rs), per COMBAT_FORMULA_CONTRACT section 2. Thorn stacks are granted via the routed hooks: on_cast (gear.rs:277 -> rose::on_cast, Redirect Skill -> 10 stacks bypassing ICD) and on_hit (hit/effects.rs:216 -> gear.rs:341 -> rose::on_hit, DoT packets -> 1 stack with 0.3s ICD). Hypothesis registered at gear.rs:153.",
+    "Independent hand-derived oracles: T1 live ATK = 1200 static + 1000 base * 7/50 = 1340 (fixture static 1200, base 1000), with the multiplicative misreading ATK_static * (1+p) = 1368 rejected; non-crit exact damage at ratio 1, 0 DEF, 0 RES equals 1340. This falsifier replaces the old 1140 oracle, which could not discriminate additive from multiplicative readings.",
+    "Redirect zone oracle (live): ATK_live = 1000 + 1000 * 7/50 = 1140; CD_total = 1/1 (fixture) + 10 * 3/50 = 8/5; crit factor C = 13/5 -> 1140 * 13/5 = 2964 at the redirect hit and at +2s, falling to 1140 * 2 = 2280 after the 3s expiry; a multiplicative CRIT-zone misreading (2.0 * 1.6) giving 3648 is rejected.",
+    "Refresh/decay oracle (live buff semantics): 5 stacks at t=0 + 1 retrigger at t=2s -> 6 stacks alive at 3_000_000 us (no-refresh would leave 1), still 6 at 4_999_999 us (independent expiry would leave 1), 0 at 5_000_000 us (AllAtOnce shared expiry); proves Reset refresh and AllAtOnce decay.",
+    "ICD/cap/expiry oracles: the 0.3s ICD suppresses a retrigger inside 0.3s and allows it at exactly 0.3s; 20 rapid grants cap at 10 stacks; Redirect-style grants (10 stacks, no ICD) cap at 10; 5 stacks are alive at 2_999_999 us and gone at exactly 3_000_000 us.",
+    "DoT trigger harness oracles: GE_Player_Zankou_DotDamage and GE_Player_Adler_Skill_Damage packets (recognized via the DOT_DAMAGE_TAG semantic tag) each grant 1 stack under the shared 0.3s ICD when invoked through invoke_gear_hook; the Adler packet is recognized as a DoT packet.",
+    "Direct zone oracle: 4 granted stacks yield crit_damage_bonus 24/100 (4 * 3/50) and atk_percent 14/100 (7/50) via damage_bonus, with damage_bonus = 0 and final_bonus = 0 in HitModifiers::new(0).",
+    "Audit corrections (no production code changed): removed the stale known_gap claiming 'on_cast is not routed for rose in the shared gear.rs' (routing exists at gear.rs:277, proven by the live redirect test); replaced the non-discriminating 1140 oracle with the 1340-vs-1368 falsifier; corrected the test count (the previous '8/8 pass' no longer matched the 11 existing tests).",
+    "Focused run: 13/13 tests in simulation::tests::rose pass (11 pre-existing + rose_t1_live_atk_additive_rejects_multiplicative + rose_thorn_retrigger_resets_shared_expiry_all_at_once). No full suite per the CPU budget; rust_quality not run by this agent per the batch brief; no rustfmt run (check-mode tools only).",
+    "Web integration scenario (web/tests/combat/rose.mjs) checks T1..T5 proc values, the exact ATK damage ratio against a proc-less baseline, and group rejection; written for CI."
+  ],
+  "checks_not_run": [
+    "Web tests were not run: no WASM build exists in this Linux environment (web/tests/native-compiler.ts requires target/wasm32-unknown-unknown/release/ntesim_wasm.wasm); the scenario file is written for CI."
+  ],
+  "combat_scope": "Unconditional wearer ATK percentage joining the live base-ATK-scaled ATK sum (ATK_static + base_atk * p). Chaos Thorn: wearer-only timed buff (3s, Reset refresh on retrigger, 10-stack cap, AllAtOnce decay, PerSource); each stack adds its frozen CRIT DMG ratio to the additive critical-damage zone. DoT trigger has a 0.3s per-wearer ICD; Redirect Skill cast grants 10 stacks immediately, bypassing the ICD. The Broken-state extension is unmodeled.",
+  "curves": {
+    "buff_Rose_AtkUp": {
+      "keys": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "unit": "ratio",
+      "values": [
+        0.14,
+        0.175,
+        0.21,
+        0.245,
+        0.28
+      ]
+    },
+    "buff_Rose_CritDamageUp": {
+      "keys": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "unit": "ratio",
+      "values": [
+        0.06,
+        0.075,
+        0.09,
+        0.105,
+        0.12
+      ]
+    },
+    "buff_Rose_CD": {
+      "keys": [
+        1,
+        5
+      ],
+      "unit": "seconds",
+      "values": [
+        3.0,
+        3.0
+      ]
+    },
+    "buff_Rose_UnbalTime": {
+      "keys": [
+        1,
+        5
+      ],
+      "unit": "seconds",
+      "values": [
+        3.0,
+        3.0
+      ]
+    }
+  },
+  "cutoff": "2026-10-04",
+  "exclusive_character_ids": [
+    "1004"
+  ],
+  "group": "ECharacterGroupType::CHARACTER_GROUP_TYPE_TWO",
+  "hypothesis_id": "weapons.rose_v1",
+  "independent_oracles": [
+    "T1 live-ATK falsifier: static ATK 1200 + base_atk 1000, p = 7/50 -> ATK_live = 1200 + 1000*7/50 = 1340; the multiplicative misreading ATK_static*(1+p) = 1368 is rejected. Non-crit damage at ratio 1, 0 DEF, 0 RES equals 1340. (rose_t1_live_atk_additive_rejects_multiplicative)",
+    "Live zone oracle: the unconditional T1 bonus reads as atk_percent == 7/50 with zero damage_bonus and zero final_bonus through the real dispatch, rejecting a final-zone/multiplicative placement. (rose_thorn_crit_damage_scales_with_stacks)",
+    "Redirect zone oracle (live): 10 granted stacks -> ATK_live 1140, CD_total 8/5, crit C 13/5 -> 1140*13/5 = 2964 at the redirect hit and at +2s, 1140*2 = 2280 after the 3s expiry; multiplicative CRIT-zone misreading 3648 rejected. (rose_redirect_grant_affects_its_hit_and_expires_before_equal_time_damage)",
+    "Reset/AllAtOnce oracle: 5 stacks at t=0, 1 retrigger at t=2s -> 6 stacks at 3_000_000 us (Reset refresh; no-refresh would give 1), 6 at 4_999_999 us (AllAtOnce shared expiry; independent expiry would give 1), 0 at 5_000_000 us. (rose_thorn_retrigger_resets_shared_expiry_all_at_once)",
+    "ICD oracle: grant at t=0, retrigger refused at 100_000 us, allowed at exactly 300_000 us (0.3s boundary). (rose_thorn_grant_respects_icd)",
+    "Cap oracle: 20 rapid grants -> 10 stacks; Redirect-style 10-stack grant without ICD caps at 10. (rose_thorn_grant_caps_at_ten_stacks_and_bypasses_icd_for_redirect)",
+    "Expiry oracle: 5 stacks alive at 2_999_999 us, gone at exactly 3_000_000 us. (rose_thorn_stacks_expire_after_duration)",
+    "Projection oracle: T1..T5 atk 7/50, 7/40, 21/100, 49/200, 7/25 and crit-per-stack 3/50, 3/40, 9/100, 21/200, 3/25 through the 1..4 DataList order with bIsPercent hints pinned; duration 3_000_000 us; group TWO bound; group ONE wearers rejected. (rose_projection_binds_five_refinements_with_independent_curve_oracles, rose_projection_rejects_incompatible_group)",
+    "Validation oracle: foreign weapon id (fork_Kite) and zero thorn duration are rejected. (rose_validate_config_rejects_bad_proc)",
+    "DoT harness oracles: GE_Player_Zankou_DotDamage grants 1 stack with the shared ICD (1 at t=0, still 1 at 100k, 2 at 300k); GE_Player_Adler_Skill_Damage is recognized as a DoT packet and grants 1 stack; both delivered via invoke_gear_hook since live runs generate no wearer-DoT packets. (rose_dot_delivery_grants_one_stack_with_a_shared_icd, rose_recognizes_adler_skill_train_dot_packet)"
+  ],
+  "known_gaps": [
+    "Global release availability is unverified in the frozen catalog.",
+    "The DoT trigger is not wired end-to-end: gear::on_hit is routed (hit/effects.rs:216 -> gear.rs:341 -> rose::on_hit), but the engine never generates wearer-owned DoT packets (native lacrimosa blood DoT scheduling is pending), so the trigger fires in no live run; grant_thorn_stacks is tested buff manipulation exercised via invoke_gear_hook, with engine scheduling as the return condition. (Q1-V8)",
+    "Whether the Redirect grant should also start the DoT ICD is unresolved; the native text treats them as separate triggers (model: respect_icd=false).",
+    "The Broken-state extension (buff_Rose_UnbalTime, 3s, once per Break Effect) is unmodeled: the runtime has no break-gauge timing to extend.",
+    "Audit corrections (batch 12): removed the stale known_gap claiming 'the Redirect Skill 10-stack grant has no engine wiring (on_cast is not routed for rose in the shared gear.rs)' -- routing exists at gear.rs:277 and is proven by the live redirect test; replaced the non-discriminating 1140 oracle with the 1340-vs-1368 falsifier; corrected the '8/8 pass' test count to the actual test inventory. No production code changed.",
+    "Web tests were authored but not executed here: no WASM build exists in this Linux environment; they are written for CI."
+  ],
+  "name": "Bohemian Rose",
+  "native_curve_rows": "CT_ForkBuff:/rows/buff_Rose_AtkUp,buff_Rose_CritDamageUp,buff_Rose_CD,buff_Rose_UnbalTime",
+  "native_item_row": "DT_ForkItemData:/rows/fork_Rose",
+  "native_refinement_rows": "DT_ForkUpgradeStarDataTable:/rows/upgradestar_pack_fork_Rose_1..5",
+  "content_id": "ntesim-current",
+  "passive_description": {
+    "key": "buff_fork_Rose_effect",
+    "localized": "Increases ATK by <lv>{0}</>.\nGrants 1 stack of Chaos Thorn each time the wearer deals DoT. Increases CRIT DMG by <lv>{1}</> per stack for <lv>{2}</>s. Triggers at most <lv>once</> every <lv>0.3</>s, up to <lv>10</> stacks and refreshes the duration when retriggered. Grants <lv>10</> stacks of Chaos Thorn immediately when the wearer casts a Redirect Skill.\nExtends the Broken state of a Broken enemy by <lv>{3}</>s when the wearer deals damage to them (triggers at most once per Break Effect).",
+    "source": "攻击力提高<lv>{0}</>。\n装备者每次造成持续伤害时获得一层「暗棘」，暴击伤害提高<lv>{1}</>，持续<lv>{2}</>秒，每<lv>0.3</>秒最多触发<lv>1</>次，至多叠加<lv>10</>层，重复触发刷新持续时间；当装备者释放「变轨技能」的时候，会立刻获得<lv>10</>层「暗棘」。\n当装备者对处于倾陷状态的敌人造成伤害的时候，会让敌人的倾陷状态延长<lv>{3}</>秒。(单次倾陷效果内最多触发一次。)"
+  },
+  "region": "Global",
+  "schema_version": 1,
+  "source_sha256": {
+    "data/ntesim-current/tables/CT_ForkBuff.json": "93d1ed2069bc8e4358f98bfb5a3e212c13ad84e67eb6379e38414aa665539c15",
+    "data/ntesim-current/tables/DT_Character.json": "cce34c68a6286d9cfeb1525c7e0e05743370e8d5f96f6ddb8feb4ef8db0ab406",
+    "data/ntesim-current/tables/DT_ForkItemData.json": "22f6f587ad9bf3d54905889e81bfe8f213fa29c49522499287c53d42fd6900a4",
+    "data/ntesim-current/tables/DT_ForkUpgradeStarDataTable.json": "b15f6c4cf4b8a6e1c982b431176b406a501f38861a67ddce45a0f589cdeed8c5"
+  },
+  "status": "modeled_hypothesis",
+  "tested_hypotheses": [
+    "The frozen ATK percentage is unconditional and joins the live base-ATK-scaled ATK sum (ATK_static + base_atk * p), never multiplying compiled static ATK (COMBAT_FORMULA_CONTRACT sections 1-2). runtime_execution_validated=true, scoped to the live hit path (hit/calculation.rs -> gear.rs:312 -> rose::damage_bonus -> add_atk_percent), proven by the 1340-vs-1368 falsifier.",
+    "A Redirect Skill cast grants 10 Chaos Thorn stacks immediately, bypassing the DoT ICD (separate native sentence, 'immediately'). runtime_execution_validated=true (admission -> gear::on_cast -> gear.rs:277 -> rose::on_cast), proven by the live 2964/2964/2280 test.",
+    "Chaos Thorn stacks are a wearer-only timed buff (rose.chaos_thorn, PerSource, 3s from buff_Rose_CD, Reset refresh, 10-stack cap, AllAtOnce decay), proven by the shared-expiry oracle.",
+    "Each Thorn stack adds buff_Rose_CritDamageUp to the additive CRIT DMG zone (add_crit_damage), summed with character base and other bonuses per COMBAT_FORMULA_CONTRACT. runtime_execution_validated=true wherever stacks exist (same damage_bonus path; live via the redirect test, direct zone oracle).",
+    "The DoT trigger is gated by a 0.3s per-wearer ICD (rose.thorn_icd buff). runtime_execution_validated=staged/hypothesis: gear::on_hit is routed, but the engine generates no wearer-owned DoT packets (native lacrimosa blood DoT scheduling pending), so no live trigger exists; grant_thorn_stacks is a tested buff-manipulation function exercised via invoke_gear_hook.",
+    "The Broken-state extension (buff_Rose_UnbalTime, 3s, once per Break Effect) is unmodeled: the runtime has no break-gauge timing to extend.",
+    "The frozen ExclusiveCharacterIDArray ['1004'] is cosmetic (skin change only) and does not restrict equipment; group legality is enforced via ApplyGroupType TWO.",
+    "Frozen package evidence does not establish Global release availability."
+  ],
+  "weapon_id": "weapon:fork_Rose"
+}

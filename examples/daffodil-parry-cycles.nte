@@ -1,0 +1,19 @@
+# Explicit entry-counter success consumes real Phantom Step charges.
+options duration=70 seed=42;
+daffodil char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_energy=120;
+mint char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_energy=0;
+target hp=100000000 def=1080 resist=0;
+target hp=100000000 def=1080 resist=0;
+active daffodil;
+
+repeat 2 {
+    let next_period=.time+30;
+    daffodil burst;
+    repeat 2 {
+        mint swap;
+        wait(1);
+        daffodil swap[parry=true];
+        wait(2);
+    }
+    wait_until(next_period);
+}

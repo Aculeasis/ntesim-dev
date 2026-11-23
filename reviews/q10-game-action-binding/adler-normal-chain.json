@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "scope": "Adler ordinary five-input Normal chain in the shared gameplay runner",
+  "quality": "executable modeled ordinary chain; hold/plunge attacks and complete kit pending",
+  "hypothesis_id": "adler.normal_chain_v1",
+  "sources": [
+    "data/extracted/neverness_adler.json: Adler_Melee_1 through Adler_Melee_5",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json: GE_Player_Adler_Melee1_Damage through Melee5_Damage",
+    "reviews/q10-game-action-binding/adler-action-binding-model.json: frozen source hashes"
+  ],
+  "decision": "Five admitted ordinary Normal inputs advance stages Melee1 through Melee5 with multiplicities 1,1,7,2,1 (twelve hits: Melee1, Melee2, 7x Melee3, Melee4_1+Melee4_2, Melee5). The chain loops, retaining native effective talent projection including resonance_3.",
+  "hypotheses": [
+    "A different admitted ability or field exit resets the chain; a same-actor switch does not.",
+    "A gap greater than 2 seconds between input starts resets the chain; the exact boundary continues. This is a tested continuity convention pending animation/cancel evidence.",
+    "Each stage delivers ordered coincident packets at the research primary impact timestamp; travel, AoE and animation intervals remain unresolved."
+  ],
+  "independent_oracles": [
+    "1000 ATK, 0 RES and 0.5 DEF factor: level-one stages deal 100.5, 288.5, 539, 225, 437.5. Five inputs total 1590.5 (3181/2); sixth looping input gives 1691 (1691/1).",
+    "Level-eight stages deal 172, 494.5, 924, 385.5, 750. Five inputs total 2726 (2726/1); sixth gives 2898 (2898/1).",
+    "Level-eight at A3 resonance (+1 level to Melee -> level 9): stages deal 186, 534, 997.5, 416.5, 810. Five inputs total 2944 (2944/1); sixth gives 3130 (3130/1)."
+  ],
+  "checks": [
+    "python tools/check.py -- python tools/verify_normal_chain_sources.py verifies source hashes and ordered coefficient multiplicity at all nine published levels.",
+    "Native damage tests verify every stage, packet identity, multiplicity, loop and effective talent projection at levels 1, 8 and A3 resonance.",
+    "Native causal tests verify ability/field/gap resets, strict hypothesis acceptance and aim mode interaction.",
+    "Public attack:5 scripts verify independent per-packet and total damage through Worker/WASM with complete native report parity."
+  ],
+  "pending": [
+    "Measured reset/cancel rules and packet intervals; return when frozen animation evidence supplies a concrete model.",
+    "Branch/air attack branches and complete kit behavior."
+  ]
+}

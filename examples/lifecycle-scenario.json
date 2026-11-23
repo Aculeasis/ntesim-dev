@@ -1,0 +1,96 @@
+{
+  "content_id": "ntesim-current",
+  "team_size": 4,
+  "characters": [
+    "sakiri",
+    "lacrimosa",
+    "skia",
+    "nanally"
+  ],
+  "initial_active": 0,
+  "switch_cooldown_us": 1000000,
+  "initial_resources": {
+    "energy": {
+      "current": 100,
+      "capacity": 100
+    },
+    "stamina": {
+      "current": 200,
+      "capacity": 200
+    }
+  },
+  "steps": [
+    {
+      "kind": "start_action",
+      "actor_index": 0,
+      "action_id": "slash_combo",
+      "timings": {
+        "startup_us": 100000,
+        "active_us": 200000,
+        "recovery_us": 500000,
+        "recovery_cancels": [
+          {
+            "cancel_type": "dash",
+            "earliest_offset_us": 100000
+          },
+          {
+            "cancel_type": "switch",
+            "earliest_offset_us": 0
+          }
+        ],
+        "startup_cancels": []
+      },
+      "costs": {
+        "energy": 40
+      },
+      "timestamp_us": 0,
+      "require_on_field": true
+    },
+    {
+      "kind": "advance_time",
+      "timestamp_us": 300000
+    },
+    {
+      "kind": "cancel_action",
+      "actor_index": 0,
+      "cancel_type": "dash",
+      "timestamp_us": 400000
+    },
+    {
+      "kind": "switch_actor",
+      "target_index": 1,
+      "timestamp_us": 1000000
+    },
+    {
+      "kind": "enter_form",
+      "actor_index": 1,
+      "form_id": "shadow_form",
+      "duration_us": 2000000,
+      "timestamp_us": 1000000
+    },
+    {
+      "kind": "open_recast",
+      "actor_index": 1,
+      "base_action": "teleport",
+      "recast_action": "teleport_strike",
+      "duration_us": 1000000,
+      "max_uses": 1,
+      "timestamp_us": 1000000
+    },
+    {
+      "kind": "consume_recast",
+      "actor_index": 1,
+      "recast_action": "teleport_strike",
+      "timestamp_us": 1200000
+    },
+    {
+      "kind": "advance_time",
+      "timestamp_us": 3500000
+    },
+    {
+      "kind": "switch_actor",
+      "target_index": 2,
+      "timestamp_us": 4000000
+    }
+  ]
+}

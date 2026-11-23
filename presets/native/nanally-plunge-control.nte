@@ -1,0 +1,6 @@
+// Explicit flight/height assumptions, native landing clock and continuing charge.
+options duration=3;
+nanally char lvl=80/80 awakening=0 talent=8,8,8 qte=8 start_energy=0;
+target hp=100000000 def=1080 resist=0;
+active nanally;
+nanally plunge[airtime=800ms,height_bonus=1/2]:2;

@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "scope": "Mint ordinary five-input Normal chain in the shared gameplay runner",
+  "quality": "executable modeled chain; complete kit pending",
+  "hypothesis_id": "mint.normal_chain_v1",
+  "sources": [
+    "data/extracted/neverness_mint.json: GA_Mint_Melee_1_des through GA_Mint_Melee_5_des",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json: GE_Player_Mint_Melee1_Damage_New through Melee8_Damage_New",
+    "reviews/q10-game-action-binding/mint-action-binding-model.json: frozen source hashes"
+  ],
+  "decision": "Five admitted Normal inputs deliver eight packets in stages [Melee1,Melee2], [Melee3], [Melee4,Melee5], [Melee6], [Melee7,Melee8]. Descriptions match native decompositions at all nine released talent levels. Native effective talent projection includes resonance_3. Input receipts retain the admission binding; hit receipts identify actual stage packets. Every child samples live modifiers independently, including A6 HP threshold changes between hits.",
+  "hypotheses": [
+    "The chain loops after stage five. A different admitted ability or field exit resets it; same-actor switches preserve it.",
+    "An input-start gap greater than 2 seconds resets the chain; the exact boundary continues. This tested continuity convention follows existing ordinary-chain models and is not measured animation timing.",
+    "Each stage delivers ordered packets at the input's research primary impact time; exact animation/travel intervals remain unresolved. Already scheduled packets retain their actor after field exit."
+  ],
+  "independent_oracles": [
+    "At 1000 ATK and 0.5 DEF, level-one packet coefficients in thousandths are 104,231,170,262,341,184,255,523: five inputs total 1035; sixth looping input yields 2405/2.",
+    "Level-eight coefficients are 178,396,291,449,584,315,437,896: five inputs total 1773; sixth yields 2060.",
+    "Purchased level eight at A3 projects level nine: 192,428,315,485,631,341,472,968: five inputs total 1916; sixth yields 2226."
+  ],
+  "checks": [
+    "Content tests cover per-packet damage, order, loop, gap/reset/no-op boundaries, strict hypothesis admission, exact horizon/off-field delivery and live A6 threshold crossing.",
+    "verify_mint_kit.py independently reconciles descriptions with native Normal coefficients at all nine levels and checks complete CLI/WASM report parity plus replay across awakening/HP cases.",
+    "Public attack:5 scripts through Worker/WASM and native full-report parity cover levels 1, 8 and effective 9."
+  ],
+  "pending": [
+    "Measured intervals and reset/cancel rules; return when frozen animation evidence supplies a concrete model.",
+    "AoE, hold/jump/plunge/riposte, automatic passives, ordinary team energy and remaining kit behavior."
+  ]
+}

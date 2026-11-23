@@ -1,0 +1,10 @@
+options iteration=1 duration=30 seed=42 crit=fixed;
+lacrimosa char lvl=80/80 awakening=0 talent=1,1,1 qte=1;
+target lvl=80 hp=10000000 def=1080 resist=0.2;
+active lacrimosa;
+
+# Unequipped example; the model starts in ranged Tomato Percussion.
+lacrimosa attack:5;
+lacrimosa special, attack:5, burst;
+lacrimosa dash, attack;
+lacrimosa special, attack:5;

@@ -1,0 +1,15 @@
+options iteration=1 duration=70 crit=fixed;
+
+edgar char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_energy=100 start_hp%=0.1;
+edgar add weapon=fork_castle refine=1;
+mint char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_hp%=0.1;
+target hp=100000000 def=0 resist=0 boss=false;
+active edgar;
+
+# One Key extends Wake beyond the independent ten-second Castle bonus.
+edgar skill; wait(0.2); edgar burst; wait(1.5);
+repeat 7 { edgar attack:5; }
+
+# Normal packets refill energy. Each Skill grants a new Key after Burst consumes it.
+wait_until(50); edgar skill; wait(0.2); edgar burst; wait(1.5);
+mint swap;

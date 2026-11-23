@@ -1,0 +1,13 @@
+# Hotori A0 continuing rotation: build Timepiece from empty, pay Burst, and continue.
+# Normal/Skill hit energy and packet timing use the named owner hypotheses.
+options iteration=1 duration=58 crit=fixed;
+hotori char lvl=80/80 awakening=0 talent=8,8,8 qte=8 start_energy=0;
+mint char lvl=80/80 awakening=0 talent=8,8,8 qte=8 start_energy=0;
+hathor char lvl=80/80 awakening=0 talent=8,8,8 qte=8 start_energy=0;
+target hp=100000000 def=1080 resist=0;
+active hotori;
+
+repeat 4 { hotori attack:5; }
+wait_until(17); hotori skill;
+wait_until(36); hotori burst;
+wait_until(51); hotori attack:5;

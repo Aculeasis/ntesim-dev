@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "scope": "Linko native primary action packet binding across Normal, Skill, and Ultimate",
+  "quality": "partial executable model; complete kit pending",
+  "sources": [
+    "data/extracted/guide_linko.json",
+    "data/extracted/neverness_linko.json",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json",
+    "data/global-2026-10-04/tables/1072AwakenEffect.json"
+  ],
+  "model": [
+    "GA_Radio072_Melee admits GE_Player_Radio072_Melee1_Damage and advances five ordinary stages (13 hits: 1, 2, 1, 8, 1 across Melee1..5) per linko.normal_chain_v1. Native coefficients at Normal levels 1 and 8 are 3.450 and 5.911 across the chain; category A/NATURE metadata stays source-bound. Normal attack is excluded from resonance_3 level bonus. See linko-normal-chain.json.",
+    "GA_Radio072_Skill admits GE_Player_Radio072_Skill1_Damage and schedules Skill2, Skill3, and Skill4 once each in order under linko.skill_four_hits_v1. Native total coefficients at Skill levels 1/8/9 are 1.000/1.714/1.851; each packet retains category E/NATURE metadata and native effective talent projection. See linko-skill-four-hits.json. At A5, +50% Skill DMG applies to all four packets; at A6, Skill crit rate remains packet-local.",
+    "GA_Radio072_UltraSkill public primary packet is GE_Player_Radio072_UltralSkillLTE_AOE_Level4_Damage. Native coefficients at Burst levels 1/8/9 are 1.000/1.714/1.851; category Q/NATURE metadata stays source-bound. At A2, adds +30% ratio bonus to UltraSkill. At A6, deploys Resonance Field team buff (+30% Nature/Incantation DMG) for 13s.",
+    "Resonance 3 activates at awakening >= 3 and adds +1 level to Skill, UltraSkill, and QTE, and +20% ATK to Linko.",
+    "Existing A2 ratio (+30%), A5 Skill DMG (+50%), A6 Skill Crit Rate (+25%), and A6 Resonance Field team buff remain preserved as partial kit models.",
+    "Canonical arbitrary awakening selections: Effect2 modeled Burst ratio, Effect5 modeled Skill damage and Effect6 modeled Skill crit use selected identities. ATK/talent resonance_3 and field/team resonance_6 remain count-based. Existing unresolved coordination and packet-role applicability limits are not promoted by selection. Existing unsupported owner mechanics remain pending."
+  ],
+  "pending": [
+    "Branch/air attacks, sub-ultimates (SubUltraSkill), QTE LTE modes (BackToLTE, FrontToLTE), and Xiaozhen summons/coordination."
+  ],
+  "checks": [
+    "Focused linko_actions tests verify Normal (248/1, 425/1, 510/1 at A3 with +20% ATK), complete Skill train totals (500/1 at Lv1, 857/1 at Lv8, 5553/5 at A3 effective Lv9, and 16659/10 at A5), and unchanged Burst (500/1, 857/1, 1007/1 at A2 ratio bonus, 6453/5 at A3 resonance).",
+    "The focused Linko native tests cover off-field delivery, dead-target suppression, horizon boundaries, and Skill packet train damage and provenance.",
+    "Public Linko DSL assertions pass through web/tests/combat/linko_actions.mjs at levels 1/8 and awakenings 0/3/5/6, with exact full native CLI/WASM report parity and Worker parity after rebuilding current artifacts. TypeScript, web formatting and production build pass.",
+    "Frozen source hashes match the identities below."
+  ],
+  "source_sha256": {
+    "data/extracted/guide_linko.json": "64b2829ae34777d5273976f35d98add06e04e2213750e8bc1895738acaadfd78",
+    "data/extracted/neverness_linko.json": "17e5314aaa922d38afcaae5c0d546e2ec0315ecddd6535382efc798aadb4395e",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json": "917b0c3675412c0425a0724d09e7dd8ae4d1ef9a100d2ea5669d7484d0901bf2",
+    "data/global-2026-10-04/tables/1072AwakenEffect.json": "05e78f5f7f37054551cdd2d936fa351508531aaf8cc7f4041d11e5a5e26badf7"
+  }
+}

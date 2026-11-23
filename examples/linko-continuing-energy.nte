@@ -1,0 +1,16 @@
+# Linko A0 Normal/Skill rotation: build Ultimate from empty energy, pay once, then continue.
+# Ordinary-hit energy eligibility and the input timing convention remain explicit models.
+options iteration=1 duration=36 crit=fixed;
+linko char lvl=80/80 awakening=0 talent=8,8,8 qte=8 start_energy=0;
+mint char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_energy=0;
+sakiri char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_energy=0;
+target hp=100000000 def=1080 resist=0;
+active linko;
+
+repeat 4 { linko attack:5; }
+linko skill;
+wait(4.8s);
+linko skill;
+linko burst;
+wait(6s);
+linko attack:5;

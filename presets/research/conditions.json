@@ -1,0 +1,21 @@
+{
+  "duration_s": 120,
+  "opening_duration_s": 20,
+  "target_counts": [
+    1,
+    4
+  ],
+  "enemy_level": 80,
+  "neutral_resistance": 0.2,
+  "enemy_defense": 1080,
+  "input_margin_s": 0.25,
+  "substats_budget": 15,
+  "random_seeds_count": 1000,
+  "timing_sensitivities": [
+    1.0,
+    1.1,
+    1.2
+  ],
+  "top_n_refinements_per_scenario": 50,
+  "superiority_threshold": 0.05
+}

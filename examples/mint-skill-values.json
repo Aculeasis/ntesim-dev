@@ -1,0 +1,8 @@
+{
+  "schema_version": 1,
+  "content_id": "ntesim-current",
+  "character_id": "character:1019",
+  "ability_id": "GA_Mint019_Skill",
+  "effect_ids": ["GE_Player_Mint_Skill1_Damage_New"],
+  "array_index": 7
+}

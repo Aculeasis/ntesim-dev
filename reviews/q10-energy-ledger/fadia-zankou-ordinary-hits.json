@@ -1,0 +1,110 @@
+{
+  "schema_version": 1,
+  "status": "modeled_and_tested",
+  "source_sha256": {
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json": "917b0c3675412c0425a0724d09e7dd8ae4d1ef9a100d2ea5669d7484d0901bf2",
+    "data/global-2026-10-04/tables/DT_SkillTeamChargeRelationData.json": "5e456919997b0f77c4b569ce812267a059bab553a1f87fcb863723c44b66363b"
+  },
+  "owners": [
+    {
+      "owner": "fadia",
+      "character_id": "character:1039",
+      "hypothesis_id": "fadia.ordinary_hit_energy_v1",
+      "element": "PSYCHE",
+      "packets": {
+        "Melee": {
+          "effects": [
+            "GE_Player_Fadia_Melee1_Damage",
+            "GE_Player_Fadia_Melee2_Damage",
+            "GE_Player_Fadia_Melee3_Damage",
+            "GE_Player_Fadia_Melee4_Damage",
+            "GE_Player_Fadia_Melee5_Damage",
+            "GE_Player_Fadia_Melee6_Damage",
+            "GE_Player_Fadia_Melee7_Damage",
+            "GE_Player_Fadia_Melee8_Damage"
+          ],
+          "charge_milli": [
+            2707,
+            1859,
+            2247,
+            4819,
+            1768,
+            2075,
+            1703,
+            5022
+          ],
+          "total_milli": 22200
+        }
+      },
+      "source_distribution": "1/1",
+      "living_ally_distribution": "3/5"
+    },
+    {
+      "owner": "zankou",
+      "character_id": "character:1036",
+      "hypothesis_id": "zankou.ordinary_hit_energy_v1",
+      "element": "INCANTATION",
+      "packets": {
+        "Melee": {
+          "effects": [
+            "GE_Player_Zankou_Melee1_Damage",
+            "GE_Player_Zankou_Melee1_1_Damage",
+            "GE_Player_Zankou_Melee2_Damage",
+            "GE_Player_Zankou_Melee3_Damage",
+            "GE_Player_Zankou_Melee3_1_Damage",
+            "GE_Player_Zankou_Melee3_2_Damage",
+            "GE_Player_Zankou_Melee4_Damage",
+            "GE_Player_Zankou_Melee4_1_Damage",
+            "GE_Player_Zankou_Melee4_2_Damage",
+            "GE_Player_Zankou_Melee4_3_Damage",
+            "GE_Player_Zankou_Melee4_4_Damage",
+            "GE_Player_Zankou_Melee5_Damage",
+            "GE_Player_Zankou_Melee5_Damage",
+            "GE_Player_Zankou_Melee5_1_Damage",
+            "GE_Player_Zankou_Melee5_1_Damage",
+            "GE_Player_Zankou_Melee5_2_Damage",
+            "GE_Player_Zankou_Melee6_Damage"
+          ],
+          "charge_milli": [
+            529,
+            915,
+            1176,
+            1930,
+            611,
+            1178,
+            2276,
+            824,
+            760,
+            1743,
+            345,
+            1215,
+            1215,
+            421,
+            421,
+            3222,
+            2117
+          ],
+          "total_milli": 20898
+        }
+      },
+      "source_distribution": "1/1",
+      "living_ally_distribution": "3/5"
+    }
+  ],
+  "decision": "Bind only modeled ordinary Normal packets through the shared energy adapter; unsupported Skill/form/DoT branches do not acquire a generic team grant.",
+  "hypothesis_rationale": "Reuse the existing explicit ordinary-hit eligibility and delivery model with frozen source-specific ChargeAdd and relation coefficients.",
+  "checks": [
+    "Shared Rust causal suite: Normal grants, per-recipient efficiency/carry, headroom/overflow, dead targets/recipients, delayed fatal impact after switching, strict hypothesis requirement and typed receipts.",
+    "Twelve five-input Normal chains from zero energy fund allied Mint Ultimate for both owners, plus supported full-HP initial Fadia Ultimate; independent packet constants reconcile CLI/WASM/Worker reports, aggregation and replay."
+  ],
+  "limits": [
+    "Eligibility, cadence and recipient rules remain tested hypotheses pending native caller evidence.",
+    "Fadia Skill/Lilith/damaged-health variants and Zankou Skill/DoT/Scorch remain unsupported; this does not complete either kit."
+  ],
+  "investigation_budget": {
+    "branch_minutes": 10,
+    "total_minutes": 10,
+    "stop_condition": "Use frozen rows and existing ordinary packet models only.",
+    "return_condition": "New native caller evidence for eligibility, cadence or recipient rules."
+  }
+}

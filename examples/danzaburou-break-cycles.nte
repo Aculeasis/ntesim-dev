@@ -1,0 +1,14 @@
+options iteration=1 duration=25 crit=fixed;
+
+fadia char lvl=80/80 awakening=0 talent=1,1,1 qte=1;
+fadia add weapon=fork_tuansanlang refine=1;
+haniel char lvl=80/80 awakening=0 talent=1,1,1 qte=1;
+aurelia char lvl=80/80 awakening=0 talent=1,1,1 qte=1;
+mint char lvl=80/80 awakening=0 talent=1,1,1 qte=1;
+target hp=100000000 def=0 resist=0 break_gauge=1/10 max_break_gauge=1/10 broken_duration=2;
+active haniel;
+
+# The off-field Fadia supplies BI only to the three Psyche roster members.
+haniel attack; mint swap;
+wait_until(10); haniel swap; haniel attack; mint swap;
+wait_until(20); haniel swap; haniel attack; mint swap;

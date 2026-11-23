@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "scope": "Fadia ordinary five-input Normal chain in the shared gameplay runner",
+  "quality": "executable modeled chain; remaining kit pending",
+  "hypothesis_id": "fadia.normal_chain_v1",
+  "sources": [
+    "data/extracted/neverness_fadia.json: published ratios and 1st-5th instance labels",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json: native Melee1-Melee8 coefficients, Psyche type, and attack source category",
+    "data/global-2026-10-04/tables/DT_GameplayAbilityTipsData.json: five consecutive ordinary attacks"
+  ],
+  "decision": "Five inputs emit packet groups [Melee1], [Melee2, Melee3], [Melee4], [Melee5, Melee6], [Melee7, Melee8], for eight total Psyche ATK-scaled hits. The frozen native ATK arrays match the extracted public ratio strings across levels 1-9. This model has no MaxHP or current-HP damage term.",
+  "hypotheses": [
+    "The chain loops after stage five and resets on a different admitted ability or field exit.",
+    "A gap greater than 2 seconds between input starts resets; exactly 2 seconds continues.",
+    "Ordered multi-hit delivery occurs at the primary impact time; timing and travel remain unresolved."
+  ],
+  "checks": [
+    "Native damage oracles cover all eight packets and totals at levels 1, 8, and effective 9 from resonance_3.",
+    "HP, current HP, and Fadia DEF changes leave ordinary Normal damage unchanged.",
+    "The source verifier compares nine published levels against native coefficients. Public CLI/WASM/Worker parity covers the five-input rotation."
+  ],
+  "pending": [
+    "Skill/Burst HP scaling, Lilith form, threshold/healing, damage redirection and survival, plunge, riposte, team passives, and measured timing/reset evidence."
+  ]
+}

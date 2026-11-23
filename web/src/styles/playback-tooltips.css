@@ -1,0 +1,41 @@
+.hint > .tooltip,
+.stat-row .tooltip {
+  display: none !important;
+}
+
+.floating-card-tooltip {
+  position: fixed;
+  z-index: 80;
+  width: 285px;
+  max-width: calc(100vw - 16px);
+  padding: 12px 15px;
+  border: 1px solid #a083b1;
+  border-radius: 5px;
+  background: #241d2a;
+  box-shadow: 0 6px 25px #0008;
+  color: #e8dfef;
+  font: 12px/1.6 Arial;
+  pointer-events: none;
+}
+
+.floating-card-tooltip strong {
+  display: block;
+  margin-bottom: 6px;
+  color: #dcb5f7;
+}
+
+.floating-card-tooltip p {
+  margin: 5px 0;
+}
+
+.character-portrait[src$='characters_zero.webp'] {
+  height: 139px;
+  width: 58%;
+  bottom: 0;
+  right: 0;
+}
+
+.replay-portrait > img[src$='characters_zero.webp'] {
+  height: 150px;
+  bottom: 0;
+}

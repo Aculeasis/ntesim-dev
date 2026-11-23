@@ -1,0 +1,23 @@
+options iteration=1 duration=45 crit=fixed seed=42;
+
+nanally char lvl=80/80 awakening=0 talent=1,1,1 qte=1;
+nanally add weapon=fork_oulaquantao refine=1;
+mint char lvl=80/80 awakening=0 talent=1,1,1 qte=1;
+zero char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_cycle=100;
+sakiri char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_cycle=100;
+target hp=100000000 def=0 resist=0;
+active nanally;
+
+# Fourteen separate native markers make independent ten-second stack attempts.
+repeat 5 { nanally attack; wait(0.7); }
+mint swap; mint attack:5;
+
+# Nanally re-enters through her switch-in Support QTE (0.66641s hit, 1.31s
+# recovery); the first chain's stack deadlines continue through field exit.
+wait_until(11.75); zero swap; nanally swap; wait_until(14); repeat 5 { nanally attack; wait(0.7); }
+
+# The peer keeps an identical continuing chain off field.
+wait_until(27); mint swap; mint attack:5;
+
+# Every earlier stack has expired before the final chain rebuilds zero to ten.
+wait_until(32.75); sakiri swap; nanally swap; wait_until(35); repeat 5 { nanally attack; wait(0.7); }

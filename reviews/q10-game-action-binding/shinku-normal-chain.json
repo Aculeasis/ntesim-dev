@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "scope": "Shinku ordinary five-input Normal chain in the shared gameplay runner",
+  "quality": "executable modeled ordinary chain; Rage mode variants, Evade attacks and complete kit pending",
+  "hypothesis_id": "shinku.normal_chain_v1",
+  "sources": [
+    "data/extracted/neverness_shinku.json: GA_Shinku_Melee_1_des through GA_Shinku_Melee_5_des",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json: GE_Player_Shinku_Melee1_1_Damage through Melee1_5_Damage",
+    "reviews/q10-game-action-binding/shinku-action-binding-model.json: frozen source hashes"
+  ],
+  "decision": "Five admitted ordinary Normal inputs advance stages Melee1 through Melee5 with multiplicities 1,2,4,2,1 (ten hits). The chain loops, retaining native effective talent projection including resonance_3 and defense ignore passives (A1 12%, A6 27%). Rage mode variants (Melee 6-10) are not inferred from ordinary inputs.",
+  "hypotheses": [
+    "A different admitted ability or field exit resets the chain; a same-actor switch does not.",
+    "A gap greater than 2 seconds between input starts resets the chain; the exact boundary continues. This is a tested continuity convention pending animation/cancel evidence.",
+    "Each stage delivers ordered coincident packets at the research primary impact timestamp; travel, AoE and animation intervals remain unresolved."
+  ],
+  "independent_oracles": [
+    "1000 ATK, 0 RES and 0.5 DEF factor: level-one stages deal 91, 256.5, 543, 656.5, 564.5. Five inputs total 2111.5 (4223/2); sixth looping input gives 2202.5 (4405/2).",
+    "Level-eight stages deal 156, 439.5, 931, 1125, 967.5. Five inputs total 3619 (3619/1); sixth gives 3775 (3775/1).",
+    "Purchased level eight at A3 projects level nine with 12% DEF ignore (25/47 DEF factor): 8425/47, 23725/47, 50250/47, 60775/47, 52250/47. Five inputs total 195425/47; sixth gives 203850/47."
+  ],
+  "checks": [
+    "python tools/check.py -- python tools/verify_normal_chain_sources.py verifies source hashes and ordered coefficient multiplicity at all nine published levels.",
+    "Native damage tests verify every stage, packet identity, multiplicity, loop, defense ignore and effective talent projection at levels 1, 8 and A3.",
+    "Native causal tests verify ability/field/gap resets, no-op switches, strict hypothesis acceptance and all four third-stage packets settling after field exit at the exact horizon.",
+    "Public attack:5 scripts verify independent per-packet and total damage through Worker/WASM with complete native report parity."
+  ],
+  "pending": [
+    "Measured reset/cancel rules and packet intervals; return when frozen animation evidence supplies a concrete model.",
+    "Rage mode variants (Melee 6-10), Branch attacks, Evade attacks, rage resource mechanics and complete kit behavior."
+  ]
+}

@@ -1,0 +1,17 @@
+# Native combo replacement, paid suspension and Jump cancellation on one clock.
+options duration=40 seed=42 stamina_capacity=60 initial_stamina=60
+ stamina_use_efficiency=1 stamina_recovery_rate=0;
+daffodil char lvl=80/80 awakening=0 talent=8,8,8 qte=8 start_energy=0;
+target hp=100000000 def=1080 resist=0;
+target hp=100000000 def=1080 resist=0;
+active daffodil;
+
+repeat 2 {
+    daffodil attack, attack[window=hold], attack[hold=200ms];
+    wait(2.000001);
+    daffodil attack, attack[window=dash], dash, attack;
+    wait(2.000001);
+    daffodil attack, attack[window=dash], dash[window=jump], jump, attack;
+    wait(2.000001);
+}
+if .team.stamina!=0 {wait(99);}

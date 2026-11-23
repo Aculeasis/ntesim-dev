@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "status": "modeled_and_tested",
+  "owner": "lacrimosa",
+  "character_id": "character:1004",
+  "weapon_id": "weapon:fork_Rose",
+  "weapon_tier": 1,
+  "hypotheses": [
+    "actions.caller_timing_v1",
+    "actions.primary_packet_v1",
+    "lacrimosa.ranged_normal_chain_v1",
+    "lacrimosa.skill_burst_packets_v1",
+    "lacrimosa.nightmare_dot_scheduling_v1",
+    "lacrimosa.ordinary_hit_energy_v1",
+    "weapons.rose_v1",
+    "damage.fixed_crit_rate_as_probability_v1"
+  ],
+  "scenario": {
+    "source": "examples/lacrimosa-rose-continuing-energy.nte",
+    "starting_energy": 0,
+    "energy_capacity": 120,
+    "energy_capacity_basis": "The actor declaration starts with a temporary 100 default, then finishBuilds replaces it with the native projection's frozen DT_PlayerPackData.Lacrimosa_base.ChargeMax=120; the web fixture asserts the compiled value without overriding it.",
+    "charge_efficiency": "1/1",
+    "other_living_recipient_relation": "3/5",
+    "cost": "the Burst spends the source-earned 120 energy once at 25.2s",
+    "timing": "Six five-input ranged chains use 800ms input spacing through 23.2s; Skill starts at 24s; first DoT tick lands at 25s; Burst starts at 25.2s and reapplies Nightmare; one more five-input chain starts at 27.2s; field switch is at 31.2s; the horizon remains 56s so the final off-field tick at 55s is included.",
+    "receipts": {
+      "normal_packets": 70,
+      "skill_packets": 1,
+      "burst_packets": 5,
+      "nightmare_dot_packets": 31,
+      "total_hit_packets": 107,
+      "energy_source_packets": 71
+    },
+    "compiled_request_overrides": [
+      "The public DSL Burst derives this Lacrimosa owner's known 120 cost directly from character definition capacity.",
+      "The compiled actor's stats are replaced with the synthetic 1000 base/final ATK, zero damage/elemental bonuses, and zero crit rate used by the independent oracle.",
+      "The internal Nightmare scheduling and fixed-crit assumptions are added explicitly because the public DSL has no declaration for them."
+    ]
+  },
+  "independent_oracle": {
+    "base_atk": 1000,
+    "static_atk": 1000,
+    "rose_t1_atk_bonus": "7/50",
+    "live_atk": "1000 + 1000*7/50 = 1140",
+    "target_defense_factor": "1/2",
+    "normal_five_input_chain_before_rose": 4833,
+    "skill_packet_before_rose": "5141/2",
+    "burst_five_packets_before_rose": 8569,
+    "direct_damage": "(7*4833 + 5141/2 + 8569)*57/50 = 51266.37",
+    "nightmare_ticks": {
+      "times": "25s..55s inclusive, one per second",
+      "live_stack_counts": [5, 10, 10, 10, 9, 9, 9, 8, 8, 8, 7, 7, 7, 6, 6, 6, 5, 5, 5, 4, 4, 4, 3, 3, 3, 2, 2, 2, 1, 1, 1],
+      "sum_live_stacks": 170,
+      "damage_per_live_stack": "1000*57/50*103/1000*1/2 = 5871/100",
+      "total_damage": "170*5871/100 = 9980.7"
+    },
+    "total_damage": "51266.37 + 9980.7 = 61247.07",
+    "total_damage_exact": "6124707/100",
+    "horizon_seconds": 56,
+    "horizon_dps_exact": "6124707/5600",
+    "pre_burst_charge_add": "6*21.698 + 6.4 = 136.588",
+    "pre_burst_settlement": "136 whole source energy at capacity 120, 16 overflow, and 588/1000 carry before the cost",
+    "post_burst_normal_chain": "21.698 ChargeAdd combines with 588/1000 carry for 22 grants; source ends at 22 energy with 286/1000 carry",
+    "source_final": {
+      "granted": 158,
+      "spent": 120,
+      "overflow": 16,
+      "energy": 22,
+      "charge_remainder": "143/500"
+    },
+    "each_other_living_recipient_final": {
+      "relation": "3/5",
+      "gross_charge_add": "158.286*3/5 = 94.9716",
+      "granted": 94,
+      "energy": 94,
+      "charge_remainder": "2429/2500"
+    },
+    "rose_final_thorns": "10 stacks remain at t=56s and expire at t=58s",
+    "dot_and_burst_energy": "DoT ticks and Burst packets do not produce ordinary-hit energy receipts; 71 direct Normal/Skill packets do."
+  },
+  "checks": [
+    "Focused Rust ordinary_hit_energy::owner_rotations::lacrimosa_rose_rotation_builds_energy_spends_burst_and_ticks_off_field asserts all 76 direct packet identities and exact damage, all 31 DoT timestamps and stack-weighted damage, 107 total hits, one 120-energy spend, 71 per-packet source-energy grants, both ally ledgers, Rose cap/expiry, and the 56-second total.",
+    "Focused web/tests/combat/rose.mjs fixture checks the authored action schedule, 120 cost override and projected 120 capacity, WASM damage/tick totals, per-recipient energy oracle, observation validation, TrialCollector aggregation, replay state, and actual Worker request parity.",
+    "Focused checks passed: python tools/cargo.py test --package ntesim-content lacrimosa_rose_rotation_builds_energy_spends_burst_and_ticks_off_field; node tools/web.mjs test tests/weapon_passives.test.mjs. Stable-tree checkpoint pending."
+  ],
+  "limits": [
+    "Nightmare stack cap 20 conflicts with the serialized GE stack_limit=10; stack timing, target-zero scope, reapply grid, expiry order and owner attribution remain the explicit Lacrimosa hypothesis, not native scheduler evidence.",
+    "Rose T1 release availability and proc semantics remain modeled hypotheses; native eligibility, ICD clock and trigger timing are not established by runner parity.",
+    "The DSL compiles a fixed caller timeline and has no public internal-DoT assumption declaration. Its shared Burst cost placeholder is 100; this fixture explicitly supplies the owner-specific 120 cost after compilation. The projected actor capacity comes from the frozen Lacrimosa ChargeMax row.",
+    "Ordinary-hit recipient eligibility and natural call cadence remain owner hypotheses. Native animation/cancel timing, reaction and Break effects, and complete Lacrimosa kit coverage are outside this rotation."
+  ],
+  "source_sha256": {
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json": "917b0c3675412c0425a0724d09e7dd8ae4d1ef9a100d2ea5669d7484d0901bf2",
+    "data/global-2026-10-04/tables/DT_SkillTeamChargeRelationData.json": "5e456919997b0f77c4b569ce812267a059bab553a1f87fcb863723c44b66363b",
+    "data/global-2026-10-04/tables/DT_PlayerPackData.json": "869592f14dc79524e3ed866e2ca9580850e8e241df85aadb17b2287982484ce4",
+    "reviews/q10-game-action-binding/lacrimosa-ranged-normal-chain.json": "25a2735946eedc15734b02f0bf95741bad2544700ac65acbb06803664648dde7",
+    "reviews/q10-game-action-binding/lacrimosa-skill-burst-packets.json": "489e1fcb2006b0aac1359737e2a7e166b92b070e59449a5486565b6e0264d68a",
+    "reviews/q10-game-action-binding/lacrimosa-dot-scheduling-model.json": "a4534221acd781799dc433612e6bb311bb2c62dc9dfe8cc29f4cc22afac1a686",
+    "reviews/q10-energy-ledger/lacrimosa-ordinary-hits.json": "42e5940802fd08578c5efb49b4393260b9fc20aaa6dcc2bda5f8f37820ae0988",
+    "reviews/q1-rose/receipt.json": "f2ee92e6875b6ececcc3469c05b7a5dd7af8d7899215e81117991e8a07f039b6"
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "status": "implemented",
+  "owner": "zero",
+  "character_id": "character:1046",
+  "hypotheses": [
+    "zero.ordinary_hit_energy_v1",
+    "zero.normal_chain_v1",
+    "zero.skill_packets_v1",
+    "zero.burst_packets_v1",
+    "zero.burst_all_in_range_v1"
+  ],
+  "scenario": {
+    "source": "five Normal chains and one Skill from zero energy, one 100-energy Burst, then one Normal continuation chain",
+    "starting_energy": 0,
+    "energy_capacity": 100,
+    "charge_efficiency": "1/1",
+    "other_living_recipient_relation": "3/5",
+    "cost": "Burst pays its modeled 100 energy once",
+    "timing": "Normal inputs use 800ms recovery at 0..19.2s for the buildup and 24.0..27.2s for continuation; Skill starts at 20s with 1.2s recovery and 6s cooldown; Burst starts at 22s with 2s recovery. Rust and compiled NTE assert the same 28s-horizon schedule.",
+    "receipts": {
+      "normal_packets": 60,
+      "skill_packets": 4,
+      "burst_packets": 7,
+      "total_hit_packets": 71,
+      "energy_source_packets": 64
+    }
+  },
+  "independent_oracle": {
+    "normal_charge_add_milli_per_five_input_chain": [1151, 1122, 1297, 1900, 319, 1927, 771, 4993, 3420, 3420],
+    "skill_charge_add_milli_per_packet": [587, 587, 3683, 3944],
+    "burst_charge_add_milli_per_packet": 0,
+    "pre_burst_charge_add": "5*20.320 + 8.801 = 110.401",
+    "pre_burst_settlement": "110 whole gross, 10 overflow at capacity 100; Burst spends 100 and leaves 0 with 401/1000 carry",
+    "post_burst_normal_chain": "20.320 ChargeAdd; final source energy 20 and 721/1000 carry",
+    "source_final": {
+      "granted": 130,
+      "spent": 100,
+      "overflow": 10,
+      "energy": 20,
+      "charge_remainder": "721/1000"
+    },
+    "each_other_living_recipient_final": {
+      "relation": "3/5",
+      "granted": 78,
+      "energy": 78,
+      "charge_remainder": "2163/5000"
+    },
+    "level_8_damage_at_1000_atk_and_0_5_defense_multiplier": {
+      "normal_five_input_chain": 3478.5,
+      "skill_cast_four_packets": 2571,
+      "burst_seven_packets": 4285,
+      "total": "6*3478.5 + 2571 + 4285 = 27727"
+    },
+    "values_are_literal_test_expectations": true
+  },
+  "checks": [
+    "Rust ordinary_hit_energy scenario asserts exact action timestamps, all 71 packet identities and damage values, all 64 per-packet ChargeAdd grants, the 100-energy cost, recipient ledgers, cap/overflow, and continuation.",
+    "Authored NTE is compiled and checked through WASM and actual Worker parity; native CLI parity, observations, aggregation, and replay are reconciled by the focused browser test.",
+    "Focused checks passed: python tools/cargo.py test -p ntesim-content --locked --offline zero_zero_start_skill_burst_and_continuation_rotation; node tools/web.mjs test web/tests/zero_continuing_rotation.test.mjs. The stable-tree checkpoint is pending."
+  ],
+  "limits": [
+    "zero.ordinary_hit_energy_v1 remains a bounded hypothesis for positive-HP-loss Normal and Skill eligibility, per-packet grants, recipient distribution, and off-field ownership; native dispatcher evidence is unavailable.",
+    "Normal chain reset and packet timing are the existing zero.normal_chain_v1 hypothesis; coincident Skill and Burst child delivery follows zero.skill_packets_v1 and zero.burst_all_in_range_v1, and does not establish native animation intervals.",
+    "The browser compiles authored inputs into a fixed timeline; this does not establish live readiness waits or a shared live interpreter.",
+    "Burst ChargeAdd is zero in the frozen rows. Hold/plunge attacks, A1 extra hits, A2 refund, A5 QTE buff, and Cosmos Esper Cycle remain unmodeled."
+  ],
+  "source_sha256": {
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json": "917b0c3675412c0425a0724d09e7dd8ae4d1ef9a100d2ea5669d7484d0901bf2",
+    "data/global-2026-10-04/tables/DT_SkillTeamChargeRelationData.json": "5e456919997b0f77c4b569ce812267a059bab553a1f87fcb863723c44b66363b"
+  }
+}

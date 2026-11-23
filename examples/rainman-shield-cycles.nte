@@ -1,0 +1,19 @@
+options iteration=1 duration=72 crit=fixed;
+adler char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_hp%=0.51;
+adler add weapon=fork_yuren refine=1;
+iroi char lvl=80/80 awakening=0 talent=1,1,1 qte=1;
+iroi add stats atk=1000;
+target hp=100000000 def=0 resist=0;
+
+# Incoming damage spends each shield before HP; healing later restores the
+# wearer's eligibility for a new strengthened shield, without resetting clocks.
+incoming adler at=2 damage=3000;
+incoming adler at=22 damage=1801;
+incoming adler at=42 damage=1800;
+incoming adler at=62 damage=3000;
+active adler;
+adler skill; wait_until(3); iroi swap;
+wait_until(20); adler swap; adler skill; wait_until(23); iroi swap;
+wait_until(40); adler swap; adler skill; wait_until(43); iroi swap;
+wait_until(50); iroi skill;
+wait_until(60); adler swap; adler skill; wait_until(63); iroi swap;

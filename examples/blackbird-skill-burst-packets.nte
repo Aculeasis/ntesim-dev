@@ -1,0 +1,11 @@
+# Partial unequipped Blackbird rotation: two Skill casts (4 hits each) and one Burst (9 hits).
+# Timing uses the disclosed coincident-packet model; Malice gauge and Evolve forms are pending.
+options iteration=1 duration=25 crit=fixed;
+blackbird char lvl=80/80 awakening=0 talent=8,8,8 qte=8;
+mint char lvl=80/80 awakening=0 talent=8,8,8 qte=8;
+target hp=10000000 def=1080 resist=0;
+active blackbird;
+blackbird skill, burst;
+mint swap;
+wait(16);
+blackbird skill;

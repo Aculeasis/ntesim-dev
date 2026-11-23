@@ -1,0 +1,23 @@
+[package]
+name = "ntesim-cli"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+authors.workspace = true
+description = "Command-line interface and research acceptance runner for ntesim"
+
+[[bin]]
+name = "ntesim"
+path = "src/main.rs"
+
+[dependencies]
+ntesim-contracts.workspace = true
+ntesim-core.workspace = true
+serde_json.workspace = true
+serde.workspace = true
+
+ntesim-data.workspace = true
+ntesim-content.workspace = true
+ntesim-research.workspace = true
+clap.workspace = true

@@ -1,0 +1,17 @@
+options iteration=1 duration=80 crit=fixed start_fons=250000;
+
+chiz char lvl=80/80 awakening=0 talent=1,1,1 qte=1;
+chiz add weapon=fork_mamen refine=1;
+chiz add stats dmg%=0.1;
+edgar char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_energy=100;
+target hp=100000000 def=0 resist=0;
+active chiz;
+
+# Existing energy and the following chains fund two Bursts without a reset.
+chiz skill; chiz attack:5; edgar swap;
+edgar skill; wait(0.2); edgar burst; wait(1.5);
+repeat 6 { edgar attack:5; }
+
+# Chiz acquires her own combat Grains, which do not change the party's Fons.
+wait_until(50); chiz swap; chiz skill; chiz attack:5;
+wait_until(60); edgar swap; edgar skill; wait(0.2); edgar burst; wait(1.5);

@@ -1,0 +1,14 @@
+# Zero A0 continuing rotation: build from empty energy, pay Burst, and continue.
+# Normal/Skill hit energy and packet timing use the named owner hypotheses.
+options iteration=1 duration=28 crit=fixed;
+zero char lvl=80/80 awakening=0 talent=8,8,8 qte=8 start_energy=0;
+mint char lvl=80/80 awakening=0 talent=8,8,8 qte=8 start_energy=0;
+hathor char lvl=80/80 awakening=0 talent=8,8,8 qte=8 start_energy=0;
+target hp=100000000 def=1080 resist=0;
+active zero;
+
+repeat 5 { zero attack:5; }
+zero skill;
+wait(0.8);
+zero burst;
+zero attack:5;

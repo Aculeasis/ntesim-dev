@@ -1,0 +1,15 @@
+# Native A0 Haniel: two continuing periods funded from empty Ultimate energy.
+# Hootie, Ace, Symphony and charged Cannon retain their actual clocks and Plot.
+options iteration=1 duration=170 seed=42;
+haniel char lvl=80/80 awakening=0 talent=8,8,8 qte=8 start_energy=0;
+
+target hp=100000000 def=1080 resist=0;
+target hp=100000000 def=1080 resist=0;
+active haniel;
+
+repeat 2 {
+    repeat 9 {haniel attack:5;}
+    haniel skill, burst;
+    haniel attack[hold=0.2];
+    repeat 9 {haniel attack:5;}
+}

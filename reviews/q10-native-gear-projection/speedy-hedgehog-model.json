@@ -1,0 +1,26 @@
+{
+  "question": "How can ordinary builds bind Suit11's charge efficiency and Ultimate-triggered team ATK without manual proc declarations?",
+  "source_pointers": [
+    "data/global-2026-10-04/tables/DT_EquipmentSuitData.json#/rows/Suit11",
+    "data/global-2026-10-04/tables/DT_EquipmentModifyData.json#/rows/GetEfficiency_2",
+    "data/global-2026-10-04/tables/CT_Equipmentbuff.json#/rows/GetEfficiency2_4_Atk",
+    "data/global-2026-10-04/tables/CT_Equipmentbuff.json#/rows/GetEfficiency2_4_CD",
+    "docs/mechanics/sets/speedy-hedgehog/passive.md"
+  ],
+  "branch_budget_minutes": 10,
+  "total_budget_minutes": 20,
+  "stop_condition": "Bind source-owned 12% efficiency and 15%/20s nonstacking team ATK with executable trigger, refresh and resource tests.",
+  "return_condition": "New consumer evidence resolves which individual energy grants bypass efficiency and the native fractional resource representation.",
+  "decision": "tested_hypothesis",
+  "rationale": "The frozen set description and GetEfficiency2_4 curves agree on 15% ATK for 20 seconds after the wearer's Ultimate, including the wearer and without stacking. Reapplication refreshes the single shared buff and different wearers cannot stack it. Q-start lifecycle evidence supports activation on admitted Ultimate cast, before its hit. ChargeGetEfficiencyBase is 1 on native characters; the two-piece modifier adds 0.12. Model numeric charge grants using the recipient's multiplier, retaining a rational carry until a whole unit is available. Explicit pool-fill restoration bypasses efficiency. This preserves the integer ledger without discarding fractional generation; grant eligibility/rounding are visible hypotheses.",
+  "affected_scenarios": "Ordinary NTE gcsl builds with Speedy Hedgehog count >= 2/4. Exact research snapshots with manual_procs=1 retain their supplied handlers.",
+  "limits": [
+    "Only existing implemented charge-grant callbacks are scaled; ordinary skill/attack generation still requires its own native adapter.",
+    "Charge eligibility and rational carry are tested modeling policies, not verified native resource precision."
+  ],
+  "checks": [
+    "Frozen parameter/provenance and independent Fraction arithmetic",
+    "Actual WASM combat: Ultimate trigger, self/team recipients, nonstacking refresh, expiry boundary, failed admission, fractional energy conservation and exact configuration roundtrip",
+    "Native/WASM compiled scenario parity"
+  ]
+}

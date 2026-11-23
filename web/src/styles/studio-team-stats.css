@@ -1,0 +1,109 @@
+.total-stats {
+  overflow-x: auto;
+  position: relative;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  margin-top: 9px;
+  padding: 12px 10px;
+  font-size: 12px;
+}
+
+.total-stats pre {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.total-stats > strong {
+  font-size: 12px;
+  line-height: 1.5;
+  display: block;
+  margin-bottom: 7px;
+}
+
+.total-stats table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.stat-row {
+  position: relative;
+}
+
+.stat-row:hover {
+  background: #b799ca1e;
+}
+
+.stat-row td {
+  height: 24px;
+}
+
+.stat-row td:first-child {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.stat-row td:nth-child(2) {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.stat-icon {
+  width: 19px;
+  height: 19px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  flex: none;
+}
+
+.tooltip-cell {
+  width: 0 !important;
+  height: 0 !important;
+  padding: 0;
+}
+
+.hint {
+  position: relative;
+}
+
+.tooltip {
+  position: absolute;
+  z-index: 20;
+  bottom: 100%;
+  right: 0;
+  display: none;
+  width: 285px;
+  max-width: 75vw;
+  border: 1px solid #9680a0;
+  background: #302631;
+  padding: 12px;
+  box-shadow: 0 6px 20px #0009;
+  color: #e8dfef;
+  font: 12px/1.5 Arial;
+  pointer-events: none;
+  white-space: normal !important;
+  text-align: left;
+}
+
+.tooltip strong {
+  display: block;
+  color: #e2bef5;
+  margin-bottom: 6px;
+}
+
+.tooltip p {
+  margin: 5px 0;
+}
+
+.hint:hover > .tooltip,
+.hint:focus > .tooltip,
+.stat-row:hover .tooltip,
+.stat-row:focus .tooltip {
+  display: block;
+}
+
+.stat-row .tooltip {
+  bottom: 100%;
+  right: 0;
+}

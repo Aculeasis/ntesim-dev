@@ -1,0 +1,169 @@
+{
+  "actions": [],
+  "active_actor_index": 1,
+  "actors": [
+    {
+      "awakening": [],
+      "character_id": "character:1023",
+      "character_level": 80,
+      "character_max_level": 80,
+      "energy_capacity": 120,
+      "gear_procs": [
+        {
+          "atk_bonus_per_stack": "3/50",
+          "duration_us": 10000000,
+          "kind": "crimson_atk",
+          "max_stacks": 6
+        },
+        {
+          "atk_bonus": "1/10",
+          "def_bonus": "1/10",
+          "hp_bonus": "1/10",
+          "kind": "koinobori_stats"
+        }
+      ],
+      "initial_energy": 0,
+      "initial_hp": 22204,
+      "initial_hp_max": 22204,
+      "purchased_skill_level": 8,
+      "purchased_qte_level": 8,
+      "set_id": "set:Suit4",
+      "slot": 0,
+      "static_stats": {
+        "atk": "9513/4",
+        "base_atk": 1119,
+        "base_def": 800,
+        "base_hp": 16604,
+        "break_efficiency_multiplier": "1/1",
+        "break_intensity": "0/1",
+        "crit_damage_bonus": "11/10",
+        "crit_rate": "7/10",
+        "damage_bonus": "0/1",
+        "def": 800,
+        "def_flat": "0/1",
+        "def_percent": "0/1",
+        "elemental_bonus": "0/1",
+        "elemental_bonuses": {
+          "CHAOS": "0/1",
+          "COSMOS": "0/1",
+          "INCANTATION": "1/10",
+          "LAKSHANA": "0/1",
+          "NATURE": "0/1",
+          "PSYCHE": "0/1"
+        },
+        "hp": 22204,
+        "hp_flat": "5600/1",
+        "hp_percent": "0/1"
+      },
+      "talent_levels": [
+        8,
+        8,
+        8
+      ],
+      "weapon_id": "weapon:fork_koinobori",
+      "weapon_tier": 1
+    },
+    {
+      "awakening": [],
+      "character_id": "character:1039",
+      "character_level": 80,
+      "character_max_level": 80,
+      "energy_capacity": 120,
+      "gear_procs": [
+        {
+          "cooldown_us": 20000000,
+          "def_bonus": "13/50",
+          "duration_us": 10000000,
+          "kind": "bitter_cake"
+        }
+      ],
+      "initial_energy": 0,
+      "initial_hp": 1000,
+      "initial_hp_max": 121361,
+      "purchased_skill_level": 8,
+      "purchased_qte_level": 8,
+      "set_id": "set:Suit4",
+      "slot": 1,
+      "static_stats": {
+        "atk": "1071/1",
+        "base_atk": 1071,
+        "base_def": 909,
+        "base_hp": 17089,
+        "break_efficiency_multiplier": "1/1",
+        "break_intensity": "0/1",
+        "crit_damage_bonus": "1/2",
+        "crit_rate": "1/20",
+        "damage_bonus": "0/1",
+        "def": 909,
+        "def_flat": "0/1",
+        "def_percent": "0/1",
+        "elemental_bonus": "0/1",
+        "elemental_bonuses": {
+          "CHAOS": "0/1",
+          "COSMOS": "0/1",
+          "INCANTATION": "1/10",
+          "LAKSHANA": "0/1",
+          "NATURE": "0/1",
+          "PSYCHE": "0/1"
+        },
+        "hp": 121361,
+        "hp_flat": "100000/1",
+        "hp_percent": "1/4"
+      },
+      "talent_levels": [
+        8,
+        8,
+        8
+      ],
+      "weapon_id": "weapon:fork_BitterCake",
+      "weapon_tier": 1
+    }
+  ],
+  "model_assumptions": {
+    "baicang.fadia_assist_v1": "With the Word model, living B4-enabled Baicang coordinates while living active Fadia has HP<=.20 of live effective MaxHP. Initial/field entry, actual HP/MaxHP settlements with oldHP>=newHP and the independent cooldown-ready deadline request a live recheck; rising healing alone does not request it. A valid locked dummy0 is required. Accepted coordination starts a separate30s real Fadia cooldown, preserves active control and emits one immediate uncapped AoE native Fadia packet using invested Normal talent. Its first connected hit generates one A Silence attached to locked dummy0 and one zero-travel heal to the captured Fadia, based on2.7 times Baicang's live ATK after Word/A2 settlement, ordinary healing zones and missing-HP clipping. Recipient fanout never duplicates the Word/heal/resources. No target means no admitted assist, cooldown spend, Word or heal-only emission. Shared Skill cooldown/A1 credits, input recovery and costs are untouched; no ordinary Normal input or immunity is inferred. Typed autonomous event receipts retain the real initial/HP/switch/deadline cause, and all emitted descendants retain that event instead of a fake authored command. Schedule cooldown-ready checks only within the declared horizon; no periodic readiness polling.",
+    "baicang.power_words_v1": "Baicang Normal 3rd input, Riposte, QTE, and derived Skills generate Power Words (Silence, Objurgate, Bless) with 3/4 storage cap, 3%/1.5% current-HP cost, 15s lifespan outside domain, and immediate or field-start domain activation.",
+    "build.action_projection_v1": "Initial purchased level 1; upgrade coordinate L buys level L+1; effective level selects damage-array coordinate level-1; resonance_3 grants +1 at awakening 3..6 to configured resonance abilities across supported released characters. ATK-only single-hit partial execution and caller timing/cost policies remain explicit.",
+    "build.gear_projection_v1": "Frozen native refinement values with each passive's actual party eligibility.",
+    "build.stat_quantization_v1": "For native static build projection, Studio and explicit target stat packs, derive Max HP and DEF from the exact sum of base, percentage and flat contributions, then quantize once to the nearest whole point with exact halves upward. This is a bounded product runtime policy, not verified native game behavior. It does not define damage, healing or shield settlement rounding; native stat quantization remains open.",
+    "build.static_additive_v1": "Use the partial known static additive build constants for every hit, with native character element plus general bonus; passive application and game eligibility remain unresolved.",
+    "character.baicang.dot_packet_semantics_v1": "Treat Baicang GE_Player_Cang_UltraSkill_Damage as a DoT damage source carrying State.Damage and State.Damage.Dot, as disclosed by the researched Judgment of Autumn description. This owner declaration maps packet semantics; the separate domain model owns scheduling and target scope.",
+    "damage.fixed_crit_rate_as_probability_v1": "Interpret a nonzero native FixedCritRate scalar as the packet's replacement critical-hit probability. Preserve normal critical-damage calculation and only roll when the packet's damage kind is crit-eligible; this does not claim native stat-capture or periodic-tick timing semantics.",
+    "skill_levels.coordinates_v1": "Initial purchased level 1; native upgrade coordinate L buys L+1; damage array coordinate is effective level minus one.",
+    "skill_levels.resonance_3_v1": "At awakening 3..6, resonance_3 adds one to configured resonance skills; unlisted skills receive no bonus.",
+    "weapons.bittercake_damage_event_v1": "On positive actual HP loss, Bittercake applies its DEF buff after actor HP has been settled, including when that loss is fatal. The first trigger is ready at time zero, suppression does not move the cooldown, and the cooldown starts on successful activation. Buff expiry precedes equal-time events; same-time incoming damage precedes later dynamically queued hit deliveries. Native text establishes damage received, duration and cooldown, but not trigger readiness, fatal-hit activation or exact same-time ordering.",
+    "weapons.koinobori_v2": "A Time Will Come retains v1's deployed-party threshold of three distinct Esper elements, independent of field ownership. ATK/DEF/MaxHP percentages each scale their native base stat, summing with existing percentages instead of multiplying the compiled total. MaxHP settles once in build projection; live ATK is shared by damage and healing. This revision also applies the same packet-independent DEF contribution to Adler Blessing's existing admission snapshot and its separate A4 live overflow mitigation; it does not create damage packets to query source stats or alter existing shield/mitigation timing. Living-source buffs and flat DEF remain separate source inputs. The shield snapshot persists through switches and later DEF changes, while A4 reads live source DEF at actual depletion and excludes dead granters. Team element qualification uses authored party composition rather than living-count changes. T1-T5 continuing native Adler Skill/Normal sources and independent shield/overflow checks cover qualified and unqualified teams without resource resets; native/WASM/actual Worker preserve complete reports, aggregation and replay. Native Blessing party interception and remaining owner lifecycle branches retain their existing explicit limits; this does not certify the full Adler kit.",
+    "weapons.native_curve_v1": "Equipped native weapon parameters select exact refinement values: Mind Royale grants energy on Skill; Good Boy grants team ATK percentage on Ultimate; Bittercake grants DEF on explicit incoming-damage triggers."
+  },
+  "content_id": "ntesim-current",
+  "stochastic_crit": {
+    "actor_sequences": {
+      "character:1023": 54
+    },
+    "eligible_effects": {
+      "character:1023": [
+        "*"
+      ]
+    },
+    "hypothesis": "Independent seeded per-target critical rolls; packet fixed crit overrides source CR.",
+    "roll_policy": "independent_per_target_hit_v1"
+  },
+  "schema_version": 1,
+  "seed": 42,
+  "targets": [
+    {
+      "airborne_until_us": 0,
+      "control_immune": false,
+      "defense": 1080,
+      "hp_current": 24000000,
+      "hp_max": 24000000,
+      "is_boss": false,
+      "level": 80,
+      "resistance": "1/5",
+      "target_index": 0
+    }
+  ],
+  "relative_duration_us": 64000000,
+  "clock_contract": "relative-combat-v1",
+  "timer_policy": "paused-world-v1",
+  "absolute_limit_us": 3600000000
+}

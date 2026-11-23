@@ -1,0 +1,11 @@
+# Partial unequipped Hathor rotation: two Skill casts (3 hits each) and one Burst (3 hits).
+# Timing uses the disclosed coincident-packet model; Cyclone Strike and Express Delivery stacks are pending.
+options iteration=1 duration=15 crit=fixed;
+hathor char lvl=80/80 awakening=0 talent=8,8,8 qte=8;
+mint char lvl=80/80 awakening=0 talent=8,8,8 qte=8;
+target hp=10000000 def=1080 resist=0;
+active hathor;
+hathor skill, burst;
+mint swap;
+wait(6);
+hathor skill;

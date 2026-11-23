@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "status": "implemented",
+  "owner": "mint",
+  "character_id": "character:1019",
+  "hypotheses": [
+    "mint.ordinary_hit_energy_v1",
+    "mint.normal_chain_v1",
+    "mint.skill_burst_packets_v1"
+  ],
+  "scenario": {
+    "source": "eight Normal chains, two Skills, one additional Normal chain before Burst, then one Normal continuation chain after the Burst spend",
+    "starting_energy": 0,
+    "energy_capacity": 100,
+    "charge_efficiency": "1/1",
+    "other_living_recipient_relation": "3/5",
+    "cost": "Burst pays its modeled 100 energy once",
+    "timing": "Normal inputs use the accepted 800ms recovery profile. First Normal inputs are at 0..31.2s; Skills at 32.0s and 38.5s (6.5s apart, above the modeled 6.0s cooldown); the pre-Burst chain at 39.7..42.9s; Burst at 43.7s; and the continuation chain at 48.7..51.9s after the modeled 2.0s Burst recovery and 3.0s authored wait. Rust action timestamps and compiled NTE timestamps assert this exact schedule.",
+    "receipts": {
+      "normal_packets": 80,
+      "skill_packets": 4,
+      "burst_packets": 7,
+      "total_hit_packets": 91,
+      "energy_source_packets": 84
+    }
+  },
+  "independent_oracle": {
+    "normal_charge_add_milli_per_chain": [578, 1283, 943, 1455, 1893, 1023, 1417, 2907],
+    "skill_charge_add_milli_per_packet": 2450,
+    "burst_charge_add_milli_per_packet": 0,
+    "burst_affordability": "8*11.499 + 4.900 = 96.892 after the first Skill; the second Skill reaches 101.792",
+    "pre_burst_charge_add": "9*11.499 + 2*4.900 = 113.291",
+    "pre_burst_settlement": "113 whole gross, 13 overflow at capacity 100; Burst spends 100",
+    "post_burst_normal_chain": "11 whole gross, final source energy 11 and 79/100 carry",
+    "source_final": {
+      "granted": 124,
+      "spent": 100,
+      "overflow": 13,
+      "energy": 11,
+      "charge_remainder": "79/100"
+    },
+    "each_other_living_recipient_final": {
+      "relation": "3/5",
+      "granted": 74,
+      "energy": 74,
+      "charge_remainder": "437/500"
+    },
+    "level_8_damage_at_1000_atk_and_0_5_defense_multiplier": {
+      "normal_chain": 1773,
+      "skill_cast_two_packets": 1542,
+      "burst_seven_packets": 6857,
+      "total": "10*1773 + 2*1542 + 6857 = 27671"
+    },
+    "values_are_literal_test_expectations": true
+  },
+  "checks": [
+    "Rust ordinary_hit_energy test asserts the full 91-packet action order, exact damage total, per-packet ChargeAdd, cap/overflow, 100-energy cost, continuation, recipient distribution and fractional ledgers.",
+    "Actual compiled NTE test reconciles the same independent damage and energy oracle through WASM, native CLI parity and the browser Worker; observations, aggregation and replay reconcile.",
+    "Focused check passed: python tools/cargo.py test -p ntesim-content --locked --offline ordinary_hit_energy. The stable-tree checkpoint is pending."
+  ],
+  "limits": [
+    "mint.ordinary_hit_energy_v1 remains a bounded hypothesis for positive-HP-loss eligibility, per-packet grants, recipient distribution and off-field ownership; native caller evidence is unavailable.",
+    "Mint's chain timing/reset and coincident Skill/Burst child timing remain the existing owner hypotheses, not native frame measurements.",
+    "The browser compiles authored inputs into a fixed timeline; this does not establish live readiness waits or a shared live interpreter.",
+    "Burst ChargeAdd is zero in the frozen rows and is not treated as an energy source. The scenario does not integrate unsupported Mint forms, passives, or awakening-generated energy."
+  ],
+  "source_sha256": {
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json": "917b0c3675412c0425a0724d09e7dd8ae4d1ef9a100d2ea5669d7484d0901bf2",
+    "data/global-2026-10-04/tables/DT_SkillTeamChargeRelationData.json": "5e456919997b0f77c4b569ce812267a059bab553a1f87fcb863723c44b66363b"
+  }
+}

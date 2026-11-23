@@ -1,0 +1,23 @@
+options iteration=1 duration=36 crit=fixed;
+
+haniel char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_energy=0;
+haniel add weapon=fork_bitgame refine=1;
+mint char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_energy=0;
+target hp=100000000 def=0 resist=0 boss=false;
+target hp=100000000 def=0 resist=0 boss=false;
+active haniel;
+
+# Each speaker survives the field exit and emits two real Ensembles.
+haniel skill; mint swap;
+mint attack; mint attack;
+mint attack; mint attack;
+mint attack; mint attack;
+mint attack; mint attack;
+
+# Re-entry resets BitGame stacks, while cooldowns and energy keep advancing.
+wait_until(22); haniel swap; wait(0.3);
+haniel skill; mint swap;
+mint attack; mint attack;
+mint attack; mint attack;
+mint attack; mint attack;
+mint attack; mint attack;

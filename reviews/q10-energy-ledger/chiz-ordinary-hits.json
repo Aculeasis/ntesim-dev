@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "status": "modeled_and_tested",
+  "source_sha256": {
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json": "917b0c3675412c0425a0724d09e7dd8ae4d1ef9a100d2ea5669d7484d0901bf2",
+    "data/global-2026-10-04/tables/DT_SkillTeamChargeRelationData.json": "5e456919997b0f77c4b569ce812267a059bab553a1f87fcb863723c44b66363b",
+    "data/global-2026-10-04/tables/DT_GameplayAbilityTipsData.json": "5c0a0f929376891c033451a25208b55747c43e6bbb24b75506eb0ff50a23584f"
+  },
+  "owners": [
+    {
+      "owner": "chiz",
+      "character_id": "character:1073",
+      "hypothesis_id": "chiz.ordinary_hit_energy_v1",
+      "element": "COSMOS",
+      "packets": {
+        "Melee": {
+          "effects": [
+            "GE_Player_Chiichan073_Melee1_Damage",
+            "GE_Player_Chiichan073_Melee2_Damage",
+            "GE_Player_Chiichan073_Melee2_Damage",
+            "GE_Player_Chiichan073_Melee2_Damage",
+            "GE_Player_Chiichan073_Melee3_Damage",
+            "GE_Player_Chiichan073_Melee4_Damage",
+            "GE_Player_Chiichan073_Melee4_Damage",
+            "GE_Player_Chiichan073_Melee4_Damage",
+            "GE_Player_Chiichan073_Melee4_Damage",
+            "GE_Player_Chiichan073_Melee4_Damage",
+            "GE_Player_Chiichan073_Melee5_Damage",
+            "GE_Player_Chiichan073_Melee5_Damage"
+          ],
+          "charge_milli": [
+            1727,
+            855,
+            855,
+            855,
+            2804,
+            1046,
+            1046,
+            1046,
+            1046,
+            1046,
+            1987,
+            1987
+          ],
+          "total_milli": 16300
+        }
+      },
+      "source_distribution": "1/1",
+      "living_ally_distribution": "3/5"
+    }
+  ],
+  "decision": "Bind the existing ordinary chain to shared team energy without changing native Grain grants; no ordinary Skill train is inferred from successive Skill input variants.",
+  "hypothesis_rationale": "Reuse the tested delivery-time eligibility/recipient model with exact frozen ChargeAdd and team relation values.",
+  "checks": [
+    "Shared Rust causal suite: efficiency/carry, overflow, dead targets/recipients, delayed fatal hit after switching and strict hypothesis requirement.",
+    "Twelve full ordinary chains from empty pools fund allied Mint Ultimate; independent packet constants reconcile native CLI, WASM, Worker, aggregation and replay.",
+    "Existing Chiz Normal damage/Grain and unsupported market boundaries retain their focused suite."
+  ],
+  "limits": [
+    "Complete Chiz Skill needs a three-charge input state, consecutive No/Half/Full Grain branches, hold and Surplus/Debt spending; frozen GA_Chiichan073_Skill description in DT_GameplayAbilityTipsData specifies separate inputs.",
+    "Ultimate market settlement remains unsupported; Normal energy does not complete the kit."
+  ],
+  "investigation_budget": {
+    "branch_minutes": 10,
+    "total_minutes": 10,
+    "stop_condition": "Frozen Skill description establishes separate charge-consuming inputs; do not treat them as one packet train.",
+    "return_condition": "Implement native Skill charge capacity/refill/admission and consecutive input/resource branches together."
+  }
+}

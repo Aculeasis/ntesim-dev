@@ -1,0 +1,15 @@
+options iteration=1 duration=55 crit=fixed;
+
+iroi char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_hp%=0.99;
+iroi add weapon=fork_door refine=1;
+mint char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_hp%=0.99;
+target hp=100000000 def=0 resist=0 boss=false;
+active iroi;
+
+# Real team healing grants wearer-only Anima and allies' general damage.
+iroi skill; iroi attack; wait(1); mint swap; mint attack;
+wait_until(20.498799); mint attack;
+
+# Full-HP overhealing still qualifies; no resource or cooldown reset occurs.
+wait_until(30); iroi swap; iroi skill; iroi attack; wait(1); mint swap; mint attack;
+wait_until(50.748799); mint attack;

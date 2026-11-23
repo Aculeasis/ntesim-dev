@@ -1,0 +1,52 @@
+# Lacrimosa · Scorch / Zankou
+# Curated comparison profile: see teams.md for exact stat-line values and assumptions.
+options iteration=1000 duration=120 seed=42 start_fons=250000;
+# lacrimosa: 15 useful lines; recipe=crit; main=cd:.6.
+# C: cr,cd,dmg; III x4: cr,cd; IV: cr,cd; II: cr / cd.
+lacrimosa char lvl=80/80 awakening=[] talent=8,8,8 qte=8;
+lacrimosa add weapon=fork_rose refine=1 lvl=80/80;
+lacrimosa add cartridge=diabolos count=4;
+lacrimosa add stats hp=5600 atk=420 cr=0.28 cd=1.16 dmg%=0.1 chaos%=0.4;
+# zankou: 15 useful lines; recipe=crit; main=cd:.6.
+# C: cr,cd,dmg; III x4: cr,cd; IV: cr,cd; II: cr / cd.
+zankou char lvl=80/80 awakening=[] talent=8,8,8 qte=8;
+zankou add weapon=fork_demonblade refine=1 lvl=80/80;
+zankou add cartridge=crimsontwinbutterflies count=4;
+zankou add stats hp=5600 atk=420 cr=0.28 cd=1.80 dmg%=0.1;
+# sakiri: 15 useful lines; recipe=support; main=atk%:.375.
+# C: atk,cr,dmg; III x4: atk,cr; IV: atk,cr; II: atk / cr.
+sakiri char lvl=80/80 awakening=[6] talent=8,8,8 qte=8;
+sakiri add weapon=fork_mofeikesi refine=1 lvl=80/80;
+sakiri add cartridge=speedyhedgehog count=4;
+sakiri add stats hp=5600 atk=420 atk%=0.7250 cr=0.28 dmg%=0.1 incantation%=0.36;
+# haniel: 15 useful lines; recipe=support; main=atk%:.375.
+# C: atk,cr,dmg; III x4: atk,cr; IV: atk,cr; II: atk / cr.
+haniel char lvl=80/80 awakening=[1,2,3,4,5,6] talent=8,8,8 qte=8;
+haniel add weapon=fork_bitgame refine=1 lvl=80/80;
+haniel add cartridge=shadowcreed count=4;
+haniel add stats hp=5600 atk=420 atk%=1.1250 cr=0.28 dmg%=0.1;
+# Common stationary, control-susceptible Boss dummy; no incoming attacks or assumed parries.
+target lvl=80 hp=1000000000 max_hp=1000000000 def=1080 resist=0.2 boss=true control_immune=false original_atk=1000 break_gauge=30 max_break_gauge=30 broken_duration=10 discord_fraction=0.1;
+active zankou;
+lacrimosa swap;
+# Refresh short support windows, then preserve a sustained damage window.
+let next_support = 0;
+let last_burst = -20;
+while 1 {
+  if .time >= next_support {
+    haniel swap;
+    if .haniel.burst.ready { haniel burst; }
+    if .haniel.skill.ready { haniel skill; }
+    zankou swap;
+    if .zankou.burst.ready { zankou burst; }
+    if .zankou.skill.ready { zankou skill; }
+    sakiri swap;
+    if .sakiri.burst.ready { sakiri burst; }
+    if .sakiri.skill.ready { sakiri skill; }
+    lacrimosa swap;
+    next_support = .time + 12;
+  }
+  if .lacrimosa.burst.ready { lacrimosa burst; }
+  if .lacrimosa.skill.ready { lacrimosa skill; }
+  lacrimosa attack;
+}

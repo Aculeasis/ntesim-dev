@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "question": "When do critical hits add and refresh Fluff of Ferocity stacks?",
+  "branch_budget_minutes": 10,
+  "total_investigation_budget_minutes": 15,
+  "sources": [
+    "data/global-2026-10-04/tables/DT_ForkUpgradeStarDataTable.json#/rows/upgradestar_pack_fork_KnightCandy_1",
+    "data/global-2026-10-04/tables/CT_ForkBuff.json#/rows/buff_KnightCandy_CritDamageUp",
+    "data/global-2026-10-04/tables/CT_ForkBuff.json#/rows/buff_KnightCandy_CD"
+  ],
+  "decision": "Use the shared post-hit ProcCallback phase: each connected critical packet/target adds one stack, capped at ten, and resets the whole stack group's ten-second deadline even at cap. The triggering hit and other hits already queued at that timestamp use prior stacks. Keep wearer-only stacks off-field. This event order and per-packet/per-target multiplicity are explicit tested hypotheses.",
+  "availability": "Frozen Global release availability remains unverified.",
+  "stop_condition": "Check T1-T5, independent critical-damage arithmetic, no-crit/zero/dead-target cases, ten-stack cap and refresh, expiry before equal-time hits, wearer ownership and CLI/WASM/Worker parity.",
+  "return_condition": "New trigger multiplicity, callback order, clock, off-field or release evidence conflicts with the model.",
+  "checks": [
+    "146 content tests pass: exact T1-T5 parameter ratios and units; critical-only triggers, zero/dead-target delivery, simultaneous-hit ordering, ten-stack cap, refresh at cap, exact expiry, off-field ownership and invalid configurations.",
+    "Independent oracle: 1000 ATK * .5 DEF * (2 + prior stacks * .04) gives 1000, 1020, 1040, 1060, 1080, 1100; ten stacks give 1200. A capped trigger refreshes all stacks through the next deadline.",
+    "Public Baicang A0 level 80 purchased talents 8/8/8 with compatible equipped T1-T5 weapon runs three skills, checks CRIT damage multiplier (1 + native CD + stack bonus)/(1 + native CD), expiry and fixed noncritical mode. This partial action model does not claim a complete Baicang kit.",
+    "TypeScript, production studio build, weapon passive Worker tests, native_build and scenario_script modules pass. Full CLI/WASM report parity is checked with NTESIM_VERIFY_NATIVE=1.",
+    "Content clippy passes with only the two pre-existing metadata lints collapsible_if and single_element_loop allowed. Changed Rust files are formatted; frozen source bytes are preserved."
+  ]
+}

@@ -1,0 +1,18 @@
+options iteration=1 duration=40 crit=fixed;
+
+aurelia char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_cycle=100;
+skia char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_cycle=100;
+skia add weapon=fork_kite refine=1;
+zero char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_cycle=100;
+target hp=100000000 def=0 resist=0;
+active aurelia;
+
+# The first qualified switch creates Stain; the weapon observes actual targets.
+skia swap; wait_until(0.6); skia skill; skia attack:3;
+wait_until(12.25); skia attack;
+wait_until(16); skia attack; zero swap; wait(0.6);
+
+# Remaining authored Cycle funds Remora and the second continuing Skill window.
+wait_until(20); skia swap; wait_until(20.6); skia skill; skia attack:3;
+wait_until(25.25); skia attack;
+wait_until(36); skia attack;

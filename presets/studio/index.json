@@ -1,0 +1,167 @@
+{
+  "default": "s5",
+  "scripts": [
+    {
+      "id": "s1",
+      "label": "S1 · Mint A0",
+      "file": "s1.nte",
+      "selectable": false
+    },
+    {
+      "id": "s2",
+      "label": "S2 · Mint / Sakiri",
+      "file": "s2.nte",
+      "selectable": false
+    },
+    {
+      "id": "s3",
+      "label": "S3 · + Zero",
+      "file": "s3.nte",
+      "selectable": false
+    },
+    {
+      "id": "s5",
+      "label": "S5 · Mint A6 / Sakiri / Zero / Iroi",
+      "file": "s5.nte",
+      "selectable": true
+    },
+    {
+      "id": "baicang-domain",
+      "label": "Baicang · Judgment of Autumn",
+      "file": "baicang-domain.nte",
+      "selectable": false
+    },
+    {
+      "id": "language-reference",
+      "label": "Language reference",
+      "file": "language-reference.nte",
+      "selectable": false
+    },
+    {
+      "id": "nanally-blossom",
+      "label": "Nanally · Blossom / Hotori / Zero / Jiuyuan",
+      "file": "nanally-blossom.nte",
+      "selectable": true
+    },
+    {
+      "id": "zankou-insight",
+      "label": "Zankou · Insight / Daffodill A3 [3,4,5]",
+      "file": "zankou-insight.nte",
+      "selectable": true
+    },
+    {
+      "id": "zankou-blackbird",
+      "label": "Zankou · Insight / Daffodill A3 / Blackbird",
+      "file": "zankou-blackbird.nte",
+      "selectable": true
+    },
+    {
+      "id": "nanally-hexed",
+      "label": "Nanally · Hexed / Linko",
+      "file": "nanally-hexed.nte",
+      "selectable": true
+    },
+    {
+      "id": "nanally-dream",
+      "label": "Nanally · Hexed / Iroi",
+      "file": "nanally-dream.nte",
+      "selectable": true
+    },
+    {
+      "id": "hotori-blossom",
+      "label": "Hotori · Blossom",
+      "file": "hotori-blossom.nte",
+      "selectable": true
+    },
+    {
+      "id": "mint-blossom",
+      "label": "Mint · Blossom",
+      "file": "mint-blossom.nte",
+      "selectable": true
+    },
+    {
+      "id": "zankou-break",
+      "label": "Zankou A1 · Break / Daffodill A2",
+      "file": "zankou-break.nte",
+      "selectable": true
+    },
+    {
+      "id": "zankou-hexed",
+      "label": "Zankou · Hexed",
+      "file": "zankou-hexed.nte",
+      "selectable": true
+    },
+    {
+      "id": "lacrimosa-quickswap",
+      "label": "Lacrimosa · Quickswap / Nova",
+      "file": "lacrimosa-quickswap.nte",
+      "selectable": true
+    },
+    {
+      "id": "lacrimosa-scorch",
+      "label": "Lacrimosa · Scorch / Zankou",
+      "file": "lacrimosa-scorch.nte",
+      "selectable": true
+    },
+    {
+      "id": "baicang-scorch",
+      "label": "Baicang · Scorch / Adler",
+      "file": "baicang-scorch.nte",
+      "selectable": true
+    },
+    {
+      "id": "baicang-linko",
+      "label": "Baicang · Scorch / Linko",
+      "file": "baicang-linko.nte",
+      "selectable": true
+    },
+    {
+      "id": "blackbird-nova",
+      "label": "Blackbird · Nova",
+      "file": "blackbird-nova.nte",
+      "selectable": true
+    },
+    {
+      "id": "blackbird-stain",
+      "label": "Blackbird · Stain / Chaos",
+      "file": "blackbird-stain.nte",
+      "selectable": true
+    },
+    {
+      "id": "blackbird-hathor",
+      "label": "Blackbird · Stain / Hathor",
+      "file": "blackbird-hathor.nte",
+      "selectable": true
+    },
+    {
+      "id": "chaos-remora",
+      "label": "Chaos · Remora / Stain",
+      "file": "chaos-remora.nte",
+      "selectable": true
+    },
+    {
+      "id": "shinku-charge",
+      "label": "Shinku · Charge",
+      "file": "shinku-charge.nte",
+      "selectable": true
+    },
+    {
+      "id": "chiz-charge",
+      "label": "Chiz A6 · Charge",
+      "file": "chiz-charge.nte",
+      "selectable": true
+    },
+    {
+      "id": "aurelia-charge",
+      "label": "Aurelia · Charge",
+      "file": "aurelia-charge.nte",
+      "selectable": true
+    },
+    {
+      "id": "skia-charge",
+      "label": "Skia · Charge",
+      "file": "skia-charge.nte",
+      "selectable": true
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "scope": "Shinku native primary action packet binding across Normal, Skill, and Ultimate",
+  "quality": "partial executable model; complete kit pending",
+  "sources": [
+    "data/extracted/guide_shinku.json",
+    "data/extracted/neverness_shinku.json",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json",
+    "data/global-2026-10-04/tables/1076AwakenEffect.json",
+    "data/global-2026-10-04/tables/DT_GameplayAbilityTipsData.json",
+    "data/global-2026-10-04/evidence/tables/DT_GameplayAbilityTipsData.json"
+  ],
+  "model": [
+    "GA_Shinku_Melee public primary packet is GE_Player_Shinku_Melee1_1_Damage. Native coefficients at Normal levels 1/8/9 are 0.182/0.312/0.337; category A/COSMOS metadata stays source-bound. Five admitted ordinary inputs advance stages Melee1 through Melee5 with multiplicities 1,2,4,2,1 (10 hits) under shinku.normal_chain_v1. Does not activate Surging Crimson; DEF ignore applies at awakening >= 1 (12%) and awakening >= 6 (27%).",
+    "GA_Shinku_Skill public primary packet is GE_Player_Shinku_Skill1_1_Damage. Native coefficients at Skill levels 1/8/9 are 0.173/0.296/0.320; category E/COSMOS metadata stays source-bound. on_cast activates Surging Crimson (13s duration) granting +30% DMG bonus (+60% at A3) and +30% ratio at A6.",
+    "GA_Shinku_UltraSkill public primary packet is GE_Player_Shinku_UltraSkill1_Damage. Native coefficients at Burst levels 1/8/9 are 0.185/0.317/0.342; category Q/COSMOS metadata stays source-bound. on_cast activates Surging Crimson (13s duration) granting +30% DMG bonus (+60% at A3) and +30% ratio at A6.",
+    "Ordinary GA_Shinku_Skill delivers Skill1_1, Skill1_2, Skill1_3 once each in listed order; native coefficients at Skill levels 1/8/9 are 0.173/0.231/0.796, 0.296/0.396/1.364, and 0.320/0.428/1.473. Child packets use the cast's effective talent coordinate and primary impact time as a tested timing hypothesis; animation intervals and travel are unresolved. Rage Skill packets remain separate.",
+    "Initial Crimson Fury GA_Shinku_UltraSkill delivers UltraSkill1 once, UltraSkill2 once, UltraSkill3 five times, UltraSkill4 once, and UltraSkill5 once in listed coefficient order, totaling 6.000/10.285/11.105 ratio at levels 1/8/9. Native GA_Shinku_UltraSkill.GALevelUpArray[0].LevelUpData.DamageGEList lists those five IDs in order, and its coefficient string gives the third term *5. Children use the cast's effective talent coordinate and primary impact time as a tested timing hypothesis. In the same frozen ability row, GA_Shinku_UltraSkill2_des maps to GE_Player_Shinku_UltraSkillPre_Rage_Damage and requires repeated Ultimate presses for Crimson Judgment dashes, with Scarlet Descent granting up to three uses; GA_Shinku_UltraSkill3_des maps to GE_Player_Shinku_UltraSkill_Rage_Damage and explicitly requires another press after Judgment uses are consumed or Surging Crimson ends. These later phases are explicit inputs, not automatic children of the initial cast; their resource, timing, and AoE rules remain unmodeled.",
+    "The separate Crimson Judgment and Dragonflame Verdict descriptions map to GE_Player_Shinku_UltraSkillPre_Rage_Damage and GE_Player_Shinku_UltraSkill_Rage_Damage, with UltraSkill coefficients 0.600/1.028/1.111 and 0.200/0.343/0.370 at levels 1/8/9. Both damage rows retain GAName=GA_Shinku_UltraSkill; the configured character action list exposes only this base Ultimate input. An explicit configured GA_Shinku_UltraSkill command selects either as one direct packet under shinku.direct_ultimate_followups_v1; it does not repeat the initial train or activate/refresh Surging Crimson, but existing live modifiers still apply. Phase admission, use limits, costs, cooldowns, timing, travel, targets and AoE remain unmodeled.",
+    "Resonance 3 activates at awakening >= 3 and adds +1 level to Melee, Skill, and UltraSkill, selecting native coordinate level + 1 without manual overrides.",
+    "Existing A1/A6 DEF ignore (12%/27%), A2 Cosmos RES down on UltraSkill hit (10%), A6 Crit Rate (+10%) and rage skill ratio bonus (+30%) remain preserved as partial kit models.",
+    "Canonical arbitrary awakening selections: Effect1 supplies 12% DEF ignore and Effect6 supplies the modeled ratio addition independently. Resonance_6 adds 15% DEF ignore and 10% crit at six selections; resonance_3 Surging damage and skill-level bonuses use count. Effect2 target resistance uses identity. Existing unsupported owner mechanics remain pending."
+  ],
+  "pending": [
+    "Crimson Judgment/Dragonflame Verdict phase admission and resource transitions, Branch attacks (Branch1..Branch5), other Rage variant chains (Melee_Rage, Skill_Rage, UltraSkill_Rage), Evade attacks, and complete rage resource mechanics."
+  ],
+  "checks": [
+    "Independent 1000 ATK/0 RES oracles cover every Skill/Burst packet at levels 1 and 8, resonance-projected level 9, and A6. Skill total ratio is 1.200/2.056/2.221, yielding 780, 6682/5, and 88840/47 non-crit damage at A0/A0/A3. Initial Burst total ratio is 6.000/10.285/11.105; A0 level 1/8 yields 3900 and 26741/4. At A3, the primary yields 13680/47 and eight A2-affected children yield 12/11 each, for 5316720/517 total. A6 checks the +30% ratio on every Skill hit with 27% DEF ignore.",
+    "At A2, the Burst primary lands before its on-hit Cosmos RES reduction; all eight same-time children receive the resulting exact 12/11 negative-resistance factor. Off-field Skill delivery attributes all three hits to Shinku; a dead target settles 0 hits; strict Normal mode accepts shinku.normal_chain_v1.",
+    "Native Shinku tests verify packet identity/order, multiplicity, per-hit damage, talent projection, off-field ownership, dead-target handling, and A2 causal ordering. Browser Worker/WASM checks and native CLI parity cover Shinku Skill and initial Burst packet reports.",
+    "Direct follow-up tests cover both packets at all nine released UltraSkill coordinates, exact damage category/rates, strict hypothesis acceptance, one-hit-only delivery, inheritance of an already active Surging Crimson bonus, and no additional Ultimate energy.",
+    "weapon_passives.test.mjs passes with NTESIM_VERIFY_NATIVE=1: full native CLI/WASM reports match across equipped and action cases, including Shinku attack, skill, and burst at levels 1, 8, and A3 resonance.",
+    "TypeScript and production build pass. Frozen source hashes match the identities below."
+  ],
+  "source_sha256": {
+    "data/extracted/guide_shinku.json": "e3d1f16d298433dcf26926133c2dabd35ca609b8d2b5af711f7e164f6857f65f",
+    "data/extracted/neverness_shinku.json": "81640a550a73337968d51fc98d0be3632eed2505d547d237472845d42fda09cf",
+    "data/global-2026-10-04/evidence/tables/DT_GameplayAbilityTipsData.json": "ccfa647f983817804defadf40ef076190eded21e681739a666f8e82f7d0a6f92",
+    "data/global-2026-10-04/tables/DT_GameplayAbilityTipsData.json": "5c0a0f929376891c033451a25208b55747c43e6bbb24b75506eb0ff50a23584f",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json": "917b0c3675412c0425a0724d09e7dd8ae4d1ef9a100d2ea5669d7484d0901bf2",
+    "data/global-2026-10-04/tables/1076AwakenEffect.json": "95dfad3355029ad37268f5e07a3f1794218cf71ddd26ec29bcf5003536e79dce"
+  }
+}

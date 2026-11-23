@@ -1,0 +1,10 @@
+# State persists: these finite observations do not establish endless sustain.
+clock 0;
+do observe;
+wait 1;
+repeat 3 {
+  do attack;
+  wait 9;
+  do observe;
+  wait 1;
+}

@@ -1,0 +1,25 @@
+[
+  {
+    "type": "action",
+    "owner": "a",
+    "action": "E"
+  },
+  {
+    "type": "switch",
+    "owner": "b"
+  },
+  {
+    "type": "action",
+    "owner": "b",
+    "action": "Q"
+  },
+  {
+    "type": "switch",
+    "owner": "c"
+  },
+  {
+    "type": "action",
+    "owner": "c",
+    "action": "E"
+  }
+]

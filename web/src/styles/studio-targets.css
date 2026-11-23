@@ -1,0 +1,73 @@
+.target-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 13px;
+  border: 1px solid var(--border);
+  padding: 12px;
+  background: #3b303f;
+  font: 12px var(--mono);
+}
+
+.target-card > strong {
+  font-size: 14px;
+  font-weight: normal;
+}
+
+.target-header-line {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+}
+
+.target-header-line > strong {
+  font-size: 14px;
+  font-weight: normal;
+}
+
+.target-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+}
+
+.target-resistances {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px 18px;
+  margin-top: 8px;
+}
+
+.target-resistance {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.target-resistance img {
+  width: 24px;
+  height: 24px;
+}
+
+.target-resistance > span {
+  color: var(--muted);
+  font-size: 10px;
+}
+
+.target-resistance b {
+  margin-left: auto;
+}
+
+@media (max-width: 1050px) {
+  .target-resistances {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px 16px;
+  }
+}
+
+.chart-note {
+  font: 11px/1.5 var(--mono);
+  color: #b3a6bf;
+  margin: 8px 0;
+}

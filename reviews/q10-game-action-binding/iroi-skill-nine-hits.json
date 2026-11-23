@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "hypothesis_id": "iroi.skill_nine_packet_train_v1",
+  "scope": "Ordinary pressed Skill: Future Self Continuity / Redirect Skill",
+  "quality": "partial executable model; complete kit pending",
+  "sources": [
+    "data/extracted/guide_iroi.json#/skills/Skill/description",
+    "data/extracted/neverness_oneiroi.json#/skills/GA_Oneiroi_Skill_1_desc/valuesPerLevel",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json#/rows/GE_Player_Oneiroi_Skill_Gun_Damage",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json#/rows/GE_Player_Oneiroi_Skill_Syringe_Damage",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json#/rows/GE_Player_Oneiroi_Skill_Trumpet_Damage"
+  ],
+  "source_sha256": {
+    "data/extracted/guide_iroi.json": "8c5eb4617356218b1e05015636d51c12035bd2c80652c3da9788030a9110c973",
+    "data/extracted/neverness_oneiroi.json": "80e6a9dcf392ececb6cb50fffb508aa2cf60a8bb3b7b2ab43e176d575e001962",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json": "917b0c3675412c0425a0724d09e7dd8ae4d1ef9a100d2ea5669d7484d0901bf2"
+  },
+  "packets": [
+    {"damage_effect_id": "GE_Player_Oneiroi_Skill_Gun_Damage", "multiplicity": 1},
+    {"damage_effect_id": "GE_Player_Oneiroi_Skill_Syringe_Damage", "multiplicity": 7},
+    {"damage_effect_id": "GE_Player_Oneiroi_Skill_Trumpet_Damage", "multiplicity": 1}
+  ],
+  "decision": "A successful ordinary Skill admission requires the canonical Gun primary packet and delivers one Gun, seven Syringe, and one Trumpet packet, in that order, at the selected primary impact time. Each packet uses its own frozen native ATK array at the effective Skill level after resonance. A2 retains its separately modeled single assistance packet and callback. Existing Skill buff behavior is preserved.",
+  "independent_checks": {
+    "level_1_coefficients": [1.5, 0.179, 1.25],
+    "level_8_coefficients": [2.571, 0.307, 2.142],
+    "level_9_coefficients": [2.776, 0.331, 2.314],
+    "multiplicities": [1, 7, 1],
+    "sum_coefficients": {"level_1": 4.003, "level_8": 6.862, "level_9": 7.407},
+    "damage_at_1000_atk_0_res_target_def_1080_and_team_5pct_def_ignore": {
+      "level_1": "80060/39",
+      "level_8": "137240/39",
+      "level_9": "148140/39"
+    },
+    "a2_additional_packet_damage_at_same_stats": "40000/39"
+  },
+  "hypotheses": [
+    "The Gun, Syringe, and Trumpet impacts share the selected primary impact timestamp and arrive in that order; source descriptions establish the three lamb attacks and their aggregate ratios, but not frame timing.",
+    "The train targets target zero and evaluates delivery-time buffs under the existing event model."
+  ],
+  "checks": [
+    "Source verifier checks all nine displayed Skill levels against native Gun/Syringe/Trumpet coefficient arrays, multiplicities, category, Nature type, and fixed-crit metadata.",
+    "Native combat checks independently sum the 1/7/1 coefficients at levels 1, 8, and resonance-projected 9; verify ordered packet IDs, one-time A2 addition, exact horizon delivery, off-field ownership, failed admission, dead target, strict hypothesis admission, and canonical primary rejection.",
+    "Public real DSL cases check levels 1/8/resonance 9 and A4's additive +30% Skill bonus with the R5 appliance bonus, exact ordered packet IDs, and Worker/native parity."
+  ],
+  "pending": [
+    "Animation timing and spacing, area target selection, healing, Regression, Imagination, summons after the three initial lamb attacks, Blossom copies, and full kit behavior remain unsupported or outside this binding. The older iroi-child-coefficients receipt remains a historical review of its former one-Syringe/one-Trumpet behavior and does not validate the new packet count."
+  ]
+}

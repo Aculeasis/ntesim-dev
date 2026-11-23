@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "status": "modeled_and_tested",
+  "owner": "daffodil",
+  "character_id": "character:1054",
+  "cutoff": "data/global-2026-10-04",
+  "hypotheses": [
+    "actions.caller_timing_v1",
+    "actions.primary_packet_v1",
+    "daffodil.normal_chain_v1",
+    "daffodil.skill_burst_packets_v1",
+    "daffodil.ordinary_hit_energy_v1"
+  ],
+  "scenario": {
+    "source": "Rust simulation test plus authored NTE source in web/tests/combat/daffodil_continuation.mjs",
+    "actors": ["character:1054", "character:1019", "character:1072"],
+    "starting_energy": [0, 0, 0],
+    "energy_capacity": [120, 120, 120],
+    "stats": "Synthetic 1000 base/final ATK on Daffodil, fixed noncritical damage; target HP 10000000, DEF1080, RES0.",
+    "timeline": "Thirty Normal inputs start at 0.0s through 23.2s with 800ms spacing; Skill at 24s; Burst at 26s; five continuing Normal inputs start at 32.0s through 35.2s. The full 36s horizon is the DPS denominator.",
+    "burst_cost": "The runner request explicitly overrides the Burst cost to 120; this is a scenario input, not resolved native admission evidence.",
+    "receipts": {
+      "initial_normal_inputs": 30,
+      "initial_normal_damage_packets": 114,
+      "skill_damage_packets": 8,
+      "burst_damage_packets": 14,
+      "continuation_normal_inputs": 5,
+      "continuation_damage_packets": 19,
+      "total_damage_packets": 155,
+      "burst_costs": 1
+    }
+  },
+  "oracle_basis": {
+    "damage_sources": [
+      "reviews/q10-game-action-binding/daffodil-normal-chain.json: level-eight five-input total 5463/2; at A0, six complete chains produce 6*5463/2 = 16389.",
+      "reviews/q10-game-action-binding/daffodil-skill-burst-packets.json: level-eight Skill total 5145/2 and Burst total 15081/2 at 1000 ATK, DEF factor 1/2, RES0.",
+      "The continuation's five-input Normal chain is 5463/2; Burst Insight contributes the existing +10% damage bonus, so 5463/2*11/10 = 60093/20."
+    ],
+    "energy_source": "DT_SkillDamageData ChargeAdd rows feed daffodil.ordinary_hit_energy_v1; the 3/5 CHAOS relation and exact per-recipient carry policy are specified in the owner/shared models. Final ledgers below are literal tested scenario expectations, not claims of native eligibility."
+  },
+  "scenario_results": {
+    "damage": {
+      "initial_normals": "16389",
+      "skill": "5145/2",
+      "burst": "15081/2",
+      "continuation_normals": "60093/20",
+      "total": "590133/20 = 29506.65",
+      "horizon_seconds": 36,
+      "horizon_dps_exact": "196711/240"
+    },
+    "energy": {
+      "source": {
+        "granted_whole": 145,
+        "spent": 120,
+        "overflow": 5,
+        "ending_energy": 20,
+        "carry": "413/1000"
+      },
+      "each_other_recipient": {
+        "relation": "3/5",
+        "granted_whole": 87,
+        "ending_energy": 87,
+        "carry": "1239/5000"
+      },
+      "values_are_literal_test_expectations": true
+    }
+  },
+  "checks": [
+    "Focused Rust owner test validates action timing, packet counts, segment damage, exact total/horizon DPS, and all three energy ledgers.",
+    "Focused authored NTE test compiles to a request and checks the same damage, timing, source/recipient energy, native report, and actual Worker parity."
+  ],
+  "limits": [
+    "Synthetic stats, fixed noncritical damage, explicit capacities, and the 36-second schedule are runner inputs, not game measurements or an optimized rotation.",
+    "Caller timing, Normal-chain continuity, primary packet behavior, ordinary-hit positive-HP-loss eligibility, living recipient rules, exact fractional settlement, and the 3/5 team relation are bounded hypotheses pending native dispatch evidence.",
+    "The caller-supplied 120 Burst cost does not prove native action cost, affordability/readiness, or live timing. The fixture does not establish animation/cancel timing, natural Branch/Entry/AirAttack dispatch, Break behavior, additional targets, or unsupported Daffodil passives.",
+    "Damage totals and final energy ledgers are exact oracles for this named scenario; they do not imply full-kit coverage or strict-ready DPS."
+  ],
+  "source_sha256": {
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json": "917b0c3675412c0425a0724d09e7dd8ae4d1ef9a100d2ea5669d7484d0901bf2",
+    "data/global-2026-10-04/tables/DT_SkillTeamChargeRelationData.json": "5e456919997b0f77c4b569ce812267a059bab553a1f87fcb863723c44b66363b"
+  }
+}

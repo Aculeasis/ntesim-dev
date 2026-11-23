@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "scope": "Nanally ordinary five-input Normal chain in the shared gameplay runner",
+  "quality": "executable modeled ordinary chain; hold/plunge attacks, full kit and Underboss combo pending",
+  "hypothesis_id": "nanally.normal_chain_v1",
+  "sources": [
+    "data/extracted/neverness_nanally.json: GA_Nanally_Melee_1_des through GA_Nanally_Melee_5_des",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json: GE_Player_Nanally_Melee1_Damage through Melee10_Damage",
+    "reviews/q10-game-action-binding/nanally-action-binding-model.json: frozen source hashes"
+  ],
+  "decision": "Five admitted ordinary Normal inputs advance stages Melee1 through Melee5 with multiplicities 1,1,3,7,2 (fourteen hits). The chain loops, retaining native effective talent projection including resonance_3.",
+  "hypotheses": [
+    "A different admitted ability or field exit resets the chain; a same-actor switch does not.",
+    "A gap greater than 2 seconds between input starts resets the chain; the exact boundary continues. This is a tested continuity convention pending animation/cancel evidence.",
+    "Each stage delivers ordered coincident packets at the research primary impact timestamp; travel, AoE and animation intervals remain unresolved."
+  ],
+  "independent_oracles": [
+    "1000 ATK, 0 RES and 0.5 DEF factor: level-one stages deal 148, 194, 801, 241.5, 772. Five inputs total 2156.5 (4313/2); sixth looping input gives 2304.5 (4609/2).",
+    "Level-eight stages deal 253.5, 332.5, 1372.5, 413, 1323. Five inputs total 3695 (3695/1); sixth gives 3948.5 (7897/2).",
+    "Purchased level eight at A3 projects level nine: 274, 359, 1483.5, 446, 1430.5. Five inputs total 3993 (3993/1); sixth gives 4267 (4267/1)."
+  ],
+  "checks": [
+    "python tools/check.py -- python tools/verify_normal_chain_sources.py verifies source hashes and ordered coefficient multiplicity at all nine published levels.",
+    "Native damage tests verify every stage, packet identity, multiplicity, loop and effective talent projection at levels 1, 8 and A3.",
+    "Native causal tests verify ability/field/gap resets, no-op switches, strict hypothesis acceptance and all stage-three packets settling after field exit at the exact horizon.",
+    "Public attack:5 scripts verify independent per-packet and total damage through Worker/WASM with complete native report parity."
+  ],
+  "pending": [
+    "Measured reset/cancel rules and packet intervals; return when frozen animation evidence supplies a concrete model.",
+    "Hold/aim/air attack branches, full Underboss combo actions and complete kit behavior."
+  ]
+}

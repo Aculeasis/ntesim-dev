@@ -1,0 +1,10 @@
+options duration=60 iteration=1 crit=fixed;
+# Unequipped actors isolate ordinary hit energy outside the Charge reaction.
+shinku char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_energy=0;
+mint char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_energy=0;
+target hp=100000000 def=0 resist=0;
+active shinku;
+
+repeat 12 { shinku attack:5; }
+shinku skill, burst;
+mint swap; mint burst;

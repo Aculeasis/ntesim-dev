@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "status": "implemented",
+  "owner": "hathor",
+  "character_id": "character:1025",
+  "hypotheses": [
+    "hathor.ordinary_hit_energy_v1",
+    "hathor.normal_chain_v1",
+    "hathor.skill_burst_packets_v1",
+    "hathor.express_delivery_state_v1"
+  ],
+  "scenario": {
+    "source": "four Normal chains, two unheld Skills, one 100-energy Burst from zero energy, then one Normal continuation chain",
+    "starting_energy": 0,
+    "energy_capacity": 100,
+    "charge_efficiency": "1/1",
+    "other_living_recipient_relation": "3/5",
+    "cost": "Burst spends 100 energy once",
+    "timing": "Normal inputs use 800ms recovery at 0..15.2s for buildup and 31.2..34.4s for continuation; Skills start at 16s and 22s with 1.2s recovery and 6s cooldown; Burst starts at 23.2s with 2s recovery. Rust and compiled NTE assert the same 36s-horizon schedule.",
+    "receipts": {
+      "normal_packets": 65,
+      "skill_packets": 6,
+      "burst_packets": 3,
+      "total_hit_packets": 74,
+      "energy_source_packets": 71
+    }
+  },
+  "independent_oracle": {
+    "normal_charge_add_milli_per_chain": [1219, 807, 681, 681, 681, 681, 664, 664, 1121, 2403, 4982, 2212, 5505],
+    "skill_charge_add_milli_per_packet": [2833, 2833, 2833],
+    "burst_charge_add_milli_per_packet": 0,
+    "pre_burst_charge_add": "4*22.301 + 2*8.499 = 106.202",
+    "pre_burst_settlement": "106 whole source energy, 6 overflow at capacity 100; Burst spends 100",
+    "post_burst_normal_chain": "22.301 additional ChargeAdd; total generated is 128, ending at 22 energy and 503/1000 carry",
+    "source_final": {
+      "granted": 128,
+      "spent": 100,
+      "overflow": 6,
+      "energy": 22,
+      "charge_remainder": "503/1000"
+    },
+    "each_other_living_recipient_final": {
+      "relation": "3/5",
+      "granted": 77,
+      "energy": 77,
+      "charge_remainder": "509/5000"
+    },
+    "level_8_damage_at_1000_atk_and_0_5_defense_multiplier": {
+      "normal_five_input_chain": 3814,
+      "skill_cast_three_packets": 2571,
+      "burst_three_packets_with_15_percent_atk": "275931/40",
+      "total": "5*3814 + 2*2571 + 275931/40 = 1244411/40"
+    },
+    "values_are_literal_test_expectations": true
+  },
+  "checks": [
+    "Focused Rust ordinary_hit_energy::owner_rotations tests assert all 74 packet identities and damage values, all 71 per-packet ChargeAdd grants, the 100-energy cost, source/ally ledgers, capacity/overflow, and continuation.",
+    "Authored NTE is checked through WASM and the actual browser Worker; native CLI parity, observations, aggregation and replay reconcile with the independently calculated damage and energy ledgers.",
+    "Focused checks passed: python tools/cargo.py test -p ntesim-content ordinary_hit_energy::owner_rotations -- --nocapture; node tools/web.mjs test web/tests/ordinary_hit_owner_rotations.test.mjs. Stable-tree checkpoint pending."
+  ],
+  "limits": [
+    "hathor.ordinary_hit_energy_v1 remains a bounded eligibility, positive-HP-loss, recipient and off-field ownership hypothesis; native caller evidence is unavailable.",
+    "Normal chain reset/delivery, coincident packet timing and Emergency Delivery's +15% ATK use the existing owner hypotheses, not native animation/stack measurements.",
+    "Only unheld Skills outside Emergency Delivery are used. Held Skill, Cyclone Strike, alternate modes, passive gains and unsupported awakenings remain outside the sequence.",
+    "The browser compiles authored inputs into a fixed timeline; this does not establish live readiness waits or a shared live interpreter."
+  ],
+  "source_sha256": {
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json": "917b0c3675412c0425a0724d09e7dd8ae4d1ef9a100d2ea5669d7484d0901bf2",
+    "data/global-2026-10-04/tables/DT_SkillTeamChargeRelationData.json": "5e456919997b0f77c4b569ce812267a059bab553a1f87fcb863723c44b66363b",
+    "reviews/q10-game-action-binding/hathor-normal-chain.json": "ce4a5f8acc86a59cfacfe8c96618e64e4ecde6f244100e057eb56e8b23dca2be",
+    "reviews/q10-game-action-binding/hathor-skill-burst-packets.json": "eaa95ebcaa66c60f7a7712352cd53b12bbbb5ad71c069eee9706b42f2f900a3"
+  }
+}

@@ -1,0 +1,33 @@
+options iteration=1 duration=110 seed=42;
+
+hotori char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_energy=100 start_cycle=100;
+hotori add weapon=fork_Time refine=1;
+hotori add stats cr=0.71;
+hathor char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_energy=0 start_cycle=100;
+zero char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_energy=0;
+mint char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_energy=0 start_cycle=100;
+target hp=100000000 def=1080 resist=0;
+active hotori;
+
+# Present Replay needs more than 60 Timepiece, so the wearer opens Wastelab
+# only after the passive has funded the spend.
+wait_until(11); hotori skill;
+
+# Two engine Supports and one ally Redirect reach the three-stack cap before
+# the wearer consumes it with Ultimate.
+wait_until(17); hathor swap;
+wait_until(18.8); hathor skill[hold=0];
+wait_until(20.4); zero swap;
+wait_until(36.25); hotori burst;
+
+# Reopen Wastelab without resetting the still-running DEF-ignore window.
+# Only one ally Support is admitted in this period, so this Ultimate gains
+# one stack of CRIT DMG and cannot refresh the three-stack DEF-ignore buff.
+wait_until(61); hotori skill;
+wait_until(62.75); mint swap; zero swap;
+wait_until(86); hotori burst;
+
+# The first DEF-ignore window expires at World106.5 (A134.866666 after two14.183333s pauses) on its original World-time
+# clock; the second Ultimate could not renew it.
+wait_until(133.366666); hotori attack;
+wait_until(136.366666); hotori attack;

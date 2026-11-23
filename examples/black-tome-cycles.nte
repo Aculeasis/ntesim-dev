@@ -1,0 +1,26 @@
+options iteration=1 duration=70 crit=fixed;
+
+lacrimosa char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_energy=0 start_cycle=100;
+lacrimosa add weapon=fork_BlackBook refine=1;
+sakiri char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_energy=0 start_cycle=100;
+haniel char lvl=20/20 awakening=0 talent=1,1,1 qte=1 start_cycle=100;
+mint char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_cycle=100;
+target hp=1000000000 def=0 resist=0 break_gauge=0.01 max_break_gauge=0.01 broken_duration=1;
+active lacrimosa;
+
+# Two paid swaps release the first pair of chains.
+sakiri swap; wait(0.6); lacrimosa swap;
+wait_until(16.1); lacrimosa arc;
+wait(0.6); lacrimosa attack;
+
+# A third Support triggers the armed weapon while its wearer is off field.
+wait_until(29.75); mint swap; sakiri swap; wait(0.6); lacrimosa swap;
+wait_until(36.1); lacrimosa attack;
+wait_until(40); lacrimosa attack;
+
+# The fourth Support releases the second pair; no state is reset.
+wait_until(44.9); haniel swap; lacrimosa swap;
+wait_until(46.1); lacrimosa arc;
+wait(0.6); lacrimosa attack;
+wait_until(66.1); lacrimosa attack;
+wait_until(67); lacrimosa attack;

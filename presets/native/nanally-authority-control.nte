@@ -1,0 +1,18 @@
+# Authority removal is a utility input preserving the original Skill cooldown.
+options duration=35 iteration=1 seed=42;
+nanally char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_energy=0;
+target hp=100000000 def=1080 resist=0;
+active nanally;
+nanally skill;
+if .nanally.skill.ready {wait(99);}
+if .nanally.skill.cd+.time!=2.429917 {wait(99);}
+wait_until(2.429917);
+if !.nanally.skill.ready {wait(99);}
+nanally skill;
+if .nanally.authority.active || .nanally.skill.ready || .nanally.skill.cd+.time!=16.425571
+    || .nanally.energy!=6 {wait(99);}
+wait_until(16.425571);
+nanally skill;
+wait_until(18.855488);
+nanally skill;
+if .nanally.authority.active || .nanally.skill.cd+.time!=32.851142 || .nanally.energy!=12 {wait(99);}

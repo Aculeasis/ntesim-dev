@@ -1,0 +1,11 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "paths": {
+      "react": ["../cache/web/node_modules/react/index.js"],
+      "react/*": ["../cache/web/node_modules/react/*"],
+      "react-dom": ["../cache/web/node_modules/react-dom/index.js"],
+      "react-dom/*": ["../cache/web/node_modules/react-dom/*"]
+    }
+  }
+}

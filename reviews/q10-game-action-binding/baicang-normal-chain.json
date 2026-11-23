@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "scope": "Baicang ordinary five-input Normal chain in the shared gameplay runner",
+  "quality": "executable modeled ordinary chain; heavy attack variations, freeze interactions and complete kit pending",
+  "hypothesis_id": "baicang.normal_chain_v1",
+  "sources": [
+    "data/extracted/neverness_cang.json: Cang_Melee_1 through Cang_Melee_5",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json: GE_Player_Cang_Melee1_Damage through Melee5_Damage",
+    "reviews/q10-game-action-binding/baicang-action-binding-model.json: frozen source hashes"
+  ],
+  "decision": "Five admitted ordinary Normal inputs advance stages Melee1 through Melee5 with multiplicities 1,1,1,7,1 (eleven hits). The chain loops, retaining native effective talent projection including resonance_3 and dynamic Power Word ATK stack progression. Heavy attack variations and freeze interactions are not inferred from ordinary input execution.",
+  "hypotheses": [
+    "A different admitted ability or field exit resets the chain; a same-actor switch does not.",
+    "A gap greater than 2 seconds between input starts resets the chain; the exact boundary continues. This is a tested continuity convention pending animation/cancel evidence.",
+    "Each stage delivers ordered coincident packets at the research primary impact timestamp; travel, AoE and animation intervals remain unresolved."
+  ],
+  "independent_oracles": [
+    "1000 ATK, 0 RES and 0.5 DEF factor: level-one stages deal 237.5, 211.5, 595, 125.5*7, 431.5. Five inputs total 2354; sixth looping input gives 2591.5.",
+    "Level-eight stages deal 407, 362.5, 1019.5, 215*7, 739.5. Five inputs total 4033.5; sixth gives 4440.5.",
+    "Purchased level eight at A3 projects level nine with dynamic Power Word (+6% ATK per stack up to 4): 465.87, 438.48, 1299.77, 288.3*7, 990.14. Five inputs total 5212.36; sixth gives 5757.34."
+  ],
+  "checks": [
+    "python tools/check.py -- python tools/verify_normal_chain_sources.py verifies source hashes and ordered coefficient multiplicity at all nine published levels.",
+    "Native damage tests verify every stage, packet identity, multiplicity, loop and effective talent projection at levels 1, 8 and A3.",
+    "Native causal tests verify ability/field/gap resets, no-op switches, strict hypothesis acceptance and all seven fourth-stage packets settling after field exit at the exact horizon.",
+    "Public attack:5 scripts verify independent per-packet and total damage through Worker/WASM with complete native report parity."
+  ],
+  "pending": [
+    "Measured reset/cancel rules and packet intervals; return when frozen animation evidence supplies a concrete model.",
+    "Hold attack / heavy attack variations, full UltraSkill DoT ticks, freeze status interactions and remaining kit behavior."
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "question": "Does Boxing Candy replace its ordinary damage bonus below strictly 50 percent live target HP, and when is that condition evaluated?",
+  "branch_budget_minutes": 10,
+  "total_investigation_budget_minutes": 15,
+  "sources": [
+    "data/global-2026-10-04/tables/DT_ForkUpgradeStarDataTable.json#/rows/upgradestar_pack_fork_BoxingCandy_1",
+    "data/global-2026-10-04/tables/CT_ForkBuff.json#/rows/buff_BoxingCandy_Up",
+    "data/global-2026-10-04/tables/CT_ForkBuff.json#/rows/buff_BoxingCandy_Up2"
+  ],
+  "decision": "Interpret increases this effect to as replacement, not stacking. Add the selected exact refinement ratio in the additive damage-bonus zone. Read each target's current HP before each delivered hit, strictly below half maximum HP; hits that first cross the threshold retain the ordinary bonus. Follow the wearer through off-field delivery. This delivery-time rule is a tested hypothesis.",
+  "availability": "Frozen release availability remains unverified; no released-weapon or strict-readiness claim.",
+  "stop_condition": "Check both exact T1-T5 curves, equality and threshold crossing, independent targets, off-field delivery, additive damage arithmetic, invalid equipment and native/WASM/Worker parity on a legal Nanally build.",
+  "return_condition": "New HP sampling, bonus-zone, replacement or release evidence conflicts with this interpretation.",
+  "checks": [
+    "135 content tests pass; both exact T1-T5 curves, source unit hints, legal Nanally console/skill/build projection, duplicate and mismatched equipment and enhanced-bonus ordering are checked.",
+    "Independent oracle: 1000 ATK * .5 DEF * (1 + .1 general + .22 ordinary) = 660; strictly below half HP replace .22 with .28 to obtain 690. The crossing hit retains 660; later hits use 690.",
+    "Explicit delivered packets on independent targets, off-field delivery after another actor crosses the threshold and u64 maximum-HP boundaries pass. Public targeting remains partial; multi-target coverage does not claim a native AoE train.",
+    "TypeScript, production studio build, native-build, scenario-script, streaming-trial and architecture web modules pass. Scoped clippy permits only the two pre-existing metadata lints recorded in blast-candy-model.json.",
+    "Public DSL Nanally T1-T5 at full, exactly half and strictly below half target HP checks additive weapon/general-bonus multipliers against an independently computed oracle. Full shared CLI/WASM reports match; actual Worker reports match direct WASM above and below the threshold. Frozen source bytes remain unchanged."
+  ]
+}

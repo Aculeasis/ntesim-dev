@@ -1,0 +1,8 @@
+options iteration=1 duration=20 crit=fixed;
+const start_fraction = 0.5;
+zero char lvl=80/80 awakening=0 talent=8,8,8 qte=8 +params=[start_hp%=start_fraction];
+zero add weapon=fork_wuhuakuang refine=5;
+zero add stats hp=5600 hp%=0.1;
+target hp=10000000 max_hp=10000000 def=1080 resist=0;
+active zero;
+zero attack:5;

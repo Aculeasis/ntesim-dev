@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "scope": "Lacrimosa native primary action packet binding across Normal, QTE, Skill, and Ultimate multi-hit packet trains",
+  "quality": "partial executable model; complete kit pending",
+  "sources": [
+    "data/extracted/guide_lacrimosa.json",
+    "data/extracted/neverness_lacrimosa.json",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json",
+    "data/global-2026-10-04/tables/1004AwakenEffect.json"
+  ],
+  "model": [
+    "GA_Lacrimosa_Melee public primary packet is GE_Player_Lacrimosa_Melee1_Damage. Native coefficients at Normal levels 1/8/9 are 0.371/0.636/0.687; category A/CHAOS metadata stays source-bound. At A6 (resonance_6 Lullaby), ignores 20% of target DEF.",
+    "GA_Lacrimosa_QTE public primary packet is GE_Player_Lacrimosa_QTE1_Damage. Native coefficients at QTE levels 1/8/9 are 2.000/3.428/3.702; category QTE/CHAOS metadata stays source-bound. At A2 (Rise and Shine), grants +15% damage dealt for 15s.",
+    "GA_Lacrimosa_Skill public primary packet is GE_Player_Lacrimosa_Skill1_Damage. Native coefficients at Skill levels 1/8/9 are 3.000/5.141/5.553; category E/CHAOS metadata stays source-bound. At A6 (resonance_6 Lullaby), ignores 20% of target DEF.",
+    "GA_Lacrimosa_UltraSkill public primary packet is GE_Player_Lacrimosa_UltraSkill1_Damage (94.2%), followed by 3x GE_Player_Lacrimosa_UltraSkill1_Damage (94.2% each) and 1x GE_Player_Lacrimosa_UltraSkill2_Damage (623.3%) under lacrimosa.skill_burst_packets_v1; category Q/CHAOS metadata stays source-bound. At A6 (resonance_6 Lullaby), ignores 20% of target DEF.",
+    "Resonance 3 activates at awakening >= 3 and adds +1 level to Melee, Skill, and UltraSkill without manual overrides.",
+    "Existing A1 Nightmare DoT ratio bonus (+50%), A2 Rise and Shine damage buff (+15% for 15s after QTE), and resonance_6 Lullaby (20% DEF ignore) remain preserved as partial kit models.",
+    "Canonical arbitrary awakening selections: Effect1 Nightmare coefficient and Effect2 QTE bonus use selected identity. Talent resonance_3 and DEF-ignore resonance_6 use count, retaining the native 20% versus description 10% conflict. Existing unsupported owner mechanics remain pending."
+  ],
+  "pending": [
+    "Melee form (B_Melee1..B_Melee8), form changes/BranchPraojectile, blood DoT mechanics (Blood_Damage, Blood_Damage_LV6), Pan / Air / Evade variants, Sleep In cooldown resets, Discord cycle auto-trigger and native ranged chain timing/reset rules."
+  ],
+  "checks": [
+    "lacrimosa_actions tests passed: independent damage oracles at 1000 ATK, 0 RES verify Normal (371/2, 318/1, 687/2 at A3 resonance, 1145/3 at A6 with 20% DEF ignore), Skill (1500/1, 5141/2, 5553/2 at A3 resonance, 3085/1 at A6 with 20% DEF ignore, 118243/40 with A2 buff), and Burst 5 hits (10001/2, 8569/1, 18513/2 at A3 resonance, 10285/1 at A6 with 20% DEF ignore).",
+    "Off-field delivery attributes hits to Lacrimosa; dead target settles 0 hits; horizon boundaries preserve pending events; QTE/Skill/Burst rotation settles 7 hits.",
+    "Current integration checks: tools/verify_lacrimosa_kit.py; independent mechanic assertions remain in Rust tests.",
+    "weapon_passives.test.mjs and lacrimosa_actions.mjs pass with NTESIM_VERIFY_NATIVE=1: full native CLI/WASM reports match across equipped and action cases, including Lacrimosa attack, skill, and 5-hit burst at levels 1, 8, A3 resonance, and A6.",
+    "TypeScript and production build pass. Frozen source hashes match the identities below."
+  ],
+  "source_sha256": {
+    "data/extracted/guide_lacrimosa.json": "8ec34c108e123b065a049a4d8150c748d8677dcef2f7b746c463962172ebbd56",
+    "data/extracted/neverness_lacrimosa.json": "29b599b8bd8143c54fe02858998d8235d7f78de5c3e0dcbae3dafa4ba6a6d143",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json": "917b0c3675412c0425a0724d09e7dd8ae4d1ef9a100d2ea5669d7484d0901bf2",
+    "data/global-2026-10-04/tables/1004AwakenEffect.json": "822e3d117d0d2a9173d0270817d4fa2e5f774cc5fb0ee83b0dc1e856a23e672f"
+  },
+  "continuing_normal_model": "reviews/q10-game-action-binding/lacrimosa-ranged-normal-chain.json"
+}

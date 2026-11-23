@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "question": "Which Shadow Creed four-piece curves match the frozen current set description?",
+  "branch_budget_minutes": 10,
+  "total_investigation_budget_minutes": 15,
+  "sources": [
+    "data/global-2026-10-04/tables/DT_EquipmentSuitData.json#/rows/Suit8/SuitStructList/1",
+    "data/global-2026-10-04/tables/CT_Equipmentbuff.json#/rows/Attack2_4_AtkUp",
+    "data/global-2026-10-04/tables/CT_Equipmentbuff.json#/rows/Attack2_4_CD"
+  ],
+  "conflicts": "Attack_4 and Attack_4_CD contain .35/10, inconsistent with the current Suit8 description of .25/20. Do not treat similar names as interchangeable.",
+  "decision": "Bind Attack2_4_AtkUp and Attack2_4_CD to the current Suit8 four-piece buff path as an explicit description-matched hypothesis. Skill admission grants self-only base-ATK percentage before same-time hits, nonstacking reset on recast, world-time expiry and off-field persistence.",
+  "stop_condition": "Verify exact .25/20 values, dependency drift, two/four-piece threshold, same-cast damage, recast, expiry, switching, failed admission and CLI/WASM/Worker parity.",
+  "return_condition": "New parameter-caller, timing, refresh, release or bonus-zone evidence conflicts with the model.",
+  "checks": [
+    "Two set-parameter adapter tests pass: exact .25/20 keys match current description; changing unrelated Attack_4 does not alter the selected report; curve-coordinate and buff-path drift are rejected. Speedy Hedgehog remains unchanged.",
+    "151 content tests pass, including Skill-triggered self base-ATK arithmetic, nonstacking refresh, exact expiry, delayed off-field hits, ally isolation, mismatched set, duplicate proc and failed admission.",
+    "Independent runtime oracle: (2000 ATK + 1000 base ATK * .25) * .5 DEF = 1125; ordinary and expired hits give 1000. Public native builds independently check (compiled ATK + compiled base ATK * .25)/compiled ATK.",
+    "Public Mint A0 native 80/80 talents 8/8/8, two/four-piece threshold, two continuing Skill casts, refresh and exact expiry are checked through complete CLI/WASM report parity and actual Worker execution. Ultimate-only input never triggers the set effect.",
+    "Typed studio and production checks pass; scoped content/data clippy allows only existing metadata collapsible_if and single_element_loop lints. Frozen data is preserved."
+  ],
+  "availability": "Frozen Suit8 Global release availability remains unverified; model execution does not establish release readiness."
+}

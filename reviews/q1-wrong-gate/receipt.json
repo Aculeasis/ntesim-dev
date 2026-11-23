@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "content_id": "ntesim-current",
+  "region": "Global",
+  "cutoff": "2026-10-04",
+  "status": "modeled_hypothesis",
+  "weapon_id": "weapon:fork_Door",
+  "name": "The Wrong Gate",
+  "native_item_row": "DT_ForkItemData:/rows/fork_Door",
+  "native_refinement_rows": "DT_ForkUpgradeStarDataTable:/rows/upgradestar_pack_fork_Door_1..5",
+  "native_curve_rows": "CT_ForkBuff:/rows/buff_Door_Atk,buff_Door_OtherUp,buff_Door_Up,buff_Door_CD",
+  "group": "ECharacterGroupType::CHARACTER_GROUP_TYPE_TWO",
+  "exclusive_character_ids": [],
+  "exclusive_description": null,
+  "passive_title": {
+    "localized": "Reverie Gate",
+    "source": "「随想之门」"
+  },
+  "passive_description": {
+    "localized": "Increases ATK. When the wearer performs healing, increases the wearer's Anima DMG and all allies' DMG for 20s. Same-name effects do not stack.",
+    "source": "DT_ForkUpgradeStarDataTable:/rows/upgradestar_pack_fork_Door_1..5/description"
+  },
+  "curves": {
+    "buff_Door_Atk": {
+      "unit": "ratio",
+      "keys": [1, 2, 3, 4, 5],
+      "values": [0.16, 0.2, 0.24, 0.28, 0.32]
+    },
+    "buff_Door_OtherUp": {
+      "unit": "ratio",
+      "keys": [1, 2, 3, 4, 5],
+      "values": [0.15, 0.1875, 0.225, 0.2625, 0.3]
+    },
+    "buff_Door_Up": {
+      "unit": "ratio",
+      "keys": [1, 2, 3, 4, 5],
+      "values": [0.3, 0.375, 0.45, 0.525, 0.6]
+    },
+    "buff_Door_CD": {
+      "unit": "seconds",
+      "keys": [1, 5],
+      "values": [20, 20]
+    }
+  },
+  "hypothesis_id": "weapons.the_wrong_gate_healing_v1",
+  "source_sha256": {
+    "data/ntesim-current/tables/DT_ForkItemData.json": "22f6f587ad9bf3d54905889e81bfe8f213fa29c49522499287c53d42fd6900a4",
+    "data/ntesim-current/tables/DT_ForkUpgradeStarDataTable.json": "b15f6c4cf4b8a6e1c982b431176b406a501f38861a67ddce45a0f589cdeed8c5",
+    "data/ntesim-current/tables/CT_ForkBuff.json": "93d1ed2069bc8e4358f98bfb5a3e212c13ad84e67eb6379e38414aa665539c15",
+    "data/ntesim-current/tables/DT_Character.json": "cce34c68a6286d9cfeb1525c7e0e05743370e8d5f96f6ddb8feb4ef8db0ab406",
+    "data/ntesim-current/tables/DT_GameplayAbilityTipsData.json": "5c0a0f929376891c033451a25208b55747c43e6bbb24b75506eb0ff50a23584f",
+    "data/ntesim-current/tables/DT_OneiroiEffectFigure.json": "6c6b543fb1f97d5a538ba82184b9f21d4aee9b39e672f0b6283c538179e69bb9"
+  },
+  "tested_hypotheses": [
+    "An actual Edgar Ultimate or Iroi ordinary Skill healing callback by the living equipped wearer triggers after settlement when the recipient is living and once-rounded pre-cap healing is positive; full-HP overheal qualifies. Iroi's producer is bounded by the owning iroi.skill_team_heal_v1 model, whose frozen tip says the ordinary Skill heals the whole team once and whose effect curve supplies the admitted-coordinate ratio.",
+    "One shared-name reset effect applies wearer Anima (NATURE) DMG and general DMG to every other living configured teammate; the wearer is excluded from the ally grant.",
+    "A later callback refreshes all shared-name recipient instances at callback world time; effects use half-open expiry and the latest triggering source, with Snapshot persistence after source death.",
+    "Off-field Edgar and Iroi callbacks remain eligible; dead recipients, non-healing actions, and zero pre-cap healing do not trigger."
+  ],
+  "independent_oracles": {
+    "static_atk_ratio_by_tier": [1.16, 1.2, 1.24, 1.28, 1.32],
+    "ally_general_damage_ratio_by_tier": [1.15, 1.1875, 1.225, 1.2625, 1.3],
+    "wearer_anima_damage_ratio_by_tier": [1.3, 1.375, 1.45, 1.525, 1.6],
+    "duration_us": 20000000,
+    "source": "Native synthetic NATURE packet: 1000 ATK becomes 1160; 30% Anima yields 1508 until expiry. Native Mint Skill: 1000 x .9 x 1.1 = 990, after allied 15%: 1000 x .9 x 1.25 = 1125. Public T1-T5 Edgar Burst uses (.projected_atk + base_atk x passive) x 6.855 x .5 x Cosmos/general zone; Mint Normal packets use .178/.396 x projected ATK x .5 x additive Anima/general zone."
+  },
+  "checks": [
+    "python tools/cargo.py test -p ntesim-content wrong_gate --locked --offline passed all 5 focused tests.",
+    "Focused Iroi and Wrong Gate content filters pass after connecting Iroi's ordinary Skill heal; the Wrong Gate cases independently assert full-HP overheal eligibility, Iroi owner/ally damage factors, and unrelated-healer/invalid-admission exclusion.",
+    "python tools/cargo.py test -p ntesim-content --locked --offline passed all 535 content tests and doc tests.",
+    "node tools/web.mjs check passed; targeted Prettier check passed for web/tests/combat/wrong_gate.mjs and web/tests/weapon_passives.test.mjs.",
+    "Pinned Rustfmt 1.98.1 with skip_children=true passed --check on all changed Rust files.",
+    "Current CLI/WASM builds, T1-T5 actual Edgar/Mint Worker execution and full CLI/WASM report parity pass in the same selected weapon suite process.",
+    "The Wrong Gate Worker case also exercises Iroi's full-HP Skill overheal: both living recipients trigger; a same-loadout no-proc baseline isolates the T1 ally damage ratio, with native CLI and actual Worker full-report parity.",
+    "Scoped Clippy, generated native studio catalog, web typecheck and studio production build pass."
+  ],
+  "pending_checks": [],
+  "known_gaps": [
+    "The owner Anima bonus is verified by typed synthetic NATURE packet selection, not by an Edgar native Anima action; the public rotation establishes the ally general-DMG behavior.",
+    "Trigger semantics, living-recipient/exclusion policy, callback timing, shared-name reset, half-open expiry and Snapshot source lifetime are explicit tested hypotheses because native wording does not settle them.",
+    "Edgar Ultimate periodic healing and Iroi ordinary Skill one-time healing are connected as public producers; other healing producers, including Iroi conditional/continuous UltraSkill healing, remain unsupported.",
+    "Frozen Global release availability is unverified."
+  ]
+}

@@ -1,0 +1,125 @@
+{
+  "checks": [
+    "Native content build projection binds all four curves across T1..T5 against independent frozen-row oracles (Anima 3/20,7/40,1/5,9/40,1/4; Attachment 1/10,9/80,1/8,11/80,3/20; Ultimate 1/5,9/40,1/4,11/40,3/10; 6s duration), checks the 4-entry DataList name set and percent/seconds unit hints, asserts the native description text, and rejects a group-TWO wearer and a flipped duration unit hint.",
+    "Config validation: a proc on weapon:fork_Worldrain is rejected ('requires equipped'), ult_duration_us 0 is rejected ('positive duration'), duplicate procs are rejected by scenario validation; a legal config validates.",
+    "Independent damage oracles at 1000 ATK, 0 RES, 1/2 DEF mitigation: Nature packets deal 625 with the T1 Anima bonus (1+0.1+0.15) vs 550 baseline (1+0.1); a Cosmos packet stays 550; bonuses sum additively with the general damage bonus.",
+    "Ultimate trigger: Normal/RedirectSkill/QTE casts grant nothing; one admitted Ultimate grants a single wearer-owned reset-policy instance (stat_modifiers butterfly.ult_attachment_bonus = 1/5) expiring 6s after admission; a second Ultimate refreshes the same instance (no stacking, one instance, expiry from the recast); switching preserves it; it is gone after expiry.",
+    "Attachment override unit test with synthetic tagged packets: idle Attachment packet gains 1/10, active gains 1/5 (replacement, not 1/10+1/5); Nature+Attachment gains 3/20+1/10 idle and 3/20+1/5 active; non-Attachment packets gain nothing from the timed buff.",
+    "Focused run: 7/7 butterfly tests pass. Full ntesim-content suite in an isolated worktree at the scaffold commit: 575 passed, 3 failed -- all three failures are the pre-existing unimplemented kite stub ('kite projection not implemented') from the scaffold, unrelated to butterfly. Clippy clean, rustfmt clean on the four touched Rust files.",
+    "Web scenario web/tests/combat/butterfly.mjs written for CI (T1-T5 proc binding, group rejection for mint, no spurious bonus on Zero's Cosmos-only kit, native/worker parity). WASM is not built in this Linux env, so the web test could not be executed here.",
+    "T5 audit: butterfly_t5_damage_oracles pins hand-derived T5 oracles — scenario hits 675 (Nature) / 550 (Cosmos); adapter-level Attachment contributions idle 2/5 and active 11/20 (replacement), i.e. the (1 + 1/10 + 2/5) * 500 = 750 and (1 + 1/10 + 11/20) * 500 = 825 full-damage chains."
+  ],
+  "combat_scope": "Static wearer Anima (Nature) DMG bonus and static wearer Attachment DMG bonus, both summed into the additive damage-bonus zone. Successful wearer Ultimate admission refreshes one wearer-only timed buff that replaces the static Attachment bonus with the larger frozen Ultimate value for 6s; recasts reset the same instance without stacking, and switching preserves it until world-time expiry.",
+  "curves": {
+    "buff_Butterfly_CD": {
+      "keys": [
+        1,
+        5
+      ],
+      "unit": "seconds",
+      "values": [
+        6.0,
+        6.0
+      ]
+    },
+    "buff_Butterfly_DamageUpNatureBase": {
+      "keys": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "unit": "ratio",
+      "values": [
+        0.15,
+        0.175,
+        0.2,
+        0.225,
+        0.25
+      ]
+    },
+    "buff_Butterfly_attachedup": {
+      "keys": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "unit": "ratio",
+      "values": [
+        0.1,
+        0.1125,
+        0.125,
+        0.1375,
+        0.15
+      ]
+    },
+    "buff_Butterfly_attachedup2": {
+      "keys": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "unit": "ratio",
+      "values": [
+        0.2,
+        0.225,
+        0.25,
+        0.275,
+        0.3
+      ]
+    }
+  },
+  "cutoff": "2026-10-04",
+  "exclusive_character_ids": [],
+  "exclusive_description": null,
+  "group": "ECharacterGroupType::CHARACTER_GROUP_TYPE_ONE",
+  "hypothesis_id": "weapons.reality_refuge_v1",
+  "independent_oracles": [
+    "T5 static, Nature packet: (1 + 0.1 + 0.25) * 1000 * 1/2 = 675; Cosmos packet: (1 + 0.1) * 1000 * 1/2 = 550. Covered by butterfly_t5_damage_oracles.",
+    "T5 Nature+Attachment packet: idle adapter contribution 2/5 = 1/4 + 3/20 -> (1 + 0.1 + 2/5) * 500 = 750; active ult buff replaces the attachment bonus, 11/20 = 1/4 + 3/10 -> (1 + 0.1 + 11/20) * 500 = 825. The multiplicative misreading 1.1*1.25*1.3*500 = 893.75 is rejected.",
+    "T3 projection: ult_attachment_bonus = 1/4 (raw 0.25); ult_duration_us = 6_000_000 on all tiers (raw CD = 6.0 constant)."
+  ],
+  "known_gaps": [
+    "Global release availability is unverified.",
+    "No modeled character emits Attachment packets, so the Attachment bonuses (static and Ultimate override) have no live combat observation; the override path is covered by unit-level synthetic packets only.",
+    "The exact native GameplayTag or packet marker for Attachment damage is not in the frozen tables; the content-owned ntesim.damage.attachment tag is a placeholder until a packet owner declares it.",
+    "ExclusiveCharacterIDArray is empty and ExclusiveDesc is null in the frozen item row; equipment legality follows ApplyGroupType only, mirroring the reviewed precedent."
+  ],
+  "name": "Reality Refuge",
+  "native_curve_rows": "CT_ForkBuff:/rows/buff_Butterfly_DamageUpNatureBase,buff_Butterfly_attachedup,buff_Butterfly_attachedup2,buff_Butterfly_CD",
+  "native_item_row": "DT_ForkItemData:/rows/fork_Butterfly",
+  "native_refinement_rows": "DT_ForkUpgradeStarDataTable:/rows/upgradestar_pack_fork_Butterfly_1..5",
+  "content_id": "ntesim-current",
+  "passive_description": {
+    "localized": "Increases Anima DMG by <lv>{0}</>.\nIncreases the wearer's Attachment DMG by <lv>{1}</>. Increases the Attachment DMG bonus to <lv>{2}</> for <lv>{3}</>s when the wearer casts an Ultimate. Effect does not stack.",
+    "source": "灵属性异能伤害提升<lv>{0}</>。\r\n装备者的附着物伤害提升<lv>{1}</>，释放「极轨终结」时，附着物伤害提升效果变为<lv>{2}</>，持续<lv>{3}</>秒，该效果不可叠加。",
+    "key": "buff_fork_Butterfly_effect"
+  },
+  "region": "Global",
+  "schema_version": 1,
+  "source_sha256": {
+    "data/ntesim-current/tables/CT_ForkBuff.json": "93d1ed2069bc8e4358f98bfb5a3e212c13ad84e67eb6379e38414aa665539c15",
+    "data/ntesim-current/tables/DT_Character.json": "cce34c68a6286d9cfeb1525c7e0e05743370e8d5f96f6ddb8feb4ef8db0ab406",
+    "data/ntesim-current/tables/DT_ForkItemData.json": "22f6f587ad9bf3d54905889e81bfe8f213fa29c49522499287c53d42fd6900a4",
+    "data/ntesim-current/tables/DT_ForkUpgradeStarDataTable.json": "b15f6c4cf4b8a6e1c982b431176b406a501f38861a67ddce45a0f589cdeed8c5",
+    "data/ntesim-current/tables/DT_GameplayEffectMappingData.json": "8852904aad6113a4406162d8912ccf55163ec24549b5bbe3b1ccd2db5ab2cbf8"
+  },
+  "status": "modeled_hypothesis",
+  "tested_hypotheses": [
+    "Anima DMG is modeled as Nature-damage packets, following the frozen The Wrong Gate precedent where the native 'Anima DMG' description binds to damage_bonus:ECharacterElementType::CHARACTER_ELEMENT_TYPE_NATURE.",
+    "Attachment DMG is recognized by the content-owned ntesim.damage.attachment packet semantic tag; the tag is not asserted to be the native GameplayTag name because the frozen tables do not expose that binding. No modeled character currently emits it, so both Attachment bonuses are structurally present but inert in the current roster.",
+    "Both static bonuses and the timed override sum into the additive damage-bonus zone (COMBAT_FORMULA_CONTRACT zone table: General + matching damage type bonuses sum together into M_bonus); they never multiply.",
+    "A packet that is both Nature and Attachment-tagged receives both the Anima and the Attachment bonus additively.",
+    "Successful wearer Ultimate admission applies the timed buff at admission time via the cast-time buff path (Call of the Twisted City precedent); a recast resets the same PerSource instance (RefreshPolicy::Reset, max one stack), so the effect does not stack.",
+    "The timed buff replaces rather than adds to the static Attachment bonus while live: delivery-time buff sampling reads the override value and the static value is skipped for Attachment packets.",
+    "The buff is wearer-only (BuffRecipient::SelfActor) and survives switching until world-time expiry; expiry is sampled at hit delivery by the BuffManager.",
+    "Cast admission order and BuffManager expiry sampling at hit delivery are tested timing hypotheses; native animation timing remains unresolved.",
+    "Frozen package evidence does not establish Global release availability."
+  ],
+  "weapon_id": "weapon:fork_Butterfly"
+}

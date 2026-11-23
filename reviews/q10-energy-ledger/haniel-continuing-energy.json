@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "status": "implemented",
+  "owner": "haniel",
+  "character_id": "character:1020",
+  "hypotheses": [
+    "haniel.ordinary_hit_energy_v1",
+    "haniel.normal_chain_v1",
+    "haniel.skill_burst_packets_v1",
+    "haniel.team_atk_hootie_clock_v1"
+  ],
+  "scenario": {
+    "source": "eight Normal chains and one Skill from zero energy, one 100-energy Burst, then one Normal continuation chain",
+    "starting_energy": 0,
+    "energy_capacity": 120,
+    "charge_efficiency": "1/1",
+    "other_living_recipient_relation": "3/5",
+    "cost": "Burst pays its modeled 100 energy once",
+    "timing": "Normal inputs use 800ms recovery at 0..31.2s for the buildup and 36.0..39.2s for continuation; Skill starts at 32s with 1.2s recovery and 6s cooldown; Burst starts at 34s with 2s recovery. Rust and compiled NTE assert the same 40s-horizon schedule.",
+    "receipts": {
+      "normal_packets": 81,
+      "skill_packets": 2,
+      "burst_packets": 1,
+      "total_hit_packets": 84,
+      "energy_source_packets": 83
+    }
+  },
+  "independent_oracle": {
+    "normal_charge_add_milli_per_five_input_chain": [2625, 701, 701, 3648, 979, 979, 979, 979, 3311],
+    "skill_charge_add_milli_per_packet": [1800, 1800],
+    "burst_charge_add_milli_per_packet": 0,
+    "pre_burst_charge_add": "8*14.902 + 3.600 = 122.816",
+    "pre_burst_settlement": "122 whole gross, 2 overflow at capacity 120; Burst spends 100 and leaves 20 with 816/1000 carry",
+    "post_burst_normal_chain": "14.902 ChargeAdd; final source energy 35 and 359/500 carry",
+    "source_final": {
+      "granted": 137,
+      "spent": 100,
+      "overflow": 2,
+      "energy": 35,
+      "charge_remainder": "359/500"
+    },
+    "each_other_living_recipient_final": {
+      "relation": "3/5",
+      "granted": 82,
+      "energy": 82,
+      "charge_remainder": "1577/2500"
+    },
+    "level_8_damage_at_1000_atk_and_0_5_defense_multiplier": {
+      "normal_five_input_chain_pre_buff": 2036,
+      "skill_cast_two_packets_with_hootie_buff": 2005.38,
+      "burst_one_packet_with_hootie_and_ace_buff": 3444.47,
+      "normal_five_input_chain_with_both_buffs": 2728.24,
+      "total": "8*2036 + 2005.38 + 3444.47 + 2728.24 = 24466.09"
+    },
+    "values_are_literal_test_expectations": true
+  },
+  "checks": [
+    "Rust ordinary_hit_energy scenario asserts exact action timestamps, all 84 packet identities and damage values, all 83 per-packet ChargeAdd grants, the 100-energy cost, recipient ledgers, cap/overflow, and continuation.",
+    "Authored NTE is compiled and checked through WASM and actual Worker parity; native CLI parity, observations, aggregation, and replay are reconciled by the focused browser test.",
+    "Focused checks passed: python tools/cargo.py test -p ntesim-content --locked --offline haniel_zero_start_skill_burst_and_continuation_rotation; node tools/web.mjs test web/tests/haniel_continuing_rotation.test.mjs. The stable-tree checkpoint is pending."
+  ],
+  "limits": [
+    "haniel.ordinary_hit_energy_v1 remains a bounded hypothesis for positive-HP-loss Normal and Skill eligibility, per-packet grants, recipient distribution, and off-field ownership; native dispatcher evidence is unavailable.",
+    "Normal chain reset and packet timing are the existing haniel.normal_chain_v1 hypothesis; coincident Skill and Burst child delivery follows haniel.skill_burst_packets_v1, and does not establish native animation intervals.",
+    "Team ATK clock and pause follow haniel.team_atk_hootie_clock_v1; Four-Part Harmony stacks and Ensemble AoE remain unmodeled.",
+    "The browser compiles authored inputs into a fixed timeline; this does not establish live readiness waits or a shared live interpreter.",
+    "Burst ChargeAdd is zero in the frozen rows. Branch, AirAttack, QTE, and non-native branches remain unsupported."
+  ],
+  "source_sha256": {
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json": "917b0c3675412c0425a0724d09e7dd8ae4d1ef9a100d2ea5669d7484d0901bf2",
+    "data/global-2026-10-04/tables/DT_SkillTeamChargeRelationData.json": "5e456919997b0f77c4b569ce812267a059bab553a1f87fcb863723c44b66363b"
+  }
+}

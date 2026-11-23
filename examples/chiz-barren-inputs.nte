@@ -1,0 +1,16 @@
+# Explicit zero is tap Barren; positive hold selects its live Normal combo.
+options duration=25 seed=42 start_fons=1234;
+chiz char lvl=80/80 awakening=0 talent=8,8,8 qte=8
+    start_grains=0 start_loans=0 start_energy=0;
+target hp=100000000 def=1080 resist=0;
+target hp=100000000 def=1080 resist=0;
+active chiz;
+
+repeat 2 {
+    chiz attack[hold=0,target=t1];
+    wait(1us);
+    chiz attack;
+    chiz attack[hold=200ms,target=t1];
+    wait(3);
+}
+if .chiz.resources.grains!=2700 || .team.fons!=1234 {wait(99);}

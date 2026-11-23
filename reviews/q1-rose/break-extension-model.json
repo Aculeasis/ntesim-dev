@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "name": "Bohemian Rose Broken-state extension",
+  "content_id": "ntesim-current",
+  "cutoff": "2026-10-04",
+  "region": "Global",
+  "status": "modeled_hypothesis",
+  "owner": "weapon:fork_Rose",
+  "source_receipt": "reviews/q1-rose/receipt.json",
+  "source_passive_key": "buff_fork_Rose_effect",
+  "source_curve": {
+    "table": "CT_ForkBuff",
+    "row": "buff_Rose_UnbalTime",
+    "keys": [1, 5],
+    "unit": "seconds",
+    "values": [3.0, 3.0]
+  },
+  "hypothesis_id": "weapons.rose_break_extension_v1",
+  "hypothesis": "Under an explicit target break_profile, a connected positive-damage hit by a Bohemian Rose wearer extends a target that was already in the content runner's Broken state by the frozen buff_Rose_UnbalTime once during that modeled Break generation. The deadline moves from its previous value by exactly the extension duration; the target Broken tag and recovery event follow it. A hit that itself causes the Break cannot extend it, and defeated targets, targets without an explicit profile, unbroken targets and repeated hits in the same Break do not extend. This is a bounded runner hypothesis, not native target-profile, packet-eligibility, recovery, or Break Effect evidence.",
+  "runtime_policy": {
+    "trigger": "A connected hit with positive exact damage from an actor carrying the projected Bohemian Rose proc, against a living target whose explicit-profile break_state is already Broken at hit callback time.",
+    "once_scope": "One extension for each modeled break generation; the flag resets when the target recovers and a later packet starts a new generation.",
+    "deadline": "previous broken_until_us + broken_extension_us",
+    "status_and_recovery": "Extend the existing content-owned Broken tag by the same duration, let the recovery event at the old deadline become stale, and schedule recovery at the extended deadline when it is within the scenario horizon.",
+    "resource_and_damage": "No gauge loss, Break Damage, Break Intensity settlement, damage multiplier, or native enemy behavior is added by the extension itself."
+  },
+  "independent_oracles": [
+    "Explicit profile starts at gauge 1/2 with capacity 1 and 2,000,000 us duration. Two positive packets with UnbalValue 1/3 at t=0 and t=100 break at t=100, so the base deadline is 2,000,100.",
+    "A Rose hit at t=1,000,000 extends the existing deadline by 3,000,000 to 5,000,100; the Broken status expiry matches, the later hit at t=2,000,110 cannot extend a second time, and the stale recovery at 2,000,100 does not recover the target.",
+    "The target recovers exactly once at 5,000,100 and restores gauge to capacity 1.",
+    "Without an explicit break_profile there is no extension, no Broken deadline and no Rose extension hypothesis receipt.",
+    "Strict hypothesis recording rejects the extension unless the exact weapons.rose_break_extension_v1 description is accepted."
+  ],
+  "unresolved_native_behavior": [
+    "Native target gauge/profile and UnbalValue units/efficiency.",
+    "Which native hit packets count as damage to a Broken enemy and how the native game identifies one Break Effect across recovery.",
+    "Whether native Broken recovery and target status expiry follow the same deadline extension policy.",
+    "Boss eligibility, Break Damage and Break Intensity settlement, and native release availability of the weapon."
+  ],
+  "runtime_execution_validated": true
+}

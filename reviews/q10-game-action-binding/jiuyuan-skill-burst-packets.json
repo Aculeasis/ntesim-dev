@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "question": "Which packets and multiplicities belong to ordinary Jiuyuan Skill/Burst casts?",
+  "branch_budget_minutes": 10,
+  "total_investigation_budget_minutes": 15,
+  "sources": [
+    "data/extracted/guide_jiuyuan.json#/skills/1",
+    "data/extracted/guide_jiuyuan.json#/skills/2",
+    "data/extracted/cn_jiuyuan.json#/skills/1",
+    "data/extracted/cn_jiuyuan.json#/skills/2",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json#/rows/GE_Player_Kuhara_Skill1_Damage",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json#/rows/GE_Player_Kuhara_Skill2_Damage",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json#/rows/GE_Player_Kuhara_Skill3_Damage",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json#/rows/GE_Player_Kuhara_UltraSkill1_Damage",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json#/rows/GE_Player_Kuhara_UltraSkill2_Damage",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json#/rows/GE_Player_Kuhara_UltraSkill3_Damage",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json#/rows/GE_Player_Kuhara_UltraSkill4_Damage"
+  ],
+  "stop_condition": "Identify packets/multiplicities from saved descriptions and native tables; use a disclosed bounded timing hypothesis if intervals are absent.",
+  "return_condition": "New timing/reachability evidence changes Intel Hunter 6x Skill packets or Final Reckoning 12x UltraSkill packets, bullet mechanics, or Pact settlement triggers.",
+  "decision": "Intel Hunter describes 6 instances totaling 36% + 38.2%*4 + 111.4% at Lv1, matching native GE_Player_Kuhara_Skill1_Damage (1 hit), 4x GE_Player_Kuhara_Skill2_Damage (4 hits), and 1x GE_Player_Kuhara_Skill3_Damage (1 hit). Final Reckoning describes 12 instances totaling 61.8% + 78.4%*3 + 24.4%*7 + 132.1% at Lv1, matching native GE_Player_Kuhara_UltraSkill1_Damage (1 hit), 3x GE_Player_Kuhara_UltraSkill2_Damage (3 hits), 7x GE_Player_Kuhara_UltraSkill3_Damage (7 hits), and 1x GE_Player_Kuhara_UltraSkill4_Damage (1 hit). Require each action's primary packet; schedule children coincidentally with the admitted effective native coordinate. Each hit settles independently; on hit before_hit applies Lethal Rose Pact (25s), A1 grants +5% ATK per bound target (up to 15%), A5 grants +8% DMG against bound targets, and resonance_6 shreds 10% Anima RES across relevant hits.",
+  "timing_hypothesis": "jiuyuan.skill_burst_packets_v1: ordered coincident delivery on target zero at selected primary impact time. This supports packet totals and ownership, not native frame timing. Same-time delivery precedes queued gear callbacks; timing-sensitive results retain this assumption.",
+  "checks": [
+    "Independent content damage oracles: at 1000 ATK/DEF.5/RES0, Skill levels 1/8/effective9 total 1501/1, 2573/1, 29169/10 (A3 resonance +5% ATK via A1 on Rose Pact); Burst levels 1/8/effective9 total 5999/2, 10281/2, 116613/20 (A3 resonance +5% ATK via A1 on Rose Pact).",
+    "Pending horizons, off-field ownership, dead/lethal targets, and alternate primary are checked. Strict requires matching hypothesis acceptance.",
+    "Description and native arrays agree at all nine levels. Public two-Skill/one-Burst rotation produces 24 hits and spends 100 energy; CLI/WASM/Worker agree. Full content, relevant character/gear web suites, replay and modeled awakening verifier pass.",
+    "No full kit/readiness claim. Normal chains, Aim/Branch shots, bullet resource consumption, and Pact settlement triggers remain pending."
+  ],
+  "reference_sha256": {
+    "data/extracted/cn_jiuyuan.json": "baf6a0db0fd1966043d3f054163883617c25a543e5bd89e4f82a781844eb6cca",
+    "data/extracted/guide_jiuyuan.json": "3a1f33228f7b11a655669d24914abb8283f6847949f85ff301b842a289eb4f7f",
+    "data/global-2026-10-04/tables/DT_GameplayAbilityTipsData.json": "5c0a0f929376891c033451a25208b55747c43e6bbb24b75506eb0ff50a23584f",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json": "917b0c3675412c0425a0724d09e7dd8ae4d1ef9a100d2ea5669d7484d0901bf2"
+  }
+}

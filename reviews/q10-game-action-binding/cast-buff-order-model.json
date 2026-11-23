@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "question": "Do Ultimate-triggered ATK buffs affect a hit delivered at the cast timestamp?",
+  "branch_budget_minutes": 10,
+  "total_investigation_budget_minutes": 15,
+  "sources": [
+    "data/global-2026-10-04/tables/DT_ForkUpgradeStarDataTable.json#/rows/upgradestar_pack_fork_mofeikesi_1/Description",
+    "data/global-2026-10-04/tables/DT_EquipmentSuitData.json#/rows/Suit11/SuitStructList/1/SuitBuffDescription",
+    "data/global-2026-10-04/tables/DT_ForkUpgradeStarDataTable.json#/rows/upgradestar_pack_fork_BlastCandy_1/Description"
+  ],
+  "decision": "The descriptions trigger at cast rather than damage delivery. A successful Ultimate admission schedules buff activation in BuffTickOrExpiry, after resource costs and before same-time hits. This is an explicit timing hypothesis; native animation timing remains unresolved. Hit-triggered buffs and numeric energy callbacks keep their owning priorities.",
+  "stop_condition": "Check native zero-delay and delayed hits, recipient-specific base ATK, independent stacking of weapon/set bonuses, refresh and equal-time expiry, failed admission and CLI/WASM/Worker parity.",
+  "return_condition": "Native timing evidence shows activation after a particular first packet or a different per-weapon boundary.",
+  "checks": [
+    "126 ntesim-content tests pass; native same-cast and delayed Ultimate hits receive both 16% Good Boy and 15% Speedy Hedgehog bonuses before damage. Independent ATK/defense calculation checks different recipient bases, nonstacking refresh and exact expiry.",
+    "Actual native-build WASM checks compare the first Sakiri Ultimate packet against the 31% additive base-ATK oracle and reject both buff grants on failed admission.",
+    "web/tests/weapon_passives.test.mjs with NTESIM_VERIFY_NATIVE=1 compares full shared CLI/WASM reports for five Blast Candy refinements and a Sakiri/Zero team; actual Worker reports match direct WASM.",
+    "native_build, scenario_script and streaming_trials web modules pass; TypeScript, scoped pinned Rust formatting and changed web formatting pass.",
+    "Scoped content clippy passes with the two pre-existing metadata lints allowed; unqualified clippy remains blocked as recorded in blast-candy-model.json."
+  ]
+}

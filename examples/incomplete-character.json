@@ -1,0 +1,8 @@
+{
+  "schema_version": 1,
+  "content_id": "ntesim-current",
+  "duration_us": 120000000,
+  "seed": 0,
+  "dependencies": ["character:1008"],
+  "assumptions": {}
+}

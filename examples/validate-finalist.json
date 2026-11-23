@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "content_id": "ntesim-current",
+  "hypothesis": "Finalist evaluation under explicit research crit hypothesis, 1000-seed Monte Carlo trials, resource sustainability, and worsened timing checks (+10%, +20%).",
+  "composition": "blackbird+daffodil+haniel+sakiri",
+  "scenario_kind": "dps_1_real120",
+  "seeds": [42, 43, 44, 45, 46],
+  "timing_multipliers": [
+    "1/1",
+    "11/10",
+    "6/5"
+  ],
+  "actor_overrides": {
+    "blackbird": {
+      "weapon_id": "weapon:fork_wuming",
+      "weapon_tier": 1,
+      "static_stats": {
+        "base_atk": 1184,
+        "atk": "2321/1",
+        "hp": 18230,
+        "def": 958,
+        "crit_rate": "1/2",
+        "crit_damage_bonus": "1/1",
+        "elemental_bonus": "1/10"
+      }
+    },
+    "daffodil": {
+      "weapon_id": "weapon:fork_wuming",
+      "weapon_tier": 5,
+      "static_stats": {
+        "base_atk": 834,
+        "atk": "1785/1",
+        "hp": 14049,
+        "def": 977,
+        "crit_rate": "1/2",
+        "crit_damage_bonus": "1/1",
+        "elemental_bonus": "1/10"
+      }
+    },
+    "haniel": {
+      "weapon_id": "weapon:fork_wuming",
+      "weapon_tier": 1,
+      "static_stats": {
+        "base_atk": 1054,
+        "atk": "2180/1",
+        "hp": 16230,
+        "def": 1044,
+        "crit_rate": "1/2",
+        "crit_damage_bonus": "1/1",
+        "elemental_bonus": "1/10"
+      }
+    },
+    "sakiri": {
+      "weapon_id": "weapon:fork_lingganzhongjiezhe",
+      "weapon_tier": 5,
+      "static_stats": {
+        "base_atk": 1151,
+        "atk": "46383/20",
+        "hp": 17720,
+        "def": 727,
+        "crit_rate": "57/100",
+        "crit_damage_bonus": "47/50",
+        "elemental_bonus": "1/10"
+      }
+    }
+  },
+  "baseline_damage": 100000.0,
+  "baseline_archetype": "Blackbird Nova"
+}

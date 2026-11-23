@@ -1,0 +1,10 @@
+options duration=15 iteration=1 crit=fixed;
+edgar char lvl=80/80 awakening=0 talent=1,1,1 qte=1;
+edgar add cartridge=theasnighttavern count=4;
+edgar add weapon=fork_Castle refine=1;
+edgar add stats heal%=0.25;
+mint char lvl=80/80 awakening=0 talent=1,1,1 qte=1 +params=[start_hp=1];
+target hp=10000000 def=0 resist=0;
+active edgar;
+edgar skill, burst;
+mint swap;

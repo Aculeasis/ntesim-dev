@@ -1,0 +1,69 @@
+# Product-local exclusions also work after transfer to another repository.
+# Build outputs and dependency caches at any depth.
+cache/
+.cache/
+# Private machine supplements, secrets and Python environments.
+.local/
+.env
+.env.*
+.venv/
+venv/
+# Source-only extracts and forbidden enemy catalogs are never runtime inputs.
+data/combat/
+data/extracted/
+data/combat-targets/
+# Original frozen exports are optional research cache inputs.
+data/global-2026-10-04/evidence/
+# Acquisition material is never a compact combat package input.
+tools/acquisition/
+data/combat/**/evidence/
+data/combat/**/native/
+data/combat/**/*.zip
+data/combat/**/functions.json
+data/combat/**/timelines.json
+data/combat/**/auxiliary_abilities.json
+target/
+dist/
+node_modules/
+# Compiled binaries, libraries and compiler metadata.
+*.exe
+*.dll
+*.so
+*.so.*
+*.dylib
+*.a
+*.lib
+*.o
+*.obj
+*.rlib
+*.rmeta
+*.pdb
+*.ilk
+*.exp
+*.wasm
+*.tsbuildinfo
+*.js.map
+*.css.map
+web/src/generated/script-presets.json
+__pycache__/
+*.py[cod]
+.pytest_cache/
+# Local Qoder permission rules
+.qoder/
+.agents/
+!.agents/skills/
+*.swp
+*.bak
+*~
+.DS_Store
+.idea/
+.vscode/
+# Temporary review and scratch artifacts
+reviews/**/*.png
+reviews/**/*.jpg
+reviews/**/*.jpeg
+reviews/**/*.mp4
+reviews/**/*.log
+reviews/**/*.json
+reviews/**/*.csv
+

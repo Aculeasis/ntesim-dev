@@ -1,0 +1,333 @@
+.simulation-report {
+  --report-surface: #2c282f;
+  --report-border: #4c434f;
+}
+
+.view-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 6px;
+}
+
+.view-header-title {
+  min-width: 0;
+  flex: 1;
+}
+
+.view-header-title .view-heading {
+  margin-bottom: 6px;
+}
+
+.view-header-title .intro {
+  margin: 0;
+}
+
+.editor-actions:not([data-view='config']) {
+  position: static;
+  width: fit-content;
+  max-width: 100%;
+  margin: 0;
+  flex-shrink: 0;
+}
+
+.result-team {
+  margin-bottom: 8px;
+}
+
+.simulation-report .panel,
+.simulation-report .rollup-card,
+.simulation-report .metadata {
+  background: var(--report-surface);
+  border-color: var(--report-border);
+  border-radius: 4px;
+}
+
+.simulation-report .metadata {
+  margin-bottom: 8px;
+  padding: 5px 8px;
+  gap: 5px;
+}
+
+.simulation-report .metadata > span {
+  padding: 3px 6px;
+  font-size: 10px;
+}
+
+.simulation-report .rollup-card {
+  border-left: 3px solid var(--metric);
+  min-height: 132px;
+  padding: 15px 18px;
+}
+
+.simulation-report .rollup-card h3 {
+  font-size: 12px;
+  min-height: 0;
+  margin-bottom: 10px;
+}
+
+.rollup-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.rollup-heading select,
+.rollup-heading button,
+.panel-title-group button,
+.time-basis-toggle {
+  font-size: 11px;
+  line-height: 1.4;
+  border-radius: 4px;
+}
+
+.rollup-heading select {
+  max-width: 95px;
+  padding: 2px;
+}
+
+.rollup-heading button,
+.panel-title-group button,
+.time-basis-toggle {
+  padding: 2px 8px;
+  flex-shrink: 0;
+}
+
+.simulation-report .rollup-value {
+  font-size: 28px;
+  margin-bottom: 12px;
+}
+
+.simulation-report .stat-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  font-size: 10px;
+  gap: 5px 12px;
+}
+
+.simulation-report .stat-grid span {
+  justify-content: space-between;
+  gap: 4px;
+}
+
+.simulation-report .execution-summary {
+  padding: 8px 2px;
+}
+
+.simulation-report .rollup-grid {
+  margin-bottom: 8px;
+}
+
+.simulation-report .panel {
+  padding: 16px;
+  margin-bottom: 8px;
+}
+
+.simulation-report .panel-heading {
+  margin-bottom: 12px;
+}
+
+.simulation-report .panel-heading h2 {
+  font-size: 12px;
+}
+
+.simulation-report .report-overview {
+  align-items: stretch;
+}
+
+.target-header-line {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+}
+
+.target-header-line > strong {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--target-color, #e0bbff);
+  white-space: nowrap;
+}
+
+.simulation-report .target-card {
+  background: transparent;
+  border-left: 4px solid var(--target-color);
+  border-radius: 3px;
+  font-size: 11px;
+  padding: 8px 10px;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.simulation-report .target-card:last-child {
+  margin-bottom: 0;
+}
+
+.simulation-report .metric-note {
+  margin: 9px 0 0;
+  font-size: 10px;
+  line-height: 1.5;
+}
+
+.distribution-explanation {
+  margin-top: 10px;
+  color: var(--muted);
+  font: 10px/1.5 var(--mono);
+}
+
+.simulation-report .three-column {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.simulation-report .time-chart {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.simulation-report .chart-point {
+  fill: transparent;
+  stroke: none;
+}
+
+.simulation-report .chart-point:hover,
+.simulation-report .chart-point:focus {
+  fill: #eadb37;
+  stroke: #fff;
+  stroke-width: 1;
+}
+
+.simulation-report .chart-row {
+  grid-template-columns: minmax(145px, 22%) minmax(0, 1fr) 64px;
+  font-size: 10px;
+  margin: 6px 0;
+  gap: 10px;
+}
+
+.simulation-report .chart-name {
+  text-align: right;
+}
+
+.simulation-report .chart-tooltip {
+  white-space: pre-line;
+}
+
+.simulation-report .bar-chart {
+  padding: 0;
+}
+
+.simulation-report .bar-space,
+.simulation-report .stack-space {
+  height: 23px;
+}
+
+.simulation-report .chart-bar {
+  border-radius: 0;
+}
+
+.simulation-report .stack-legend {
+  gap: 8px 14px;
+  margin: 8px 0 14px;
+}
+
+.simulation-report .bar-axis {
+  margin: 12px 74px 0 calc(22% + 8px);
+  font-size: 10px;
+}
+
+.simulation-report .resource-details {
+  margin-top: 14px;
+  font: 11px/1.5 var(--mono);
+  color: var(--muted);
+}
+
+.simulation-report summary {
+  cursor: pointer;
+}
+
+@media (max-width: 1050px) {
+  .simulation-report .rollup-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .simulation-report .rollup-card {
+    padding: 13px;
+  }
+  .simulation-report .pie-layout {
+    flex-direction: column;
+  }
+  .simulation-report .chart-legend {
+    width: 100%;
+  }
+}
+
+@media (max-width: 900px) {
+  .view-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+}
+
+@media (max-width: 650px) {
+  .simulation-report .panel {
+    padding: 12px;
+  }
+  .simulation-report .rollup-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .simulation-report .rollup-card {
+    padding: 12px;
+    min-height: 154px;
+  }
+  .simulation-report .rollup-card h3 {
+    font-size: 11px;
+    min-height: 30px;
+  }
+  .simulation-report .rollup-value {
+    font-size: 24px;
+  }
+  .simulation-report .stat-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    font-size: 9px;
+    gap: 5px 8px;
+  }
+  .simulation-report .two-column,
+  .simulation-report .three-column {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .simulation-report .pie-layout {
+    flex-direction: row;
+  }
+  .simulation-report .chart-row {
+    grid-template-columns: 88px minmax(0, 1fr) 42px;
+    gap: 6px;
+    font-size: 9px;
+  }
+  .simulation-report .chart-name {
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+  .simulation-report .bar-axis {
+    margin-left: 94px;
+    margin-right: 48px;
+    font-size: 8px;
+  }
+  .simulation-report .time-legend {
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .simulation-report .time-inspector {
+    max-width: calc(100% - 12px);
+    right: 6px;
+    font-size: 10px;
+    padding: 8px;
+  }
+}
+
+.timer-pause-segment {
+  position: absolute;
+  inset-block: 0;
+  background: repeating-linear-gradient(135deg, #9789bd30 0 4px, #9789bd10 4px 8px);
+  pointer-events: none;
+}

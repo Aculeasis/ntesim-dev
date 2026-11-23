@@ -1,0 +1,283 @@
+{
+  "schema_version": 1,
+  "projection_policy": "known_static_additive_v1",
+  "hypothesis": "Use the partial known static additive build constants for every hit, with native character element plus general bonus; passive application and game eligibility remain unresolved.",
+  "scenario": {
+    "schema_version": 1,
+    "content_id": "ntesim-current",
+    "seed": 42,
+    "active_actor_index": 0,
+    "actors": [
+      {
+        "slot": 0,
+        "character_id": "character:1019",
+        "character_level": 80,
+        "awakening": [
+          1,
+          2,
+          3
+        ],
+        "purchased_skill_level": 8,
+        "purchased_qte_level": 8,
+        "initial_hp": 17720,
+        "initial_hp_max": 17720,
+        "initial_energy": 100,
+        "energy_capacity": 100,
+        "weapon_id": "weapon:fork_lingganzhongjiezhe",
+        "weapon_tier": 5,
+        "set_id": "set:Suit2",
+        "static_stats": {
+          "base_atk": 1151,
+          "atk": "46383/20",
+          "hp": 17720,
+          "def": 727,
+          "crit_rate": "57/100",
+          "crit_damage_bonus": "47/50",
+          "elemental_bonus": "1/10"
+        },
+        "gear_procs": [
+          {
+            "kind": "mind_royale_energy",
+            "energy_grant": 18,
+            "cooldown_us": 20000000
+          },
+          {
+            "kind": "fireflies_crit_damage",
+            "crit_damage_per_stack": "2/25",
+            "max_stacks": 7,
+            "duration_us": 10000000
+          }
+        ]
+      },
+      {
+        "slot": 1,
+        "character_id": "character:1003",
+        "character_level": 80,
+        "awakening": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "purchased_skill_level": 10,
+        "purchased_qte_level": 10,
+        "initial_hp": 22083,
+        "initial_hp_max": 22083,
+        "initial_energy": 100,
+        "energy_capacity": 100,
+        "weapon_id": "weapon:fork_mofeikesi",
+        "weapon_tier": 1,
+        "set_id": "set:Suit11",
+        "static_stats": {
+          "base_atk": 1094,
+          "atk": "48331/20",
+          "hp": 22083,
+          "def": 909,
+          "crit_rate": "1/20",
+          "crit_damage_bonus": "1/2",
+          "elemental_bonus": "27/50"
+        },
+        "gear_procs": []
+      }
+    ],
+    "targets": [
+      {
+        "target_index": 0,
+        "level": 90,
+        "hp_max": 10000000,
+        "hp_current": 10000000,
+        "defense": 1080,
+        "resistance": "1/10"
+      }
+    ],
+    "actions": [
+      {
+        "kind": "invoke_ability",
+        "timestamp_us": 0,
+        "actor_index": 0,
+        "ability_id": "ga_mint019_melee",
+        "damage_effect_id": "ge_player_mint_melee1_damage_new",
+        "array_index": 0,
+        "atk_rate": "0/1",
+        "energy_cost": 0,
+        "recovery_us": 800000,
+        "cooldown_us": 0,
+        "hit_delay_us": 0
+      },
+      {
+        "kind": "invoke_ability",
+        "timestamp_us": 1000000,
+        "actor_index": 0,
+        "ability_id": "ga_mint019_skill",
+        "damage_effect_id": "ge_player_mint_skill1_damage_new",
+        "array_index": 0,
+        "atk_rate": "0/1",
+        "energy_cost": 0,
+        "recovery_us": 1200000,
+        "cooldown_us": 8000000,
+        "hit_delay_us": 0
+      },
+      {
+        "kind": "invoke_ability",
+        "timestamp_us": 2500000,
+        "actor_index": 0,
+        "ability_id": "ga_mint019_ultraskill",
+        "damage_effect_id": "ge_player_mint_utraskill1_damage_new",
+        "array_index": 0,
+        "atk_rate": "0/1",
+        "energy_cost": 100,
+        "recovery_us": 2000000,
+        "cooldown_us": 20000000,
+        "hit_delay_us": 0
+      },
+      {
+        "kind": "switch_actor",
+        "timestamp_us": 4600000,
+        "target_actor_index": 1,
+        "cooldown_us": 1000000
+      },
+      {
+        "kind": "invoke_ability",
+        "timestamp_us": 5200000,
+        "actor_index": 1,
+        "ability_id": "GA_Sagiri_UltraSkill",
+        "damage_effect_id": "GE_Player_Sagiri_UltraSkill1_Damage",
+        "array_index": 0,
+        "atk_rate": "0/1",
+        "energy_cost": 100,
+        "recovery_us": 1000000,
+        "cooldown_us": 20000000,
+        "hit_delay_us": 100000
+      },
+      {
+        "kind": "invoke_ability",
+        "timestamp_us": 6400000,
+        "actor_index": 1,
+        "ability_id": "GA_Sagiri_Skill",
+        "damage_effect_id": "GE_Player_Sagiri_Skill1_Damage",
+        "array_index": 0,
+        "atk_rate": "0/1",
+        "energy_cost": 0,
+        "recovery_us": 800000,
+        "cooldown_us": 6000000,
+        "hit_delay_us": 100000
+      },
+      {
+        "kind": "invoke_ability",
+        "timestamp_us": 7200000,
+        "actor_index": 1,
+        "ability_id": "GA_Sagiri_UltraSkill",
+        "damage_effect_id": "GE_Player_Sagiri_UltraSkill1_Damage",
+        "array_index": 0,
+        "atk_rate": "0/1",
+        "energy_cost": 100,
+        "recovery_us": 1000000,
+        "cooldown_us": 20000000,
+        "hit_delay_us": 100000
+      },
+      {
+        "kind": "invoke_ability",
+        "timestamp_us": 8500000,
+        "actor_index": 1,
+        "ability_id": "GA_Sagiri_Melee",
+        "damage_effect_id": "GE_Player_Sagiri_Melee1_Damage",
+        "array_index": 0,
+        "atk_rate": "0/1",
+        "energy_cost": 0,
+        "recovery_us": 500000,
+        "cooldown_us": 0,
+        "hit_delay_us": 100000
+      }
+    ],
+    "model_assumptions": {},
+    "relative_duration_us": 12000000,
+    "clock_contract": "relative-combat-v1",
+    "timer_policy": "paused-world-v1",
+    "absolute_limit_us": 3600000000
+  },
+  "builds": [
+    {
+      "slot": 0,
+      "build": {
+        "schema_version": 1,
+        "content_id": "ntesim-current",
+        "character_id": "character:1019",
+        "weapon_id": "weapon:fork_lingganzhongjiezhe",
+        "weapon_tier": 5,
+        "set_id": "set:Suit2",
+        "character_level": 80,
+        "character_breakthrough": 6,
+        "weapon_level": 80,
+        "weapon_breakthrough": 6,
+        "set_count": 4,
+        "additive_attributes": {
+          "AtkAdd": {
+            "numerator": "420",
+            "denominator": "1"
+          },
+          "AtkUp": {
+            "numerator": "13",
+            "denominator": "20"
+          },
+          "CritBase": {
+            "numerator": "13",
+            "denominator": "25"
+          },
+          "CritDamageBase": {
+            "numerator": "11",
+            "denominator": "25"
+          },
+          "HPMaxAdd": {
+            "numerator": "5600",
+            "denominator": "1"
+          }
+        }
+      },
+      "purchased_skill_levels": {
+        "GA_Mint019_Melee": 8,
+        "GA_Mint019_Skill": 8,
+        "GA_Mint019_UltraSkill": 8
+      }
+    },
+    {
+      "slot": 1,
+      "build": {
+        "schema_version": 1,
+        "content_id": "ntesim-current",
+        "character_id": "character:1003",
+        "weapon_id": "weapon:fork_mofeikesi",
+        "weapon_tier": 1,
+        "set_id": "set:Suit11",
+        "set_count": 4,
+        "additive_attributes": {
+          "AtkAdd": {
+            "numerator": "420",
+            "denominator": "1"
+          },
+          "AtkUp": {
+            "numerator": "3",
+            "denominator": "8"
+          },
+          "DamageUpIncantationBase": {
+            "numerator": "27",
+            "denominator": "50"
+          },
+          "HPMaxAdd": {
+            "numerator": "5600",
+            "denominator": "1"
+          }
+        }
+      },
+      "purchased_skill_levels": {
+        "GA_Sagiri_Melee": 1,
+        "GA_Sagiri_Skill": 5,
+        "GA_Sagiri_UltraSkill": 10
+      }
+    }
+  ],
+  "action_projection": {
+    "policy": "native_skill_level_v1",
+    "hypothesis": "Initial purchased level 1; upgrade coordinate L buys level L+1; effective level selects damage-array coordinate level-1; resonance_3 grants +1 at awakening 3..6 to configured resonance abilities across supported released characters. ATK-only single-hit partial execution and caller timing/cost policies remain explicit."
+  }
+}

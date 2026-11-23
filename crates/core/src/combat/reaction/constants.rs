@@ -1,0 +1,13 @@
+pub const DEFAULT_BREAK_DURATION_US: u64 = 5_000_000;
+
+pub const SCORCH_TICK_INTERVAL_US: u64 = 990_000;
+
+pub const SCORCH_DURATION_US: u64 = 15_000_000;
+
+pub const SCORCH_MAX_STACKS: u32 = 3;
+
+pub const BLOSSOM_BASE_DAMAGE: u64 = 9_000;
+
+pub const SCORCH_BASE_DAMAGE: u64 = 2_700;
+
+pub const NOVA_BASE_DAMAGE: u64 = 45_000;

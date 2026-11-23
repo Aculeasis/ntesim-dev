@@ -1,0 +1,82 @@
+{
+  "content_id": "ntesim-current",
+  "weapon_id": "weapon:fork_BitterCake",
+  "native_item": "DT_ForkItemData.rows.fork_BitterCake",
+  "group": "ECharacterGroupType::CHARACTER_GROUP_TYPE_FIVE",
+  "native_parameters": {
+    "buff_BitterCake_DefUp": [
+      0.26,
+      0.31,
+      0.36,
+      0.41,
+      0.46
+    ],
+    "buff_BitterCake_CD": [
+      10,
+      10,
+      10,
+      10,
+      10
+    ],
+    "buff_BitterCake_CD2": [
+      20,
+      20,
+      20,
+      20,
+      20
+    ]
+  },
+  "source_files": [
+    {
+      "path": "data/ntesim-current/tables/DT_ForkItemData.json",
+      "sha256": "22f6f587ad9bf3d54905889e81bfe8f213fa29c49522499287c53d42fd6900a4"
+    },
+    {
+      "path": "data/ntesim-current/tables/DT_ForkUpgradeStarDataTable.json",
+      "sha256": "b15f6c4cf4b8a6e1c982b431176b406a501f38861a67ddce45a0f589cdeed8c5"
+    },
+    {
+      "path": "data/ntesim-current/tables/CT_ForkBuff.json",
+      "sha256": "93d1ed2069bc8e4358f98bfb5a3e212c13ad84e67eb6379e38414aa665539c15"
+    }
+  ],
+  "runtime_hypothesis": {
+    "id": "weapons.bittercake_damage_event_v1",
+    "description": "On positive actual HP loss, Bittercake applies its DEF buff after actor HP has been settled, including when that loss is fatal. The first trigger is ready at time zero, suppression does not move the cooldown, and the cooldown starts on successful activation. Buff expiry precedes equal-time events; same-time incoming damage precedes later dynamically queued hit deliveries. Native text establishes damage received, duration and cooldown, but not trigger readiness, fatal-hit activation or exact same-time ordering.",
+    "limitations": [
+      "Incoming damage is an explicit request/CLI fixture input; there is no enemy AI, mitigation, or DSL authoring in this checkpoint.",
+      "Admitted NativeDirect packets are cancelled with a trace if their owner dies before delivery. Postmortem owner-child/research-declared packet semantics are rejected as unsupported.",
+      "The frozen description does not establish fatal-hit activation or exact same-time ordering; the tested hypothesis above is used.",
+      "Release availability is not verified by these native tables."
+    ]
+  },
+  "incoming_damage_model": {
+    "id": "combat.incoming_damage_fixture_v1",
+    "description": "Explicit actor-damage events represent already-delivered nonnegative damage after mitigation. At a timestamp, action admissions run before incoming damage; incoming events run before dynamically queued direct hit deliveries. Timed buffs expire before events at their deadline. Ordinary shields absorb first, followed by reached owner-specific overflow absorption; HP loss is min(residual damage, current HP), overkill is the remaining residual, and damage to a defeated actor settles as zero HP loss with all delivered damage reported as overflow. Admitted NativeDirect packets are cancelled with a trace when their owner is defeated before delivery; other postmortem packet ownership remains unsupported. This is a fixture settlement model and does not model enemy damage mitigation or AI.",
+    "limits": [
+      "The model assumption is required for every request containing incoming_damage_events.",
+      "Switching to a defeated actor is rejected; a defeated active actor can switch to a living teammate."
+    ]
+  },
+  "independent_oracles": [
+    "Adler DEF-scaled Skill with base DEF 1000, static flat DEF 240, zero target defense and T1 Bittercake: native base-percent bonus adds 260 DEF, so 1240 baseline damage becomes 1500 during the buff.",
+    "Buff is inactive at exact 10s expiry; exact 20s cooldown permits a second trigger.",
+    "Tested incoming damage off-field, on a teammate, zero HP loss, already-dead actors, fatal damage, overflow, exact-time admission/damage/hit ordering, and direct-hit cancellation after owner death.",
+    "Tested no-weapon incoming damage at exact horizon and incomplete execution with pending hit delivery under the event limit."
+  ],
+  "verification": {
+    "native": [
+      "Focused bittercake native tests passed.",
+      "Full ntesim-content tests passed after death, assumption and incoming-event closure changes."
+    ],
+    "browser": [
+      "T1-T5 public compile fixtures passed independent 26/31/36/41/46% DEF expectations and complete native CLI/WASM/Worker report parity.",
+      "Adler action regression and full native/WASM report parity passed.",
+      "Web typecheck and production build passed; generated Studio catalog includes all five Bittercake refinements."
+    ],
+    "limits": [
+      "Workspace Rust formatting flags unchanged prior sources; changed Rust files pass targeted formatting. Web formatting has an unchanged prior edgar_actions.mjs diagnostic.",
+      "Strict content clippy reports existing unused-imports, collapsible_if, drop_non_drop and filter_next diagnostics; scoped content clippy passes with only those four categories allowed."
+    ]
+  }
+}

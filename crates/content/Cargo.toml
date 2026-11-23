@@ -1,0 +1,21 @@
+[package]
+name = "ntesim-content"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+authors.workspace = true
+description = "Partial NTE characters, weapons, sets and scenario execution"
+
+[features]
+performance-diagnostics = ["ntesim-core/performance-diagnostics"]
+
+[dependencies]
+ntesim-contracts.workspace = true
+ntesim-core.workspace = true
+ntesim-data.workspace = true
+serde.workspace = true
+serde_json = { workspace = true, features = ["raw_value"] }
+num-bigint = "=0.4.6"
+num-rational = "=0.4.2"
+num-traits = "=0.2.19"

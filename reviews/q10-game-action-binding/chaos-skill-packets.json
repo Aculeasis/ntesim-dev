@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "question": "Which ordinary Chaos Skill packets belong to one admitted public cast, and can their native coefficients be delivered without hiding alternate branches?",
+  "branch_budget_minutes": 10,
+  "total_investigation_budget_minutes": 15,
+  "sources": [
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json#/rows/GE_Player_Chaos_Skill1_Damage",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json#/rows/GE_Player_Chaos_Skill2_Damage",
+    "data/global-2026-10-04/tables/DT_ChaosEffectFigure.json#/rows/Chaos_HuntMarkDamageUp",
+    "data/extracted/guide_chaos.json#/skills/1",
+    "data/extracted/neverness_chaos.json#/tables/1"
+  ],
+  "stop_condition": "Find action/packet membership and description support; implement a bounded tested packet model or leave ambiguous follow-up unsupported and select another supported roster task.",
+  "return_condition": "New packet reachability, transformed-state or native timing evidence conflicts with the selected model.",
+  "checks": [
+    "179 content tests pass. Native level1 two bites (.825/2.175) with1000ATK, .5DEF and existing .2Warrant produce495/1305; level8(1.414/3.728) produces848.4/2236.8. A3 skill resonance selects native level9 and existing A2DEF ignore:1.527/4.026 *1000*5/9*1.2=1018/2684.",
+    "One admission, same command/target and deterministic first/second delivery are checked. Switching preserves pending off-field ownership. Horizon99us leaves both100us hits pending; target death after the first excludes the second. Failed energy admission schedules neither. Invalid child coordinates, an alternate primary and conflicting assumptions fail; strict requires explicit acceptance of the timing hypothesis.",
+    "Existing native Chaos Warrant tests retain independent oracles and now include the second bite: A6 manual primary fixture second bite2.175*1000*5/9*1.4*.9=1522.5; A0 second bite1044. Zero primary damage cannot apply Warrant, while a later nonzero native child can; a dead target stays unmarked.",
+    "Public Chaos/GoldWool T1-T5 produces six hits with two Skill packets at.8seconds. Shared modifiers give the independently checked3.728/1.414 child/primary ratio. Full CLI/WASM reports agree; actual Worker T5 agrees. native_build and scenario_script regressions, TypeScript and production build pass; changed Rust format passes; clippy permits only the two existing metadata lints.",
+    "The shared CastContext native child helper validates owner/action/target/time and source coefficient scaling/membership, inheriting the already projected talent coordinate. Crime, additional targets, Prime Target progression, transformed chains and full Ultimate packets remain incomplete; flags retain strict_ready=false/game_dps_computed=false."
+  ],
+  "decision": "The saved descriptions specify two bites and list82.5%+217.5%, matching the frozen native Skill1/Skill2 arrays. Admit Skill1 and schedule Skill2 once, on the same target and selected impact timestamp. Coincident timing is a bounded tested hypothesis because animation intervals are unresolved; preserve native E/Lakshana classification and delivery-time buffs. Require the modeled primary packet to prevent direct Skill2 invocations from duplicating the packet train. Both packets use the admitted effective coordinate through shared source projection; no manual child scalar.",
+  "artifact_sha256": {
+    "target/debug/ntesim.exe": "d1fe0c4e920528b675520c6d7741cec4c41b25d50379747573ee3c3ad7640de6",
+    "web/wasm/ntesim_wasm.wasm": "e99cfc369677e6b6abd52ddd01adcc269cf06a649aefd2b59e550884faa182f0"
+  },
+  "reference_sha256": {
+    "data/extracted/guide_chaos.json": "09f8927437531cb1a6bef75e4908698b4c0ffbab709e59912342655c84270263",
+    "data/extracted/neverness_chaos.json": "77f67ac8dc9a52670c4c53840f25d957a20312627f58fc4ab00e4ff13cc6e6bb"
+  }
+}

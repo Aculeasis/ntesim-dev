@@ -1,0 +1,19 @@
+# Two continuing A0 periods, compiled gear and explicit console contributions.
+# Stationary anonymous dummies; no Break bar or incoming damage is assumed.
+options duration=120 iteration=1 seed=42;
+mint char lvl=80/80 awakening=0 talent=8,8,8 qte=8 start_energy=0;
+mint add weapon=fork_lingganzhongjiezhe refine=5;
+mint add cartridge=Suit2 count=4;
+mint add stats atk%=0.75 atk=420 cr=0.30 cd=0.92;
+target hp=24000000 def=1080 resist=0.2;
+active mint;
+
+repeat 2 {
+    let period=.time;
+    repeat 8 {mint attack:5;}
+    wait_until(period+40); mint skill;
+    wait_until(period+47); mint skill;
+    wait_until(period+49); mint attack:5;
+    wait_until(period+54); mint burst;
+    wait_until(period+60);
+}

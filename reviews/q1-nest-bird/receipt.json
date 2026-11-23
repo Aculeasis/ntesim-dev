@@ -1,0 +1,98 @@
+{
+ "checks": [
+  "Native content build projection binds the three frozen curves across T1..T5: damage_reduction 9/50, 21/100, 6/25, 27/100, 3/10 with duration_us 20000000; each tier's description key buff_fork_NestBird_effect{tier} and its percent text are cross-checked against the curve.",
+  "Projection rejects group mismatch (character:1010, GROUP_THREE vs weapon GROUP_FOUR), a flipped positive reduction curve, and a missing buff_NestBird_CD1 row.",
+  "Focused native content tests cover T1..T5 mark ratio/duration/owner/source/recipient/semantic tag, Ultimate-only triggering (A/E/H hits mark nothing), zero-damage Ultimate, non-stacking refresh (two Ultimates 10s apart yield one instance expiring at 30s), exact-boundary expiry (present at 19s horizon, retired at 20s), re-application after expiry (Ultimates at 0s and 25s yield one instance expiring at 45s), and config rejection (wrong weapon, case-insensitive weapon match, zero duration, zero/>1 reduction, zero denominator).",
+  "cargo test -p ntesim-content nest_bird: 7/7 pass. Full ntesim-content suite: 575 pass, 3 fail - all three failures are pre-existing sibling-stub issues unrelated to this adapter (butterfly projection not implemented, hit via registered_weapon_adapters, raging_flames catalog and far_side_moon catalog tests). cargo clippy on the new files is clean.",
+  "Web scenario web/tests/combat/nest_bird.mjs mirrors the native T1..T5 checks (proc values, one non-stacking mark per scenario, 20s refresh math, non-Ultimate attack marks nothing, group rejection) for CI; it is wired into weapon_passives.test.mjs in the shared tree.",
+  "T5 audit: nest_bird_all_known_non_ultimate_categories_mark_nothing closes the over-claimed category coverage (B/F/P/R/T/X/Z mark nothing, in addition to the earlier A/E/H); nest_bird_missing_or_unrecognized_category_fails_loudly proves a missing classification and DAMAGE_SOURCE_CATEGORY_QX fail the hit instead of silently skipping; nest_bird_t2_refresh_uses_tier_ratio pins the hand-derived T2 oracle (Ultimates at 0/10s -> one instance, expiry 30_000_000, reduction 21/100). Focused run: 10/10 nest_bird tests pass."
+ ],
+ "combat_scope": "Enemies hit by the wearer's connected Ultimate packets are marked with Warning Gaze. Marked enemies deal reduced damage for 20s; the effect does not stack. Refinement tiers scale the reduction 18/21/24/27/30%; duration is a constant 20s.",
+ "curves": {
+  "buff_NestBird_CD1": {
+   "keys": [
+    1,
+    5
+   ],
+   "note": "constant 20s mark duration",
+   "unit": "seconds",
+   "values": [
+    20.0,
+    20.0
+   ]
+  },
+  "buff_NestBird_CD2": {
+   "keys": [
+    1,
+    5
+   ],
+   "note": "observed frozen curve without an evidenced gameplay role; recorded in projection metadata, not modeled",
+   "unit": "seconds",
+   "values": [
+    30.0,
+    30.0
+   ]
+  },
+  "buff_NestBird_down": {
+   "keys": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "note": "negative ratios; projection negates to the damage reduction 0.18/0.21/0.24/0.27/0.30",
+   "unit": "ratio",
+   "values": [
+    -0.18,
+    -0.21,
+    -0.24,
+    -0.27,
+    -0.3
+   ]
+  }
+ },
+ "cutoff": "2026-10-04",
+ "exclusive_character_ids": [],
+ "group": "ECharacterGroupType::CHARACTER_GROUP_TYPE_FOUR",
+ "hypothesis_id": "weapons.nest_bird_v1",
+ "independent_oracles": [
+  "T5: reduction = 3/10 (negated frozen -0.30); the mark stores outgoing_damage_reduction 3/10 with expires_at = hit_time + 20_000_000. A '700 of 1000' numeric damage oracle cannot be asserted: the stat has no runtime consumer (honest boundary, see known_gaps).",
+  "T2 refresh: Ultimates at 0 and 10s -> one instance, expiry 30_000_000, reduction 21/100. (nest_bird_t2_refresh_uses_tier_ratio)",
+  "CD2: buff_NestBird_CD2 = 30s constant -> unapplied_curve.seconds = 30/1 on all tiers; observed only, not part of the proc."
+ ],
+ "known_gaps": [
+  "Global release availability is unverified.",
+  "The stored outgoing_damage_reduction on the mark has no runtime consumer until enemy attack execution is modeled in content; the reduction amount itself is asserted on the stored mark only.",
+  "The mark target is fixed to index 0, matching the engine's current single-target deliveries; per-target HitDelivery scheduling would need the target bound from the delivery identity (shared gear.rs hook change, out of scope for this adapter).",
+  "Web tests were authored but not executed here: no WASM build exists in this Linux environment; they are written for CI.",
+  "web/tests/combat/nest_bird.mjs is wired into web/tests/weapon_passives.test.mjs (wiring done in the shared tree by a parallel agent; web tests still not executed here - no WASM build in this Linux env)."
+ ],
+ "name": "Tears Beneath the Mask",
+ "native_curve_rows": "CT_ForkBuff:/rows/buff_NestBird_down,buff_NestBird_CD1,buff_NestBird_CD2",
+ "native_item_row": "DT_ForkItemData:/rows/fork_NestBird",
+ "native_refinement_rows": "DT_ForkUpgradeStarDataTable:/rows/upgradestar_pack_fork_NestBird_1..5",
+ "content_id": "ntesim-current",
+ "passive_title": {
+  "localized": "Tears Beneath the Mask",
+  "source": "面具下的泪"
+ },
+ "region": "Global",
+ "schema_version": 1,
+ "source_sha256": {
+  "data/ntesim-current/tables/CT_ForkBuff.json": "93d1ed2069bc8e4358f98bfb5a3e212c13ad84e67eb6379e38414aa665539c15",
+  "data/ntesim-current/tables/DT_Character.json": "cce34c68a6286d9cfeb1525c7e0e05743370e8d5f96f6ddb8feb4ef8db0ab406",
+  "data/ntesim-current/tables/DT_ForkItemData.json": "22f6f587ad9bf3d54905889e81bfe8f213fa29c49522499287c53d42fd6900a4",
+  "data/ntesim-current/tables/DT_ForkUpgradeStarDataTable.json": "b15f6c4cf4b8a6e1c982b431176b406a501f38861a67ddce45a0f589cdeed8c5"
+ },
+ "status": "modeled_hypothesis",
+ "tested_hypotheses": [
+  "Ultimate trigger is the native DAMAGE_SOURCE_CATEGORY_Q packet classification; other known categories (A/B/E/F/H/P/R/T/X/Z) do not mark, and a missing or unrecognized classification fails the hit instead of silently skipping.",
+  "The mark applies to the hit enemy on connected hits only; zero-damage Ultimate packets mark nothing. Hit deliveries currently address only target index 0 (admission schedules HitDelivery with target_index 0), so the mark binds to target 0.",
+  "Warning Gaze is a single per-source instance (max_stacks 1, PerSource scope): re-application refreshes the 20s window via RefreshPolicy::Reset rather than stacking.",
+  "Enemy outgoing damage has no content-runtime consumer: no enemy attack execution exists in the content simulation and incoming_damage_events are unattributed scripted values. The mark is stored with its ratio and expiry; the reduction applies when enemy attack execution is modeled. Return condition: wire EnemyAttackSpec-style enemy damage through the content scheduler and multiply by (1 - reduction) as a distinct evidenced zone per the combat formula contract.",
+  "buff_NestBird_CD2 (30s, constant across tiers) has no evidenced gameplay role; it is projected into report metadata as an observed unapplied curve, not into the proc.",
+  "Frozen package evidence does not establish Global release availability."
+ ],
+ "weapon_id": "weapon:fork_NestBird"
+}

@@ -1,0 +1,24 @@
+# Exact resource transport fixture; intentionally no damage inputs.
+options duration=41 iteration=1 seed=42 crit=fixed start_fons=123456;
+chiz char lvl=80/80 awakening=2 talent=1,1,1 qte=1 start_grains=0.000001 start_loans=0;
+hathor char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_power=5 start_energy=0;
+iroi char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_moon=0.1;
+haniel char lvl=80/80 awakening=1 talent=1,1,1 qte=1 start_plot=6;
+target hp=100000000 def=0 resist=0;
+active chiz;
+
+let balance=0.000001;
+if .hathor.resources.power!=5 || .hathor.energy!=0
+    || .hathor.emergency_delivery.active {wait(99);}
+if .iroi.resources.moon!=0.1 || .iroi.dream.active || .iroi.mods.dream!=0 {wait(99);}
+if .haniel.resources.plot!=6 || .haniel.resources.harmony!=0
+    || .haniel.hootie.active || .haniel.paranormal_ace.active || .haniel.mods.symphony_token!=0 {wait(99);}
+if .chiz.resources.grains!=balance || .chiz.resources.loans!=0
+    || !.chiz.surplus.active || .chiz.debt.active || .chiz.market.active
+    || .chiz.mods.market!=0 {wait(99);}
+repeat 40 {
+    wait(1);
+    balance=balance*1.1;
+    if .chiz.resources.grains!=balance || .chiz.resources.loans!=0
+        || .team.fons!=123456 {wait(99);}
+}

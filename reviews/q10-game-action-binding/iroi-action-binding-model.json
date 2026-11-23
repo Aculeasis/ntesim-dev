@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "scope": "Iroi primary action packets across Normal, Skill, and Ultimate, plus a bounded one-time UltraSkill post-cast heal",
+  "quality": "partial executable model; complete kit pending",
+  "sources": [
+    "data/extracted/guide_iroi.json",
+    "data/extracted/neverness_oneiroi.json",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json",
+    "data/global-2026-10-04/tables/1075AwakenEffect.json",
+    "data/global-2026-10-04/tables/DT_GameplayAbilityTipsData.json",
+    "data/global-2026-10-04/tables/DT_OneiroiEffectFigure.json"
+  ],
+  "model": [
+    "GA_Oneiroi_Melee public primary packet is GE_Player_Oneiroi_Melee1_Damage. Native coefficients at Normal levels 1/8/9 are 0.760/1.303/1.407; category A/Nature metadata stays source-bound.",
+    "Ordinary Collaboration now advances five stages with native packet multiplicities 1,3,8,1,3 across GE_Player_Oneiroi_Melee1_Damage through Melee5. The chain loops after stage five and resets on a different admitted ability, field exit or a gap greater than 2 seconds between input starts. The reset, gap and ordered coincident delivery at the selected primary impact timestamp are explicit tested hypotheses; Branch, plunge, Regression and summon behavior remain pending.",
+    "GA_Oneiroi_Skill public primary packet is GE_Player_Oneiroi_Skill_Gun_Damage (Morpheus lamb attack). Native coefficients at Skill levels 1/8/9 are 1.500/2.571/2.776; category E/Nature metadata stays source-bound.",
+    "GA_Oneiroi_Skill requires the canonical GE_Player_Oneiroi_Skill_Gun_Damage primary and executes the reviewed iroi.skill_nine_packet_train_v1 train: one Gun, seven Syringe, one Trumpet at the selected impact timestamp; each uses its own native coefficient at the effective talent coordinate. The coincident ordered train is a tested timing hypothesis. The cast also grants 5% team DEF ignore for 20s and Base ATK-scaled team ATK (capped at 500, self-excluded). A2 adds one GE_Damage_sheep_gun_awaken2 hit.",
+    "A successfully admitted GA_Oneiroi_Skill with the canonical Gun primary records iroi.skill_team_heal_v1 and settles one Iroi_Skill_Treat heal for every configured actor in stable slot order, including Iroi. Evidence: DT_GameplayAbilityTipsData /rows/GA_Oneiroi_Skill/AbilityDescription/0/Description says the Skill heals all team members once; /rows/GA_Oneiroi_Skill/GALevelUpArray/3/LevelUpData/EffectFigureDataList/0 binds Oneiroi_Skill_Treat as bIsPercent=true; DT_OneiroiEffectFigure /rows/Oneiroi_Skill_Treat/Keys supplies the ratio. The cast's admitted array_index + 1 selects the curve coordinate after skill-level and resonance projection. MaxHP-as-ratio basis, live effective source MaxHP sampled at callback, and settlement at cast timestamp in ProcCallback order are tested bounded hypotheses. Supported live healing modifiers are sampled through the shared formula path; round once, cap through VitalState, never revive, and pass positive rounded gross healing to Wrong Gate after settlement. Conditional/continuous UltraSkill healing, Imagination and summon lifecycles remain unsupported.",
+    "GA_Oneiroi_UltraSkill public primary packet is GE_Player_Oneiroi_UltraSkill_Damage. Native coefficients at Burst levels 1/8/9 are 3.000/5.141/5.553; category Q/Nature metadata stays source-bound.",
+    "Ordinary UltraSkill execution admits the direct GE_Player_Oneiroi_UltraSkill_Damage packet once at the selected impact timestamp and native effective Burst coordinate. A successful canonical cast also records iroi.burst_post_cast_team_heal_v1 and settles one Oneiroi_UltraSkill_Treat heal per configured actor in stable slot order at the selected hit timestamp after direct HitDelivery. Evidence: DT_GameplayAbilityTipsData /rows/GA_Oneiroi_UltraSkill/GALevelUpArray/0 labels Post-Cast Healing Ratio and binds Oneiroi_UltraSkill_Treat as bIsPercent=true; DT_OneiroiEffectFigure /rows/Oneiroi_UltraSkill_Treat/Keys supplies the ratio curve. Recipient scope, MaxHP ratio basis, callback timing, recipient order, supported live modifiers, nearest-integer settlement, missing-HP cap, no-revive behavior and Wrong Gate callback are bounded tested hypotheses. The separate continuous TreatPeriod healing, continuous damage, Imagination thresholds/costs, dream duration and Regression revival remain unsupported; no periodic ticks or extra targets are inferred.",
+    "Resonance 3 activates at awakening >= 3 and adds +1 level to Melee, Skill, and UltraSkill, selecting native coordinate level + 1 without manual overrides.",
+    "Awakening 4 (Trait: Retaliatory) adds +30% lamb damage bonus on Collaboration (Skill).",
+    "Iroi's ordinary awakening effects are gated by their selected indices (A2=Effect2, A4=Effect4, A5=Effect5, A6=Effect6); they are not inferred from selection count. Skill-level resonance_3 and Crit DMG resonance_6 remain count-based and distinct from ordinary Effect6. Effect6's frozen text grants resources to a character revived after UltraSkill; revival is not modeled, so the current event is only an A6 callback receipt and does not grant those resources.",
+    "Existing A2 assist attack/heal, A5 additional team ATK grant, and the A6 callback receipt remain partial kit models; actual A6 revived-recipient resource grants are unsupported."
+  ],
+  "pending": [
+    "Conditional/continuous UltraSkill healing; Branch attacks, hold attack / Regression state / summoned lamb AI attacks, Imagination gauge accumulation and consumption, Dream of Horned Gate vs Ivory Gate, and A6 revival gameplay mechanics."
+  ],
+  "checks": [
+    "iroi_actions tests check independent damage oracles at 1000 ATK, 0 RES for Normal (380/1, 1303/2, 1407/2), the Skill Gun primary (10000/13, 17140/13, 55520/39, 5552/3 with A4), seven Syringe plus Trumpet children and one A2 hit, and the single direct Burst packet (1500/1, 5141/2, 5553/2). Burst's partial packet assumption and canonical-primary rejection are checked independently.",
+    "Iroi awakening tests exercise selected A2/A5/A6 and non-prefix [1,4,5] separately from resonance count; at 1000 ATK, expected Skill primary includes Lv9 resonance_3, A4's +30% damage bonus, and A5's +15% base-ATK grant: 31924/15. A6 Effect6 callback is checked separately from full-awakening resonance_6 Crit DMG.",
+    "iroi_actions normal-chain tests pass at talent 1/8 and A3-projected level 9. Independent 1000 ATK, 0 RES, 0.5 DEF calculations use source arrays [0.760,0.159,0.103,0.702,0.258], [1.303,0.272,0.177,1.203,0.442], and [1.407,0.294,0.191,1.299,0.478], expanded with hit counts [1,3,8,1,3]. Ten inputs produce 32 ordered stage packets over two loops; totals are 3537, 6064, and 6550 damage respectively.",
+    "Off-field delivery attributes hits to Iroi; dead target settles 0 hits; horizon boundaries preserve pending events.",
+    "Iroi action Worker tests pass with native CLI/WASM full-report parity enabled; the actual Worker matches the WASM report for all Iroi actions and chain rotations at talents 1/8/A3. Burst cases include the one-time heal for Iroi and an injured Mint ally, verify ratios at effective coordinates 1/8/9 (with Effect3 healing bonus when selected), and assert callbacks follow direct HitDelivery.",
+    "Focused Iroi content tests pass. Skill healing tests independently compute the frozen ratios: effective coordinate 1 is 943/1000, so 10,000 source MaxHP yields 9,430 gross; purchased Skill 8 with resonance_3 selects coordinate 9 at 1,745/1,000, yielding 17,450 gross. Tests cover slot order, current/missing HP, dead recipients, live outgoing/incoming modifiers, and the full-HP Wrong Gate callback. Burst post-cast healing tests independently compute coordinates 1/8/9 at 1.413/2.422/2.616, check 10,000 source MaxHP, stable slot order, one callback per configured recipient after the direct hit, cap behavior and strict hypothesis acceptance. Focused Wrong Gate content tests pass, including equipped Iroi damage buffs and unrelated-healer/invalid-admission boundaries.",
+    "Equipped Iroi Skill→single Burst integration independently computes coordinate-1 gross heals from 20,000 source MaxHP: Skill 18,860, then Burst 28,260. Starting Iroi and Mint at 10,000/20,000 HP, Skill applies 10,000 and overflows 8,860; the later post-hit Burst applies 0 and overflows 28,260 to both full recipients. Wrong Gate still triggers on each positive pre-cap gross heal. Rust and actual Worker cases retain exact event order and resolved hypothesis provenance. Continuous TreatPeriod healing, repeated Burst ticks, Imagination and Regression remain unsupported.",
+    "weapon_passives.test.mjs passes with NTESIM_VERIFY_NATIVE=1: full native CLI/WASM reports match across equipped and action cases, including Iroi attack, skill, and burst at levels 1, 8, and A3 resonance.",
+    "The Wrong Gate browser case runs Iroi Skill healing with T1 equipped, verifies full-HP overheal callbacks and the additive-zone ally damage factor against a same-loadout no-proc baseline, and matches the full report in native CLI and the actual Worker.",
+    "TypeScript and production build pass. Frozen source hashes match the identities below."
+  ],
+  "pending_checks": [],
+  "source_sha256": {
+    "data/extracted/guide_iroi.json": "8c5eb4617356218b1e05015636d51c12035bd2c80652c3da9788030a9110c973",
+    "data/extracted/neverness_oneiroi.json": "80e6a9dcf392ececb6cb50fffb508aa2cf60a8bb3b7b2ab43e176d575e001962",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json": "917b0c3675412c0425a0724d09e7dd8ae4d1ef9a100d2ea5669d7484d0901bf2",
+    "data/global-2026-10-04/tables/1075AwakenEffect.json": "a6fc3e1441313da82a5edf3023f152a2110b10acabb9a6ea880175ca4fd7801c",
+    "data/global-2026-10-04/tables/DT_GameplayAbilityTipsData.json": "5c0a0f929376891c033451a25208b55747c43e6bbb24b75506eb0ff50a23584f",
+    "data/global-2026-10-04/tables/DT_OneiroiEffectFigure.json": "6c6b543fb1f97d5a538ba82184b9f21d4aee9b39e672f0b6283c538179e69bb9"
+  }
+}

@@ -1,0 +1,17 @@
+options iteration=1 duration=60 crit=fixed seed=42;
+
+baicang char lvl=80/80 awakening=0 talent=1,1,1 qte=1;
+baicang add weapon=fork_jingmotingyuan refine=1;
+mint char lvl=80/80 awakening=0 talent=1,1,1 qte=1;
+target hp=100000000 def=0 resist=0;
+active baicang;
+
+# The first Arc pays 5% of current HP, seeds one train and starts the 25s cooldown.
+baicang arc; baicang attack:5;
+# The payment's crit stack expires at 5s while the weapon cooldown continues off field.
+mint swap; mint attack:5;
+wait_until(23); baicang swap;
+wait_until(25); baicang arc; baicang attack:5;
+# One chain step lands outside the second stack's window before the peer returns.
+wait_until(31); baicang attack;
+wait_until(50); mint swap; mint attack:5;

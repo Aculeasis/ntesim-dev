@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "quality": "partial executable model",
+  "scope": "Raging Flames refinements 1–5, native wearer compatibility, Lakshana additive bonus, and wearer Redirect Skill/Ultimate delivery bonuses",
+  "hypotheses": [
+    "weapons.raging_flames_v1"
+  ],
+  "decision": "Apply the native Lakshana ratio to delivered Lakshana packets. Successful wearer Ultimate admission refreshes a wearer-only 10-second world-time window and clears its Redirect Skill stacks before same-time hits. Each admitted Redirect Skill during that window adds one stack before same-time hits, capped at two, without extending the window. Window bonus follows delivered native E/Q packet category; stack bonus follows delivered native E category. Cast admission still uses input action role. Switching preserves owner state; exact expiry precedes same-time delivery.",
+  "hypothesis": "Raging Flames adds its frozen Lakshana ratio to matching delivered packets in the additive damage-bonus zone. Successful wearer Ultimate admission refreshes a wearer-only 10-second window before same-time hits and clears Redirect Skill stacks; each admitted Redirect Skill during the active window adds one stack before same-time hits, capped at two, without extending the window. The base bonus applies to delivered native E/Q packets; per-cast stacks apply only to delivered native E packets. Input action role gates cast admission, while delivered packet category gates damage bonuses. Switching preserves the window and stacks; exact expiry precedes equal-time hits. Ultimate refresh clearing stacks is a tested lifecycle hypothesis because native buff lifecycle details are unavailable. Cast order and clocks are tested hypotheses. Global release availability remains unverified in the frozen catalog.",
+  "independent_oracles": [
+    "The frozen description binds four typed values: R1–R5 window bonuses 0.10/0.125/0.15/0.175/0.20, 10 seconds, Redirect Skill stack increments 0.05/0.06/0.07/0.08/0.09, and Lakshana bonuses 0.15/0.175/0.20/0.225/0.25. Native unit mutation is rejected.",
+    "An equipped Nanally packet-by-packet oracle compares native Ultimate and Skill hit receipts against a weapon-free run. It independently adds the permanent Lakshana term, active E/Q base term, and capped E stack term. Research packets deliberately separate action input role from delivered packet category to verify the two gates remain independent.",
+    "Nanally's native five-hit Skill and seven-hit Burst packet trains exercise actual admission and packet coefficients. Synthetic research packets isolate exact expiry, stack cap, non-E/Q and non-Lakshana gates, Normal-role category separation, switch persistence, and Ultimate-refresh stack reset. A rejected native Skill recast inside Authority remains rejected and cannot grant a stack.",
+    "The native weapon item names Raging Flames, declares GROUP_THREE, and has no exclusive character list. Nanally (character:1010) is accepted; a GROUP_FOUR wearer is rejected by build projection."
+  ],
+  "checks": [
+    "Rust focused tests: python tools/cargo.py test -p ntesim-content --locked --offline raging_flames (passed). Rust formatting: python tools/cargo.py fmt --all -- --check (passed).",
+    "Studio catalog test projects all five refinements for legal Nanally and asserts the public raging_flames proc entries.",
+    "Rebuilt native CLI and WASM pass all five public Nanally Q→Skill and ally Normal scenarios with complete report parity and Worker parity. The baseline preserves equipped static stats and removes only the passive; expected additive zones use independently specified refinement curves. Nanally owner regression, TypeScript, web formatting and production build pass.",
+    "Full content suite passes. A queued E packet delivered after the window expires receives only its permanent Lakshana bonus, and final snapshots contain no expired Raging Flames buffs. The standalone verifier checks frozen source hashes and exact curve keys.",
+    "Scoped clippy passes with collapsible_if, drop_non_drop and filter_next disabled for previously verified unchanged diagnostics. Full strict clippy remains limited by those diagnostics."
+  ],
+  "pending": [
+    "Native game buff lifecycle, exact in-game cast ordering and clocks, and Global release availability are not established by the frozen data.",
+    "Full weapon stat/passive coverage and interactions beyond the modeled ratios and wearer window remain unverified."
+  ],
+  "source_sha256": {
+    "data/global-2026-10-04/tables/DT_ForkItemData.json": "22f6f587ad9bf3d54905889e81bfe8f213fa29c49522499287c53d42fd6900a4",
+    "data/global-2026-10-04/tables/DT_ForkUpgradeStarDataTable.json": "b15f6c4cf4b8a6e1c982b431176b406a501f38861a67ddce45a0f589cdeed8c5",
+    "data/global-2026-10-04/tables/CT_ForkBuff.json": "93d1ed2069bc8e4358f98bfb5a3e212c13ad84e67eb6379e38414aa665539c15",
+    "data/global-2026-10-04/tables/DT_Character.json": "cce34c68a6286d9cfeb1525c7e0e05743370e8d5f96f6ddb8feb4ef8db0ab406"
+  }
+}

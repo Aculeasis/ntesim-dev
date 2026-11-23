@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "status": "implemented",
+  "owner": "sakiri",
+  "character_id": "character:1003",
+  "hypotheses": [
+    "sakiri.ordinary_hit_energy_v1",
+    "sakiri.normal_chain_v1",
+    "sakiri.skill_burst_packets_v1"
+  ],
+  "scenario": {
+    "source": "four Normal chains and two Skills from zero energy, one 100-energy Burst, then one Normal continuation chain",
+    "starting_energy": 0,
+    "energy_capacity": 120,
+    "charge_efficiency": "1/1",
+    "other_living_recipient_relation": "3/5",
+    "cost": "Burst pays its modeled 100 energy once",
+    "timing": "Normal inputs use 800ms recovery at 0..15.2s for the buildup and 25.2..28.4s for continuation; Skills start at 16s and 22s with 1.2s recovery and 6s cooldown; Burst starts at 23.2s with 2s recovery. Rust and compiled NTE assert the same 35s-horizon schedule.",
+    "receipts": {
+      "normal_packets": 50,
+      "skill_packets": 4,
+      "burst_packets": 6,
+      "total_hit_packets": 60,
+      "energy_source_packets": 54
+    }
+  },
+  "independent_oracle": {
+    "normal_charge_add_milli_per_five_input_chain": [2014, 690, 3785, 81, 3583, 1654, 1654, 1654, 176, 5311],
+    "skill_charge_add_milli_per_packet": [3902, 5398],
+    "burst_charge_add_milli_per_packet": 0,
+    "pre_burst_charge_add": "4*20.602 + 2*9.300 = 101.008",
+    "pre_burst_settlement": "101 whole gross, 0 overflow at capacity 120; Burst spends 100 and leaves 1",
+    "post_burst_normal_chain": "20.602 ChargeAdd; final source energy 21 and 61/100 carry",
+    "source_final": {
+      "granted": 121,
+      "spent": 100,
+      "overflow": 0,
+      "energy": 21,
+      "charge_remainder": "61/100"
+    },
+    "each_other_living_recipient_final": {
+      "relation": "3/5",
+      "granted": 72,
+      "energy": 72,
+      "charge_remainder": "483/500"
+    },
+    "level_8_damage_at_1000_atk_and_0_5_defense_multiplier": {
+      "normal_five_input_chain": 3530,
+      "skill_cast_two_packets": 3427.5,
+      "burst_six_packets": 7713,
+      "total": "5*3530 + 2*3427.5 + 7713 = 32218"
+    },
+    "values_are_literal_test_expectations": true
+  },
+  "checks": [
+    "Rust ordinary_hit_energy scenario asserts exact action timestamps, all 60 packet identities and damage values, all 54 per-packet ChargeAdd grants, the 100-energy cost, recipient ledgers, cap/overflow, and continuation.",
+    "Authored NTE is compiled and checked through WASM and actual Worker parity; native CLI parity, observations, aggregation, and replay are reconciled by the focused browser test.",
+    "Focused checks passed: python tools/cargo.py test -p ntesim-content --locked --offline sakiri_zero_start_normal_skill_burst_and_continuation_rotation; NTESIM_VERIFY_NATIVE=1 node tools/web.mjs test web/tests/ordinary_hit_energy.test.mjs. The stable-tree checkpoint is pending."
+  ],
+  "limits": [
+    "sakiri.ordinary_hit_energy_v1 remains a bounded hypothesis for positive-HP-loss Normal and Skill eligibility, per-packet grants, recipient distribution, and off-field ownership; native dispatcher evidence is unavailable.",
+    "Normal chain reset and packet timing are the existing sakiri.normal_chain_v1 hypothesis; coincident Skill and Burst child delivery follows sakiri.skill_burst_packets_v1 and does not establish native animation intervals.",
+    "The browser compiles authored inputs into a fixed timeline; this does not establish live readiness waits or a shared live interpreter.",
+    "Burst ChargeAdd is zero in the frozen rows. Natural AirAttack/plunge dispatch and its energy policy are not exercised by this scenario."
+  ],
+  "source_sha256": {
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json": "917b0c3675412c0425a0724d09e7dd8ae4d1ef9a100d2ea5669d7484d0901bf2",
+    "data/global-2026-10-04/tables/DT_SkillTeamChargeRelationData.json": "5e456919997b0f77c4b569ce812267a059bab553a1f87fcb863723c44b66363b"
+  }
+}

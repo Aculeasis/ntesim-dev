@@ -1,0 +1,94 @@
+.time-chart-shell {
+  position: relative;
+}
+
+.time-legend {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  font: 10px var(--mono);
+  color: var(--muted);
+  margin-bottom: 5px;
+}
+
+.time-legend span:before {
+  content: '';
+  display: inline-block;
+  width: 15px;
+  margin-right: 7px;
+  vertical-align: middle;
+  border-top: 2px solid var(--line, #eadb37);
+}
+
+.time-legend .legend-std:before {
+  height: 8px;
+  background: #eadb373b;
+  border: 1px solid #eadb3760;
+}
+
+.time-inspector {
+  position: absolute;
+  right: 15px;
+  top: 25px;
+  white-space: pre-line;
+  font: 11px/1.7 var(--mono);
+  padding: 10px 14px;
+  border: 1px solid #a78cba;
+  background: #211b28;
+  box-shadow: 0 4px 16px #0006;
+  border-radius: 5px;
+  pointer-events: none;
+  color: #eee1f7;
+}
+
+.stack-legend {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  flex-wrap: wrap;
+  font: 10px var(--mono);
+  margin: 6px 0 20px;
+  color: var(--muted);
+}
+
+.stack-legend span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.stack-legend i {
+  width: 9px;
+  height: 9px;
+  border-radius: 2px;
+}
+
+.stack-space {
+  height: 32px;
+  display: flex;
+  background: repeating-linear-gradient(
+    to right,
+    transparent,
+    transparent calc(25% - 1px),
+    #6b5e7138 calc(25% - 1px),
+    #6b5e7138 25%
+  );
+}
+
+.stack-segment {
+  position: relative;
+  height: 100%;
+  transition: filter 0.15s;
+  min-width: 0;
+}
+
+.stack-segment:hover,
+.stack-segment:focus {
+  filter: brightness(1.12);
+}
+
+.stack-segment:hover > .chart-tooltip,
+.stack-segment:focus > .chart-tooltip {
+  display: block;
+  right: 0;
+}

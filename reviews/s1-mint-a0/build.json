@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "content_id": "ntesim-current",
+  "character_id": "character:1019",
+  "character_level": 80,
+  "character_breakthrough": 6,
+  "weapon_id": "weapon:fork_lingganzhongjiezhe",
+  "weapon_level": 80,
+  "weapon_breakthrough": 6,
+  "weapon_tier": 5,
+  "set_id": "set:Suit2",
+  "set_count": 4,
+  "additive_attributes": {
+    "AtkAdd": {
+      "numerator": "420",
+      "denominator": "1"
+    },
+    "AtkUp": {
+      "numerator": "13",
+      "denominator": "20"
+    },
+    "CritBase": {
+      "numerator": "13",
+      "denominator": "25"
+    },
+    "CritDamageBase": {
+      "numerator": "11",
+      "denominator": "25"
+    },
+    "HPMaxAdd": {
+      "numerator": "5600",
+      "denominator": "1"
+    }
+  }
+}

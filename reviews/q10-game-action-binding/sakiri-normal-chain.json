@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "scope": "Sakiri ordinary five-input Normal chain in the shared gameplay runner",
+  "quality": "executable modeled chain; complete kit pending",
+  "hypothesis_id": "sakiri.normal_chain_v1",
+  "sources": [
+    "data/extracted/neverness_sagiri.json: GA_Sagiri_Melee_1_des through GA_Sagiri_Melee_5_des",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json: GE_Player_Sagiri_Melee1_Damage through Melee8_Damage",
+    "reviews/q10-game-action-binding/sakiri-action-binding-model.json: frozen source hashes"
+  ],
+  "decision": "Five admitted Normal inputs deliver ten packets in stages [Melee1], [Melee2,Melee3], [Melee8,Melee4], [Melee5,Melee5,Melee5], [Melee6,Melee7]. Descriptions match these ordered native coefficient decompositions at all nine released talent levels. In particular, Melee8 is the small opening packet of stage three, not an eighth input. Native effective talents include Sakiri resonance_3. The input ledger retains the admission binding; hit receipts identify actual native packets.",
+  "hypotheses": [
+    "The chain loops after stage five. A different admitted ability or field exit resets it; a same-actor switch does not.",
+    "A gap greater than 2 seconds between input starts resets the chain; the exact boundary continues. This tested research convention is not measured animation timing.",
+    "Stage packets deliver in order at the input's research primary impact time; native packet/travel intervals remain unresolved."
+  ],
+  "independent_oracles": [
+    "At 1000 ATK and 0.5 DEF, level-one total coefficient is 0.403+(0.138+0.757)+(0.016+0.716)+3*0.331+(0.035+1.062)=4.120: five inputs deal 2060; a sixth gives 2261.5.",
+    "Level-eight total coefficient is 0.691+(0.237+1.297)+(0.027+1.227)+3*0.567+(0.060+1.820)=7.060: five inputs deal 3530; a sixth gives 3875.5.",
+    "Purchased level eight at A3 projects level nine: 0.746+(0.255+1.401)+(0.030+1.325)+3*0.613+(0.065+1.966)=7.627: five inputs deal 3813.5; a sixth gives 4186.5."
+  ],
+  "checks": [
+    "Native independent packet/order/total oracles cover levels 1 and 8, A3 resonance, loop and reset/no-op boundaries.",
+    "Strict rejects a missing owner hypothesis; pending final-stage packets retain their owner after switching and settle at the exact horizon.",
+    "The existing resonance_6 research fixture now expects stage-two native packets rather than another first hit.",
+    "Public attack:5 scripts verify ten hits, per-hit and total damage through Worker/WASM and complete native report parity."
+  ],
+  "pending": [
+    "Measured reset/cancel rules and native packet timing; return with frozen animation evidence establishing a concrete model.",
+    "AoE, travel, plunge/riposte, ordinary energy, holding/eating mode, passives and remaining kit effects."
+  ]
+}

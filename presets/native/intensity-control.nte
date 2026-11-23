@@ -1,0 +1,17 @@
+# Native/WASM/Worker transport of flat intensity and continuing Zero Cycle fill.
+options duration=24 iteration=1 seed=42;
+zero char lvl=80/80 awakening=0 talent=8,8,8 qte=8;
+zero add stats ci=100.25 bi=100.25;
+zero add stats ci=247.75 bi=68.25;
+mint char lvl=80/80 awakening=0 talent=8,8,8 qte=8;
+target lvl=80 hp=100000000 def=0 resist=0;
+active zero;
+repeat 2 {
+    wait_until(.time + .zero.skill.cd);
+    zero skill;
+    if .zero.resources.cycle!=100 { wait(99); }
+    mint swap;
+    if .zero.resources.cycle { wait(99); }
+    zero swap;
+}
+wait_until(24);

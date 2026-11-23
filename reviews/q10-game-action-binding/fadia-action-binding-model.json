@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "scope": "Fadia ordinary five-input Normal chain in the shared gameplay runner",
+  "quality": "executable modeled chain; remaining kit pending",
+  "hypothesis_id": "fadia.normal_chain_v1",
+  "sources": [
+    "data/extracted/neverness_fadia.json: GA_Fadia_Melee_1_des through GA_Fadia_Melee_5_des",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json: GE_Player_Fadia_Melee1_Damage through Melee8_Damage",
+    "data/global-2026-10-04/tables/DT_GameplayAbilityTipsData.json: GA_Fadia_Melee describes up to five consecutive Psyche attacks",
+    "data/global-2026-10-04/tables/1039AwakenEffect.json: resonance_3 adds one skill level to GA_Fadia_Melee",
+    "data/global-2026-10-04/tables/DT_FadiaEffectFigure.json: HP curves belong to Skill, healing, or awakening effects"
+  ],
+  "decision": "Model the ordinary Normal chain at A0 as five admitted inputs with packet groups [Melee1], [Melee2, Melee3], [Melee4], [Melee5, Melee6], [Melee7, Melee8]. All eight source rows use native ATK ratios and Psyche metadata. The native source and Neverness display ratios agree at every published level 1-9. HP coefficients on other actions are outside this Normal adapter.",
+  "hypotheses": [
+    "A different admitted ability or field exit resets the chain; a same-actor switch does not.",
+    "A gap greater than 2 seconds between input starts resets the chain; exactly 2 seconds continues.",
+    "The ordered packets within a multi-hit stage deliver at the primary impact timestamp; animation intervals and travel remain unresolved."
+  ],
+  "independent_oracles": [
+    "At 1000 ATK and the level-80 target DEF factor 0.5, the level-1 eight-hit chain is 216.5 + 148.5 + 180 + 385.5 + 141.5 + 166 + 136.5 + 401.5 = 1776 damage.",
+    "At the same conditions, the level-8 chain is 371 + 254.5 + 308.5 + 660.5 + 242.5 + 284.5 + 234 + 688 = 3043.5 damage.",
+    "At purchased level 8 with resonance_3 active, the projected level-9 chain is 400.5 + 275 + 333 + 713.5 + 262 + 307.5 + 252.5 + 743 = 3287 damage."
+  ],
+  "checks": [
+    "Focused native tests verify all packet effects, exact per-hit damage, Psyche/category metadata, chain looping, resonance level projection, and invariance to Fadia HP, current HP, and DEF.",
+    "The normal-chain source verifier compares all nine published ratio levels to the eight frozen native ATK arrays.",
+    "Public five-input rotation checks use CLI/WASM/Worker parity and exact damage totals; strict mode requires the matching chain hypothesis."
+  ],
+  "pending": [
+    "Skill and damaged-health/awakening Burst variants, Lilith follow-ups, HP threshold curves, healing, damage redirect/survival, incoming damage redistribution, plunge, riposte, team passives, timing evidence and the rest of Fadia's kit."
+  ],
+  "source_sha256": {
+    "data/extracted/neverness_fadia.json": "2dd1415c0f26b512014613e9d9faef43743c71c07c87c934809af726af46a35a",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json": "917b0c3675412c0425a0724d09e7dd8ae4d1ef9a100d2ea5669d7484d0901bf2",
+    "data/global-2026-10-04/tables/DT_GameplayAbilityTipsData.json": "5c0a0f929376891c033451a25208b55747c43e6bbb24b75506eb0ff50a23584f",
+    "data/global-2026-10-04/tables/DT_FadiaEffectFigure.json": "8b48ce83a8e56e15a06c337ec876da323babe645218450cfef9555d26b21e7fe",
+    "data/global-2026-10-04/tables/1039AwakenEffect.json": "b1f311110a23202028b796a56921315a52e0ebb3096ce0465864ca1321d2300f"
+  },
+  "awakening_selection": "Canonical nonprefix selections are admitted for modeled Normal action/progression. Resonance_3 uses count; Skill and nonzero-awakening Burst keep their reached unsupported guards, and remaining awakening/stat/team producers remain pending."
+}

@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "question": "Which packets and multiplicities belong to ordinary Sakiri Skill/Burst casts?",
+  "branch_budget_minutes": 10,
+  "total_investigation_budget_minutes": 15,
+  "sources": [
+    "data/extracted/guide_sakiri.json#/skills/1",
+    "data/extracted/guide_sakiri.json#/skills/2",
+    "data/extracted/neverness_sagiri.json#/skills/1",
+    "data/extracted/neverness_sagiri.json#/skills/2",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json#/rows/GE_Player_Sagiri_Skill1_Damage",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json#/rows/GE_Player_Sagiri_Skill2_Damage",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json#/rows/GE_Player_Sagiri_UltraSkill1_Damage",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json#/rows/GE_Player_Sagiri_UltraSkill2_Damage"
+  ],
+  "stop_condition": "Identify packets/multiplicities from saved descriptions and native arrays; use a disclosed bounded timing hypothesis if intervals are absent.",
+  "return_condition": "New timing/reachability evidence changes Devour Whole press Skill1+Skill2, Feast of Gluttony five UltraSkill1 plus one UltraSkill2, eating mode or interruption behavior.",
+  "decision": "Devour Whole Press describes 167.8%+232.2% (matching native Skill1 and Skill2 rows). Feast of Gluttony describes 6 instances totaling 120%*5 + 300% (matching five instances of native UltraSkill1 plus one instance of native UltraSkill2). Require each action's primary packet; schedule children once after admission with the admitted effective native coordinate. Each hit settles independently; A4 buff and A5 reset callbacks trigger once per cast on the primary hit.",
+  "timing_hypothesis": "sakiri.skill_burst_packets_v1: ordered coincident delivery on target zero at selected primary impact time. This supports packet totals and ownership, not native frame timing. Same-time delivery precedes queued gear callbacks; timing-sensitive results retain this assumption.",
+  "checks": [
+    "Independent content damage oracles: at 1000 ATK/DEF.5/RES0, Skill levels 1/8/effective9 total 2000/1, 6855/2, 3702/1; Burst levels 1/8/effective9 total 4500/1, 15426/2, 16658/2.",
+    "Pending horizons, off-field ownership, dead/lethal targets, rejected energy admission and alternate primary are checked. Strict requires matching hypothesis acceptance.",
+    "Description and native arrays agree at all nine levels. Public two-Skill/one-Burst rotation produces 10 hits and spends 100 energy once; CLI/WASM/Worker agree. Full content, relevant character/gear web suites, replay and modeled awakening verifier pass.",
+    "No full kit/readiness claim. Normal chains, holding/eating mode, Scorch enhancement, Impish Trick debuff and full awakening effects remain pending."
+  ],
+  "reference_sha256": {
+    "data/extracted/neverness_sagiri.json": "df78ed285f89dc9553926d5c80db854be5ba1fabf6dab3a02ef56c3f7f73cb6c",
+    "data/extracted/guide_sakiri.json": "f5fc541fe433c0e350d601dec848a39e2a22dedc5f4bed6c16c6acfde39c04aa",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json": "917b0c3675412c0425a0724d09e7dd8ae4d1ef9a100d2ea5669d7484d0901bf2"
+  }
+}

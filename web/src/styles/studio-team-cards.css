@@ -1,0 +1,153 @@
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.character-card {
+  position: relative;
+  border: 1px solid var(--border);
+  padding: 9px;
+  background: #302933;
+  min-width: 0;
+  transition: box-shadow 0.2s;
+}
+
+.character-card:hover {
+  box-shadow: 0 0 16px #c58ade25;
+  border-color: #a082ae;
+}
+
+.character-header {
+  position: relative;
+  height: 168px;
+  isolation: isolate;
+  background:
+    radial-gradient(
+      ellipse at 80% 70%,
+      color-mix(in srgb, var(--element) 32%, transparent),
+      transparent 70%
+    ),
+    linear-gradient(110deg, #24202c, var(--surface));
+  margin: -9px -9px 9px;
+  padding: 18px;
+  overflow: hidden;
+}
+
+.character-header:after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image: radial-gradient(#d6e3fa40 1px, transparent 1px);
+  background-size: 31px 27px;
+  mask-image: linear-gradient(45deg, transparent, #0006);
+}
+
+.character-portrait {
+  position: absolute;
+  right: -3%;
+  bottom: -18px;
+  width: 58%;
+  height: 190px;
+  object-fit: contain;
+  object-position: center bottom;
+  z-index: -1;
+  transition: transform 0.3s;
+}
+
+.character-card:hover .character-portrait {
+  transform: scale(1.035);
+}
+
+.character-title {
+  font-size: 15px;
+  margin-bottom: 8px;
+  width: 58%;
+  text-shadow: 0 1px 3px #000;
+}
+
+.character-level,
+.character-talent {
+  font-size: 13px;
+  line-height: 1.75;
+  text-shadow: 0 1px 3px #000;
+}
+
+.card-controls {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  display: flex;
+  gap: 4px;
+  flex-direction: column;
+}
+
+.card-controls button {
+  width: 27px;
+  height: 27px;
+  padding: 0;
+  font-size: 20px;
+  background: #443748bf;
+  border: 0;
+}
+
+.character-equipment {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.character-equipment img {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+}
+
+.set-item {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  font-size: 11px;
+}
+
+.element-item {
+  display: flex;
+  align-items: center;
+}
+
+.weapon-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  padding: 8px;
+  min-height: 70px;
+  font-size: 13px;
+}
+
+.weapon-card > img,
+.weapon-card > .asset-placeholder {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+}
+
+.weapon-card > div {
+  min-width: 0;
+}
+
+.weapon-card > div > span {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.weapon-card small {
+  display: block;
+  margin-top: 7px;
+  font-size: 11px;
+  color: #ddd4e6;
+}

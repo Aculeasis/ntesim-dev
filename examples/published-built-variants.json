@@ -1,0 +1,112 @@
+{
+  "schema_version": 1,
+  "content_id": "ntesim-current",
+  "hypothesis": "Hypothetical projection of audited legal equipment builds into variant simulation, preserving source receipts and incomplete quality.",
+  "variants_csv": "archetype,tier,slot1,slot2,slot3,slot4\nTeam Loadout,T0,sakiri,lacrimosa,skia,nanally\n",
+  "builds": {
+    "sakiri": {
+      "schema_version": 1,
+      "content_id": "ntesim-current",
+      "character_id": "character:1003",
+      "weapon_id": "weapon:fork_mofeikesi",
+      "weapon_tier": 1,
+      "set_id": "set:Suit11",
+      "set_count": 4,
+      "additive_attributes": {
+        "AtkAdd": {
+          "numerator": "420",
+          "denominator": "1"
+        },
+        "AtkUp": {
+          "numerator": "3",
+          "denominator": "8"
+        },
+        "DamageUpIncantationBase": {
+          "numerator": "27",
+          "denominator": "50"
+        },
+        "HPMaxAdd": {
+          "numerator": "5600",
+          "denominator": "1"
+        }
+      }
+    },
+    "lacrimosa": {
+      "schema_version": 1,
+      "content_id": "ntesim-current",
+      "character_id": "character:1004",
+      "weapon_id": "weapon:fork_Rose",
+      "weapon_tier": 1,
+      "set_id": "set:Suit11",
+      "set_count": 4,
+      "additive_attributes": {
+        "AtkAdd": {
+          "numerator": "420",
+          "denominator": "1"
+        },
+        "AtkUp": {
+          "numerator": "3",
+          "denominator": "8"
+        },
+        "DamageUpChaosBase": {
+          "numerator": "2",
+          "denominator": "5"
+        },
+        "HPMaxAdd": {
+          "numerator": "5600",
+          "denominator": "1"
+        }
+      }
+    },
+    "skia": {
+      "schema_version": 1,
+      "content_id": "ntesim-current",
+      "character_id": "character:1008",
+      "weapon_id": "weapon:fork_Kite",
+      "weapon_tier": 1,
+      "set_id": "set:Suit11",
+      "set_count": 4,
+      "additive_attributes": {
+        "AtkAdd": {
+          "numerator": "420",
+          "denominator": "1"
+        },
+        "AtkUp": {
+          "numerator": "39",
+          "denominator": "40"
+        },
+        "HPMaxAdd": {
+          "numerator": "5600",
+          "denominator": "1"
+        }
+      }
+    },
+    "nanally": {
+      "schema_version": 1,
+      "content_id": "ntesim-current",
+      "character_id": "character:1010",
+      "weapon_id": "weapon:fork_GoldRecord",
+      "weapon_tier": 1,
+      "set_id": "set:Suit11",
+      "set_count": 4,
+      "additive_attributes": {
+        "AtkAdd": {
+          "numerator": "420",
+          "denominator": "1"
+        },
+        "AtkUp": {
+          "numerator": "3",
+          "denominator": "8"
+        },
+        "CritBase": {
+          "numerator": "6",
+          "denominator": "25"
+        },
+        "HPMaxAdd": {
+          "numerator": "5600",
+          "denominator": "1"
+        }
+      }
+    }
+  }
+}

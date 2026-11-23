@@ -1,0 +1,94 @@
+{
+  "checks": [
+    "Native content tests: cargo test -p ntesim-content jingmotingyuan — 11/11 (7 pre-existing + 4 audit-added).",
+    "Projection binds the two frozen curves across T1..T5 against frozen-row oracles (CritDamageUp 0.12/0.14/0.16/0.18/0.20 = 3/25, 7/50, 4/25, 9/50, 1/5 with bIsPercent=true; 5.0s duration with seconds unit hint), asserts the native description key buff_fork_jingmotingyuan_effect, and rejects a group mismatch (character:1003, group FOUR vs weapon group FIVE) and a flipped bIsPercent unit hint. (jingmotingyuan_projection_binds_five_refinement_tiers, jingmotingyuan_projection_rejects_group_mismatch_and_changed_units)",
+    "Config validation: a proc on weapon:fork_Kite is rejected ('weapon:fork_jingmotingyuan'), duration_us 0 is rejected ('positive duration'), a zero-denominator ratio is rejected; a legal config validates. (jingmotingyuan_validate_config_rejects_mismatches)",
+    "Runtime: only tagged wearer casts (content tag ntesim.trigger.hp_cost) grant the wearer-only timed buff (id jingmotingyuan.hp_cost_crit_damage, source weapon:fork_jingmotingyuan, BuffRecipient::SelfActor); untagged casts grant nothing; on_cast is registered in the gear dispatch. (jingmotingyuan_buff_granted_only_by_tagged_hp_cost)",
+    "Independent zone oracles: 2 stacks at T1 -> exactly 31/25 zone ratio; 4 stacks at T1 -> exactly 12/25 bonus; a fifth trigger at the cap refreshes the 5s expiry without adding a stack; the buff expires at the deadline and contributes nothing after; a tagged cast after expiry grants a fresh single stack. (jingmotingyuan_crit_damage_joins_additive_zone, jingmotingyuan_cap_four_stacks_t1_is_12_25, jingmotingyuan_stacks_cap_at_four_and_refresh_duration, jingmotingyuan_buff_expires_after_duration, jingmotingyuan_trigger_after_expiry_grants_fresh_buff)",
+    "The projection report asserts runtime_execution_validated=true as an honesty lock; the staged crit_damage_bonus modifier is consumed by the live hit path (critical_parameters adds buff_stat(\"crit_damage_bonus\") into the additive crit-damage zone), so the true flag is verified. (jingmotingyuan_projection_reports_runtime_execution_validated)",
+    "rustfmt clean on the touched test file (check mode via tools/cargo.py; two new-test lines wrapped manually).",
+    "Web scenario web/tests/combat/jingmotingyuan.mjs is registered in web/tests/weapon_passives.test.mjs for CI; WASM is not built in this Linux env, so the web test was not executed here."
+  ],
+  "combat_scope": "Projection of the frozen T1..T5 CRIT DMG ratios (3/25, 7/50, 4/25, 9/50, 1/5) and 5s duration into a wearer-only timed buff that stages a crit_damage_bonus stat modifier. The modifier is consumed by the live hit calculation (critical_parameters joins buff_stat(\"crit_damage_bonus\") into the additive crit-damage zone per COMBAT_FORMULA_CONTRACT section 3), so the crit-zone effect is executed end to end through the real cast path. The HP-cost trigger itself is a content-owned semantic tag, not a native engine event.",
+  "curves": {
+    "buff_tingyuan_CD": {
+      "keys": [
+        1,
+        5
+      ],
+      "unit": "seconds",
+      "values": [
+        5.0,
+        5.0
+      ]
+    },
+    "buff_tingyuan_CritDamageUp": {
+      "keys": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "unit": "ratio",
+      "values": [
+        0.12,
+        0.14,
+        0.16,
+        0.18,
+        0.2
+      ]
+    }
+  },
+  "cutoff": "2026-10-04",
+  "exclusive_character_ids": [],
+  "group": "ECharacterGroupType::CHARACTER_GROUP_TYPE_FIVE",
+  "hypothesis_id": "weapons.jingmotingyuan_v1",
+  "independent_oracles": [
+    "T1 zone math: +3/25 per stack; 2 stacks -> 6/25 additive bonus, zone ratio 1 + 6/25 = 31/25. A multiplicative misreading (x1.12 per stack) would give 1.2544 for two stacks, which is rejected. (jingmotingyuan_crit_damage_joins_additive_zone)",
+    "T1 cap oracle: 4 stacks -> 4 * 3/25 = 12/25 exactly; a fifth trigger adds no stack (still 12/25, not 15/25). (jingmotingyuan_cap_four_stacks_t1_is_12_25)",
+    "T5 hand-derived (not asserted by code): per-stack 0.20 = 1/5, 4-stack cap = 4/5 additive.",
+    "Duration oracle: grant at t=0 expires at 5_000_000 us; tagged re-trigger at t=4_000_000 resets expiry to 9_000_000 (RefreshPolicy::Reset, single instance); a tagged cast after expiry grants a fresh 1-stack buff expiring at last_grant + 5_000_000. (jingmotingyuan_buff_expires_after_duration, jingmotingyuan_trigger_after_expiry_grants_fresh_buff, jingmotingyuan_stacks_cap_at_four_and_refresh_duration)"
+  ],
+  "known_gaps": [
+    "Global release availability is unverified.",
+    "HP reduction without taking damage has no native engine trigger; the content-owned tag ntesim.trigger.hp_cost is an explicit scenario-level declaration, with a return condition to replace it when the engine models HP-cost events natively (same pattern as thief_candy).",
+    "The research action_gameplay_tags pipeline rejects non-native tags, so the HP-cost tag cannot be declared through scenario metadata today; trigger tests construct ActionMetadata directly.",
+    "The Arc: Silent Garden (buff_tingyuan_HPreduce, buff_tingyuan_CD2, GE_Fork_serenity_Skill1_Damage1, GE_Fork_serenity_Skill2_Damage) is explicitly out of scope: Arc summons and their attacks have no engine representation (Q1-V4).",
+    "The 5s duration is read from buff_tingyuan_CD as seconds per the {0}s description placeholder; no independent in-game timing evidence.",
+    "Web tests were authored and registered but not executed here: no WASM build exists in this Linux environment; they are written for CI."
+  ],
+  "name": "Silent Garden",
+  "native_curve_rows": "CT_ForkBuff:/rows/buff_tingyuan_CritDamageUp,buff_tingyuan_CD",
+  "native_item_row": "DT_ForkItemData:/rows/fork_jingmotingyuan",
+  "native_refinement_rows": "DT_ForkUpgradeStarDataTable:/rows/upgradestar_pack_fork_jingmotingyuan_1..5",
+  "content_id": "ntesim-current",
+  "passive_description": {
+    "key": "buff_fork_jingmotingyuan_effect",
+    "localized": "Increases CRIT DMG by <lv>{1}</> for <lv>{0}</>s when the wearer's HP is reduced without taking damage, up to <lv>4</> stacks. Unlocks Arc: Silent Garden. (Arc clauses out of scope)",
+    "source": "frozen catalog DT_ForkUpgradeStarDataTable:/rows/upgradestar_pack_fork_jingmotingyuan_1/Description"
+  },
+  "region": "Global",
+  "schema_version": 1,
+  "source_sha256": {
+    "data/ntesim-current/tables/CT_ForkBuff.json": "93d1ed2069bc8e4358f98bfb5a3e212c13ad84e67eb6379e38414aa665539c15",
+    "data/ntesim-current/tables/DT_Character.json": "cce34c68a6286d9cfeb1525c7e0e05743370e8d5f96f6ddb8feb4ef8db0ab406",
+    "data/ntesim-current/tables/DT_ForkItemData.json": "22f6f587ad9bf3d54905889e81bfe8f213fa29c49522499287c53d42fd6900a4",
+    "data/ntesim-current/tables/DT_ForkUpgradeStarDataTable.json": "b15f6c4cf4b8a6e1c982b431176b406a501f38861a67ddce45a0f589cdeed8c5"
+  },
+  "status": "modeled_hypothesis",
+  "tested_hypotheses": [
+    "Only actions carrying the content-owned ntesim.trigger.hp_cost tag grant the buff; untagged actions grant nothing.",
+    "HP reduction without taking damage is not modeled by the engine, so the tag is an explicit scenario-level declaration of the trigger, never a silent zero and never an invented native trigger; return condition: replace the tag check when the engine models HP-cost events natively.",
+    "Each trigger adds one stack up to a cap of 4 on a single BuffManager instance and resets the 5s duration (BuffManager RefreshPolicy::Reset, max_stacks 4, DecayPolicy::AllAtOnce).",
+    "A trigger at the 4-stack cap refreshes the duration without adding a fifth stack.",
+    "The buff expires after the duration and contributes nothing once expired; a tagged cast after expiry grants a fresh single-stack buff.",
+    "The buff is wearer-only (BuffRecipient::SelfActor): the bonus does not spill onto a teammate actor.",
+    "The per-stack crit damage bonus joins the additive critical-damage zone: two stacks at T1 give exactly 31/25; four stacks at T1 give exactly 12/25 (COMBAT_FORMULA_CONTRACT sections 1 and 3).",
+    "The staged crit_damage_bonus modifier is consumed by the live hit path (critical_parameters), so the projection's runtime_execution_validated=true is verified, not aspirational.",
+    "The +12%/+14%/+16%/+18%/+20% values and 5s duration are bound from CT_ForkBuff through the refinement DataList with bIsPercent unit checks.",
+    "The Arc: Silent Garden clauses (buff_tingyuan_HPreduce, buff_tingyuan_CD2, GE_Fork_serenity_Skill1_Damage1, GE_Fork_serenity_Skill2_Damage) are validated as frozen shape but never projected or consumed.",
+    "Global release availability remains unverified in the frozen catalog."
+  ],
+  "weapon_id": "weapon:fork_jingmotingyuan"
+}

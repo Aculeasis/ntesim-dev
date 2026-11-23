@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "question": "Does Real Music apply its Redirect Skill damage bonus by delivered packet category independently of input role?",
+  "branch_budget_minutes": 5,
+  "total_investigation_budget_minutes": 10,
+  "sources": [
+    "data/global-2026-10-04/tables/DT_ForkUpgradeStarDataTable.json#/rows/upgradestar_pack_fork_appliance_1",
+    "data/global-2026-10-04/tables/CT_ForkBuff.json#/rows/buff_appliance_Up"
+  ],
+  "decision": "Interpret native DamageSourceCategory E as Redirect Skill damage, following the existing Paper Plane model. Add exact T1-T5 ratios in the additive damage-bonus zone for every wearer E packet, including delayed off-field packets. Unknown or missing categories fail. The effect is permanent with no trigger or expiry.",
+  "availability": "Frozen Global release availability remains unverified.",
+  "stop_condition": "Check T1-T5 curves and units, legal equipped build, independent damage arithmetic, native primary/child packets, off-field ownership and CLI/WASM/Worker parity.",
+  "return_condition": "New packet classification, release or damage-zone evidence conflicts with the model.",
+  "checks": [
+    "159 content tests pass: exact T1-T5 ratios, changed-parameter/unit rejection and a legal Mint/Real Music native build. Independent exact additive damage multiplier agrees with execution.",
+    "Independent category oracle: 1000 ATK * .5 DEF * (1 + .1 general + .12 weapon) = 610 for E packets in Nature/Cosmos/physical tests; every other recognized category remains 550. Delayed Skill delivery after switching remains wearer-only. Duplicate/mismatched gear and missing/unknown packet categories fail.",
+    "Public Mint A0 level 80 talents 8/8/8 equipped Real Music T1-T5: only Skill receives the independently calculated damage bonus. Iroi A0 T5 checks the primary and both native Skill child packets. Full CLI/WASM report parity passes for all six scripts; the real Worker Iroi script agrees with direct WASM. Native parity is scoped with NTESIM_VERIFY_NATIVE=1 NTESIM_VERIFY_WEAPON=appliance; other weapons retain WASM/Worker checks.",
+    "TypeScript and production build, native_build and scenario_script test modules pass. Changed Rust files pass rustfmt. Content clippy passes allowing only the two pre-existing metadata lints collapsible_if and single_element_loop. Kits and timing remain partial; frozen source bytes are unchanged."
+  ],
+  "artifact_sha256": {
+    "target/debug/ntesim.exe": "c05fad94a7d86dc0eeea38fd08df2b0e3c992e6f266a5819ba67f016c826e520",
+    "web/wasm/ntesim_wasm.wasm": "b20f1cacddeecf1e6efaec70b88e2ef6c933d33e5e4efcb912f45b9e804e96d3"
+  }
+}

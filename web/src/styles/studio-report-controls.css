@@ -1,0 +1,116 @@
+main {
+  padding-bottom: 110px;
+}
+
+.editor-actions {
+  position: fixed;
+  bottom: 14px;
+  right: max(16px, calc((100vw - 1820px) / 2));
+  z-index: 40;
+  display: flex;
+  gap: 8px;
+  margin: 0;
+  padding: 8px;
+  background: #242124ed;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  box-shadow: 0 8px 28px #0006;
+  backdrop-filter: blur(12px);
+}
+
+.editor-actions button {
+  min-width: 125px;
+}
+
+.editor-actions #tools-btn,
+.editor-actions .tools-anchor {
+  margin: 0;
+}
+
+.editor-actions #run-btn {
+  min-width: 220px;
+}
+
+.card-inspect[aria-pressed='true'] {
+  background: #775687;
+}
+
+.distribution-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.hist-bar {
+  fill: #d74625;
+}
+
+.hist-bar:hover,
+.hist-bar:focus {
+  fill: #f1663d;
+}
+
+.hist-mean {
+  stroke: #ec784e;
+  stroke-width: 2;
+  stroke-dasharray: 4 3;
+}
+
+.hist-box {
+  fill: #df93603b;
+  stroke: #e99e83;
+}
+
+.distribution-summary {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  font: 11px var(--mono);
+  color: var(--muted);
+}
+
+.hist-inspector {
+  white-space: pre-line;
+  font: 12px/1.5 var(--mono);
+  color: #e8d2e9;
+  min-height: 36px;
+}
+
+.energy-accounting {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.energy-accounting span {
+  padding: 5px;
+  background: #443748;
+  border-radius: 4px;
+  font: 11px var(--mono);
+}
+
+@media (max-width: 650px) {
+  .editor-actions {
+    bottom: 8px;
+    left: 8px;
+    right: 8px;
+    gap: 5px;
+    padding: 6px;
+  }
+  .editor-actions button,
+  .editor-actions #run-btn {
+    min-width: 0;
+    flex: 1;
+    font-size: 12px;
+  }
+  .editor-actions #run-btn {
+    flex: 1.6;
+  }
+  .editor-actions #stop-btn {
+    flex: 1;
+  }
+  .distribution-summary {
+    font-size: 10px;
+  }
+}

@@ -1,0 +1,11 @@
+options iteration=1 duration=15 crit=fixed stamina_capacity=40 initial_stamina=30 stamina_use_efficiency=1 stamina_recovery_rate=5;
+nanally char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_energy=0;
+mint char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_energy=0;
+target hp=100000000 def=0 resist=0;
+active nanally;
+
+# Account values above are fixture inputs. The second spend refreshes the
+# two-second recovery pause. Switching shares the same continuing account bar.
+nanally dash; wait(0.4); nanally dash;
+mint swap; wait_until(6); mint dash;
+wait(3); nanally swap; wait(1.1); nanally attack;

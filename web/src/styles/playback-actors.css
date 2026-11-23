@@ -1,0 +1,162 @@
+.replay-overview b {
+  margin-left: 8px;
+  color: #faf4ff;
+}
+
+.replay-actors {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.replay-actor {
+  position: relative;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: #242026;
+  min-width: 0;
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s;
+}
+
+.replay-actor.on-field {
+  border-color: var(--actor);
+  box-shadow:
+    0 0 0 1px var(--actor),
+    0 4px 25px color-mix(in srgb, var(--actor) 12%, transparent);
+}
+
+.replay-portrait {
+  position: relative;
+  height: 155px;
+  overflow: hidden;
+  background: radial-gradient(
+    ellipse at 50% 100%,
+    color-mix(in srgb, var(--actor) 18%, transparent),
+    transparent 70%
+  );
+}
+
+.replay-portrait > img {
+  position: absolute;
+  height: 200px;
+  width: 100%;
+  object-fit: contain;
+  bottom: -15px;
+  transition:
+    transform 0.2s,
+    opacity 0.2s;
+  opacity: 0.6;
+}
+
+.on-field .replay-portrait > img {
+  opacity: 1;
+  transform: translateY(-3px);
+}
+
+.on-field-label {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font: 9px var(--mono);
+  background: var(--actor);
+  color: #211b27;
+  border-radius: 3px;
+  padding: 4px 7px;
+  font-weight: bold;
+  opacity: 0;
+}
+
+.on-field .on-field-label {
+  opacity: 1;
+}
+
+.replay-actor-body {
+  padding: 13px;
+  border-top: 1px solid var(--border);
+  display: grid;
+  gap: 8px;
+}
+
+.replay-actor-body > strong {
+  font-size: 13px;
+}
+
+.replay-action {
+  font-size: 11px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--muted);
+}
+
+.energy-heading {
+  display: flex;
+  justify-content: space-between;
+  font: 10px var(--mono);
+  margin-top: 3px;
+  color: var(--muted);
+}
+
+.energy-heading b {
+  color: #e8ddf3;
+  font-weight: normal;
+}
+
+.energy-track {
+  height: 5px;
+  border-radius: 3px;
+  background: #514355;
+  overflow: hidden;
+}
+
+.energy-track i {
+  display: block;
+  height: 100%;
+  background: var(--actor);
+  transition: width 0.1s;
+}
+
+.replay-actor-damage {
+  font: 10px var(--mono);
+  color: var(--muted);
+}
+
+.replay-hit {
+  position: absolute;
+  right: 14px;
+  top: 58px;
+  font: bold 22px var(--mono);
+  color: white;
+  text-shadow: 0 2px 5px #000;
+  padding: 3px 7px;
+  border-radius: 4px;
+  background: #19151dc0;
+  opacity: 0;
+}
+
+.hit-cue .replay-hit {
+  opacity: 1;
+}
+
+.cast-cue .replay-portrait {
+  box-shadow: inset 0 -3px 0 var(--actor);
+}
+
+[data-playing='true'] .cast-cue .replay-portrait > img {
+  animation: cast-pulse 0.45s ease-out;
+}
+
+[data-playing='true'] .hit-cue .replay-hit {
+  animation: hit-rise 0.65s ease-out;
+}
+
+@keyframes hit-rise {
+  from {
+    transform: translateY(8px);
+  }
+  to {
+    transform: translateY(-5px);
+  }
+}

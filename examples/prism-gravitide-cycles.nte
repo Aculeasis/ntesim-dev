@@ -1,0 +1,21 @@
+options iteration=1 duration=40 crit=fixed seed=42;
+
+daffodil char lvl=80/80 awakening=0 talent=1,1,1 qte=1;
+daffodil add weapon=fork_prism refine=1;
+mint char lvl=80/80 awakening=0 talent=1,1,1 qte=1;
+target hp=100000000 def=0 resist=0;
+active daffodil;
+
+# Cycle 1: the Redirect cast opens the 15s window; the 19-packet chain rides it.
+daffodil skill; daffodil attack:5;
+mint swap; mint attack:5;
+
+# The window survives the switch. The second Normal starts at14.875380s;
+# its first native contact lands exactly at15s, after equal-time expiry.
+wait_until(13.4); daffodil swap; daffodil attack;
+wait_until(14.875380); daffodil attack;
+
+# Cycle 2: the notify-started native16s cooldown has elapsed at17s.
+# The refreshed window lasts to32s; the peer then returns without resetting state.
+wait_until(17); daffodil skill; daffodil attack:5;
+mint swap; mint attack:5;

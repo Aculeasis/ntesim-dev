@@ -1,0 +1,89 @@
+{
+ "checks": [
+  "Native content build projection binds the two frozen curves across T1..T5 against independent frozen-row oracles (Break Intensity 90/108/126/144/162 points with bIsPercent=false; 50s duration with seconds unit hint), asserts the native description text and key buff_fork_Crowbar_effect, and rejects a group mismatch (character:1003, group FOUR vs weapon group ONE) and a flipped bIsPercent unit hint.",
+  "Config validation: a proc on weapon:fork_Worldrain is rejected ('weapon:fork_Crowbar'), duration_us 0 is rejected ('positive duration'), a zero-denominator ratio is rejected; a legal config validates.",
+  "Runtime: only admitted wearer Redirect Skill casts grant the wearer-only timed buff (id crowbar.break_intensity, source weapon:fork_Crowbar, BuffRecipient::SpecificActor, RefreshPolicy::Disallow, max 1 stack, Snapshot source lifetime); Normal and Ultimate casts grant nothing; a recast while active neither stacks nor refreshes (expiry stays at the first 50s deadline); a cast admitted after expiry grants a fresh full-duration buff.",
+  "Independent zone oracles: T1 break-zone ratio 1.15 with intensity 300 vs 390 (rejecting the 1.30 multiplicative misreading); T3/T5 hand-derived ratios 1.21 (426 intensity) and 1.27 (462 intensity), rejecting 1.42/1.54. These exercise core zone math only: the staged break_intensity modifier has no consumer in the content simulation, so the adapter-to-zone link is a return condition.",
+  "Focused run: 8/8 crowbar tests pass (7 pre-existing + crowbar_zone_math_t3_t5_hand_derived). rustfmt clean on the touched test file.",
+  "Web scenario web/tests/combat/crowbar.mjs is registered in web/tests/weapon_passives.test.mjs for CI; WASM is not built in this Linux env, so the web test was not executed here."
+ ],
+ "combat_scope": "Projection of the frozen T1..T5 Break Intensity points and 50s duration into a wearer-only timed buff that stages a flat break_intensity stat modifier. Break damage delivery and break gauge accumulation are not executed in the content simulation: the staged modifier has no downstream consumer, so the break-zone ratios are asserted as core zone math, not through the adapter.",
+ "curves": {
+  "buff_Crowbar_CD": {
+   "keys": [
+    1,
+    5
+   ],
+   "unit": "seconds",
+   "values": [
+    50.0,
+    50.0
+   ]
+  },
+  "buff_Crowbar_Unbal": {
+   "keys": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "unit": "points",
+   "values": [
+    90,
+    108,
+    126,
+    144,
+    162
+   ]
+  }
+ },
+ "cutoff": "2026-10-04",
+ "exclusive_character_ids": [],
+ "group": "ECharacterGroupType::CHARACTER_GROUP_TYPE_ONE",
+ "hypothesis_id": "weapons.crowbar_v1",
+ "independent_oracles": [
+  "T3 zone math: +126 Break Intensity points -> (1 + 426/300)/(1 + 300/300) = 2.42/2 = 1.21. The multiplicative misreading '+126% damage' would give 1.42, which is rejected. (crowbar_zone_math_t3_t5_hand_derived)",
+  "T5 zone math: +162 Break Intensity points -> (1 + 462/300)/(1 + 300/300) = 2.54/2 = 1.27; the zone shift is exactly +0.54, not x1.54.",
+  "T2 projection: break_intensity_bonus = 108/1 points, duration_us = 50_000_000 (raw buff_Crowbar_CD = 50.0s constant across keys)."
+ ],
+ "known_gaps": [
+  "Global release availability is unverified.",
+  "Break damage delivery and break gauge accumulation are not executed in the content simulation; the staged break_intensity modifier has no downstream consumer yet, so the adapter-to-zone link (buff -> 90/108/126/144/162 points -> break zone) is a return condition, not a tested path.",
+  "projection.rs reported \"runtime_execution_validated\": true while break-zone consumption is not executed; the flag was corrected to false in the batch-9 follow-up (commit baddadd) with a test asserting it, since the break damage path (Q1-V1) is pending. The remaining break-zone adapter-to-zone link stays a return condition, not a tested path.",
+  "Arc: Picky is non-combat and out of scope.",
+  "The 50s duration is read from buff_Crowbar_CD as seconds per the {1}s description placeholder; no independent in-game timing evidence.",
+  "Web tests were authored but not executed here: no WASM build exists in this Linux environment; they are written for CI."
+ ],
+ "name": "Time Bandit",
+ "native_curve_rows": "CT_ForkBuff:/rows/buff_Crowbar_Unbal,buff_Crowbar_CD",
+ "native_item_row": "DT_ForkItemData:/rows/fork_Crowbar",
+ "native_refinement_rows": "DT_ForkUpgradeStarDataTable:/rows/upgradestar_pack_fork_Crowbar_1..5",
+ "content_id": "ntesim-current",
+ "passive_description": {
+  "key": "buff_fork_Crowbar_effect",
+  "localized": "Increases Break Intensity by <lv>{0}</> for <lv>{1}</>s after the wearer casts a Redirect Skill. Effect does not stack.\nUnlocks Arc: Picky.\nArc: Picky — Summons Picky to unlock all nearby lockable objects.",
+  "source": "装备者释放「变轨技能」后，倾陷强度提升<lv>{0}</>，持续<lv>{1}</>秒，该效果不可叠加。\r\n可使用调弧·「撬撬」。（冷却时间<lv>{1}</>秒）\r\n调弧·「撬撬」：召唤「撬撬」，打开周围所有可以撬锁的物体。"
+ },
+ "region": "Global",
+ "schema_version": 1,
+ "source_sha256": {
+  "data/ntesim-current/tables/CT_ForkBuff.json": "93d1ed2069bc8e4358f98bfb5a3e212c13ad84e67eb6379e38414aa665539c15",
+  "data/ntesim-current/tables/DT_Character.json": "cce34c68a6286d9cfeb1525c7e0e05743370e8d5f96f6ddb8feb4ef8db0ab406",
+  "data/ntesim-current/tables/DT_ForkItemData.json": "22f6f587ad9bf3d54905889e81bfe8f213fa29c49522499287c53d42fd6900a4",
+  "data/ntesim-current/tables/DT_ForkUpgradeStarDataTable.json": "b15f6c4cf4b8a6e1c982b431176b406a501f38861a67ddce45a0f589cdeed8c5",
+  "data/ntesim-current/tables/DT_GameplayEffectMappingData.json": "8852904aad6113a4406162d8912ccf55163ec24549b5bbe3b1ccd2db5ab2cbf8"
+ },
+ "status": "modeled_hypothesis",
+ "tested_hypotheses": [
+  "Redirect Skill admission is the only trigger; Normal and Ultimate casts grant nothing.",
+  "The buff does not stack and does not refresh: a Redirect cast admitted while the buff is active leaves one stack with the original expiry (BuffManager RefreshPolicy::Disallow, max_stacks 1).",
+  "A Redirect cast admitted after expiry grants a fresh full-duration buff.",
+  "The buff is wearer-only (BuffRecipient::SpecificActor) and uses Snapshot source lifetime, so switching does not clear it.",
+  "The +90/+108/+126/+144/+162 point values and 50s duration are bound from CT_ForkBuff through the refinement DataList with bIsPercent=false unit checks.",
+  "The staged +BI points join the break damage zone additively as 1 + BI/300 + break_bonus_sum (COMBAT_FORMULA_CONTRACT section 5) per core zone math; the adapter-to-zone link has no runtime consumer yet and is a return condition.",
+  "Arc: Picky (summoning Picky to unlock lockable objects) is non-combat and explicitly unmodeled.",
+  "Global release availability remains unverified in the frozen catalog."
+ ],
+ "weapon_id": "weapon:fork_Crowbar"
+}

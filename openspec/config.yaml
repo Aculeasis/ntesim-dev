@@ -1,0 +1,48 @@
+schema: spec-driven
+
+context: |
+  Write source, specs and change artifacts in English.
+  ntesim is a Rust combat simulator with a native CLI and React/TypeScript Studio
+  using the same engine through WASM and a Worker. Rust owns domain behavior and
+  mechanics tests; TypeScript owns presentation and transport.
+  Read AGENTS.md and relevant openspec/specs capabilities. Detailed capability
+  references define API formats and limits; docs/mechanics retains source facts,
+  models, uncertainty and independent calculations. Specs state requirements,
+  not blanket claims of implementation completeness or game accuracy.
+  Targets are anonymous script-authored stationary dummies, all in range with
+  owner-specific caps and recipients. No enemy catalogs or geometry. Console
+  stats are authored through add stats; declared set effects apply automatically.
+  Keep consumed runtime constants typed in Rust and raw evidence in cache/.
+  Preserve exact arithmetic, deterministic real-time causality, continuing state,
+  explicit waits/admission and visible unsupported dependencies.
+  No backward compatibility: update current consumers and tests together.
+  Build with tools/cargo.py and tools/web.mjs; tools/openspec.py pins this CLI.
+  Local tools share at most four logical CPUs; run one validator at a time.
+  Only the GitHub Pages build opts into available runner CPUs with both
+  GITHUB_ACTIONS=true and NTESIM_BUILD_CPUS=all, preserving smaller caller limits.
+  Follow docs/DEVELOPMENT.md for checks.
+
+rules:
+  proposal:
+    - State scope, observable outcome and affected capabilities; avoid phase campaigns.
+  specs:
+    - Preserve full existing scenarios in MODIFIED blocks.
+    - Keep requirements behavioral; put implementation choices in design.md.
+    - Retain applicable assumptions, incomplete-result behavior and exact units.
+    - Link detailed references and mechanics evidence rather than duplicating them.
+  design:
+    - Identify affected Rust, native, WASM, Worker and UI boundaries as applicable.
+    - Preserve useful rationale; remove obsolete documents and repair their consumers.
+  tasks:
+    - Each task names a concrete completion check or delivered artifact.
+    - Reuse existing coverage; add tests only for a distinct meaningful risk.
+    - Include focused checks and python tools/checkpoint.py run before delivery.
+
+operations:
+  apply:
+    guidance:
+      - Use the existing native, WASM smoke or browser check boundary for the change.
+      - Continue authorized implementation and keep the selected change resumable.
+  archive:
+    guidance:
+      - Archive after tasks and applicable checks are complete; synchronize deltas.

@@ -1,0 +1,11 @@
+# Fair Duel is a state-owned passive, never another authored cast.
+options duration=16 iteration=1 seed=42;
+zero char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_cycle=100 start_energy=0;
+nanally char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_energy=0;
+target hp=100000000 def=0 resist=0;
+active zero;
+nanally skill;
+if !.nanally.authority.active || .nanally.underboss.active {wait(99);}
+wait_until(14);
+if .nanally.authority.active || .nanally.mods.authority!=0
+    || .nanally.energy!=13 || .zero.energy!=7 {wait(99);}

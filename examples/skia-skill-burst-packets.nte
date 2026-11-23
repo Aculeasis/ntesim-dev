@@ -1,0 +1,11 @@
+# Partial unequipped Skia rotation: two Skill casts (6 hits each) and one Burst (4 hits).
+# Timing uses the disclosed coincident-packet model; full kit/shadow clones pending.
+options iteration=1 duration=10 crit=fixed;
+skia char lvl=80/80 awakening=0 talent=8,8,8 qte=8;
+mint char lvl=80/80 awakening=0 talent=8,8,8 qte=8;
+target hp=10000000 def=1080 resist=0;
+active skia;
+skia skill, burst;
+mint swap;
+wait(6);
+skia skill;

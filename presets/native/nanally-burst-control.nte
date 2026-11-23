@@ -1,0 +1,15 @@
+# Two funded continuing Burst periods: native windup, summon marker and exact carry.
+options duration=76 iteration=1 seed=42;
+nanally char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_energy=100;
+target hp=100000000 def=1080 resist=0;
+active nanally;
+nanally burst;
+if .time!=0 || !.nanally.underboss.active || .nanally.mods.underboss+.time!=6 || .nanally.burst.cd+.time!=15 {wait(99);}
+repeat 6 {nanally attack:5;}
+nanally skill;
+if .time!=33.190917 || .nanally.energy!=100 {wait(99);}
+nanally burst;
+if .time!=33.190917 || !.nanally.underboss.active || .nanally.mods.underboss+.time!=39.190917 || .nanally.burst.cd+.time!=48.190917 {wait(99);}
+repeat 6 {nanally attack:5;}
+nanally skill;
+if .time!=66.381834 || .nanally.energy!=100 {wait(99);}

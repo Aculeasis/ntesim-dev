@@ -1,0 +1,131 @@
+{
+  "schema_version": 1,
+  "status": "modeled_and_tested",
+  "source_sha256": {
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json": "917b0c3675412c0425a0724d09e7dd8ae4d1ef9a100d2ea5669d7484d0901bf2",
+    "data/global-2026-10-04/tables/DT_SkillTeamChargeRelationData.json": "5e456919997b0f77c4b569ce812267a059bab553a1f87fcb863723c44b66363b"
+  },
+  "owners": [
+    {
+      "owner": "lacrimosa",
+      "character_id": "character:1004",
+      "hypothesis_id": "lacrimosa.ordinary_hit_energy_v1",
+      "element": "INCANTATION",
+      "packets": {
+        "Ranged": {
+          "effects": [
+            "GE_Player_Lacrimosa_Melee1_Damage",
+            "GE_Player_Lacrimosa_Melee2_Damage",
+            "GE_Player_Lacrimosa_Melee2_Damage",
+            "GE_Player_Lacrimosa_Melee2_Damage",
+            "GE_Player_Lacrimosa_Melee3_Damage",
+            "GE_Player_Lacrimosa_Melee4_Damage",
+            "GE_Player_Lacrimosa_Melee4_Damage",
+            "GE_Player_Lacrimosa_Melee4_Damage",
+            "GE_Player_Lacrimosa_Melee6_Damage",
+            "GE_Player_Lacrimosa_Melee5_Damage"
+          ],
+          "charge_milli": [
+            1428,
+            614,
+            614,
+            614,
+            4386,
+            607,
+            607,
+            607,
+            7454,
+            4767
+          ],
+          "total_milli": 21698
+        },
+        "Melee": {
+          "effects": [
+            "GE_Player_Lacrimosa_B_Melee1_Damage",
+            "GE_Player_Lacrimosa_B_Melee2_Damage",
+            "GE_Player_Lacrimosa_B_Melee3_Damage",
+            "GE_Player_Lacrimosa_B_Melee3_Damage",
+            "GE_Player_Lacrimosa_B_Melee4_Damage",
+            "GE_Player_Lacrimosa_B_Melee3_1_Damage",
+            "GE_Player_Lacrimosa_B_Melee3_1_Damage",
+            "GE_Player_Lacrimosa_B_Melee3_1_Damage",
+            "GE_Player_Lacrimosa_B_Melee3_Explode_Damage",
+            "GE_Player_Lacrimosa_B_Melee5_Damage",
+            "GE_Player_Lacrimosa_B_Melee6_Damage",
+            "GE_Player_Lacrimosa_B_Melee7_Damage",
+            "GE_Player_Lacrimosa_B_Melee7_Damage",
+            "GE_Player_Lacrimosa_B_Melee7_Damage",
+            "GE_Player_Lacrimosa_B_Melee8_Damage"
+          ],
+          "charge_milli": [
+            2471,
+            893,
+            766,
+            766,
+            945,
+            567,
+            567,
+            567,
+            748,
+            2727,
+            1050,
+            896,
+            896,
+            896,
+            4746
+          ],
+          "total_milli": 19501
+        },
+        "Skill": {
+          "effects": [
+            "GE_Player_Lacrimosa_Skill1_Damage"
+          ],
+          "charge_milli": [
+            6400
+          ],
+          "total_milli": 6400
+        },
+        "ToMelee": {
+          "effects": [
+            "GE_Player_Lacrimosa_SwitchModB_Damage"
+          ],
+          "charge_milli": [
+            4000
+          ],
+          "total_milli": 4000
+        },
+        "ToRanged": {
+          "effects": [
+            "GE_Player_Lacrimosa_Pan_Damage",
+            "GE_Player_Lacrimosa_Pan_Damage"
+          ],
+          "charge_milli": [
+            2000,
+            2000
+          ],
+          "total_milli": 4000
+        }
+      },
+      "source_distribution": "1/1",
+      "living_ally_distribution": "3/5"
+    }
+  ],
+  "decision": "Connect both modeled ordinary Normal forms, the guaranteed nearby projectile explosion, Flavor Variation transitions and ordinary Skill to shared exact team energy.",
+  "hypothesis_rationale": "Use frozen per-packet ChargeAdd and team element relations, retaining the existing tested delivery-time positive HP-loss, living-recipient, efficiency/carry and off-field model. Transition packets belong to GA_Lacrimosa_Melee; both Pan impacts qualify independently.",
+  "independent_oracles": [
+    "Ranged chain: 21.698 owner energy and 13.0188 per ally before efficiency.",
+    "Melee chain including one shatter: 19.501 owner energy and 11.7006 per ally before efficiency; explosion alone is 0.748 and 0.4488.",
+    "To-melee transition: 4 owner / 2.4 ally. To-ranged transition: two impacts of 2 owner / 1.2 ally each. Skill: 6.4 owner / 3.84 ally."
+  ],
+  "checks": [
+    "Shared Rust causal suite checks exact efficiency/carry, capacity/overflow, death/zero HP loss, strict declarations and delayed owner attribution.",
+    "Melee stage-three projectile explosion delivers after field exit with all recipient efficiencies checked independently.",
+    "Public empty-energy rotation executes twelve ranged chains, car Ultimate, transition, twelve melee chains, truck Ultimate, Skill and reverse transition, then funds Mint Ultimate. Current CLI/WASM/Worker, aggregation and replay agree.",
+    "Existing Lacrimosa action and player-input suites preserve damage/form boundaries."
+  ],
+  "limits": [
+    "Blood/Nightmare DoT, Sleep In resets, Discord, secondary technique callbacks and further attack variants remain unsupported.",
+    "Guaranteed nearby projectile shatter, form transitions and packet timings retain existing explicit hypotheses; no geometry or native caller evidence claim.",
+    "Burst packets remain excluded from ordinary-hit energy; their frozen ChargeAdd is zero."
+  ]
+}

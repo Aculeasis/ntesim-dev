@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "scope": "Edgar native primary action packet binding across Normal, Skill, and Ultimate",
+  "quality": "partial executable model; complete kit pending",
+  "sources": [
+    "data/extracted/guide_edgar.json",
+    "data/extracted/neverness_edgar.json",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json",
+    "data/global-2026-10-04/tables/1021AwakenEffect.json"
+  ],
+  "model": [
+    "GA_Edgar_Melee public primary packet is GE_Player_Edgar_Melee1_Damage. Native coefficients at Normal levels 1/8 are 0.309/0.530; category A/COSMOS metadata stays source-bound. Edgar's resonance_3 does not include Melee, so level remains unboosted at A3.",
+    "GA_Edgar_Skill delivers 7 instances of GE_Player_Edgar_Skill_Damage (1 primary + 6 children) under coincident timing hypothesis edgar.skill_burst_packets_v1. Native coefficients at Skill levels 1/8/9 are 0.800/1.371/1.481; category E/COSMOS metadata stays source-bound. A successful admitted Skill adds 1 Key of Truth at every awakening (up to 3); at A4, Skill DMG receives a +50% damage bonus across all hits.",
+    "GA_Edgar_UltraSkill public primary packet is GE_Player_Edgar_UltraSkill_Damage. Native coefficients at Burst levels 1/8/9 are 4.000/6.855/7.404; category Q/COSMOS metadata stays source-bound. Each admitted Ultimate samples current keys and enters a 10s + 1s per key Finnegan's Wake at every awakening; no key damage bonus is supported by the frozen native figure.",
+    "Resonance 3 activates at awakening >= 3 and adds +1 level to QTE, Skill, and UltraSkill without manual overrides.",
+    "At A1+, an admitted QTE by another living teammate adds one key to living Edgar, including off-field Edgar. Edgar is excluded from team QTE observation so own QTE grants once. Keys cap at three and persist through Burst and field switches under the reviewed no-consumption hypothesis. A4 Skill bonus (+50%) remains modeled; A6 allied DEF is implemented under edgar.a6_wake_team_def_v1 in reviews/q2-edgar-periodic-healing.json. The native 0.03 extra-charge ratio and 20.0 limit do not establish an additional Burst damage scalar or charge settlement.",
+    "Canonical arbitrary awakening selections: Effect1 teammate QTE keys, Effect4 Skill damage, Effect5 static Max HP and Effect6 Burst team DEF use selected identities. Native builds, Studio and runtime MaxHP provenance consume the same Effect5 selection; all HP percentages still settle together once. Resonance skill levels use count. Existing unsupported owner mechanics remain pending."
+  ],
+  "pending": [
+    "Full attack sequences (Melee2..Melee5, AirAttack), continuous channeling intervals, teammate lowest-HP healing, and complete kit interactions."
+  ],
+  "checks": [
+    "edgar_actions native checks: independent damage oracles at 1000 ATK, 0 RES verify Normal (309/2, 265/1, 265/1 at A3 resonance), Skill 7 hits (2800/1, 9597/2, 10367/2 at A3 resonance, 31101/4 at A4), Burst (2000/1, 6855/2, 3702/1 at A3 resonance). The prior 28791/8 A1 key damage expectation is superseded by reviews/q2-edgar-periodic-healing.json; keyed Burst damage remains 6855/2.",
+    "Off-field delivery attributes hits to Edgar; dead target settles 0 hits; horizon boundaries preserve pending events; strict mode requires explicit accepted hypothesis edgar.skill_burst_packets_v1.",
+    "web/tests/combat/edgar_actions.mjs passes with native CLI/WASM/Worker parity, including 15-hit two-Skill/one-Burst rotation with 100 spent energy.",
+    "tools/verify_edgar_kit.py passes 4 awakening cases with 10 settled hits and monotonic damage progression.",
+    "TypeScript and production build pass. Frozen source hashes match the identities below."
+  ],
+  "superseded_contract": "This earlier review predates the corrected Key of Truth contract. For key grants, duration sampling and A1 damage, use reviews/q2-edgar-periodic-healing.json; its original frozen source hashes remain unchanged.",
+  "source_sha256": {
+    "data/extracted/guide_edgar.json": "961c085ec4403f73208019d2ee8432d4efd2cf99bdff58cb679c7969b746acd4",
+    "data/extracted/neverness_edgar.json": "544d54df0e6d3af33a0faaf1c7c26c41011b733b882c5e0767618b4a8dbb47f4",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json": "917b0c3675412c0425a0724d09e7dd8ae4d1ef9a100d2ea5669d7484d0901bf2",
+    "data/global-2026-10-04/tables/1021AwakenEffect.json": "e385441cf04998dddf3239898b05d494fbd4c3a1510d7841c4dc974d203424d2"
+  }
+}

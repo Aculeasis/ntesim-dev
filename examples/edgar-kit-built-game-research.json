@@ -1,0 +1,216 @@
+{
+  "schema_version": 1,
+  "projection_policy": "known_static_additive_v1",
+  "hypothesis": "Use the partial known static additive build constants for every hit, with native character element plus general bonus; passive application and game eligibility remain unresolved.",
+  "scenario": {
+    "schema_version": 1,
+    "content_id": "ntesim-current",
+    "seed": 42,
+    "active_actor_index": 0,
+    "actors": [
+      {
+        "slot": 0,
+        "character_id": "character:1021",
+        "character_level": 80,
+        "awakening": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "purchased_skill_level": 8,
+        "purchased_qte_level": 8,
+        "initial_hp": 21962,
+        "initial_hp_max": 21962,
+        "initial_energy": 100,
+        "energy_capacity": 100,
+        "weapon_id": "weapon:fork_PaperPlane",
+        "weapon_tier": 1,
+        "set_id": "set:Suit8",
+        "static_stats": {
+          "base_atk": 896,
+          "atk": "9828/5",
+          "hp": 21962,
+          "def": 824,
+          "crit_rate": "1/20",
+          "crit_damage_bonus": "0/1",
+          "elemental_bonus": "0/1"
+        },
+        "gear_procs": []
+      },
+      {
+        "slot": 1,
+        "character_id": "character:1019",
+        "character_level": 80,
+        "awakening": [
+          1,
+          2,
+          3
+        ],
+        "purchased_skill_level": 8,
+        "purchased_qte_level": 8,
+        "initial_hp": 17720,
+        "initial_hp_max": 17720,
+        "initial_energy": 100,
+        "energy_capacity": 100,
+        "weapon_id": "weapon:fork_lingganzhongjiezhe",
+        "weapon_tier": 5,
+        "set_id": "set:Suit2",
+        "static_stats": {
+          "base_atk": 1151,
+          "atk": "46383/20",
+          "hp": 17720,
+          "def": 727,
+          "crit_rate": "57/100",
+          "crit_damage_bonus": "47/50",
+          "elemental_bonus": "1/10"
+        },
+        "gear_procs": []
+      }
+    ],
+    "targets": [
+      {
+        "target_index": 0,
+        "level": 80,
+        "hp_max": 10000000,
+        "hp_current": 10000000,
+        "defense": 1080,
+        "resistance": "1/5"
+      }
+    ],
+    "actions": [
+      {
+        "kind": "invoke_ability",
+        "timestamp_us": 0,
+        "actor_index": 0,
+        "ability_id": "GA_Edgar_QTE",
+        "array_index": 7,
+        "damage_effect_id": "GE_Player_Edgar_QTE_Damage",
+        "atk_rate": "857/250",
+        "energy_cost": 0,
+        "recovery_us": 600000,
+        "cooldown_us": 15000000,
+        "hit_delay_us": 100000
+      },
+      {
+        "kind": "invoke_ability",
+        "timestamp_us": 1000000,
+        "actor_index": 0,
+        "ability_id": "GA_Edgar_Melee",
+        "array_index": 7,
+        "damage_effect_id": "GE_Player_Edgar_Melee1_Damage",
+        "atk_rate": "53/100",
+        "energy_cost": 0,
+        "recovery_us": 600000,
+        "cooldown_us": 0,
+        "hit_delay_us": 100000
+      },
+      {
+        "kind": "invoke_ability",
+        "timestamp_us": 2000000,
+        "actor_index": 0,
+        "ability_id": "GA_Edgar_Skill",
+        "array_index": 7,
+        "damage_effect_id": "GE_Player_Edgar_Skill_Damage",
+        "atk_rate": "1371/1000",
+        "energy_cost": 0,
+        "recovery_us": 800000,
+        "cooldown_us": 16000000,
+        "hit_delay_us": 100000
+      },
+      {
+        "kind": "invoke_ability",
+        "timestamp_us": 3500000,
+        "actor_index": 0,
+        "ability_id": "GA_Edgar_UltraSkill",
+        "array_index": 7,
+        "damage_effect_id": "GE_Player_Edgar_UltraSkill_Damage",
+        "atk_rate": "1371/200",
+        "energy_cost": 100,
+        "recovery_us": 1200000,
+        "cooldown_us": 20000000,
+        "hit_delay_us": 100000
+      }
+    ],
+    "relative_duration_us": 20000000,
+    "clock_contract": "relative-combat-v1",
+    "timer_policy": "paused-world-v1",
+    "absolute_limit_us": 3600000000
+  },
+  "builds": [
+    {
+      "slot": 0,
+      "build": {
+        "schema_version": 1,
+        "content_id": "ntesim-current",
+        "character_id": "character:1021",
+        "weapon_id": "weapon:fork_PaperPlane",
+        "weapon_tier": 1,
+        "set_id": "set:Suit8",
+        "set_count": 4,
+        "additive_attributes": {
+          "AtkAdd": {
+            "numerator": "420",
+            "denominator": "1"
+          },
+          "AtkUp": {
+            "numerator": "3",
+            "denominator": "8"
+          },
+          "HPMaxAdd": {
+            "numerator": "5600",
+            "denominator": "1"
+          }
+        }
+      },
+      "purchased_skill_levels": {
+        "GA_Edgar_Melee": 8,
+        "GA_Edgar_Skill": 8,
+        "GA_Edgar_UltraSkill": 8,
+        "GA_Edgar_QTE": 8
+      }
+    },
+    {
+      "slot": 1,
+      "build": {
+        "schema_version": 1,
+        "content_id": "ntesim-current",
+        "character_id": "character:1019",
+        "weapon_id": "weapon:fork_lingganzhongjiezhe",
+        "weapon_tier": 5,
+        "set_id": "set:Suit2",
+        "set_count": 4,
+        "additive_attributes": {
+          "AtkAdd": {
+            "numerator": "420",
+            "denominator": "1"
+          },
+          "AtkUp": {
+            "numerator": "3",
+            "denominator": "8"
+          },
+          "CritBase": {
+            "numerator": "3",
+            "denominator": "10"
+          },
+          "HPMaxAdd": {
+            "numerator": "5600",
+            "denominator": "1"
+          }
+        }
+      },
+      "purchased_skill_levels": {
+        "GA_Mint019_Melee": 8,
+        "GA_Mint019_Skill": 8,
+        "GA_Mint019_UltraSkill": 8,
+        "GA_Mint019_QTE": 8
+      }
+    }
+  ],
+  "action_projection": {
+    "policy": "native_skill_level_v1",
+    "hypothesis": "Initial purchased level 1; upgrade coordinate L buys level L+1; effective level selects damage-array coordinate level-1; resonance_3 grants +1 at awakening 3..6 to configured resonance abilities across supported released characters. ATK-only single-hit partial execution and caller timing/cost policies remain explicit."
+  }
+}

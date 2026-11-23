@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "scope": "Nanally Normal chain, five ordinary Skill packets, and seven ordinary Burst packets",
+  "quality": "partial executable model; complete kit pending",
+  "sources": [
+    "data/extracted/guide_nanally.json",
+    "data/extracted/neverness_nanally.json",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json",
+    "data/global-2026-10-04/tables/1010AwakenEffect.json"
+  ],
+  "model": [
+    "GA_Nanally_Melee admits GE_Player_Nanally_Melee1_Damage and advances five ordinary stages (14 hits: 1, 1, 3, 7, 2 across Melee1..10) per nanally.normal_chain_v1. Native coefficients at Normal levels 1/8/9 are 4.313/7.390/7.986 across the chain; category A/NATURE metadata stays source-bound. See nanally-normal-chain.json.",
+    "GA_Nanally_Skill admits GE_Player_Nanally_Skill1_Damage and delivers five ordinary instances. Native coefficients at Skill levels1/8/9 are1.000/1.714/1.851 per hit; category E/NATURE stays source-bound. nanally.skill_five_hits_v1 discloses ordered coincident delivery on target zero. Existing Authority state (12s base,15s at A6), one A3 child (50% ATK) and one A1/A5 callback pair remain partial cast models; ordinary hits do not multiply them. See nanally-skill-packets.json.",
+    "GA_Nanally_UltraSkill binds primary GE_Player_Nanally_UltraSkill1_Damage, five GE_Player_Nanally_UltraSkill2_Damage packets, and final GE_Player_Nanally_UltraSkill3_Damage. Native ratios at levels 1/8/9 are 2.931 + 0.423*5 + 4.954, 5.023 + 0.725*5 + 8.490, and 5.425 + 0.783*5 + 9.170; all are Q/NATURE. Hypothesis nanally.burst_seven_hits_v1 delivers the ordered seven coincident packets before one separate native-coordinate GE_Player_Nanally_Cat_AirAttack_Damage assist. Source says the seven hits are immediate and Underboss coordinates with all Nanally attacks, but does not resolve whether the immediate Burst hits themselves trigger coordination; this model does not include those additional strikes. Future coordination and summon combo behavior remain pending.",
+    "Resonance 3 activates at awakening >= 3 and adds +1 level to Melee, Skill, and UltraSkill, selecting native coordinate level + 1 without manual overrides.",
+    "Awakening 4 (Not a Troublemaker) grants +100% damage bonus to UltraSkill, and Resonance 6 grants +15% total damage bonus.",
+    "Canonical arbitrary awakening selections: Effect1/2/3/4/5/6 gates for the modeled callbacks, Authority and Burst use selected identity. Talent resonance_3 and damage resonance_6 remain count-based. Existing unsupported owner mechanics remain pending."
+  ],
+  "pending": [
+    "Hold, aim, native Skill intervals/AoE/interruptions, Authority recast early-end action (rejected), Underboss coordination on the immediate Burst hits and future owner attacks, full Underboss combo actions, and Blossom Enhancement / Vita Pistils mechanics."
+  ],
+  "checks": [
+    "nanally_actions: Skill at1000ATK/DEF.5/RES0 gives five500/five857/five925.5 at levels1/8/effective9; A3 adds one250 follow-up. Burst independently verifies each packet at levels1/8/effective9, A4, and A6 including its A5 +2% cast callback. The seven immediate packets settle before the native-coordinate Cat_AirAttack assist; A1 energy and A5 ATK callbacks each remain once per cast.",
+    "All five Skill packets and seven Burst packets retain off-field ownership; horizon99 before impact100 keeps all eight Burst deliveries pending, exact settlement at100 delivers them in source order, and a lethal primary excludes later packets. Authority's30% crit damage ends at expiry/field exit, same-actor swap preserves it, and active recasts reject. Rejected energy admission schedules no ordinary/awakening packets or callbacks. Strict requires a matching explicit Burst timing/phase hypothesis and rejects missing or mismatched assumptions.",
+    "character_actions/weapon_passives/scenario_script/native_build web suites with NTESIM_VERIFY_NATIVE=1 check CLI/WASM parity and actual Worker at levels1/8/effective9, equipped Boxing Candy/Prokaryon, and two continuing Skill casts from empty energy in examples/nanally-skill-packets.nte. verify_nanally_kit checks description/native ratios at nine levels, modeled awakening cases and replay.",
+    "TypeScript and production build pass. Frozen source hashes match the identities below."
+  ],
+  "source_sha256": {
+    "data/extracted/guide_nanally.json": "e79564371a9881d62be4db4a280e7de356270b441c437e6dd9b383645a8a074c",
+    "data/extracted/neverness_nanally.json": "6552cfa78edae737f9a209bf8d7c1685c7de9e2a07ce612f202d028404b3c675",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json": "917b0c3675412c0425a0724d09e7dd8ae4d1ef9a100d2ea5669d7484d0901bf2",
+    "data/global-2026-10-04/tables/1010AwakenEffect.json": "2e63814f50541f04a2825238ee7f6a8ac092049a3564355e762d644860f94cf1"
+  }
+}

@@ -1,0 +1,139 @@
+.editor-actions #tools-btn,
+.editor-actions .tools-anchor {
+  margin-left: 0;
+}
+
+.editor-actions #run-btn {
+  min-width: 200px;
+}
+
+.editor-shell {
+  height: 400px;
+}
+
+.editor-toolbar {
+  font-size: 12px;
+}
+
+.results-toolbar {
+  margin: 12px 0;
+  gap: 8px;
+}
+
+.results-toolbar button {
+  padding: 7px 12px;
+  font-size: 12px;
+}
+
+.results-toolbar > span {
+  font-size: 11px;
+}
+
+.metadata {
+  padding: 7px;
+  gap: 6px;
+  border-radius: 5px;
+}
+
+.metadata > span {
+  font-size: 11px;
+  padding: 4px 6px;
+}
+
+.rollup-grid {
+  gap: 8px;
+}
+
+.rollup-card {
+  min-height: 163px;
+  padding: 19px 20px;
+  border-left-width: 3px;
+  border-radius: 5px;
+}
+
+.rollup-card h3 {
+  font-size: 14px;
+  margin-bottom: 15px;
+}
+
+.rollup-value {
+  font-size: 29px;
+  margin-bottom: 17px;
+}
+
+.stat-grid {
+  font-size: 11px;
+  gap: 5px 9px;
+}
+
+.stat-grid span {
+  gap: 6px;
+}
+
+.execution-summary {
+  padding: 10px 4px;
+  font-size: 10px;
+}
+
+.panel {
+  padding: 18px;
+  border-radius: 5px;
+  margin-bottom: 8px;
+}
+
+.panel h2 {
+  font-size: 14px;
+  margin-bottom: 14px;
+}
+
+.panel-heading {
+  gap: 12px;
+  margin-bottom: 15px;
+}
+
+.panel-heading h2 {
+  margin-bottom: 0;
+}
+
+.two-column,
+.three-column {
+  gap: 8px;
+}
+
+.panel-heading label {
+  font-size: 11px;
+}
+
+.time-chart {
+  height: 265px;
+}
+
+.chart-note {
+  font-size: 10px;
+}
+
+.target-card {
+  font-size: 11px;
+}
+
+.chart-bar {
+  border-radius: 2px;
+}
+
+.chart-row {
+  font-size: 11px;
+}
+
+.chart-name {
+  text-align: left;
+}
+
+.chart-tooltip {
+  border: 1px solid #8f799e;
+  background: #211d25;
+  color: #efe8f5;
+}
+
+.bar-space:hover > .chart-tooltip {
+  z-index: 25;
+}

@@ -1,0 +1,68 @@
+.panel {
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  padding: 22px;
+  margin-bottom: 10px;
+  background: #302a33;
+  min-width: 0;
+}
+
+.panel h2 {
+  margin: 0 0 20px;
+  color: var(--muted);
+  font-size: 17px;
+  font-weight: normal;
+}
+
+.panel h3 {
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: normal;
+}
+
+.panel-heading {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.panel-heading h2 {
+  margin: 0;
+  margin-right: auto;
+}
+
+.panel-title-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-right: auto;
+}
+
+.panel-title-group h2 {
+  margin: 0;
+  width: auto;
+}
+
+.panel-heading label {
+  font: 12px var(--mono);
+  color: var(--muted);
+}
+
+.panel-heading select {
+  padding: 6px;
+  font-size: 12px;
+}
+
+.two-column {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.three-column {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}

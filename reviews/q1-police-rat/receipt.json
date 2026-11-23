@@ -1,0 +1,114 @@
+{
+ "checks": [
+  "Native content build projection binds both frozen curves across T1..T5 (0.15/0.175/0.2/0.225/0.25 as exact fractions 3/20, 7/40, 1/5, 9/40, 1/4) against the frozen DataList order (buff_PoliceRat_AtkUp order 1, buff_PoliceRat_Up order 2, both bIsPercent=True), pins all four unit hints (AtkUp/Up/SkillDamage percent, Rat_CD seconds), enforces ApplyGroupType ONE against the wearer group, rejects a flipped bIsPercent unit hint and cross-group wearers (character:1019, group TWO), and asserts the native description text and key buff_fork_PoliceRat_effect.",
+  "Config validation: a proc on weapon:fork_PaperPlane is rejected ('requires equipped'), duplicate police-rat procs are rejected ('duplicates'), and a legal config validates.",
+  "Untagged real scenario run (T5): 1000 static ATK + 1000 base ATK * 1/4 = 1250 non-crit at 0 DEF/0 RES vs 1000 without the proc (ratio 5/4); M_bonus stays 1 on a non-Boss target.",
+  "T1 frozen-end anchor in a real scenario run: 1000 static ATK + 1000 base ATK * 3/20 = 1150 non-crit on an untagged target.",
+  "Tagged-arm zone math (real executed adapter + core exact zones): a Boss-tagged target yields atk_percent 1/4 and damage_bonus 1/4 from the real crate::gear::damage_bonus on a tagged GameSimulatorState; settling 1250 * (1 + 1/4) through the core exact evaluator gives 3125/2 (a real hit receipt would quantize to 1563 per COMBAT_FORMULA_CONTRACT section 6). Untagged yields zero damage bonus.",
+  "Additive-placement falsifier: the same 1/4 as a static actor bonus plus the 1/4 Boss bonus settles to 1250 * 3/2 = 1875, while final-zone placement of the Boss ratio would give 1250 * 5/4 * 5/4 = 15625/8 (1953.125), which is rejected.",
+  "Active-tag gating: a tag expired before the hit (1 us duration, queried at 10 us) grants zero damage bonus while the ATK percentage stays unconditional; two active tagged stacks still grant exactly 1/4 (the adapter gates on boss > 0 and adds the ratio once).",
+  "The two summon-arc DataList entries (buff_PoliceRat_SkillDamage, buff_Rat_CD) are unit-pinned but never projected: compiled_proc carries only atk_bonus and boss_damage_bonus.",
+  "gear::initialize records weapons.police_rat_v1 when the proc is present and records nothing without it; strict-mode record_hypothesis rejects the missing hypothesis and accepts the declared one.",
+  "Focused run: 11/11 police_rat tests pass (7 pre-existing + police_rat_boss_tagged_end_to_end_zone_math, police_rat_boss_bonus_requires_active_tag, police_rat_t1_frozen_curve_end_anchored_in_real_run, police_rat_projection_reports_runtime_execution_validated_true). Touched test file is rustfmt-clean in check mode.",
+  "Web scenario web/tests/combat/police_rat.mjs is registered in web/tests/weapon_passives.test.mjs for CI."
+ ],
+ "combat_scope": "Unconditional wearer ATK percentage joining the live base-ATK-scaled ATK sum. Additive damage-bonus-zone ratio against Boss-tagged targets only, gated on an active ntesim.status.boss tag. No cast/defeat/buff hooks; no summon behavior.",
+ "curves": {
+  "buff_PoliceRat_AtkUp": {
+   "keys": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "unit": "ratio",
+   "values": [
+    0.15,
+    0.175,
+    0.2,
+    0.225,
+    0.25
+   ]
+  },
+  "buff_PoliceRat_SkillDamage": {
+   "keys": [
+    1,
+    5
+   ],
+   "unit": "ratio",
+   "values": "summon arc only, not consumed"
+  },
+  "buff_PoliceRat_Up": {
+   "keys": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "unit": "ratio",
+   "values": [
+    0.15,
+    0.175,
+    0.2,
+    0.225,
+    0.25
+   ]
+  },
+  "buff_Rat_CD": {
+   "keys": [
+    1,
+    5
+   ],
+   "unit": "seconds",
+   "values": "summon arc only, not consumed"
+  }
+ },
+ "cutoff": "2026-10-04",
+ "exclusive_character_ids": [],
+ "group": "ECharacterGroupType::CHARACTER_GROUP_TYPE_ONE",
+ "hypothesis_id": "weapons.police_rat_v1",
+ "independent_oracles": [
+  "T5 ATK part: 1000 static ATK + 1000 base ATK * 1/4 = 1250 non-crit damage at 0 DEF/0 RES in a real scenario run; 1000 without the proc (ratio 5/4); M_bonus stays 1 on a non-Boss target. (police_rat_atk_bonus_joins_base_scaled_atk_sum_unconditionally)",
+  "T1 frozen end: 1000 + 1000 * 3/20 = 1150 non-crit in a real scenario run; tagged zone modifiers carry atk_percent 3/20 and damage_bonus 3/20. (police_rat_t1_frozen_curve_end_anchored_in_real_run)",
+  "Boss-gated zone: the real executed adapter yields damage_bonus 1/4 on a Boss-tagged target and 0 on an untagged target, with atk_percent 1/4 in both arms. (police_rat_boss_tagged_end_to_end_zone_math)",
+  "Tagged hit settles through the core exact zones to 1250 * 5/4 = 3125/2; the untagged arm settles to 1250/1 and agrees with the real scenario run. (police_rat_boss_tagged_end_to_end_zone_math)",
+  "Additive placement: 1/4 static bonus + 1/4 Boss bonus -> 1250 * 3/2 = 1875 exactly; final-zone placement of the Boss ratio would give 15625/8 (1953.125) and is rejected. (police_rat_boss_tagged_end_to_end_zone_math)",
+  "Active-tag gating: expired tag -> zero damage bonus with ATK still 1/4; two active tagged stacks -> damage_bonus still exactly 1/4 (added once). (police_rat_boss_bonus_requires_active_tag)"
+ ],
+ "known_gaps": [
+  "Global release availability is unverified in the frozen catalog.",
+  "Boss detection uses the content-owned ntesim.status.boss target status tag; the engine carries no Boss flag on targets and the frozen tables expose no boss binding. Boss identity via target metadata is an open Q1-V1 follow-up, deliberately not fixed here: Boss-tagged defeats only occur when a scenario declares the tag.",
+  "The Arc: Officer Whisker summon (buff_PoliceRat_SkillDamage, buff_Rat_CD) is explicitly out of scope (Q1-V4 gap): summons have no engine representation, so those curves are observed for unit-hint pinning but never projected or consumed.",
+  "The tagged-arm zone math drives the real executed adapter (crate::gear::damage_bonus on a tagged GameSimulatorState) plus the core exact damage zones; no production path injects the tag into a full scenario run, so the tagged hit is not a whole-scenario execution. The untagged arm is anchored against a real scenario run.",
+  "Web tests were authored but not executed here: no WASM build exists in this Linux environment; they are written for CI."
+ ],
+ "name": "Justice Executioner",
+ "native_curve_rows": "CT_ForkBuff:/rows/buff_PoliceRat_AtkUp,buff_PoliceRat_Up,buff_PoliceRat_SkillDamage,buff_Rat_CD",
+ "native_item_row": "DT_ForkItemData:/rows/fork_PoliceRat",
+ "native_refinement_rows": "DT_ForkUpgradeStarDataTable:/rows/upgradestar_pack_fork_PoliceRat_1..5",
+ "content_id": "ntesim-current",
+ "passive_description": {
+  "key": "buff_fork_PoliceRat_effect",
+  "localized": "Increases ATK by <lv>{0}</>.\nIncreases damage dealt to Bosses by <lv>{1}</>.\nUnlocks Arc: Officer Whisker.\nArc: Officer Whisker — Summons Officer Whisker to assist in combat. Officer Whisker continuously attacks enemies, dealing <lv>{2}</> of the wearer's ATK as damage per hit. Lasts <lv>30</>s. Cooldown: <lv>{3}</>s.",
+  "source": "攻击力提高<lv>{0}</>。\n对boss单位造成的伤害提高<lv>{1}</>。\n可使用调弧·「巡哨鼠鼠」。\n调弧·「巡哨鼠鼠」：召唤「巡哨鼠鼠」协助作战，「巡哨鼠鼠」持续攻击造成伤害，每次攻击造成装备者<lv>{2}</>的伤害。持续<lv>30</>秒，冷却时间<lv>{3}</>秒。"
+ },
+ "region": "Global",
+ "schema_version": 1,
+ "source_sha256": {
+  "data/ntesim-current/tables/CT_ForkBuff.json": "93d1ed2069bc8e4358f98bfb5a3e212c13ad84e67eb6379e38414aa665539c15",
+  "data/ntesim-current/tables/DT_Character.json": "cce34c68a6286d9cfeb1525c7e0e05743370e8d5f96f6ddb8feb4ef8db0ab406",
+  "data/ntesim-current/tables/DT_ForkItemData.json": "22f6f587ad9bf3d54905889e81bfe8f213fa29c49522499287c53d42fd6900a4",
+  "data/ntesim-current/tables/DT_ForkUpgradeStarDataTable.json": "b15f6c4cf4b8a6e1c982b431176b406a501f38861a67ddce45a0f589cdeed8c5"
+ },
+ "status": "modeled_hypothesis",
+ "tested_hypotheses": [
+  "The {0} ATK percentage is unconditional and joins the live base-ATK-scaled ATK sum (base_atk * p added to ATK), never multiplying compiled static ATK.",
+  "The {1} Boss damage ratio joins the single additive damage-bonus zone (M_bonus) only while the target carries an active Boss tag; it is not a final, special, or multiplicative factor, and multiple active tags do not multiply it.",
+  "Boss state is detected through the content-owned ntesim.status.boss target status tag; the tag name is not asserted to be the native GameplayTag because the frozen tables expose no boss binding and the engine carries no Boss flag on targets.",
+  "The Arc: Officer Whisker summon curves are observed for unit-hint pinning but never projected or consumed; summons are not modeled by the engine.",
+  "Frozen package evidence does not establish Global release availability."
+ ],
+ "weapon_id": "weapon:fork_PoliceRat"
+}

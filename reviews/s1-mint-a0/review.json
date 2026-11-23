@@ -1,0 +1,1891 @@
+{
+  "actual_game_dps": null,
+  "early_character_mechanic_ids": {
+    "character:1003": [
+      "action:character:1003:GA_Sagiri_Melee",
+      "action:character:1003:GA_Sagiri_Skill",
+      "action:character:1003:GA_Sagiri_UltraSkill",
+      "action:character:1003:GA_Sagiri_QTE",
+      "passive:character:1003:GA_Sagiri_Passive_1",
+      "passive:character:1003:GA_Sagiri_Passive_2",
+      "city:character:1003:City_Ability_Sagiri_01",
+      "awakening:character:1003:Effect1",
+      "awakening:character:1003:Effect2",
+      "awakening:character:1003:Effect3",
+      "awakening:character:1003:Effect4",
+      "awakening:character:1003:Effect5",
+      "awakening:character:1003:Effect6",
+      "awakening:character:1003:resonance_3",
+      "awakening:character:1003:resonance_6"
+    ],
+    "character:1019": [
+      "action:character:1019:GA_Mint019_Melee",
+      "action:character:1019:GA_Mint019_Skill",
+      "action:character:1019:GA_Mint019_UltraSkill",
+      "action:character:1019:GA_Mint019_QTE",
+      "passive:character:1019:GA_Mint_Passive_1",
+      "passive:character:1019:GA_Mint_Passive_2",
+      "city:character:1019:City_Ability_melt_01",
+      "awakening:character:1019:Effect1",
+      "awakening:character:1019:Effect2",
+      "awakening:character:1019:Effect3",
+      "awakening:character:1019:Effect4",
+      "awakening:character:1019:Effect5",
+      "awakening:character:1019:Effect6",
+      "awakening:character:1019:resonance_3",
+      "awakening:character:1019:resonance_6"
+    ],
+    "character:1046": [
+      "action:character:1046:GA_Female046_Melee",
+      "action:character:1046:GA_Female046_Skill",
+      "action:character:1046:GA_Female046_UltraSkill",
+      "action:character:1046:GA_Female046_QTE",
+      "passive:character:1046:GA_Female_Passive_1",
+      "passive:character:1046:GA_Female_Passive_2",
+      "city:character:1046:City_Ability_palyer_01",
+      "awakening:character:1046:Effect1",
+      "awakening:character:1046:Effect2",
+      "awakening:character:1046:Effect3",
+      "awakening:character:1046:Effect4",
+      "awakening:character:1046:Effect5",
+      "awakening:character:1046:Effect6",
+      "awakening:character:1046:resonance_3",
+      "awakening:character:1046:resonance_6"
+    ],
+    "character:1075": [
+      "action:character:1075:GA_Oneiroi_Melee",
+      "action:character:1075:GA_Oneiroi_Skill",
+      "action:character:1075:GA_Oneiroi_UltraSkill",
+      "action:character:1075:GA_Oneiroi_QTE",
+      "passive:character:1075:GA_Oneiroi_Passive_1",
+      "passive:character:1075:GA_Oneiroi_Passive_2",
+      "peculiarity:character:1075:GA_Oneiroi_Passive_3",
+      "city:character:1075:City_Ability_Oneiroi_01",
+      "city:character:1075:City_Ability_Oneiroi_02",
+      "awakening:character:1075:Effect1",
+      "awakening:character:1075:Effect2",
+      "awakening:character:1075:Effect3",
+      "awakening:character:1075:Effect4",
+      "awakening:character:1075:Effect5",
+      "awakening:character:1075:Effect6",
+      "awakening:character:1075:resonance_3",
+      "awakening:character:1075:resonance_6"
+    ]
+  },
+  "executable_fixture_frozen": false,
+  "id": "s1-mint-a0-review-v1",
+  "input_sha256": {
+    "build.json": "7e0272104d1e479d6ae92a50b682fe0b2761be5b6e6ec87896122a9d334dd2a0",
+    "intent.json": "50a6c4bed6128f1d27a75a02aa169ea1d28b43594795c695fb79622400f837f2"
+  },
+  "kind": "early-gameplay-evidence-review-v1",
+  "material_gaps": [
+    {
+      "blocked_checkpoints": [
+        "S1",
+        "S2",
+        "S3",
+        "S4"
+      ],
+      "budget_state": "pending focused investigation; this checkpoint inventories saved evidence only",
+      "candidate_sources": [
+        "saved local Mint GA/montage exports",
+        "applicable published Mint combat recording with explicit clock mapping"
+      ],
+      "evidence": [
+        {
+          "author_version_claim": "Global 1.4.5; author's extraction claim",
+          "compatibility": "unresolved; extraction claim is not runtime verification",
+          "pointer": "/rows/1019/CharacterAbilityList/0",
+          "source_id": "table:DT_CharacterAbilityConfig",
+          "source_sha256": "507f255b5e843eb598a572f96adeec4b61d4daaf29fac5cdf456414f6e922360",
+          "upstream_commit": "cef09a29d4d92c7b1e0b950d89ba8c75b1c529e7"
+        },
+        {
+          "author_version_claim": "Global 1.4.5; author's extraction claim",
+          "compatibility": "unresolved; extraction claim is not runtime verification",
+          "pointer": "/rows/1019/CharacterAbilityList/1",
+          "source_id": "table:DT_CharacterAbilityConfig",
+          "source_sha256": "507f255b5e843eb598a572f96adeec4b61d4daaf29fac5cdf456414f6e922360",
+          "upstream_commit": "cef09a29d4d92c7b1e0b950d89ba8c75b1c529e7"
+        },
+        {
+          "author_version_claim": "Global 1.4.5; author's extraction claim",
+          "compatibility": "unresolved; extraction claim is not runtime verification",
+          "pointer": "/rows/1019/CharacterAbilityList/2",
+          "source_id": "table:DT_CharacterAbilityConfig",
+          "source_sha256": "507f255b5e843eb598a572f96adeec4b61d4daaf29fac5cdf456414f6e922360",
+          "upstream_commit": "cef09a29d4d92c7b1e0b950d89ba8c75b1c529e7"
+        }
+      ],
+      "id": "S1-timing",
+      "investigation_budget": {
+        "minutes": 30,
+        "source_families": 2
+      },
+      "next_question": "What are the actual ordinary melee stages, skill/ultimate hit deliveries and earliest next-command deadlines?",
+      "owner": "character:1019",
+      "return_condition": "New applicable evidence addressing this question, or exhaustion of useful supported bindings.",
+      "status": "unresolved",
+      "stop_condition": "Stop at budget, inaccessible nominated sources, or evidence lacking runtime/version applicability; preserve unknowns.",
+      "unknown_dimensions": [
+        "hit_timing",
+        "recovery_switch_lock",
+        "calls"
+      ]
+    },
+    {
+      "blocked_checkpoints": [
+        "S1",
+        "S2",
+        "S3",
+        "S4"
+      ],
+      "budget_state": "pending focused investigation; this checkpoint inventories saved evidence only",
+      "candidate_sources": [
+        "Mint GA components and native resource grants",
+        "frozen global-value table and public resource descriptions"
+      ],
+      "evidence": [
+        {
+          "author_version_claim": "Global 1.4.5; author's extraction claim",
+          "compatibility": "unresolved; extraction claim is not runtime verification",
+          "pointer": "/rows/Mint_base/ChargeMax",
+          "source_id": "table:DT_PlayerPackData",
+          "source_sha256": "c808b13d1b8724d045143395ff519d3c4e193243f91b32843d6b4ac16a280765",
+          "upstream_commit": "cef09a29d4d92c7b1e0b950d89ba8c75b1c529e7"
+        }
+      ],
+      "id": "S1-resources",
+      "investigation_budget": {
+        "minutes": 25,
+        "source_families": 2
+      },
+      "next_question": "Which hit/cast events spend or generate ultimate energy, stamina and resonance, with what owner, caps and initial innate state?",
+      "owner": "character:1019",
+      "return_condition": "New applicable evidence addressing this question, or exhaustion of useful supported bindings.",
+      "status": "unresolved",
+      "stop_condition": "Stop at budget, inaccessible nominated sources, or evidence lacking runtime/version applicability; preserve unknowns.",
+      "unknown_dimensions": [
+        "resources",
+        "activation",
+        "stacks_refresh_icd"
+      ]
+    },
+    {
+      "blocked_checkpoints": [
+        "S1",
+        "S2",
+        "S3",
+        "S4"
+      ],
+      "budget_state": "pending focused investigation; this checkpoint inventories saved evidence only",
+      "candidate_sources": [
+        "frozen Mint passive effect references and fragment",
+        "local Buff_Mint019_Passive1 and New/Buff_Mint019_Passive2_New graphs"
+      ],
+      "evidence": [
+        {
+          "author_version_claim": "Global 1.4.5; author's extraction claim",
+          "compatibility": "unresolved; extraction claim is not runtime verification",
+          "pointer": "/rows/1019/CharacterAbilityList/3",
+          "source_id": "table:DT_CharacterAbilityConfig",
+          "source_sha256": "507f255b5e843eb598a572f96adeec4b61d4daaf29fac5cdf456414f6e922360",
+          "upstream_commit": "cef09a29d4d92c7b1e0b950d89ba8c75b1c529e7"
+        },
+        {
+          "author_version_claim": "Global 1.4.5; author's extraction claim",
+          "compatibility": "unresolved; extraction claim is not runtime verification",
+          "pointer": "/rows/1019/PassiveAbilityList/0",
+          "source_id": "table:DT_CharacterAbilityConfig",
+          "source_sha256": "507f255b5e843eb598a572f96adeec4b61d4daaf29fac5cdf456414f6e922360",
+          "upstream_commit": "cef09a29d4d92c7b1e0b950d89ba8c75b1c529e7"
+        },
+        {
+          "author_version_claim": "Global 1.4.5; author's extraction claim",
+          "compatibility": "unresolved; extraction claim is not runtime verification",
+          "pointer": "/rows/1019/PassiveAbilityList/1",
+          "source_id": "table:DT_CharacterAbilityConfig",
+          "source_sha256": "507f255b5e843eb598a572f96adeec4b61d4daaf29fac5cdf456414f6e922360",
+          "upstream_commit": "cef09a29d4d92c7b1e0b950d89ba8c75b1c529e7"
+        },
+        {
+          "author_version_claim": "Global 1.4.5; author's extraction claim",
+          "compatibility": "unresolved; extraction claim is not runtime verification",
+          "pointer": "/rows/1019/CityList/0",
+          "source_id": "table:DT_CharacterAbilityConfig",
+          "source_sha256": "507f255b5e843eb598a572f96adeec4b61d4daaf29fac5cdf456414f6e922360",
+          "upstream_commit": "cef09a29d4d92c7b1e0b950d89ba8c75b1c529e7"
+        }
+      ],
+      "id": "S1-passives",
+      "investigation_budget": {
+        "minutes": 25,
+        "source_families": 2
+      },
+      "next_question": "Do both unlocked A0 passives, QTE/common/city paths affect this rotation, and what proves each exclusion?",
+      "owner": "character:1019",
+      "return_condition": "New applicable evidence addressing this question, or exhaustion of useful supported bindings.",
+      "status": "unresolved",
+      "stop_condition": "Stop at budget, inaccessible nominated sources, or evidence lacking runtime/version applicability; preserve unknowns.",
+      "unknown_dimensions": [
+        "activation",
+        "recipients",
+        "calls",
+        "targets_geometry"
+      ]
+    },
+    {
+      "blocked_checkpoints": [
+        "S1",
+        "S2",
+        "S3",
+        "S4"
+      ],
+      "budget_state": "pending focused investigation; this checkpoint inventories saved evidence only",
+      "candidate_sources": [
+        "frozen weapon/set buff references",
+        "saved local Fork_Xiangdao5 and Equipment_Nature2_4 exports"
+      ],
+      "evidence": [
+        {
+          "author_version_claim": "Global 1.4.5; author's extraction claim",
+          "compatibility": "unresolved; extraction claim is not runtime verification",
+          "pointer": "/rows/upgradestar_pack_fork_lingganzhongjiezhe_5",
+          "source_id": "table:DT_ForkUpgradeStarDataTable",
+          "source_sha256": "7e9cdb3b755aa5d25fa86d7dd10da3ce93b90b5865b32d5cd8d09bdec97d19c3",
+          "upstream_commit": "cef09a29d4d92c7b1e0b950d89ba8c75b1c529e7"
+        },
+        {
+          "author_version_claim": "Global 1.4.5; author's extraction claim",
+          "compatibility": "unresolved; extraction claim is not runtime verification",
+          "pointer": "/rows/Suit2/SuitStructList/1",
+          "source_id": "table:DT_EquipmentSuitData",
+          "source_sha256": "abe814c99d21165060be7ba7403ba5d160ab619dc62f79d0c87e6249fa7729c1",
+          "upstream_commit": "cef09a29d4d92c7b1e0b950d89ba8c75b1c529e7"
+        }
+      ],
+      "id": "S1-gear",
+      "investigation_budget": {
+        "minutes": 30,
+        "source_families": 2
+      },
+      "next_question": "Resolve Mind Royale T5 energy proc and Fireflies crit stacks: trigger order, capture, refresh, expiry clock and nearby-target rule.",
+      "owner": "weapon:fork_lingganzhongjiezhe + set:Suit2",
+      "return_condition": "New applicable evidence addressing this question, or exhaustion of useful supported bindings.",
+      "status": "unresolved",
+      "stop_condition": "Stop at budget, inaccessible nominated sources, or evidence lacking runtime/version applicability; preserve unknowns.",
+      "unknown_dimensions": [
+        "activation",
+        "resources",
+        "stacks_refresh_icd",
+        "stat_capture_crit_rng",
+        "recipients"
+      ]
+    },
+    {
+      "blocked_checkpoints": [
+        "S1"
+      ],
+      "budget_state": "pending focused investigation; this checkpoint inventories saved evidence only",
+      "candidate_sources": [
+        "frozen monster tables and conditions preset",
+        "Mint target-query fragment and combat formula evidence"
+      ],
+      "evidence": [],
+      "id": "S1-target",
+      "investigation_budget": {
+        "minutes": 20,
+        "source_families": 2
+      },
+      "next_question": "Select an applicable level-80 enemy profile and explicit HP/position policy; establish damage tags, crit and rounding bindings.",
+      "owner": "scenario:S1",
+      "return_condition": "New applicable evidence addressing this question, or exhaustion of useful supported bindings.",
+      "status": "unresolved",
+      "stop_condition": "Stop at budget, inaccessible nominated sources, or evidence lacking runtime/version applicability; preserve unknowns.",
+      "unknown_dimensions": [
+        "targets_geometry",
+        "formula_units",
+        "stat_capture_crit_rng"
+      ]
+    },
+    {
+      "blocked_checkpoints": [
+        "S1",
+        "S2",
+        "S3",
+        "S4"
+      ],
+      "budget_state": "pending focused investigation; this checkpoint inventories saved evidence only",
+      "candidate_sources": [
+        "frozen source registry, roster and recommendation snapshots",
+        "saved decoder overrides and table compatibility report"
+      ],
+      "evidence": [
+        {
+          "author_version_claim": "Global 1.4.5; author's extraction claim",
+          "compatibility": "unresolved; extraction claim is not runtime verification",
+          "pointer": "/rows/1019",
+          "source_id": "table:DT_Character",
+          "source_sha256": "e129d676db29d8bb62044a30f7295d28d20482dc1a2f2aa0ccf6784cb2184f2e",
+          "upstream_commit": "cef09a29d4d92c7b1e0b950d89ba8c75b1c529e7"
+        },
+        {
+          "author_version_claim": "Global 1.4.5; author's extraction claim",
+          "compatibility": "unresolved; extraction claim is not runtime verification",
+          "pointer": "/rows/fork_lingganzhongjiezhe",
+          "source_id": "table:DT_ForkItemData",
+          "source_sha256": "fe9a07dbc593df8123e6bee188b2242109ecf863ca047b77c0deb2c7e105b952",
+          "upstream_commit": "cef09a29d4d92c7b1e0b950d89ba8c75b1c529e7"
+        },
+        {
+          "author_version_claim": "Global 1.4.5; author's extraction claim",
+          "compatibility": "unresolved; extraction claim is not runtime verification",
+          "pointer": "/rows/Suit2",
+          "source_id": "table:DT_EquipmentSuitData",
+          "source_sha256": "abe814c99d21165060be7ba7403ba5d160ab619dc62f79d0c87e6249fa7729c1",
+          "upstream_commit": "cef09a29d4d92c7b1e0b950d89ba8c75b1c529e7"
+        }
+      ],
+      "id": "S1-compatibility",
+      "investigation_budget": {
+        "minutes": 20,
+        "source_families": 2
+      },
+      "next_question": "Which release/Global hotfix and decoder evidence authorizes these exact equipment and runtime graphs?",
+      "owner": "package:ntesim-current",
+      "return_condition": "New applicable evidence addressing this question, or exhaustion of useful supported bindings.",
+      "status": "unresolved",
+      "stop_condition": "Stop at budget, inaccessible nominated sources, or evidence lacking runtime/version applicability; preserve unknowns.",
+      "unknown_dimensions": [
+        "version",
+        "release",
+        "decoder"
+      ]
+    },
+    {
+      "blocked_checkpoints": [
+        "S1",
+        "S2",
+        "S3",
+        "S4"
+      ],
+      "budget_state": "pending focused investigation; this checkpoint inventories saved evidence only",
+      "candidate_sources": [
+        "existing action/kernel services",
+        "S1 resolved action and clock contracts"
+      ],
+      "evidence": [],
+      "id": "S1-runner",
+      "investigation_budget": {
+        "minutes": 20,
+        "source_families": 2
+      },
+      "next_question": "Bind evidenced action/resource/deadline events atomically to the game runner with checked limits and partial-failure replay.",
+      "owner": "engine",
+      "return_condition": "New applicable evidence addressing this question, or exhaustion of useful supported bindings.",
+      "status": "unresolved",
+      "stop_condition": "Stop at budget, inaccessible nominated sources, or evidence lacking runtime/version applicability; preserve unknowns.",
+      "unknown_dimensions": [
+        "bounded_execution",
+        "causal_order",
+        "adapter",
+        "clock_binding"
+      ]
+    },
+    {
+      "blocked_checkpoints": [
+        "S2",
+        "S3",
+        "S4"
+      ],
+      "budget_state": "pending focused investigation; this checkpoint inventories saved evidence only",
+      "candidate_sources": [
+        "saved Sakiri fragment and ability/awakening tables",
+        "applicable switch and Sakiri footage"
+      ],
+      "evidence": [
+        {
+          "author_version_claim": "Global 1.4.5; author's extraction claim",
+          "compatibility": "unresolved; extraction claim is not runtime verification",
+          "pointer": "/rows/1003",
+          "source_id": "table:DT_CharacterAbilityConfig",
+          "source_sha256": "507f255b5e843eb598a572f96adeec4b61d4daaf29fac5cdf456414f6e922360",
+          "upstream_commit": "cef09a29d4d92c7b1e0b950d89ba8c75b1c529e7"
+        }
+      ],
+      "id": "S2-sakiri",
+      "investigation_budget": {
+        "minutes": 30,
+        "source_families": 2
+      },
+      "next_question": "Select a legal awakening effect and bind switch, self-exclusion, ATK buff capture/cap/expiry, mass-dependent targeting and energy.",
+      "owner": "character:1003",
+      "return_condition": "New applicable evidence addressing this question, or exhaustion of useful supported bindings.",
+      "status": "unresolved",
+      "stop_condition": "Stop at budget, inaccessible nominated sources, or evidence lacking runtime/version applicability; preserve unknowns.",
+      "unknown_dimensions": [
+        "awakening_selection",
+        "recipients",
+        "stat_capture_crit_rng",
+        "stacks_refresh_icd",
+        "hit_timing",
+        "resources"
+      ]
+    },
+    {
+      "blocked_checkpoints": [
+        "S3",
+        "S4"
+      ],
+      "budget_state": "pending focused investigation; this checkpoint inventories saved evidence only",
+      "candidate_sources": [
+        "frozen Zero ability/effect/awakening tables",
+        "local Zero dispatch graphs and public kit descriptions"
+      ],
+      "evidence": [
+        {
+          "author_version_claim": "Global 1.4.5; author's extraction claim",
+          "compatibility": "unresolved; extraction claim is not runtime verification",
+          "pointer": "/rows/1046",
+          "source_id": "table:DT_CharacterAbilityConfig",
+          "source_sha256": "507f255b5e843eb598a572f96adeec4b61d4daaf29fac5cdf456414f6e922360",
+          "upstream_commit": "cef09a29d4d92c7b1e0b950d89ba8c75b1c529e7"
+        }
+      ],
+      "id": "S3-zero",
+      "investigation_budget": {
+        "minutes": 30,
+        "source_families": 2
+      },
+      "next_question": "Resolve Zero's selected A1 effect, reaction/cycle/passive owner, off-field delivery and energy rather than assuming a scalar buff.",
+      "owner": "character:1046",
+      "return_condition": "New applicable evidence addressing this question, or exhaustion of useful supported bindings.",
+      "status": "unresolved",
+      "stop_condition": "Stop at budget, inaccessible nominated sources, or evidence lacking runtime/version applicability; preserve unknowns.",
+      "unknown_dimensions": [
+        "awakening_selection",
+        "activation",
+        "recipients",
+        "resources",
+        "off_field_forms_recast"
+      ]
+    },
+    {
+      "blocked_checkpoints": [
+        "S4"
+      ],
+      "budget_state": "pending focused investigation; this checkpoint inventories saved evidence only",
+      "candidate_sources": [
+        "saved Iroi fragment and local summon/resource graphs",
+        "applicable published Iroi combat recording"
+      ],
+      "evidence": [
+        {
+          "author_version_claim": "Global 1.4.5; author's extraction claim",
+          "compatibility": "unresolved; extraction claim is not runtime verification",
+          "pointer": "/rows/1075",
+          "source_id": "table:DT_CharacterAbilityConfig",
+          "source_sha256": "507f255b5e843eb598a572f96adeec4b61d4daaf29fac5cdf456414f6e922360",
+          "upstream_commit": "cef09a29d4d92c7b1e0b950d89ba8c75b1c529e7"
+        }
+      ],
+      "id": "S4-iroi",
+      "investigation_budget": {
+        "minutes": 30,
+        "source_families": 2
+      },
+      "next_question": "Resolve Imagination thresholds/drain, Regression, autonomous sheep/healing, DEF-ignore and Blossom-copy ownership/capture.",
+      "owner": "character:1075",
+      "return_condition": "New applicable evidence addressing this question, or exhaustion of useful supported bindings.",
+      "status": "unresolved",
+      "stop_condition": "Stop at budget, inaccessible nominated sources, or evidence lacking runtime/version applicability; preserve unknowns.",
+      "unknown_dimensions": [
+        "awakening_selection",
+        "activation",
+        "calls",
+        "resources",
+        "stat_capture_crit_rng",
+        "off_field_forms_recast"
+      ]
+    }
+  ],
+  "mint_ability_inventory": [
+    {
+      "evidence": {
+        "author_version_claim": "Global 1.4.5; author's extraction claim",
+        "compatibility": "unresolved; extraction claim is not runtime verification",
+        "pointer": "/rows/1019/CharacterAbilityList/0",
+        "source_id": "table:DT_CharacterAbilityConfig",
+        "source_sha256": "507f255b5e843eb598a572f96adeec4b61d4daaf29fac5cdf456414f6e922360",
+        "upstream_commit": "cef09a29d4d92c7b1e0b950d89ba8c75b1c529e7"
+      },
+      "group": "CharacterAbilityList",
+      "native_id": "GA_Mint019_Melee",
+      "purchase_gate": {
+        "Level": 8,
+        "RequireAwakenLevel": 0,
+        "RequireTupoLevel": 6
+      },
+      "runtime_influence": "unresolved; absence of a scripted command is not an exclusion",
+      "scripted": true
+    },
+    {
+      "evidence": {
+        "author_version_claim": "Global 1.4.5; author's extraction claim",
+        "compatibility": "unresolved; extraction claim is not runtime verification",
+        "pointer": "/rows/1019/CharacterAbilityList/1",
+        "source_id": "table:DT_CharacterAbilityConfig",
+        "source_sha256": "507f255b5e843eb598a572f96adeec4b61d4daaf29fac5cdf456414f6e922360",
+        "upstream_commit": "cef09a29d4d92c7b1e0b950d89ba8c75b1c529e7"
+      },
+      "group": "CharacterAbilityList",
+      "native_id": "GA_Mint019_Skill",
+      "purchase_gate": {
+        "Level": 8,
+        "RequireAwakenLevel": 0,
+        "RequireTupoLevel": 6
+      },
+      "runtime_influence": "unresolved; absence of a scripted command is not an exclusion",
+      "scripted": true
+    },
+    {
+      "evidence": {
+        "author_version_claim": "Global 1.4.5; author's extraction claim",
+        "compatibility": "unresolved; extraction claim is not runtime verification",
+        "pointer": "/rows/1019/CharacterAbilityList/2",
+        "source_id": "table:DT_CharacterAbilityConfig",
+        "source_sha256": "507f255b5e843eb598a572f96adeec4b61d4daaf29fac5cdf456414f6e922360",
+        "upstream_commit": "cef09a29d4d92c7b1e0b950d89ba8c75b1c529e7"
+      },
+      "group": "CharacterAbilityList",
+      "native_id": "GA_Mint019_UltraSkill",
+      "purchase_gate": {
+        "Level": 8,
+        "RequireAwakenLevel": 0,
+        "RequireTupoLevel": 6
+      },
+      "runtime_influence": "unresolved; absence of a scripted command is not an exclusion",
+      "scripted": true
+    },
+    {
+      "evidence": {
+        "author_version_claim": "Global 1.4.5; author's extraction claim",
+        "compatibility": "unresolved; extraction claim is not runtime verification",
+        "pointer": "/rows/1019/CharacterAbilityList/3",
+        "source_id": "table:DT_CharacterAbilityConfig",
+        "source_sha256": "507f255b5e843eb598a572f96adeec4b61d4daaf29fac5cdf456414f6e922360",
+        "upstream_commit": "cef09a29d4d92c7b1e0b950d89ba8c75b1c529e7"
+      },
+      "group": "CharacterAbilityList",
+      "native_id": "GA_Mint019_QTE",
+      "purchase_gate": {
+        "Level": 8,
+        "RequireAwakenLevel": 0,
+        "RequireTupoLevel": 6
+      },
+      "runtime_influence": "unresolved; absence of a scripted command is not an exclusion",
+      "scripted": false
+    },
+    {
+      "evidence": {
+        "author_version_claim": "Global 1.4.5; author's extraction claim",
+        "compatibility": "unresolved; extraction claim is not runtime verification",
+        "pointer": "/rows/1019/PassiveAbilityList/0",
+        "source_id": "table:DT_CharacterAbilityConfig",
+        "source_sha256": "507f255b5e843eb598a572f96adeec4b61d4daaf29fac5cdf456414f6e922360",
+        "upstream_commit": "cef09a29d4d92c7b1e0b950d89ba8c75b1c529e7"
+      },
+      "group": "PassiveAbilityList",
+      "native_id": "GA_Mint_Passive_1",
+      "purchase_gate": {
+        "Level": 0,
+        "RequireAwakenLevel": 0,
+        "RequireTupoLevel": 2
+      },
+      "runtime_influence": "unresolved; absence of a scripted command is not an exclusion",
+      "scripted": false
+    },
+    {
+      "evidence": {
+        "author_version_claim": "Global 1.4.5; author's extraction claim",
+        "compatibility": "unresolved; extraction claim is not runtime verification",
+        "pointer": "/rows/1019/PassiveAbilityList/1",
+        "source_id": "table:DT_CharacterAbilityConfig",
+        "source_sha256": "507f255b5e843eb598a572f96adeec4b61d4daaf29fac5cdf456414f6e922360",
+        "upstream_commit": "cef09a29d4d92c7b1e0b950d89ba8c75b1c529e7"
+      },
+      "group": "PassiveAbilityList",
+      "native_id": "GA_Mint_Passive_2",
+      "purchase_gate": {
+        "Level": 0,
+        "RequireAwakenLevel": 0,
+        "RequireTupoLevel": 4
+      },
+      "runtime_influence": "unresolved; absence of a scripted command is not an exclusion",
+      "scripted": false
+    },
+    {
+      "evidence": {
+        "author_version_claim": "Global 1.4.5; author's extraction claim",
+        "compatibility": "unresolved; extraction claim is not runtime verification",
+        "pointer": "/rows/1019/CityList/0",
+        "source_id": "table:DT_CharacterAbilityConfig",
+        "source_sha256": "507f255b5e843eb598a572f96adeec4b61d4daaf29fac5cdf456414f6e922360",
+        "upstream_commit": "cef09a29d4d92c7b1e0b950d89ba8c75b1c529e7"
+      },
+      "group": "CityList",
+      "native_id": "City_Ability_melt_01",
+      "purchase_gate": {
+        "Level": 0,
+        "RequireAwakenLevel": 0,
+        "RequireTupoLevel": 0
+      },
+      "runtime_influence": "unresolved; absence of a scripted command is not an exclusion",
+      "scripted": false
+    }
+  ],
+  "mint_passive_effect_refs": {
+    "GA_Mint_Passive_1": {
+      "AbilityGameplayTag": {
+        "TagName": "None"
+      },
+      "GameplayEffectToActivate": {
+        "AssetPathName": "/Game/Blueprints/Abilities/Player/Ability_019_Mint/PassiveEffect/Buff_Mint019_Passive1.Buff_Mint019_Passive1_C",
+        "SubPathString": ""
+      },
+      "bReliveNeedAddAgain": false
+    },
+    "GA_Mint_Passive_2": {
+      "AbilityGameplayTag": {
+        "TagName": "None"
+      },
+      "GameplayEffectToActivate": {
+        "AssetPathName": "/Game/Blueprints/Abilities/Player/Ability_019_Mint/PassiveEffect/New/Buff_Mint019_Passive2_New.Buff_Mint019_Passive2_New_C",
+        "SubPathString": ""
+      },
+      "bReliveNeedAddAgain": false
+    }
+  },
+  "package_files_sha256": {
+    "coverage.json": "13b1a640dd22f5e855966844dec463b5bd97141fcadc73a95a5e4970d6f50c85",
+    "evidence/tables/DT_Character.json": "e129d676db29d8bb62044a30f7295d28d20482dc1a2f2aa0ccf6784cb2184f2e",
+    "evidence/tables/DT_CharacterAbilityConfig.json": "507f255b5e843eb598a572f96adeec4b61d4daaf29fac5cdf456414f6e922360",
+    "evidence/tables/DT_CharacterAbilityEffectConfig.json": "204b7a20550b3ac92abbc667a6fda61698ccbad8796dc791fbcd2970c16bbf4d",
+    "evidence/tables/DT_CharacterEquipmentSlotsData.json": "a6d764b73030c00910a8924f1c15a0336de9d2d6eee8d484ca2de166bc53c28b",
+    "evidence/tables/DT_EquipmentShapeFeatureData.json": "4f6daf8f7bdb4ddd53e5605dfb174b03b7dbfefe6e0862c00a7751adb221f61b",
+    "evidence/tables/DT_EquipmentSuitData.json": "abe814c99d21165060be7ba7403ba5d160ab619dc62f79d0c87e6249fa7729c1",
+    "evidence/tables/DT_ForkItemData.json": "fe9a07dbc593df8123e6bee188b2242109ecf863ca047b77c0deb2c7e105b952",
+    "evidence/tables/DT_ForkUpgradeStarDataTable.json": "7e9cdb3b755aa5d25fa86d7dd10da3ce93b90b5865b32d5cd8d09bdec97d19c3",
+    "evidence/tables/DT_GlobalValueMintData.json": "e76d69549eca46ab23ecb142cf3e432cd37e2a2f5000cb469cab2de267011ab1",
+    "evidence/tables/DT_MintEffectFigure.json": "4b75ff005e8764379eabf0d20df10d45a5b8b9aea89fb4013b17e81f660cb688",
+    "evidence/tables/DT_PlayerPackData.json": "c808b13d1b8724d045143395ff519d3c4e193243f91b32843d6b4ac16a280765",
+    "manifest.json": "e53af0ab87474c3bc338f2bb4277bfadfa8aad9a271f5ed2662f136804e1ce33",
+    "mechanics.json": "b8a5a248b122cb4a82d1ce0655c03f0757462eefc4837b4552e12fb0f191db21",
+    "presets/characters.json": "c7a23ee5fc1386bef22109c063b06c763a8e422873a734fd5eb904d6da99951d",
+    "presets/conditions.json": "6d0b887db2f846d7308da163e5d96def92073722b95f79167b5c921c36e82728",
+    "presets/variants.csv": "4be74113c27dcdf08678a79f4f88d8958eca4951b25f3496746b5834a251da2e",
+    "presets/recommended_gear.csv": "c6a26121b99a21add7503b0bf44da9a05563389a5b0f5dd5a2dd89fd6be57cd1",
+    "research/fixtures.json": "9e67f11c356b8e5e840326191a921c17cc4180f67ba2124a50e953708ee82f35",
+    "research/models/fragments/iroi.json": "8fa57f1085bd292fbe69f1008affef402da13cec59a92bffac88123c70c4ed10",
+    "research/models/fragments/mint.json": "406acbf8b15c5ea76c2c23bd1111d66394437b95ceb4ecffe58b165fd653543f",
+    "research/models/fragments/sakiri.json": "224f65cf7ba1533a75ed39e7cdfefa1de0fb582ae8e23eac50c9cd814af7d4e3",
+    "sources.json": "d21e40f7a028107cc269a4f0d98201473c6c6a3c1fe47a869889e8879b1e677a",
+    "tables/DT_Character.json": "cce34c68a6286d9cfeb1525c7e0e05743370e8d5f96f6ddb8feb4ef8db0ab406",
+    "tables/DT_CharacterAbilityConfig.json": "3fcae1c1effc6db6c540e1edfae24f638da065ed69574b9c71cc9a5ce85e4bbe",
+    "tables/DT_CharacterAbilityEffectConfig.json": "bc2980f145351c405bf581a6336a4c862a25cde3c87de9d2af239be382065998",
+    "tables/DT_CharacterEquipmentSlotsData.json": "11a5c15d6f0902a9b9e6c57b6bffa561178502944edef627bf132f5a7f1e2e9f",
+    "tables/DT_EquipmentShapeFeatureData.json": "d7aea439911647d746dbdb2162873e089397589ad6491a5554c572fff8e06396",
+    "tables/DT_EquipmentSuitData.json": "04aefd811ecd2f9fa0a8f3bed759f8a8d4fbdc1a61a08294e897c9ed0323fb3e",
+    "tables/DT_ForkItemData.json": "22f6f587ad9bf3d54905889e81bfe8f213fa29c49522499287c53d42fd6900a4",
+    "tables/DT_ForkUpgradeStarDataTable.json": "b15f6c4cf4b8a6e1c982b431176b406a501f38861a67ddce45a0f589cdeed8c5",
+    "tables/DT_GlobalValueMintData.json": "e8b3b433f5b19281e5938f793af13e874bddcc1db56944a5004da09ab89b3e9e",
+    "tables/DT_MintEffectFigure.json": "4bf87e2d44f24277ac465880eb6c0ad8024d6cd5ec71492eb7f48cc82ca5ff6b",
+    "tables/DT_PlayerPackData.json": "869592f14dc79524e3ed866e2ca9580850e8e241df85aadb17b2287982484ce4"
+  },
+  "content_id": "ntesim-current",
+  "remaining_gate": "Q1 stays open: target/initial resource policy, execution schedules and complete influence/release/compatibility review are unresolved.",
+  "review_tool_sha256": "c62be1f8a75e2a2e5e218ac4a98cba5777414ca84ad2fa12e59c8f768ad3e56f",
+  "saved_fragment_boundaries": {
+    "iroi": {
+      "adapter_complete": false,
+      "path": "research/models/fragments/iroi.json",
+      "scope": "Capped base-ATK ally magnitude and serialized buff metadata",
+      "sha256": "8fa57f1085bd292fbe69f1008affef402da13cec59a92bffac88123c70c4ed10",
+      "unresolved": [
+        "Global dispatch, stat capture, duration/refresh clocks and skill application timing",
+        "Imagination, dream thresholds/drain, Regression and autonomous sheep behavior",
+        "Damage/target schedules, energy, weapon effects, passive DEF ignore and Blossom copying"
+      ]
+    },
+    "mint": {
+      "adapter_complete": false,
+      "path": "research/models/fragments/mint.json",
+      "scope": "Actual conditional/scalar graphs only; supplied target-query/HP/tag inputs",
+      "sha256": "406acbf8b15c5ea76c2c23bd1111d66394437b95ceb4ecffe58b165fd653543f",
+      "unresolved": [
+        "Actual native range query, inherited filtering and hit-result uniqueness",
+        "Target HP policy for immortal benchmark enemies and damage-tag matching",
+        "Awakening event dispatch, reaction-to-QTE behavior and duration/refresh clocks",
+        "Real hit/lock/energy schedules, stamina, E damage awakening, resonance gauge, equipment and full kit"
+      ]
+    },
+    "sakiri": {
+      "adapter_complete": false,
+      "path": "research/models/fragments/sakiri.json",
+      "scope": "Actual saved scalar/condition graphs with explicit modeled native reads",
+      "sha256": "224f65cf7ba1533a75ed39e7cdfefa1de0fb582ae8e23eac50c9cd814af7d4e3",
+      "unresolved": [
+        "Buff activation and expiration clocks; montage/sequence playback and real action locks",
+        "Target mass and floating/suppression eligibility of selected enemy",
+        "Exact mass-scaled extra damage, action targeting, energy trigger scope and remaining passives",
+        "A1 Effect5 cooldown/energy reset, remaining awakening behaviors, equipment and complete kit"
+      ]
+    }
+  },
+  "scenario_intent": {
+    "adapter_order": [
+      "mint",
+      "sakiri",
+      "zero",
+      "iroi"
+    ],
+    "awakening": 0,
+    "build": "build.json",
+    "command_spacing_basis": "Reference guide preset integration choice; not an action recovery measurement",
+    "command_spacing_us": 250000,
+    "configured_s4_slots": [
+      "mint",
+      "sakiri",
+      "iroi",
+      "zero"
+    ],
+    "executable": false,
+    "horizon": {
+      "clock": "real",
+      "duration_us": 20000000
+    },
+    "id": "s1-mint-a0-review-v1",
+    "initial": {
+      "actor_hp_fraction": 1,
+      "innate_resources": null,
+      "precombat_buffs": false,
+      "precombat_reactions": false,
+      "skill_readiness": "ready",
+      "ultimate_energy": "full; native capacity is reviewed separately from runtime ownership"
+    },
+    "content_id": "ntesim-current",
+    "passives": "all progression-unlocked passives require influence review",
+    "purchased_skill_level": 8,
+    "rotation_intent": [
+      "GA_Mint019_Melee",
+      "GA_Mint019_Skill",
+      "GA_Mint019_UltraSkill"
+    ],
+    "rotation_timestamps_us": null,
+    "schema_version": 1,
+    "status": "INCOMPLETE",
+    "target": {
+      "break_enabled": false,
+      "count": 1,
+      "defense": null,
+      "hp_current": null,
+      "hp_max": null,
+      "hp_policy": null,
+      "incoming_attacks": [],
+      "level": 80,
+      "position": null,
+      "resistance_interpretation": "preset neutral 20%; scenario choice, not a verified enemy profile"
+    }
+  },
+  "schema_version": 1,
+  "scope_choices": [
+    {
+      "basis": "explicit separate no-break scenario; no claim about break execution",
+      "branch": "break"
+    },
+    {
+      "basis": "empty scripted enemy attack list; no claim about survival execution",
+      "branch": "incoming attacks"
+    },
+    {
+      "basis": "A0 selects no awakening effects; A6 fragment cannot authorize A0 passives or action schedules",
+      "branch": "awakening"
+    },
+    {
+      "basis": "influence unresolved, retained in dependency review; no silent exclusion",
+      "branch": "other unscripted kit paths"
+    }
+  ],
+  "selected_build": {
+    "full_release_and_build_legality": "unresolved",
+    "modules": [
+      {
+        "cells": [
+          [
+            5,
+            2
+          ],
+          [
+            5,
+            3
+          ],
+          [
+            5,
+            4
+          ]
+        ],
+        "shape": "EquipmentGeometry_Shu3",
+        "size": 3,
+        "x": 5,
+        "y": 3
+      },
+      {
+        "cells": [
+          [
+            3,
+            5
+          ],
+          [
+            4,
+            5
+          ]
+        ],
+        "shape": "EquipmentGeometry_Hen2",
+        "size": 2,
+        "x": 3,
+        "y": 5
+      },
+      {
+        "cells": [
+          [
+            3,
+            1
+          ],
+          [
+            4,
+            1
+          ],
+          [
+            5,
+            1
+          ]
+        ],
+        "shape": "EquipmentGeometry_Hen3",
+        "size": 3,
+        "x": 4,
+        "y": 1
+      },
+      {
+        "cells": [
+          [
+            3,
+            2
+          ],
+          [
+            3,
+            3
+          ],
+          [
+            4,
+            2
+          ]
+        ],
+        "shape": "EquipmentGeometry_ZhiJiao2",
+        "size": 3,
+        "x": 3,
+        "y": 2
+      },
+      {
+        "cells": [
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            2,
+            2
+          ]
+        ],
+        "shape": "EquipmentGeometry_Z4",
+        "size": 4,
+        "x": 1,
+        "y": 2
+      },
+      {
+        "cells": [
+          [
+            2,
+            3
+          ],
+          [
+            2,
+            4
+          ]
+        ],
+        "shape": "EquipmentGeometry_Shu2",
+        "size": 2,
+        "x": 2,
+        "y": 3
+      },
+      {
+        "cells": [
+          [
+            1,
+            4
+          ],
+          [
+            1,
+            5
+          ],
+          [
+            2,
+            5
+          ]
+        ],
+        "shape": "EquipmentGeometry_ZhiJiao1",
+        "size": 3,
+        "x": 1,
+        "y": 4
+      }
+    ],
+    "native_charge_capacity": {
+      "denominator": 1,
+      "numerator": 100
+    },
+    "native_group_compatible": true,
+    "occupied_cells": 20,
+    "runtime_energy_scope": null,
+    "selection": "one explicit recommended candidate, not optimized",
+    "set_buff_ref": {
+      "ObjectName": "BlueprintGeneratedClass'Buff_Equipment_Nature2_4_C'",
+      "ObjectPath": "/Game/Blueprints/Abilities/Buff/Equipment/Equipment_013/Buff_Equipment_Nature2_4.0"
+    },
+    "set_dynamic_effect": "Legendary (4): Increases wearer's CRIT DMG by 8% when a nearby enemy takes Anima DMG from the Team, up to 7 stacks. Each stack lasts 10s. Effect remains active when the character is off-field.",
+    "set_name": "Fireflies and the Forest",
+    "substat_lines": 15,
+    "weapon_buff_refs": [
+      {
+        "BuffObject": {
+          "AssetPathName": "/Game/Blueprints/Abilities/Buff/Fork/Fork_Xiangdao/Buff_Fork_Xiangdao5/Buff_Fork_xiangdao_5_1.Buff_Fork_xiangdao_5_1_C",
+          "SubPathString": ""
+        },
+        "IsGlobal": false,
+        "bReliveNeedAddAgain": false
+      }
+    ],
+    "weapon_name": "Mind Royale",
+    "weapon_passive": "Grants the wearer <lv>{0}</> Ultimate Energy when casting a Redirect Skill. Triggers up to once every <lv>{1}</>s."
+  },
+  "serialized_curve_review": [
+    {
+      "coordinate": 8,
+      "coordinate_semantics": "review at 8; runtime skill-level/call binding remains unverified",
+      "evidence": {
+        "author_version_claim": "Global 1.4.5; author's extraction claim",
+        "compatibility": "unresolved; extraction claim is not runtime verification",
+        "pointer": "/rows/Mint_Melee_10_1",
+        "source_id": "table:DT_GlobalValueMintData",
+        "source_sha256": "e76d69549eca46ab23ecb142cf3e432cd37e2a2f5000cb469cab2de267011ab1",
+        "upstream_commit": "cef09a29d4d92c7b1e0b950d89ba8c75b1c529e7"
+      },
+      "hit_count": null,
+      "row": "Mint_Melee_10_1",
+      "runtime_units": null,
+      "serialized_value": {
+        "denominator": 1,
+        "numerator": 38
+      },
+      "table": "DT_GlobalValueMintData"
+    },
+    {
+      "coordinate": 8,
+      "coordinate_semantics": "review at 8; runtime skill-level/call binding remains unverified",
+      "evidence": {
+        "author_version_claim": "Global 1.4.5; author's extraction claim",
+        "compatibility": "unresolved; extraction claim is not runtime verification",
+        "pointer": "/rows/Mint_Melee_11_1",
+        "source_id": "table:DT_GlobalValueMintData",
+        "source_sha256": "e76d69549eca46ab23ecb142cf3e432cd37e2a2f5000cb469cab2de267011ab1",
+        "upstream_commit": "cef09a29d4d92c7b1e0b950d89ba8c75b1c529e7"
+      },
+      "hit_count": null,
+      "row": "Mint_Melee_11_1",
+      "runtime_units": null,
+      "serialized_value": {
+        "denominator": 1,
+        "numerator": 4
+      },
+      "table": "DT_GlobalValueMintData"
+    },
+    {
+      "coordinate": 8,
+      "coordinate_semantics": "review at 8; runtime skill-level/call binding remains unverified",
+      "evidence": {
+        "author_version_claim": "Global 1.4.5; author's extraction claim",
+        "compatibility": "unresolved; extraction claim is not runtime verification",
+        "pointer": "/rows/Mint_Melee_1_1",
+        "source_id": "table:DT_GlobalValueMintData",
+        "source_sha256": "e76d69549eca46ab23ecb142cf3e432cd37e2a2f5000cb469cab2de267011ab1",
+        "upstream_commit": "cef09a29d4d92c7b1e0b950d89ba8c75b1c529e7"
+      },
+      "hit_count": null,
+      "row": "Mint_Melee_1_1",
+      "runtime_units": null,
+      "serialized_value": {
+        "denominator": 1,
+        "numerator": 15
+      },
+      "table": "DT_GlobalValueMintData"
+    },
+    {
+      "coordinate": 8,
+      "coordinate_semantics": "review at 8; runtime skill-level/call binding remains unverified",
+      "evidence": {
+        "author_version_claim": "Global 1.4.5; author's extraction claim",
+        "compatibility": "unresolved; extraction claim is not runtime verification",
+        "pointer": "/rows/Mint_Melee_1_2",
+        "source_id": "table:DT_GlobalValueMintData",
+        "source_sha256": "e76d69549eca46ab23ecb142cf3e432cd37e2a2f5000cb469cab2de267011ab1",
+        "upstream_commit": "cef09a29d4d92c7b1e0b950d89ba8c75b1c529e7"
+      },
+      "hit_count": null,
+      "row": "Mint_Melee_1_2",
+      "runtime_units": null,
+      "serialized_value": {
+        "denominator": 1,
+        "numerator": 32
+      },
+      "table": "DT_GlobalValueMintData"
+    },
+    {
+      "coordinate": 8,
+      "coordinate_semantics": "review at 8; runtime skill-level/call binding remains unverified",
+      "evidence": {
+        "author_version_claim": "Global 1.4.5; author's extraction claim",
+        "compatibility": "unresolved; extraction claim is not runtime verification",
+        "pointer": "/rows/Mint_Melee_2_1",
+        "source_id": "table:DT_GlobalValueMintData",
+        "source_sha256": "e76d69549eca46ab23ecb142cf3e432cd37e2a2f5000cb469cab2de267011ab1",
+        "upstream_commit": "cef09a29d4d92c7b1e0b950d89ba8c75b1c529e7"
+      },
+      "hit_count": null,
+      "row": "Mint_Melee_2_1",
+      "runtime_units": null,
+      "serialized_value": {
+        "denominator": 1,
+        "numerator": 23
+      },
+      "table": "DT_GlobalValueMintData"
+    },
+    {
+      "coordinate": 8,
+      "coordinate_semantics": "review at 8; runtime skill-level/call binding remains unverified",
+      "evidence": {
+        "author_version_claim": "Global 1.4.5; author's extraction claim",
+        "compatibility": "unresolved; extraction claim is not runtime verification",
+        "pointer": "/rows/Mint_Melee_3_1",
+        "source_id": "table:DT_GlobalValueMintData",
+        "source_sha256": "e76d69549eca46ab23ecb142cf3e432cd37e2a2f5000cb469cab2de267011ab1",
+        "upstream_commit": "cef09a29d4d92c7b1e0b950d89ba8c75b1c529e7"
+      },
+      "hit_count": null,
+      "row": "Mint_Melee_3_1",
+      "runtime_units": null,
+      "serialized_value": {
+        "denominator": 1,
+        "numerator": 35
+      },
+      "table": "DT_GlobalValueMintData"
+    },
+    {
+      "coordinate": 8,
+      "coordinate_semantics": "review at 8; runtime skill-level/call binding remains unverified",
+      "evidence": {
+        "author_version_claim": "Global 1.4.5; author's extraction claim",
+        "compatibility": "unresolved; extraction claim is not runtime verification",
+        "pointer": "/rows/Mint_Melee_3_2",
+        "source_id": "table:DT_GlobalValueMintData",
+        "source_sha256": "e76d69549eca46ab23ecb142cf3e432cd37e2a2f5000cb469cab2de267011ab1",
+        "upstream_commit": "cef09a29d4d92c7b1e0b950d89ba8c75b1c529e7"
+      },
+      "hit_count": null,
+      "row": "Mint_Melee_3_2",
+      "runtime_units": null,
+      "serialized_value": {
+        "denominator": 1,
+        "numerator": 44
+      },
+      "table": "DT_GlobalValueMintData"
+    },
+    {
+      "coordinate": 8,
+      "coordinate_semantics": "review at 8; runtime skill-level/call binding remains unverified",
+      "evidence": {
+        "author_version_claim": "Global 1.4.5; author's extraction claim",
+        "compatibility": "unresolved; extraction claim is not runtime verification",
+        "pointer": "/rows/Mint_Melee_4_1",
+        "source_id": "table:DT_GlobalValueMintData",
+        "source_sha256": "e76d69549eca46ab23ecb142cf3e432cd37e2a2f5000cb469cab2de267011ab1",
+        "upstream_commit": "cef09a29d4d92c7b1e0b950d89ba8c75b1c529e7"
+      },
+      "hit_count": null,
+      "row": "Mint_Melee_4_1",
+      "runtime_units": null,
+      "serialized_value": {
+        "denominator": 1,
+        "numerator": 28
+      },
+      "table": "DT_GlobalValueMintData"
+    },
+    {
+      "coordinate": 8,
+      "coordinate_semantics": "review at 8; runtime skill-level/call binding remains unverified",
+      "evidence": {
+        "author_version_claim": "Global 1.4.5; author's extraction claim",
+        "compatibility": "unresolved; extraction claim is not runtime verification",
+        "pointer": "/rows/Mint_Melee_5_1",
+        "source_id": "table:DT_GlobalValueMintData",
+        "source_sha256": "e76d69549eca46ab23ecb142cf3e432cd37e2a2f5000cb469cab2de267011ab1",
+        "upstream_commit": "cef09a29d4d92c7b1e0b950d89ba8c75b1c529e7"
+      },
+      "hit_count": null,
+      "row": "Mint_Melee_5_1",
+      "runtime_units": null,
+      "serialized_value": {
+        "denominator": 1,
+        "numerator": 38
+      },
+      "table": "DT_GlobalValueMintData"
+    },
+    {
+      "coordinate": 8,
+      "coordinate_semantics": "review at 8; runtime skill-level/call binding remains unverified",
+      "evidence": {
+        "author_version_claim": "Global 1.4.5; author's extraction claim",
+        "compatibility": "unresolved; extraction claim is not runtime verification",
+        "pointer": "/rows/Mint_Melee_5_2",
+        "source_id": "table:DT_GlobalValueMintData",
+        "source_sha256": "e76d69549eca46ab23ecb142cf3e432cd37e2a2f5000cb469cab2de267011ab1",
+        "upstream_commit": "cef09a29d4d92c7b1e0b950d89ba8c75b1c529e7"
+      },
+      "hit_count": null,
+      "row": "Mint_Melee_5_2",
+      "runtime_units": null,
+      "serialized_value": {
+        "denominator": 1,
+        "numerator": 87
+      },
+      "table": "DT_GlobalValueMintData"
+    },
+    {
+      "coordinate": 8,
+      "coordinate_semantics": "review at 8; runtime skill-level/call binding remains unverified",
+      "evidence": {
+        "author_version_claim": "Global 1.4.5; author's extraction claim",
+        "compatibility": "unresolved; extraction claim is not runtime verification",
+        "pointer": "/rows/Mint_Melee_6_1",
+        "source_id": "table:DT_GlobalValueMintData",
+        "source_sha256": "e76d69549eca46ab23ecb142cf3e432cd37e2a2f5000cb469cab2de267011ab1",
+        "upstream_commit": "cef09a29d4d92c7b1e0b950d89ba8c75b1c529e7"
+      },
+      "hit_count": null,
+      "row": "Mint_Melee_6_1",
+      "runtime_units": null,
+      "serialized_value": {
+        "denominator": 1,
+        "numerator": 95
+      },
+      "table": "DT_GlobalValueMintData"
+    },
+    {
+      "coordinate": 8,
+      "coordinate_semantics": "review at 8; runtime skill-level/call binding remains unverified",
+      "evidence": {
+        "author_version_claim": "Global 1.4.5; author's extraction claim",
+        "compatibility": "unresolved; extraction claim is not runtime verification",
+        "pointer": "/rows/Mint_Melee_7_1",
+        "source_id": "table:DT_GlobalValueMintData",
+        "source_sha256": "e76d69549eca46ab23ecb142cf3e432cd37e2a2f5000cb469cab2de267011ab1",
+        "upstream_commit": "cef09a29d4d92c7b1e0b950d89ba8c75b1c529e7"
+      },
+      "hit_count": null,
+      "row": "Mint_Melee_7_1",
+      "runtime_units": null,
+      "serialized_value": {
+        "denominator": 1,
+        "numerator": 21
+      },
+      "table": "DT_GlobalValueMintData"
+    },
+    {
+      "coordinate": 8,
+      "coordinate_semantics": "review at 8; runtime skill-level/call binding remains unverified",
+      "evidence": {
+        "author_version_claim": "Global 1.4.5; author's extraction claim",
+        "compatibility": "unresolved; extraction claim is not runtime verification",
+        "pointer": "/rows/Mint_Melee_8_1",
+        "source_id": "table:DT_GlobalValueMintData",
+        "source_sha256": "e76d69549eca46ab23ecb142cf3e432cd37e2a2f5000cb469cab2de267011ab1",
+        "upstream_commit": "cef09a29d4d92c7b1e0b950d89ba8c75b1c529e7"
+      },
+      "hit_count": null,
+      "row": "Mint_Melee_8_1",
+      "runtime_units": null,
+      "serialized_value": {
+        "denominator": 1,
+        "numerator": 42
+      },
+      "table": "DT_GlobalValueMintData"
+    },
+    {
+      "coordinate": 8,
+      "coordinate_semantics": "review at 8; runtime skill-level/call binding remains unverified",
+      "evidence": {
+        "author_version_claim": "Global 1.4.5; author's extraction claim",
+        "compatibility": "unresolved; extraction claim is not runtime verification",
+        "pointer": "/rows/Mint_Melee_8_2",
+        "source_id": "table:DT_GlobalValueMintData",
+        "source_sha256": "e76d69549eca46ab23ecb142cf3e432cd37e2a2f5000cb469cab2de267011ab1",
+        "upstream_commit": "cef09a29d4d92c7b1e0b950d89ba8c75b1c529e7"
+      },
+      "hit_count": null,
+      "row": "Mint_Melee_8_2",
+      "runtime_units": null,
+      "serialized_value": {
+        "denominator": 1,
+        "numerator": 70
+      },
+      "table": "DT_GlobalValueMintData"
+    },
+    {
+      "coordinate": 8,
+      "coordinate_semantics": "review at 8; runtime skill-level/call binding remains unverified",
+      "evidence": {
+        "author_version_claim": "Global 1.4.5; author's extraction claim",
+        "compatibility": "unresolved; extraction claim is not runtime verification",
+        "pointer": "/rows/Mint_Melee_9_1",
+        "source_id": "table:DT_GlobalValueMintData",
+        "source_sha256": "e76d69549eca46ab23ecb142cf3e432cd37e2a2f5000cb469cab2de267011ab1",
+        "upstream_commit": "cef09a29d4d92c7b1e0b950d89ba8c75b1c529e7"
+      },
+      "hit_count": null,
+      "row": "Mint_Melee_9_1",
+      "runtime_units": null,
+      "serialized_value": {
+        "denominator": 1,
+        "numerator": 19
+      },
+      "table": "DT_GlobalValueMintData"
+    },
+    {
+      "coordinate": 8,
+      "coordinate_semantics": "review at 8; runtime skill-level/call binding remains unverified",
+      "evidence": {
+        "author_version_claim": "Global 1.4.5; author's extraction claim",
+        "compatibility": "unresolved; extraction claim is not runtime verification",
+        "pointer": "/rows/Mint_QTE_1_1",
+        "source_id": "table:DT_GlobalValueMintData",
+        "source_sha256": "e76d69549eca46ab23ecb142cf3e432cd37e2a2f5000cb469cab2de267011ab1",
+        "upstream_commit": "cef09a29d4d92c7b1e0b950d89ba8c75b1c529e7"
+      },
+      "hit_count": null,
+      "row": "Mint_QTE_1_1",
+      "runtime_units": null,
+      "serialized_value": {
+        "denominator": 1,
+        "numerator": 281
+      },
+      "table": "DT_GlobalValueMintData"
+    },
+    {
+      "coordinate": 8,
+      "coordinate_semantics": "review at 8; runtime skill-level/call binding remains unverified",
+      "evidence": {
+        "author_version_claim": "Global 1.4.5; author's extraction claim",
+        "compatibility": "unresolved; extraction claim is not runtime verification",
+        "pointer": "/rows/Mint_Skill_1_1",
+        "source_id": "table:DT_GlobalValueMintData",
+        "source_sha256": "e76d69549eca46ab23ecb142cf3e432cd37e2a2f5000cb469cab2de267011ab1",
+        "upstream_commit": "cef09a29d4d92c7b1e0b950d89ba8c75b1c529e7"
+      },
+      "hit_count": null,
+      "row": "Mint_Skill_1_1",
+      "runtime_units": null,
+      "serialized_value": {
+        "denominator": 1,
+        "numerator": 127
+      },
+      "table": "DT_GlobalValueMintData"
+    },
+    {
+      "coordinate": 8,
+      "coordinate_semantics": "review at 8; runtime skill-level/call binding remains unverified",
+      "evidence": {
+        "author_version_claim": "Global 1.4.5; author's extraction claim",
+        "compatibility": "unresolved; extraction claim is not runtime verification",
+        "pointer": "/rows/Mint_Skill_4_1",
+        "source_id": "table:DT_GlobalValueMintData",
+        "source_sha256": "e76d69549eca46ab23ecb142cf3e432cd37e2a2f5000cb469cab2de267011ab1",
+        "upstream_commit": "cef09a29d4d92c7b1e0b950d89ba8c75b1c529e7"
+      },
+      "hit_count": null,
+      "row": "Mint_Skill_4_1",
+      "runtime_units": null,
+      "serialized_value": {
+        "denominator": 1,
+        "numerator": 6
+      },
+      "table": "DT_GlobalValueMintData"
+    },
+    {
+      "coordinate": 8,
+      "coordinate_semantics": "review at 8; runtime skill-level/call binding remains unverified",
+      "evidence": {
+        "author_version_claim": "Global 1.4.5; author's extraction claim",
+        "compatibility": "unresolved; extraction claim is not runtime verification",
+        "pointer": "/rows/Mint_Skill_5_1",
+        "source_id": "table:DT_GlobalValueMintData",
+        "source_sha256": "e76d69549eca46ab23ecb142cf3e432cd37e2a2f5000cb469cab2de267011ab1",
+        "upstream_commit": "cef09a29d4d92c7b1e0b950d89ba8c75b1c529e7"
+      },
+      "hit_count": null,
+      "row": "Mint_Skill_5_1",
+      "runtime_units": null,
+      "serialized_value": {
+        "denominator": 1,
+        "numerator": 5
+      },
+      "table": "DT_GlobalValueMintData"
+    },
+    {
+      "coordinate": 8,
+      "coordinate_semantics": "review at 8; runtime skill-level/call binding remains unverified",
+      "evidence": {
+        "author_version_claim": "Global 1.4.5; author's extraction claim",
+        "compatibility": "unresolved; extraction claim is not runtime verification",
+        "pointer": "/rows/Mint_UltraSkill_1_1",
+        "source_id": "table:DT_GlobalValueMintData",
+        "source_sha256": "e76d69549eca46ab23ecb142cf3e432cd37e2a2f5000cb469cab2de267011ab1",
+        "upstream_commit": "cef09a29d4d92c7b1e0b950d89ba8c75b1c529e7"
+      },
+      "hit_count": null,
+      "row": "Mint_UltraSkill_1_1",
+      "runtime_units": null,
+      "serialized_value": {
+        "denominator": 1,
+        "numerator": 121
+      },
+      "table": "DT_GlobalValueMintData"
+    },
+    {
+      "coordinate": 8,
+      "coordinate_semantics": "review at 8; runtime skill-level/call binding remains unverified",
+      "evidence": {
+        "author_version_claim": "Global 1.4.5; author's extraction claim",
+        "compatibility": "unresolved; extraction claim is not runtime verification",
+        "pointer": "/rows/Mint_UltraSkill_2_1",
+        "source_id": "table:DT_GlobalValueMintData",
+        "source_sha256": "e76d69549eca46ab23ecb142cf3e432cd37e2a2f5000cb469cab2de267011ab1",
+        "upstream_commit": "cef09a29d4d92c7b1e0b950d89ba8c75b1c529e7"
+      },
+      "hit_count": null,
+      "row": "Mint_UltraSkill_2_1",
+      "runtime_units": null,
+      "serialized_value": {
+        "denominator": 1,
+        "numerator": 151
+      },
+      "table": "DT_GlobalValueMintData"
+    },
+    {
+      "coordinate": 8,
+      "coordinate_semantics": "review at 8; runtime skill-level/call binding remains unverified",
+      "evidence": {
+        "author_version_claim": "Global 1.4.5; author's extraction claim",
+        "compatibility": "unresolved; extraction claim is not runtime verification",
+        "pointer": "/rows/Mint_UltraSkill_2_2",
+        "source_id": "table:DT_GlobalValueMintData",
+        "source_sha256": "e76d69549eca46ab23ecb142cf3e432cd37e2a2f5000cb469cab2de267011ab1",
+        "upstream_commit": "cef09a29d4d92c7b1e0b950d89ba8c75b1c529e7"
+      },
+      "hit_count": null,
+      "row": "Mint_UltraSkill_2_2",
+      "runtime_units": null,
+      "serialized_value": {
+        "denominator": 1,
+        "numerator": 151
+      },
+      "table": "DT_GlobalValueMintData"
+    },
+    {
+      "coordinate": 8,
+      "coordinate_semantics": "review at 8; runtime skill-level/call binding remains unverified",
+      "evidence": {
+        "author_version_claim": "Global 1.4.5; author's extraction claim",
+        "compatibility": "unresolved; extraction claim is not runtime verification",
+        "pointer": "/rows/Mint_UltraSkill_2_3",
+        "source_id": "table:DT_GlobalValueMintData",
+        "source_sha256": "e76d69549eca46ab23ecb142cf3e432cd37e2a2f5000cb469cab2de267011ab1",
+        "upstream_commit": "cef09a29d4d92c7b1e0b950d89ba8c75b1c529e7"
+      },
+      "hit_count": null,
+      "row": "Mint_UltraSkill_2_3",
+      "runtime_units": null,
+      "serialized_value": {
+        "denominator": 1,
+        "numerator": 151
+      },
+      "table": "DT_GlobalValueMintData"
+    },
+    {
+      "coordinate": 8,
+      "coordinate_semantics": "review at 8; runtime skill-level/call binding remains unverified",
+      "evidence": {
+        "author_version_claim": "Global 1.4.5; author's extraction claim",
+        "compatibility": "unresolved; extraction claim is not runtime verification",
+        "pointer": "/rows/Mint_UltraSkill_2_4",
+        "source_id": "table:DT_GlobalValueMintData",
+        "source_sha256": "e76d69549eca46ab23ecb142cf3e432cd37e2a2f5000cb469cab2de267011ab1",
+        "upstream_commit": "cef09a29d4d92c7b1e0b950d89ba8c75b1c529e7"
+      },
+      "hit_count": null,
+      "row": "Mint_UltraSkill_2_4",
+      "runtime_units": null,
+      "serialized_value": {
+        "denominator": 1,
+        "numerator": 151
+      },
+      "table": "DT_GlobalValueMintData"
+    },
+    {
+      "coordinate": 8,
+      "coordinate_semantics": "review at 8; runtime skill-level/call binding remains unverified",
+      "evidence": {
+        "author_version_claim": "Global 1.4.5; author's extraction claim",
+        "compatibility": "unresolved; extraction claim is not runtime verification",
+        "pointer": "/rows/Mint_UltraSkill_2_5",
+        "source_id": "table:DT_GlobalValueMintData",
+        "source_sha256": "e76d69549eca46ab23ecb142cf3e432cd37e2a2f5000cb469cab2de267011ab1",
+        "upstream_commit": "cef09a29d4d92c7b1e0b950d89ba8c75b1c529e7"
+      },
+      "hit_count": null,
+      "row": "Mint_UltraSkill_2_5",
+      "runtime_units": null,
+      "serialized_value": {
+        "denominator": 1,
+        "numerator": 151
+      },
+      "table": "DT_GlobalValueMintData"
+    },
+    {
+      "coordinate": 8,
+      "coordinate_semantics": "review at 8; runtime skill-level/call binding remains unverified",
+      "evidence": {
+        "author_version_claim": "Global 1.4.5; author's extraction claim",
+        "compatibility": "unresolved; extraction claim is not runtime verification",
+        "pointer": "/rows/Mint_UltraSkill_3_1",
+        "source_id": "table:DT_GlobalValueMintData",
+        "source_sha256": "e76d69549eca46ab23ecb142cf3e432cd37e2a2f5000cb469cab2de267011ab1",
+        "upstream_commit": "cef09a29d4d92c7b1e0b950d89ba8c75b1c529e7"
+      },
+      "hit_count": null,
+      "row": "Mint_UltraSkill_3_1",
+      "runtime_units": null,
+      "serialized_value": {
+        "denominator": 1,
+        "numerator": 248
+      },
+      "table": "DT_GlobalValueMintData"
+    },
+    {
+      "coordinate": 8,
+      "coordinate_semantics": "review at 8; runtime skill-level/call binding remains unverified",
+      "evidence": {
+        "author_version_claim": "Global 1.4.5; author's extraction claim",
+        "compatibility": "unresolved; extraction claim is not runtime verification",
+        "pointer": "/rows/Mint_UltraSkill_4_1",
+        "source_id": "table:DT_GlobalValueMintData",
+        "source_sha256": "e76d69549eca46ab23ecb142cf3e432cd37e2a2f5000cb469cab2de267011ab1",
+        "upstream_commit": "cef09a29d4d92c7b1e0b950d89ba8c75b1c529e7"
+      },
+      "hit_count": null,
+      "row": "Mint_UltraSkill_4_1",
+      "runtime_units": null,
+      "serialized_value": {
+        "denominator": 1,
+        "numerator": 15
+      },
+      "table": "DT_GlobalValueMintData"
+    },
+    {
+      "coordinate": 8,
+      "coordinate_semantics": "review at 8; runtime skill-level/call binding remains unverified",
+      "evidence": {
+        "author_version_claim": "Global 1.4.5; author's extraction claim",
+        "compatibility": "unresolved; extraction claim is not runtime verification",
+        "pointer": "/rows/Mint_UltraSkill_6_1",
+        "source_id": "table:DT_GlobalValueMintData",
+        "source_sha256": "e76d69549eca46ab23ecb142cf3e432cd37e2a2f5000cb469cab2de267011ab1",
+        "upstream_commit": "cef09a29d4d92c7b1e0b950d89ba8c75b1c529e7"
+      },
+      "hit_count": null,
+      "row": "Mint_UltraSkill_6_1",
+      "runtime_units": null,
+      "serialized_value": {
+        "denominator": 1,
+        "numerator": 30
+      },
+      "table": "DT_GlobalValueMintData"
+    },
+    {
+      "coordinate": 8,
+      "coordinate_semantics": "review at 8; runtime skill-level/call binding remains unverified",
+      "evidence": {
+        "author_version_claim": "Global 1.4.5; author's extraction claim",
+        "compatibility": "unresolved; extraction claim is not runtime verification",
+        "pointer": "/rows/Mint_perfectevade_dmg_1",
+        "source_id": "table:DT_GlobalValueMintData",
+        "source_sha256": "e76d69549eca46ab23ecb142cf3e432cd37e2a2f5000cb469cab2de267011ab1",
+        "upstream_commit": "cef09a29d4d92c7b1e0b950d89ba8c75b1c529e7"
+      },
+      "hit_count": null,
+      "row": "Mint_perfectevade_dmg_1",
+      "runtime_units": null,
+      "serialized_value": {
+        "denominator": 1,
+        "numerator": 245
+      },
+      "table": "DT_GlobalValueMintData"
+    },
+    {
+      "coordinate": 8,
+      "coordinate_semantics": "review at 8; runtime skill-level/call binding remains unverified",
+      "evidence": {
+        "author_version_claim": "Global 1.4.5; author's extraction claim",
+        "compatibility": "unresolved; extraction claim is not runtime verification",
+        "pointer": "/rows/Attack_Duration_Show",
+        "source_id": "table:DT_MintEffectFigure",
+        "source_sha256": "4b75ff005e8764379eabf0d20df10d45a5b8b9aea89fb4013b17e81f660cb688",
+        "upstream_commit": "cef09a29d4d92c7b1e0b950d89ba8c75b1c529e7"
+      },
+      "hit_count": null,
+      "row": "Attack_Duration_Show",
+      "runtime_units": null,
+      "serialized_value": {
+        "denominator": 1,
+        "numerator": 6
+      },
+      "table": "DT_MintEffectFigure"
+    },
+    {
+      "coordinate": 8,
+      "coordinate_semantics": "review at 8; runtime skill-level/call binding remains unverified",
+      "evidence": {
+        "author_version_claim": "Global 1.4.5; author's extraction claim",
+        "compatibility": "unresolved; extraction claim is not runtime verification",
+        "pointer": "/rows/Melee_Heterochrome_Show",
+        "source_id": "table:DT_MintEffectFigure",
+        "source_sha256": "4b75ff005e8764379eabf0d20df10d45a5b8b9aea89fb4013b17e81f660cb688",
+        "upstream_commit": "cef09a29d4d92c7b1e0b950d89ba8c75b1c529e7"
+      },
+      "hit_count": null,
+      "row": "Melee_Heterochrome_Show",
+      "runtime_units": null,
+      "serialized_value": {
+        "denominator": 1,
+        "numerator": 19
+      },
+      "table": "DT_MintEffectFigure"
+    },
+    {
+      "coordinate": 8,
+      "coordinate_semantics": "review at 8; runtime skill-level/call binding remains unverified",
+      "evidence": {
+        "author_version_claim": "Global 1.4.5; author's extraction claim",
+        "compatibility": "unresolved; extraction claim is not runtime verification",
+        "pointer": "/rows/Mint_Adcance_1_1_CD",
+        "source_id": "table:DT_MintEffectFigure",
+        "source_sha256": "4b75ff005e8764379eabf0d20df10d45a5b8b9aea89fb4013b17e81f660cb688",
+        "upstream_commit": "cef09a29d4d92c7b1e0b950d89ba8c75b1c529e7"
+      },
+      "hit_count": null,
+      "row": "Mint_Adcance_1_1_CD",
+      "runtime_units": null,
+      "serialized_value": {
+        "denominator": 1,
+        "numerator": 3
+      },
+      "table": "DT_MintEffectFigure"
+    },
+    {
+      "coordinate": 8,
+      "coordinate_semantics": "review at 8; runtime skill-level/call binding remains unverified",
+      "evidence": {
+        "author_version_claim": "Global 1.4.5; author's extraction claim",
+        "compatibility": "unresolved; extraction claim is not runtime verification",
+        "pointer": "/rows/Mint_Adcance_2_1",
+        "source_id": "table:DT_MintEffectFigure",
+        "source_sha256": "4b75ff005e8764379eabf0d20df10d45a5b8b9aea89fb4013b17e81f660cb688",
+        "upstream_commit": "cef09a29d4d92c7b1e0b950d89ba8c75b1c529e7"
+      },
+      "hit_count": null,
+      "row": "Mint_Adcance_2_1",
+      "runtime_units": null,
+      "serialized_value": {
+        "denominator": 5,
+        "numerator": 2
+      },
+      "table": "DT_MintEffectFigure"
+    },
+    {
+      "coordinate": 8,
+      "coordinate_semantics": "review at 8; runtime skill-level/call binding remains unverified",
+      "evidence": {
+        "author_version_claim": "Global 1.4.5; author's extraction claim",
+        "compatibility": "unresolved; extraction claim is not runtime verification",
+        "pointer": "/rows/Mint_Adcance_3_1",
+        "source_id": "table:DT_MintEffectFigure",
+        "source_sha256": "4b75ff005e8764379eabf0d20df10d45a5b8b9aea89fb4013b17e81f660cb688",
+        "upstream_commit": "cef09a29d4d92c7b1e0b950d89ba8c75b1c529e7"
+      },
+      "hit_count": null,
+      "row": "Mint_Adcance_3_1",
+      "runtime_units": null,
+      "serialized_value": {
+        "denominator": 20,
+        "numerator": 3
+      },
+      "table": "DT_MintEffectFigure"
+    },
+    {
+      "coordinate": 8,
+      "coordinate_semantics": "review at 8; runtime skill-level/call binding remains unverified",
+      "evidence": {
+        "author_version_claim": "Global 1.4.5; author's extraction claim",
+        "compatibility": "unresolved; extraction claim is not runtime verification",
+        "pointer": "/rows/Mint_Adcance_3_2",
+        "source_id": "table:DT_MintEffectFigure",
+        "source_sha256": "4b75ff005e8764379eabf0d20df10d45a5b8b9aea89fb4013b17e81f660cb688",
+        "upstream_commit": "cef09a29d4d92c7b1e0b950d89ba8c75b1c529e7"
+      },
+      "hit_count": null,
+      "row": "Mint_Adcance_3_2",
+      "runtime_units": null,
+      "serialized_value": {
+        "denominator": 1,
+        "numerator": 15
+      },
+      "table": "DT_MintEffectFigure"
+    },
+    {
+      "coordinate": 8,
+      "coordinate_semantics": "review at 8; runtime skill-level/call binding remains unverified",
+      "evidence": {
+        "author_version_claim": "Global 1.4.5; author's extraction claim",
+        "compatibility": "unresolved; extraction claim is not runtime verification",
+        "pointer": "/rows/Mint_Adcance_4_1",
+        "source_id": "table:DT_MintEffectFigure",
+        "source_sha256": "4b75ff005e8764379eabf0d20df10d45a5b8b9aea89fb4013b17e81f660cb688",
+        "upstream_commit": "cef09a29d4d92c7b1e0b950d89ba8c75b1c529e7"
+      },
+      "hit_count": null,
+      "row": "Mint_Adcance_4_1",
+      "runtime_units": null,
+      "serialized_value": {
+        "denominator": 25,
+        "numerator": 3
+      },
+      "table": "DT_MintEffectFigure"
+    },
+    {
+      "coordinate": 8,
+      "coordinate_semantics": "review at 8; runtime skill-level/call binding remains unverified",
+      "evidence": {
+        "author_version_claim": "Global 1.4.5; author's extraction claim",
+        "compatibility": "unresolved; extraction claim is not runtime verification",
+        "pointer": "/rows/Mint_Adcance_5_1",
+        "source_id": "table:DT_MintEffectFigure",
+        "source_sha256": "4b75ff005e8764379eabf0d20df10d45a5b8b9aea89fb4013b17e81f660cb688",
+        "upstream_commit": "cef09a29d4d92c7b1e0b950d89ba8c75b1c529e7"
+      },
+      "hit_count": null,
+      "row": "Mint_Adcance_5_1",
+      "runtime_units": null,
+      "serialized_value": {
+        "denominator": 4,
+        "numerator": 1
+      },
+      "table": "DT_MintEffectFigure"
+    },
+    {
+      "coordinate": 8,
+      "coordinate_semantics": "review at 8; runtime skill-level/call binding remains unverified",
+      "evidence": {
+        "author_version_claim": "Global 1.4.5; author's extraction claim",
+        "compatibility": "unresolved; extraction claim is not runtime verification",
+        "pointer": "/rows/Mint_Adcance_5_2",
+        "source_id": "table:DT_MintEffectFigure",
+        "source_sha256": "4b75ff005e8764379eabf0d20df10d45a5b8b9aea89fb4013b17e81f660cb688",
+        "upstream_commit": "cef09a29d4d92c7b1e0b950d89ba8c75b1c529e7"
+      },
+      "hit_count": null,
+      "row": "Mint_Adcance_5_2",
+      "runtime_units": null,
+      "serialized_value": {
+        "denominator": 1,
+        "numerator": 6
+      },
+      "table": "DT_MintEffectFigure"
+    },
+    {
+      "coordinate": 8,
+      "coordinate_semantics": "review at 8; runtime skill-level/call binding remains unverified",
+      "evidence": {
+        "author_version_claim": "Global 1.4.5; author's extraction claim",
+        "compatibility": "unresolved; extraction claim is not runtime verification",
+        "pointer": "/rows/Mint_Adcance_6_1",
+        "source_id": "table:DT_MintEffectFigure",
+        "source_sha256": "4b75ff005e8764379eabf0d20df10d45a5b8b9aea89fb4013b17e81f660cb688",
+        "upstream_commit": "cef09a29d4d92c7b1e0b950d89ba8c75b1c529e7"
+      },
+      "hit_count": null,
+      "row": "Mint_Adcance_6_1",
+      "runtime_units": null,
+      "serialized_value": {
+        "denominator": 5,
+        "numerator": 2
+      },
+      "table": "DT_MintEffectFigure"
+    },
+    {
+      "coordinate": 8,
+      "coordinate_semantics": "review at 8; runtime skill-level/call binding remains unverified",
+      "evidence": {
+        "author_version_claim": "Global 1.4.5; author's extraction claim",
+        "compatibility": "unresolved; extraction claim is not runtime verification",
+        "pointer": "/rows/Mint_Adcance_6_2",
+        "source_id": "table:DT_MintEffectFigure",
+        "source_sha256": "4b75ff005e8764379eabf0d20df10d45a5b8b9aea89fb4013b17e81f660cb688",
+        "upstream_commit": "cef09a29d4d92c7b1e0b950d89ba8c75b1c529e7"
+      },
+      "hit_count": null,
+      "row": "Mint_Adcance_6_2",
+      "runtime_units": null,
+      "serialized_value": {
+        "denominator": 20,
+        "numerator": 3
+      },
+      "table": "DT_MintEffectFigure"
+    },
+    {
+      "coordinate": 8,
+      "coordinate_semantics": "review at 8; runtime skill-level/call binding remains unverified",
+      "evidence": {
+        "author_version_claim": "Global 1.4.5; author's extraction claim",
+        "compatibility": "unresolved; extraction claim is not runtime verification",
+        "pointer": "/rows/Mint_Adcance_6_AddEnergy",
+        "source_id": "table:DT_MintEffectFigure",
+        "source_sha256": "4b75ff005e8764379eabf0d20df10d45a5b8b9aea89fb4013b17e81f660cb688",
+        "upstream_commit": "cef09a29d4d92c7b1e0b950d89ba8c75b1c529e7"
+      },
+      "hit_count": null,
+      "row": "Mint_Adcance_6_AddEnergy",
+      "runtime_units": null,
+      "serialized_value": {
+        "denominator": 1,
+        "numerator": 2
+      },
+      "table": "DT_MintEffectFigure"
+    },
+    {
+      "coordinate": 8,
+      "coordinate_semantics": "review at 8; runtime skill-level/call binding remains unverified",
+      "evidence": {
+        "author_version_claim": "Global 1.4.5; author's extraction claim",
+        "compatibility": "unresolved; extraction claim is not runtime verification",
+        "pointer": "/rows/Mint_Pas2_DefAdd",
+        "source_id": "table:DT_MintEffectFigure",
+        "source_sha256": "4b75ff005e8764379eabf0d20df10d45a5b8b9aea89fb4013b17e81f660cb688",
+        "upstream_commit": "cef09a29d4d92c7b1e0b950d89ba8c75b1c529e7"
+      },
+      "hit_count": null,
+      "row": "Mint_Pas2_DefAdd",
+      "runtime_units": null,
+      "serialized_value": {
+        "denominator": 5,
+        "numerator": 1
+      },
+      "table": "DT_MintEffectFigure"
+    },
+    {
+      "coordinate": 8,
+      "coordinate_semantics": "review at 8; runtime skill-level/call binding remains unverified",
+      "evidence": {
+        "author_version_claim": "Global 1.4.5; author's extraction claim",
+        "compatibility": "unresolved; extraction claim is not runtime verification",
+        "pointer": "/rows/Mint_Pas2_TenacityAdd",
+        "source_id": "table:DT_MintEffectFigure",
+        "source_sha256": "4b75ff005e8764379eabf0d20df10d45a5b8b9aea89fb4013b17e81f660cb688",
+        "upstream_commit": "cef09a29d4d92c7b1e0b950d89ba8c75b1c529e7"
+      },
+      "hit_count": null,
+      "row": "Mint_Pas2_TenacityAdd",
+      "runtime_units": null,
+      "serialized_value": {
+        "denominator": 10,
+        "numerator": 3
+      },
+      "table": "DT_MintEffectFigure"
+    },
+    {
+      "coordinate": 8,
+      "coordinate_semantics": "review at 8; runtime skill-level/call binding remains unverified",
+      "evidence": {
+        "author_version_claim": "Global 1.4.5; author's extraction claim",
+        "compatibility": "unresolved; extraction claim is not runtime verification",
+        "pointer": "/rows/Skill_Heterochrome_Show",
+        "source_id": "table:DT_MintEffectFigure",
+        "source_sha256": "4b75ff005e8764379eabf0d20df10d45a5b8b9aea89fb4013b17e81f660cb688",
+        "upstream_commit": "cef09a29d4d92c7b1e0b950d89ba8c75b1c529e7"
+      },
+      "hit_count": null,
+      "row": "Skill_Heterochrome_Show",
+      "runtime_units": null,
+      "serialized_value": {
+        "denominator": 1,
+        "numerator": 8
+      },
+      "table": "DT_MintEffectFigure"
+    },
+    {
+      "coordinate": 8,
+      "coordinate_semantics": "review at 8; runtime skill-level/call binding remains unverified",
+      "evidence": {
+        "author_version_claim": "Global 1.4.5; author's extraction claim",
+        "compatibility": "unresolved; extraction claim is not runtime verification",
+        "pointer": "/rows/Stamina_Persecond_Show",
+        "source_id": "table:DT_MintEffectFigure",
+        "source_sha256": "4b75ff005e8764379eabf0d20df10d45a5b8b9aea89fb4013b17e81f660cb688",
+        "upstream_commit": "cef09a29d4d92c7b1e0b950d89ba8c75b1c529e7"
+      },
+      "hit_count": null,
+      "row": "Stamina_Persecond_Show",
+      "runtime_units": null,
+      "serialized_value": {
+        "denominator": 1,
+        "numerator": 38
+      },
+      "table": "DT_MintEffectFigure"
+    }
+  ],
+  "status": "INCOMPLETE"
+}

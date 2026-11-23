@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "scope": "Linko ordinary four-hit Skill packet train in the shared gameplay runner",
+  "quality": "executable modeled ordinary Skill; complete kit, summons and alternate actions pending",
+  "hypothesis_id": "linko.skill_four_hits_v1",
+  "sources": [
+    "data/extracted/neverness_linko.json: Linko_skill_des Bombardment DMG Ratio",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json: Skill1 through Skill4 native rows",
+    "reviews/q10-game-action-binding/linko-action-binding-model.json: frozen source identities and Linko awakening effects"
+  ],
+  "packets": [
+    "GE_Player_Radio072_Skill1_Damage",
+    "GE_Player_Radio072_Skill2_Damage",
+    "GE_Player_Radio072_Skill3_Damage",
+    "GE_Player_Radio072_Skill4_Damage"
+  ],
+  "decision": "A successful GA_Radio072_Skill admission requires Skill1 as its primary. Skill2, Skill3 and Skill4 are scheduled exactly once after the primary, in this order, on target zero at the primary impact time. Each native packet uses its own coefficient and samples current modifiers and crit eligibility independently at delivery.",
+  "hypotheses": [
+    "The four hits deliver in listed order at one coincident impact timestamp. Packet intervals and travel remain unresolved.",
+    "The model uses the native Skill talent coordinate resolved at admission, including Linko resonance_3's +1 Skill level. A3 also preserves +20% ATK; A5 applies +50% Skill DMG to all four hits; A6 Skill crit eligibility remains packet-local.",
+    "Target zero is the modeled target for each hit. Area coverage and summon follow-ups are not inferred."
+  ],
+  "independent_oracles": [
+    "At 1000 ATK, 0 RES and 0.5 DEF factor, level 1 packet ratios 0.178/0.138/0.238/0.446 produce 89/69/119/223 damage, total 500.",
+    "At level 8, ratios 0.305/0.237/0.408/0.764 produce 152.5/118.5/204/382 damage, total 857.",
+    "At A3, native effective level 9 ratios 0.329/0.255/0.441/0.826 and 1200 ATK produce 197.4/153/264.6/495.6, total 1110.6.",
+    "At A5 with the same level 9 and ATK, the +50% Skill DMG bonus applies to each packet and yields 296.1/229.5/396.9/743.4, total 1665.9.",
+    "In the A6 field-expiry fixture, the three native level-one children use ratios 0.138/0.238/0.446. For 1200 ATK, 0.5 defense factor, 0.8 Nature resistance factor, and +50% Skill DMG, their exact damage is 14904/125, 25704/125, and 48168/125 while the +30% Nature field is active; after expiry they deal 2484/25, 4284/25, and 8028/25. The explicit primary coefficient remains 1.0 for both casts."
+  ],
+  "checks": [
+    "The independent source verifier compares every published level 1-9 ratio term to the corresponding native ATK array and checks GA, category E, Nature and zero fixed-crit metadata.",
+    "Focused native tests verify packet identities/order, target, per-hit and total damage, A3 effective talent/ATK, A5 bonus, switch-before-impact ownership, defeated-target suppression, strict rejection/acceptance and pre-impact/hit-time horizon boundaries.",
+    "Public DSL packet-order, per-packet coefficient, A5/A6 modifier and damage assertions pass through web/tests/combat/linko_actions.mjs with full native CLI/WASM report parity and Worker parity after rebuilding current artifacts. TypeScript, web formatting and production build pass."
+  ],
+  "pending": [
+    "Native animation intervals, travel, area-hit coverage and summon/coordination behavior.",
+    "Branch/air attacks, sub-ultimates, QTE LTE modes and complete Linko kit behavior."
+  ],
+  "source_sha256": {
+    "data/extracted/neverness_linko.json": "17e5314aaa922d38afcaae5c0d546e2ec0315ecddd6535382efc798aadb4395e",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json": "917b0c3675412c0425a0724d09e7dd8ae4d1ef9a100d2ea5669d7484d0901bf2"
+  }
+}

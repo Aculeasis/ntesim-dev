@@ -1,0 +1,64 @@
+@keyframes cast-pulse {
+  50% {
+    filter: brightness(1.18);
+    transform: translateY(-3px) scale(1.035);
+  }
+}
+
+.replay-targets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.replay-target {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: #332b36;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  font: 10px var(--mono);
+  flex: 1;
+  min-width: 260px;
+}
+
+.target-symbol {
+  font-size: 23px;
+  color: #df9ba7;
+}
+
+.replay-target strong {
+  font-size: 11px;
+}
+
+.target-hp {
+  color: var(--muted);
+}
+
+.target-damage {
+  margin-left: auto;
+  color: #e4cbe9;
+}
+
+.replay-caption {
+  font: 11px var(--mono);
+  color: #dac2ed;
+  padding: 14px 0;
+  min-height: 42px;
+}
+
+.rotation-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 8px 0 16px;
+  font-size: 12px;
+}
+
+.rotation-heading span {
+  font: 10px var(--mono);
+  color: var(--muted);
+}

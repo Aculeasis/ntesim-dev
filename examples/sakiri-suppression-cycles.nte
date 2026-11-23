@@ -1,0 +1,13 @@
+options iteration=1 duration=75 crit=fixed;
+
+sakiri char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_energy=120;
+mint char lvl=80/80 awakening=0 talent=1,1,1 qte=1;
+target hp=100000000 def=1500 base_def=1000 resist=0 break_gauge=1/1000 max_break_gauge=30 broken_duration=0.1 control_immune=false;
+target hp=100000000 def=1500 base_def=1000 resist=0 break_gauge=1/1000 max_break_gauge=30 broken_duration=0.1 control_immune=true;
+active sakiri;
+
+# Each Ultimate attempts control once per recipient, after its first hit.
+sakiri burst; repeat 8 { sakiri attack:5; } mint swap;
+wait_until(50); mint attack:5;
+wait_until(60); sakiri swap; wait_until(61); sakiri skill; sakiri burst;
+mint swap; mint attack:5;

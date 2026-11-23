@@ -1,0 +1,7 @@
+{
+  "schema_version": 1,
+  "seeds": [42, 43],
+  "max_events_per_run": 10000,
+  "max_total_events": 100000,
+  "max_receipt_bytes": 8388608
+}

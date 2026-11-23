@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "kind": "character-owner-action-binding",
+  "owner": "character:1020",
+  "scope": "source-bound team ATK grants from Silent Moonlit Forest Guardian and A Melody Named Haniel, plus Hootie/Ace clock interaction",
+  "sources": [
+    {
+      "path": "data/extracted/guide_haniel.json",
+      "sha256": "f458f33f7919a1c7e1617ddde08fade9672990d63f546aa3f37d0a86582e2c0a",
+      "meaning": "Skill grants the team ATK based on Haniel Base ATK while Hootie is active, lasts 8s, refreshes when cast again, and remains after switching. Burst grants team ATK based on Haniel Base ATK, lasts 10s, and pauses Hootie's timer while Paranormal Ace is active. A2 adds 4s to Hootie's duration, not Paranormal Ace."
+    },
+    {
+      "path": "data/global-2026-10-04/tables/DT_HanielEffectFigure.json",
+      "sha256": "e9b7fba3384fc35bed6f4334c85dd177ea5ac6b6fff643215eb091c6c6525e4b",
+      "meaning": "Haniel_Skill_AtkAdd and Haniel_UltraSkill_AtkAdd are constant curves with exact talent keys 1 through 13; each is 0.10, 0.11, ..., 0.22. Haniel_Skill_ActorDuaration is 8s; Haniel_UltraSkillDuaration is 10s; Haniel_Level2_ExtraDuaration adds 4s to Hootie."
+    },
+    {
+      "path": "data/global-2026-10-04/tables/1020AwakenEffect.json",
+      "sha256": "2c599bcc271466b4c870de90aeb1e4baFC08e23269fbd15a3250ac8f86f284e1",
+      "meaning": "Awakening 2 identifies the 4s Hootie duration extension."
+    }
+  ],
+  "source_quotes": [
+    "Grants the Team an ATK bonus based on Haniel's Base ATK while Hootie is active.",
+    "Only 1 Hootie can exist at a time. Casting again refreshes Hootie's duration. Hootie remains when switching characters.",
+    "While Paranormal Ace is active, Hootie's duration timer is paused until the end of the effect."
+  ],
+  "native_curves": {
+    "Haniel_Skill_AtkAdd": [0.10, 0.11, 0.12, 0.13, 0.14, 0.15, 0.16, 0.17, 0.18, 0.19, 0.20, 0.21, 0.22],
+    "Haniel_UltraSkill_AtkAdd": [0.10, 0.11, 0.12, 0.13, 0.14, 0.15, 0.16, 0.17, 0.18, 0.19, 0.20, 0.21, 0.22]
+  },
+  "executable_contract": {
+    "grant_formula": "flat atk_add = Haniel source static BASE_ATK × the grant's own effective native talent ratio",
+    "recipients": "BuffRecipient::TeamAll, including Haniel",
+    "overlap": "Skill and Burst use distinct source-owned, one-stack refresh keys and add while both are active; the sources establish each grant but do not specify mutual exclusion, so additive overlap is an explicit tested hypothesis.",
+    "skill_refresh": "Each Skill cast refreshes Hootie to 8s remaining, or 12s at A2; during Ace it resumes after Ace ends.",
+    "burst_pause": "Burst grants team ATK and Paranormal Ace for 10s at every awakening and pauses Hootie's remaining duration. A Burst during Ace refreshes Ace and preserves Hootie's unexpired remainder; an expired Hootie grant is not recreated.",
+    "delivery": "Buff is applied on admitted cast before same-time packet delivery; each hit queries the live shared buff manager. Off-field ownership survives switch.",
+    "model_hypothesis": "haniel.team_atk_hootie_clock_v1"
+  },
+  "checks": [
+    "At source BASE_ATK 1000, Skill and Burst grant 100 at talent 1, 170 at talent 8, and 180 at resonance-adjusted talent 9.",
+    "With total ATK 1700, talent-1 Skill hits settle at 900 each; coincident Skill and Burst grants make a talent-1 Burst hit settle at 2850; the talent-1 normal hit under both grants settles at 7961/20.",
+    "Skill at 0 then Burst at 2s yields Hootie expiry at 18s and Burst buff expiry at 12s; at A2 the Skill Hootie has 10s remaining and expires at 22s while Ace still ends at 12s. Skill at 4s yields Hootie expiry at 20s; a Burst refresh at 8s yields 24s.",
+    "A Burst at exact Hootie expiry does not recreate the Skill grant; switching preserves both source-owned grants.",
+    "Failed Burst admission grants no ATK buff or Ace clock."
+  ],
+  "pending": [
+    "Four-Part Harmony attack cadence and stacks, Ensemble/Symphony packets and geometry, copy/summon behavior, Hootie placement/travel/AoE, source-death lifecycle, QTE/melee callbacks, and full-kit behavior remain unsupported.",
+    "The native/Reference guide sources do not say whether Skill and Burst ATK bonuses are exclusive; additive stacking is a disclosed and tested hypothesis."
+  ]
+}

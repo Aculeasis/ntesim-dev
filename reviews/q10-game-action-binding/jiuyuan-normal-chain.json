@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "scope": "Jiuyuan ordinary five-input Normal chain in the shared gameplay runner",
+  "quality": "executable modeled ordinary chain; aim/branch variants, BudBoom triggers and complete kit pending",
+  "hypothesis_id": "jiuyuan.normal_chain_v1",
+  "sources": [
+    "data/extracted/neverness_kuhara.json: GA_Kuhara_Melee_1_des through GA_Kuhara_Melee_5_des",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json: GE_Player_Kuhara_Melee1_Damage through Melee5_Damage",
+    "reviews/q10-game-action-binding/jiuyuan-action-binding-model.json: frozen source hashes"
+  ],
+  "decision": "Five admitted ordinary Normal inputs advance stages Melee1 through Melee5 with multiplicities 1,2,3,4,1 (eleven hits). The chain loops, retaining native effective talent projection including resonance_3 and stage 5 Lethal Rose Pact application. Aim and branch attacks do not advance the ordinary chain.",
+  "hypotheses": [
+    "A different admitted ability or field exit resets the chain; a same-actor switch does not.",
+    "A gap greater than 2 seconds between input starts resets the chain; the exact boundary continues. This is a tested continuity convention pending animation/cancel evidence.",
+    "Stage five before_hit applies Rose Pact (25s duration), which activates A1 (+5% ATK) for stage 5 itself and subsequent hits.",
+    "Each stage delivers ordered coincident packets at the research primary impact timestamp; travel, AoE and animation intervals remain unresolved."
+  ],
+  "independent_oracles": [
+    "1000 ATK, 0 RES and 0.5 DEF factor: level-one stages deal 109, 167, 322.5, 324, 380. Five inputs total 1302.5 (2605/2); sixth looping input gives 1411.5 (2823/2).",
+    "Level-eight stages deal 187, 286, 552.5, 555, 651.5. Five inputs total 2232.5 (4465/2); sixth gives 2419.5 (4839/2).",
+    "Purchased level eight at A3 projects level nine with Rose Pact on stage 5 activating A1 (+5% ATK) and A5 (+8% dmg on Pact target): 202, 309, 597.5, 600, 738.675. Five inputs total 2446.675; sixth gives 2657.775 (106311/40)."
+  ],
+  "checks": [
+    "python tools/check.py -- python tools/verify_normal_chain_sources.py verifies source hashes and ordered coefficient multiplicity at all nine published levels.",
+    "Native damage tests verify every stage, packet identity, multiplicity, loop, Rose Pact application and effective talent projection at levels 1, 8 and A3.",
+    "Native causal tests verify ability/field/gap resets, no-op switches, strict hypothesis acceptance and all four fourth-stage packets settling after field exit at the exact horizon.",
+    "Public attack:5 scripts verify independent per-packet and total damage through Worker/WASM with complete native report parity."
+  ],
+  "pending": [
+    "Measured reset/cancel rules and packet intervals; return when frozen animation evidence supplies a concrete model.",
+    "Aim and plunge attack variations, bullet resource model, BudBoom / BudEnd detonation triggers and complete kit behavior."
+  ]
+}

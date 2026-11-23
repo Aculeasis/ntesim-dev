@@ -1,0 +1,51 @@
+{
+  "checks": [
+        "Rust simulation tests: python tools/cargo.py test --package ntesim-content yaodao (pass); includes T1/T3/T5 separate child damage, parent receipt preservation, explicit action-tag admission, strict preflight rejection before damage, packet-tag rejection, and child execution-assumption provenance.",
+    "Metadata allowlist: python tools/cargo.py test --package ntesim-content research_action_accepts_only_the_explicit_parry_semantic_tag (pass); accepts the exact caller-declared Parry action tag and rejects an unknown tag.",
+    "Rust formatting: python tools/cargo.py fmt --check -p ntesim-content (pass).",
+        "Clippy: python tools/cargo.py clippy -p ntesim-content --tests -- -D warnings (pass).",
+    "WASM build: python tools/cargo.py build -p ntesim-wasm --release --target wasm32-unknown-unknown --locked --offline (pass).",
+    "Web consumer: node tools/web.mjs test tests/weapon_passives.test.mjs (pass); exercises WASM, native verification, actual Worker parity, T1/T3/T5 ratios, unchanged parent damage, untagged control, and two seeded crit draws.",
+    "Studio native stat catalog regenerated from the rebuilt CLI with node tools/build_studio_stats.mjs; 23 characters and 51 weapons emitted."
+  ],
+    "combat_scope": "Bounded caller-declared Crimson Hexblade runtime model. For each connected parent packet on an equipped wearer whose action metadata explicitly carries ntesim.trigger.parry_attack, the runner emits one separate Incantation ATK-scaled child at the parent delivery time and target. The child has an independent damage receipt and per-hit crit draw, uses standard damage calculation, and receives pre-hit modifiers selected by ordinary packet-metadata rules; native eligibility of those modifiers is unknown. Its target HP loss is applied, but post-hit callbacks (ordinary-hit energy, character/gear/Fireflies callbacks, Break and target-defeat callbacks) are omitted because native eligibility is unknown. The parent's packet and receipt remain unchanged. This does not model native Parry admission or claim native passive coverage.",
+  "cutoff": "2026-10-04",
+  "curves": {
+    "GE_Fork_yaodao_Skill_Damage": {
+      "keys": [1, 2, 3, 4, 5],
+      "unit": "absolute ATK coefficient (bIsPercent display hint, no unit conversion)",
+      "values": [2.0, 2.3, 2.6, 2.9, 3.2]
+    }
+  },
+  "hypothesis_id": "weapons.yaodao_separate_packet_v1",
+  "independent_oracles": [
+    "At 1000 ATK, DEF0, RES0, no damage bonuses and zero crit, the frozen T1 ratio 2/1 yields a separate child with 2000 exact damage.",
+    "At the same pinned inputs, the frozen T3 ratio 13/5 yields a separate child with 2600 exact damage.",
+    "At the same pinned inputs, the frozen T5 ratio 16/5 yields a separate child with 3200 exact damage.",
+    "A research-only 1/2 crit-rate case declares independent per-target-hit sampling for the parent and child; the actor RNG stream records two draws at indices 0 and 1. This verifies runner RNG separation only, not native crit policy."
+  ],
+  "known_gaps": [
+    "Native Parry event admission, attribution and legal action/resource costs are not modeled; the exact ntesim.trigger.parry_attack action tag is a caller declaration.",
+    "Native child multiplicity across multi-hit and multi-target actions, delivery timing, target selection, crit/RNG, damage-bonus eligibility and post-hit callback eligibility are unknown.",
+    "The bounded child omits energy, character/gear/Fireflies, Break and target-defeat callbacks. These omissions make no claim that native behavior excludes them.",
+    "The separate packet ratio is source-backed; global release availability remains unverified in the frozen catalog."
+  ],
+  "name": "Crimson Hexblade separate Parry packet model",
+  "content_id": "ntesim-current",
+  "region": "Global",
+  "schema_version": 1,
+  "source_sha256": {
+    "data/ntesim-current/tables/CT_ForkBuff.json": "93d1ed2069bc8e4358f98bfb5a3e212c13ad84e67eb6379e38414aa665539c15",
+    "data/ntesim-current/tables/DT_Character.json": "cce34c68a6286d9cfeb1525c7e0e05743370e8d5f96f6ddb8feb4ef8db0ab406",
+    "data/ntesim-current/tables/DT_ForkItemData.json": "22f6f587ad9bf3d54905889e81bfe8f213fa29c49522499287c53d42fd6900a4",
+    "data/ntesim-current/tables/DT_ForkUpgradeStarDataTable.json": "b15f6c4cf4b8a6e1c982b431176b406a501f38861a67ddce45a0f589cdeed8c5"
+  },
+  "sources": [
+    "data/ntesim-current/tables/DT_ForkItemData.json",
+    "data/ntesim-current/tables/DT_ForkUpgradeStarDataTable.json",
+    "data/ntesim-current/tables/CT_ForkBuff.json",
+    "data/ntesim-current/tables/DT_Character.json"
+  ],
+  "status": "modeled_hypothesis",
+  "weapon_id": "weapon:fork_yaodao"
+}

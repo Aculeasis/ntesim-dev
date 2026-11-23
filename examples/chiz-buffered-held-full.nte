@@ -1,0 +1,18 @@
+# A separate paid third Skill ends each two-stock loop at its native gate.
+options duration=35 seed=42 start_fons=1234;
+chiz char lvl=80/80 awakening=0 talent=8,8,8 qte=8
+    start_grains=0 start_loans=0 start_energy=0;
+target hp=100000000 def=1080 resist=0;
+target hp=100000000 def=1080 resist=0;
+active chiz;
+
+let end=15;
+repeat 2 {
+    if .chiz.resources.skill_stocks!=3 {wait(99);}
+    chiz skill[hold=10s,stocks=2,window=skill];
+    if .chiz.resources.skill_stocks!=1 {wait(99);}
+    chiz skill;
+    if .team.fons!=1234 {wait(99);}
+    wait_until(end);
+    end=end+15;
+}

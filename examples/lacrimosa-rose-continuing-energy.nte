@@ -1,0 +1,18 @@
+# Lacrimosa A0 ranged rotation with Bohemian Rose T1 and the opt-in Nightmare tick model.
+# Six Normal chains fund one Burst; off-field ticks remain in the 56s DPS denominator.
+# Native build projection gives Lacrimosa 120 capacity; the Worker fixture supplies the DoT assumption and 120 Burst cost.
+options iteration=1 duration=56s crit=fixed;
+lacrimosa char lvl=80/80 awakening=0 talent=8,8,8 qte=8 start_energy=0;
+lacrimosa add weapon=fork_Rose refine=1;
+mint char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_energy=0;
+sakiri char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_energy=0;
+target hp=100000000 def=1080 resist=0;
+active lacrimosa;
+
+repeat 6 { lacrimosa attack:5; }
+wait_until(24s);
+lacrimosa skill, burst;
+wait_until(27.2s);
+lacrimosa attack:5;
+wait_until(31.2s);
+mint swap;

@@ -1,0 +1,9 @@
+options duration=50 seed=42;
+blackbird char lvl=80/80 awakening=0 talent=8,8,8 qte=8 start_energy=0;
+target hp=100000000 def=1080 resist=0;
+target hp=100000000 def=1080 resist=0;
+active blackbird;
+
+# This bounded packet-dispatch fixture retains the existing caller timing.
+# It verifies two continuing primary trains; full kit/form clocks are separate.
+repeat 2 { blackbird attack:5; blackbird skill; wait(16); }

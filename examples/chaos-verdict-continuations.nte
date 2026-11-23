@@ -1,0 +1,13 @@
+# Continue a funded Verdict inside its native post-recovery source lifetime.
+options duration=60 seed=42;
+chaos char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_energy=0 start_crime=1000;
+target hp=100000000 def=1080 resist=0;
+target hp=100000000 def=1080 resist=0;
+active chaos;
+
+repeat 2 {
+    chaos attack[hold=1,window=hold];
+    chaos attack[hold=200ms];
+    # Three ordinary chains refill Crime on the continuing native ledger.
+    chaos attack:15;
+}

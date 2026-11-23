@@ -1,0 +1,1264 @@
+{
+  "schema_version": 1,
+  "content_id": "synthetic-v1",
+  "label": "SYNTHETIC ENGINE FIXTURE — НЕ ПЕРСОНАЖИ NTE",
+  "data_status": "synthetic",
+  "characters": {
+    "a": {
+      "element": "Cosmos",
+      "adapter_complete": true,
+      "energy_cap": 100,
+      "initial_energy": 100,
+      "level": 80,
+      "start_gauge": 0,
+      "cycle_base_weight": 1,
+      "accepts_offfield_energy": true,
+      "resource_specs": {
+        "clock": {
+          "cap": 120,
+          "start": 120,
+          "regen_per_second": 6,
+          "pause_during_stop": true,
+          "pause_during_mode_pause": false
+        }
+      },
+      "stats": {
+        "atk": 1000,
+        "def": 1000,
+        "hp": 10000,
+        "crit_rate": 0.5,
+        "crit_damage": 1.0,
+        "damage_bonus": 0,
+        "damage_bonus_from_hit": 0,
+        "crit_damage_bonus": 0,
+        "defense_shred": 0,
+        "defense_ignore": 0,
+        "cycle_intensity": 0,
+        "break_intensity": 0,
+        "break_efficiency": 0,
+        "break_damage_bonus": 0
+      },
+      "actions": {
+        "N": {
+          "duration": 1,
+          "cooldown": 0,
+          "cooldown_clock": "real",
+          "recharge_mode": "parallel",
+          "energy_cost": 0,
+          "max_charges": 1,
+          "resource_cost": {},
+          "resource_requirements": {},
+          "resource_events": [],
+          "mode_pauses": [],
+          "switch_locks": [],
+          "buffs": [],
+          "recordable_events": [],
+          "stop_duration": null,
+          "recording_start": null,
+          "replay_recordings": null,
+          "hits": [
+            {
+              "delay": 0.5,
+              "clock": "real",
+              "ratio": 1,
+              "stat": "atk",
+              "targeting": "single",
+              "crit_rule": "normal",
+              "energy_gain": 0,
+              "offfield_energy_gain": 0,
+              "energy_distribution": {
+                "scope": "once_per_event",
+                "grants": [
+                  {
+                    "recipients": "owner",
+                    "base": 5,
+                    "coefficient": 1,
+                    "multiplier": null,
+                    "eligibility": "always",
+                    "condition": "always"
+                  },
+                  {
+                    "recipients": "team_except_owner",
+                    "base": 3,
+                    "coefficient": 1,
+                    "multiplier": null,
+                    "eligibility": "accepts_shared",
+                    "condition": "always"
+                  }
+                ]
+              },
+              "gauge_gain": 10,
+              "break_shred": 1,
+              "element": "Cosmos",
+              "kind": "elemental",
+              "flat": 0,
+              "final": 1,
+              "special": 1,
+              "damage_bonus": 0,
+              "damage_bonus_stat": "damage_bonus_from_hit",
+              "crit_damage_bonus": 0,
+              "crit_damage_bonus_stat": "crit_damage_bonus",
+              "requires_owner_on_field": false,
+              "miss": false,
+              "cancel_on_exit": false,
+              "applies_periodic": [],
+              "resource_gain": {},
+              "random_resource_gain": {}
+            }
+          ]
+        },
+        "E": {
+          "duration": 1,
+          "cooldown": 10,
+          "cooldown_clock": "real",
+          "recharge_mode": "parallel",
+          "energy_cost": 0,
+          "max_charges": 1,
+          "resource_cost": {},
+          "resource_requirements": {},
+          "resource_events": [],
+          "mode_pauses": [],
+          "switch_locks": [],
+          "buffs": [],
+          "recordable_events": [],
+          "stop_duration": null,
+          "recording_start": null,
+          "replay_recordings": null,
+          "hits": [
+            {
+              "delay": 0.5,
+              "clock": "real",
+              "ratio": 3,
+              "stat": "atk",
+              "targeting": "single",
+              "crit_rule": "normal",
+              "energy_gain": 0,
+              "offfield_energy_gain": 0,
+              "energy_distribution": {
+                "scope": "once_per_event",
+                "grants": [
+                  {
+                    "recipients": "owner",
+                    "base": 5,
+                    "coefficient": 1,
+                    "multiplier": null,
+                    "eligibility": "always",
+                    "condition": "always"
+                  },
+                  {
+                    "recipients": "team_except_owner",
+                    "base": 3,
+                    "coefficient": 1,
+                    "multiplier": null,
+                    "eligibility": "accepts_shared",
+                    "condition": "always"
+                  }
+                ]
+              },
+              "gauge_gain": 10,
+              "break_shred": 1,
+              "element": "Cosmos",
+              "kind": "elemental",
+              "flat": 0,
+              "final": 1,
+              "special": 1,
+              "damage_bonus": 0,
+              "damage_bonus_stat": "damage_bonus_from_hit",
+              "crit_damage_bonus": 0,
+              "crit_damage_bonus_stat": "crit_damage_bonus",
+              "requires_owner_on_field": false,
+              "miss": false,
+              "cancel_on_exit": false,
+              "applies_periodic": [],
+              "resource_gain": {},
+              "random_resource_gain": {}
+            }
+          ]
+        },
+        "Q": {
+          "duration": 2,
+          "cooldown": 15,
+          "cooldown_clock": "real",
+          "recharge_mode": "parallel",
+          "energy_cost": 100,
+          "max_charges": 1,
+          "resource_cost": {},
+          "resource_requirements": {},
+          "resource_events": [],
+          "mode_pauses": [],
+          "switch_locks": [],
+          "buffs": [],
+          "recordable_events": [],
+          "stop_duration": null,
+          "recording_start": null,
+          "replay_recordings": null,
+          "hits": [
+            {
+              "delay": 0.5,
+              "clock": "real",
+              "ratio": 6,
+              "stat": "atk",
+              "targeting": "single",
+              "crit_rule": "normal",
+              "energy_gain": 0,
+              "offfield_energy_gain": 0,
+              "energy_distribution": {
+                "scope": "once_per_event",
+                "grants": [
+                  {
+                    "recipients": "owner",
+                    "base": 5,
+                    "coefficient": 1,
+                    "multiplier": null,
+                    "eligibility": "always",
+                    "condition": "always"
+                  },
+                  {
+                    "recipients": "team_except_owner",
+                    "base": 3,
+                    "coefficient": 1,
+                    "multiplier": null,
+                    "eligibility": "accepts_shared",
+                    "condition": "always"
+                  }
+                ]
+              },
+              "gauge_gain": 10,
+              "break_shred": 1,
+              "element": "Cosmos",
+              "kind": "elemental",
+              "flat": 0,
+              "final": 1,
+              "special": 1,
+              "damage_bonus": 0,
+              "damage_bonus_stat": "damage_bonus_from_hit",
+              "crit_damage_bonus": 0,
+              "crit_damage_bonus_stat": "crit_damage_bonus",
+              "requires_owner_on_field": false,
+              "miss": false,
+              "cancel_on_exit": false,
+              "applies_periodic": [],
+              "resource_gain": {},
+              "random_resource_gain": {}
+            }
+          ]
+        },
+        "stop": {
+          "duration": 2,
+          "cooldown": 0,
+          "cooldown_clock": "real",
+          "recharge_mode": "parallel",
+          "energy_cost": 0,
+          "max_charges": 1,
+          "resource_cost": {
+            "clock": 120
+          },
+          "resource_requirements": {},
+          "resource_events": [],
+          "mode_pauses": [],
+          "switch_locks": [],
+          "buffs": [],
+          "recordable_events": [],
+          "stop_duration": 3,
+          "recording_start": null,
+          "replay_recordings": null,
+          "hits": [
+            {
+              "delay": 0.5,
+              "clock": "real",
+              "ratio": 2,
+              "stat": "atk",
+              "targeting": "single",
+              "crit_rule": "normal",
+              "energy_gain": 0,
+              "offfield_energy_gain": 0,
+              "energy_distribution": {
+                "scope": "once_per_event",
+                "grants": [
+                  {
+                    "recipients": "owner",
+                    "base": 5,
+                    "coefficient": 1,
+                    "multiplier": null,
+                    "eligibility": "always",
+                    "condition": "always"
+                  },
+                  {
+                    "recipients": "team_except_owner",
+                    "base": 3,
+                    "coefficient": 1,
+                    "multiplier": null,
+                    "eligibility": "accepts_shared",
+                    "condition": "always"
+                  }
+                ]
+              },
+              "gauge_gain": 10,
+              "break_shred": 1,
+              "element": "Cosmos",
+              "kind": "elemental",
+              "flat": 0,
+              "final": 1,
+              "special": 1,
+              "damage_bonus": 0,
+              "damage_bonus_stat": "damage_bonus_from_hit",
+              "crit_damage_bonus": 0,
+              "crit_damage_bonus_stat": "crit_damage_bonus",
+              "requires_owner_on_field": false,
+              "miss": false,
+              "cancel_on_exit": false,
+              "applies_periodic": [],
+              "resource_gain": {},
+              "random_resource_gain": {}
+            }
+          ]
+        }
+      },
+      "support_hit": {
+        "delay": 0.5,
+        "clock": "real",
+        "ratio": 2,
+        "stat": "atk",
+        "targeting": "single",
+        "crit_rule": "normal",
+        "energy_gain": 0,
+        "offfield_energy_gain": 0,
+        "energy_distribution": {
+          "scope": "once_per_event",
+          "grants": [
+            {
+              "recipients": "owner",
+              "base": 5,
+              "coefficient": 1,
+              "multiplier": null,
+              "eligibility": "always",
+              "condition": "always"
+            },
+            {
+              "recipients": "team_except_owner",
+              "base": 3,
+              "coefficient": 1,
+              "multiplier": null,
+              "eligibility": "accepts_shared",
+              "condition": "always"
+            }
+          ]
+        },
+        "gauge_gain": 10,
+        "break_shred": 1,
+        "element": "Cosmos",
+        "kind": "elemental",
+        "flat": 0,
+        "final": 1,
+        "special": 1,
+        "damage_bonus": 0,
+        "damage_bonus_stat": "damage_bonus_from_hit",
+        "crit_damage_bonus": 0,
+        "crit_damage_bonus_stat": "crit_damage_bonus",
+        "requires_owner_on_field": false,
+        "miss": false,
+        "cancel_on_exit": false,
+        "applies_periodic": [],
+        "resource_gain": {},
+        "random_resource_gain": {}
+      }
+    },
+    "b": {
+      "element": "Anima",
+      "adapter_complete": true,
+      "energy_cap": 100,
+      "initial_energy": 100,
+      "level": 80,
+      "start_gauge": 0,
+      "cycle_base_weight": 1,
+      "accepts_offfield_energy": true,
+      "resource_specs": {},
+      "stats": {
+        "atk": 1000,
+        "def": 1000,
+        "hp": 10000,
+        "crit_rate": 0.5,
+        "crit_damage": 1.0,
+        "damage_bonus": 0,
+        "damage_bonus_from_hit": 0,
+        "crit_damage_bonus": 0,
+        "defense_shred": 0,
+        "defense_ignore": 0,
+        "cycle_intensity": 0,
+        "break_intensity": 0,
+        "break_efficiency": 0,
+        "break_damage_bonus": 0
+      },
+      "actions": {
+        "N": {
+          "duration": 1,
+          "cooldown": 0,
+          "cooldown_clock": "real",
+          "recharge_mode": "parallel",
+          "energy_cost": 0,
+          "max_charges": 1,
+          "resource_cost": {},
+          "resource_requirements": {},
+          "resource_events": [],
+          "mode_pauses": [],
+          "switch_locks": [],
+          "buffs": [],
+          "recordable_events": [],
+          "stop_duration": null,
+          "recording_start": null,
+          "replay_recordings": null,
+          "hits": [
+            {
+              "delay": 0.5,
+              "clock": "real",
+              "ratio": 1,
+              "stat": "atk",
+              "targeting": "single",
+              "crit_rule": "normal",
+              "energy_gain": 0,
+              "offfield_energy_gain": 0,
+              "energy_distribution": {
+                "scope": "once_per_event",
+                "grants": [
+                  {
+                    "recipients": "owner",
+                    "base": 5,
+                    "coefficient": 1,
+                    "multiplier": null,
+                    "eligibility": "always",
+                    "condition": "always"
+                  },
+                  {
+                    "recipients": "team_except_owner",
+                    "base": 3,
+                    "coefficient": 1,
+                    "multiplier": null,
+                    "eligibility": "accepts_shared",
+                    "condition": "always"
+                  }
+                ]
+              },
+              "gauge_gain": 10,
+              "break_shred": 1,
+              "element": "Anima",
+              "kind": "elemental",
+              "flat": 0,
+              "final": 1,
+              "special": 1,
+              "damage_bonus": 0,
+              "damage_bonus_stat": "damage_bonus_from_hit",
+              "crit_damage_bonus": 0,
+              "crit_damage_bonus_stat": "crit_damage_bonus",
+              "requires_owner_on_field": false,
+              "miss": false,
+              "cancel_on_exit": false,
+              "applies_periodic": [],
+              "resource_gain": {},
+              "random_resource_gain": {}
+            }
+          ]
+        },
+        "E": {
+          "duration": 1,
+          "cooldown": 10,
+          "cooldown_clock": "real",
+          "recharge_mode": "parallel",
+          "energy_cost": 0,
+          "max_charges": 1,
+          "resource_cost": {},
+          "resource_requirements": {},
+          "resource_events": [],
+          "mode_pauses": [],
+          "switch_locks": [],
+          "buffs": [],
+          "recordable_events": [],
+          "stop_duration": null,
+          "recording_start": null,
+          "replay_recordings": null,
+          "hits": [
+            {
+              "delay": 0.5,
+              "clock": "real",
+              "ratio": 3,
+              "stat": "atk",
+              "targeting": "single",
+              "crit_rule": "normal",
+              "energy_gain": 0,
+              "offfield_energy_gain": 0,
+              "energy_distribution": {
+                "scope": "once_per_event",
+                "grants": [
+                  {
+                    "recipients": "owner",
+                    "base": 5,
+                    "coefficient": 1,
+                    "multiplier": null,
+                    "eligibility": "always",
+                    "condition": "always"
+                  },
+                  {
+                    "recipients": "team_except_owner",
+                    "base": 3,
+                    "coefficient": 1,
+                    "multiplier": null,
+                    "eligibility": "accepts_shared",
+                    "condition": "always"
+                  }
+                ]
+              },
+              "gauge_gain": 10,
+              "break_shred": 1,
+              "element": "Anima",
+              "kind": "elemental",
+              "flat": 0,
+              "final": 1,
+              "special": 1,
+              "damage_bonus": 0,
+              "damage_bonus_stat": "damage_bonus_from_hit",
+              "crit_damage_bonus": 0,
+              "crit_damage_bonus_stat": "crit_damage_bonus",
+              "requires_owner_on_field": false,
+              "miss": false,
+              "cancel_on_exit": false,
+              "applies_periodic": [],
+              "resource_gain": {},
+              "random_resource_gain": {}
+            }
+          ]
+        },
+        "Q": {
+          "duration": 2,
+          "cooldown": 15,
+          "cooldown_clock": "real",
+          "recharge_mode": "parallel",
+          "energy_cost": 100,
+          "max_charges": 1,
+          "resource_cost": {},
+          "resource_requirements": {},
+          "resource_events": [],
+          "mode_pauses": [],
+          "switch_locks": [],
+          "buffs": [],
+          "recordable_events": [],
+          "stop_duration": null,
+          "recording_start": null,
+          "replay_recordings": null,
+          "hits": [
+            {
+              "delay": 0.5,
+              "clock": "real",
+              "ratio": 6,
+              "stat": "atk",
+              "targeting": "single",
+              "crit_rule": "normal",
+              "energy_gain": 0,
+              "offfield_energy_gain": 0,
+              "energy_distribution": {
+                "scope": "once_per_event",
+                "grants": [
+                  {
+                    "recipients": "owner",
+                    "base": 5,
+                    "coefficient": 1,
+                    "multiplier": null,
+                    "eligibility": "always",
+                    "condition": "always"
+                  },
+                  {
+                    "recipients": "team_except_owner",
+                    "base": 3,
+                    "coefficient": 1,
+                    "multiplier": null,
+                    "eligibility": "accepts_shared",
+                    "condition": "always"
+                  }
+                ]
+              },
+              "gauge_gain": 10,
+              "break_shred": 1,
+              "element": "Anima",
+              "kind": "elemental",
+              "flat": 0,
+              "final": 1,
+              "special": 1,
+              "damage_bonus": 0,
+              "damage_bonus_stat": "damage_bonus_from_hit",
+              "crit_damage_bonus": 0,
+              "crit_damage_bonus_stat": "crit_damage_bonus",
+              "requires_owner_on_field": false,
+              "miss": false,
+              "cancel_on_exit": false,
+              "applies_periodic": [],
+              "resource_gain": {},
+              "random_resource_gain": {}
+            }
+          ]
+        }
+      },
+      "support_hit": {
+        "delay": 0.5,
+        "clock": "real",
+        "ratio": 2,
+        "stat": "atk",
+        "targeting": "single",
+        "crit_rule": "normal",
+        "energy_gain": 0,
+        "offfield_energy_gain": 0,
+        "energy_distribution": {
+          "scope": "once_per_event",
+          "grants": [
+            {
+              "recipients": "owner",
+              "base": 5,
+              "coefficient": 1,
+              "multiplier": null,
+              "eligibility": "always",
+              "condition": "always"
+            },
+            {
+              "recipients": "team_except_owner",
+              "base": 3,
+              "coefficient": 1,
+              "multiplier": null,
+              "eligibility": "accepts_shared",
+              "condition": "always"
+            }
+          ]
+        },
+        "gauge_gain": 10,
+        "break_shred": 1,
+        "element": "Anima",
+        "kind": "elemental",
+        "flat": 0,
+        "final": 1,
+        "special": 1,
+        "damage_bonus": 0,
+        "damage_bonus_stat": "damage_bonus_from_hit",
+        "crit_damage_bonus": 0,
+        "crit_damage_bonus_stat": "crit_damage_bonus",
+        "requires_owner_on_field": false,
+        "miss": false,
+        "cancel_on_exit": false,
+        "applies_periodic": [],
+        "resource_gain": {},
+        "random_resource_gain": {}
+      }
+    },
+    "c": {
+      "element": "Lakshana",
+      "adapter_complete": true,
+      "energy_cap": 100,
+      "initial_energy": 100,
+      "level": 80,
+      "start_gauge": 0,
+      "cycle_base_weight": 1,
+      "accepts_offfield_energy": true,
+      "resource_specs": {},
+      "stats": {
+        "atk": 1000,
+        "def": 1000,
+        "hp": 10000,
+        "crit_rate": 0.5,
+        "crit_damage": 1.0,
+        "damage_bonus": 0,
+        "damage_bonus_from_hit": 0,
+        "crit_damage_bonus": 0,
+        "defense_shred": 0,
+        "defense_ignore": 0,
+        "cycle_intensity": 0,
+        "break_intensity": 0,
+        "break_efficiency": 0,
+        "break_damage_bonus": 0
+      },
+      "actions": {
+        "N": {
+          "duration": 1,
+          "cooldown": 0,
+          "cooldown_clock": "real",
+          "recharge_mode": "parallel",
+          "energy_cost": 0,
+          "max_charges": 1,
+          "resource_cost": {},
+          "resource_requirements": {},
+          "resource_events": [],
+          "mode_pauses": [],
+          "switch_locks": [],
+          "buffs": [],
+          "recordable_events": [],
+          "stop_duration": null,
+          "recording_start": null,
+          "replay_recordings": null,
+          "hits": [
+            {
+              "delay": 0.5,
+              "clock": "real",
+              "ratio": 1,
+              "stat": "atk",
+              "targeting": "single",
+              "crit_rule": "normal",
+              "energy_gain": 0,
+              "offfield_energy_gain": 0,
+              "energy_distribution": {
+                "scope": "once_per_event",
+                "grants": [
+                  {
+                    "recipients": "owner",
+                    "base": 5,
+                    "coefficient": 1,
+                    "multiplier": null,
+                    "eligibility": "always",
+                    "condition": "always"
+                  },
+                  {
+                    "recipients": "team_except_owner",
+                    "base": 3,
+                    "coefficient": 1,
+                    "multiplier": null,
+                    "eligibility": "accepts_shared",
+                    "condition": "always"
+                  }
+                ]
+              },
+              "gauge_gain": 10,
+              "break_shred": 1,
+              "element": "Lakshana",
+              "kind": "elemental",
+              "flat": 0,
+              "final": 1,
+              "special": 1,
+              "damage_bonus": 0,
+              "damage_bonus_stat": "damage_bonus_from_hit",
+              "crit_damage_bonus": 0,
+              "crit_damage_bonus_stat": "crit_damage_bonus",
+              "requires_owner_on_field": false,
+              "miss": false,
+              "cancel_on_exit": false,
+              "applies_periodic": [],
+              "resource_gain": {},
+              "random_resource_gain": {}
+            }
+          ]
+        },
+        "E": {
+          "duration": 1,
+          "cooldown": 10,
+          "cooldown_clock": "real",
+          "recharge_mode": "parallel",
+          "energy_cost": 0,
+          "max_charges": 1,
+          "resource_cost": {},
+          "resource_requirements": {},
+          "resource_events": [],
+          "mode_pauses": [],
+          "switch_locks": [],
+          "buffs": [],
+          "recordable_events": [],
+          "stop_duration": null,
+          "recording_start": null,
+          "replay_recordings": null,
+          "hits": [
+            {
+              "delay": 0.5,
+              "clock": "real",
+              "ratio": 3,
+              "stat": "atk",
+              "targeting": "single",
+              "crit_rule": "normal",
+              "energy_gain": 0,
+              "offfield_energy_gain": 0,
+              "energy_distribution": {
+                "scope": "once_per_event",
+                "grants": [
+                  {
+                    "recipients": "owner",
+                    "base": 5,
+                    "coefficient": 1,
+                    "multiplier": null,
+                    "eligibility": "always",
+                    "condition": "always"
+                  },
+                  {
+                    "recipients": "team_except_owner",
+                    "base": 3,
+                    "coefficient": 1,
+                    "multiplier": null,
+                    "eligibility": "accepts_shared",
+                    "condition": "always"
+                  }
+                ]
+              },
+              "gauge_gain": 10,
+              "break_shred": 1,
+              "element": "Lakshana",
+              "kind": "elemental",
+              "flat": 0,
+              "final": 1,
+              "special": 1,
+              "damage_bonus": 0,
+              "damage_bonus_stat": "damage_bonus_from_hit",
+              "crit_damage_bonus": 0,
+              "crit_damage_bonus_stat": "crit_damage_bonus",
+              "requires_owner_on_field": false,
+              "miss": false,
+              "cancel_on_exit": false,
+              "applies_periodic": [],
+              "resource_gain": {},
+              "random_resource_gain": {}
+            }
+          ]
+        },
+        "Q": {
+          "duration": 2,
+          "cooldown": 15,
+          "cooldown_clock": "real",
+          "recharge_mode": "parallel",
+          "energy_cost": 100,
+          "max_charges": 1,
+          "resource_cost": {},
+          "resource_requirements": {},
+          "resource_events": [],
+          "mode_pauses": [],
+          "switch_locks": [],
+          "buffs": [],
+          "recordable_events": [],
+          "stop_duration": null,
+          "recording_start": null,
+          "replay_recordings": null,
+          "hits": [
+            {
+              "delay": 0.5,
+              "clock": "real",
+              "ratio": 6,
+              "stat": "atk",
+              "targeting": "single",
+              "crit_rule": "normal",
+              "energy_gain": 0,
+              "offfield_energy_gain": 0,
+              "energy_distribution": {
+                "scope": "once_per_event",
+                "grants": [
+                  {
+                    "recipients": "owner",
+                    "base": 5,
+                    "coefficient": 1,
+                    "multiplier": null,
+                    "eligibility": "always",
+                    "condition": "always"
+                  },
+                  {
+                    "recipients": "team_except_owner",
+                    "base": 3,
+                    "coefficient": 1,
+                    "multiplier": null,
+                    "eligibility": "accepts_shared",
+                    "condition": "always"
+                  }
+                ]
+              },
+              "gauge_gain": 10,
+              "break_shred": 1,
+              "element": "Lakshana",
+              "kind": "elemental",
+              "flat": 0,
+              "final": 1,
+              "special": 1,
+              "damage_bonus": 0,
+              "damage_bonus_stat": "damage_bonus_from_hit",
+              "crit_damage_bonus": 0,
+              "crit_damage_bonus_stat": "crit_damage_bonus",
+              "requires_owner_on_field": false,
+              "miss": false,
+              "cancel_on_exit": false,
+              "applies_periodic": [],
+              "resource_gain": {},
+              "random_resource_gain": {}
+            }
+          ]
+        }
+      },
+      "support_hit": {
+        "delay": 0.5,
+        "clock": "real",
+        "ratio": 2,
+        "stat": "atk",
+        "targeting": "single",
+        "crit_rule": "normal",
+        "energy_gain": 0,
+        "offfield_energy_gain": 0,
+        "energy_distribution": {
+          "scope": "once_per_event",
+          "grants": [
+            {
+              "recipients": "owner",
+              "base": 5,
+              "coefficient": 1,
+              "multiplier": null,
+              "eligibility": "always",
+              "condition": "always"
+            },
+            {
+              "recipients": "team_except_owner",
+              "base": 3,
+              "coefficient": 1,
+              "multiplier": null,
+              "eligibility": "accepts_shared",
+              "condition": "always"
+            }
+          ]
+        },
+        "gauge_gain": 10,
+        "break_shred": 1,
+        "element": "Lakshana",
+        "kind": "elemental",
+        "flat": 0,
+        "final": 1,
+        "special": 1,
+        "damage_bonus": 0,
+        "damage_bonus_stat": "damage_bonus_from_hit",
+        "crit_damage_bonus": 0,
+        "crit_damage_bonus_stat": "crit_damage_bonus",
+        "requires_owner_on_field": false,
+        "miss": false,
+        "cancel_on_exit": false,
+        "applies_periodic": [],
+        "resource_gain": {},
+        "random_resource_gain": {}
+      }
+    },
+    "d": {
+      "element": "Psyche",
+      "adapter_complete": true,
+      "energy_cap": 100,
+      "initial_energy": 100,
+      "level": 80,
+      "start_gauge": 0,
+      "cycle_base_weight": 1,
+      "accepts_offfield_energy": true,
+      "resource_specs": {},
+      "stats": {
+        "atk": 1000,
+        "def": 1000,
+        "hp": 10000,
+        "crit_rate": 0.5,
+        "crit_damage": 1.0,
+        "damage_bonus": 0,
+        "damage_bonus_from_hit": 0,
+        "crit_damage_bonus": 0,
+        "defense_shred": 0,
+        "defense_ignore": 0,
+        "cycle_intensity": 0,
+        "break_intensity": 0,
+        "break_efficiency": 0,
+        "break_damage_bonus": 0
+      },
+      "actions": {
+        "N": {
+          "duration": 1,
+          "cooldown": 0,
+          "cooldown_clock": "real",
+          "recharge_mode": "parallel",
+          "energy_cost": 0,
+          "max_charges": 1,
+          "resource_cost": {},
+          "resource_requirements": {},
+          "resource_events": [],
+          "mode_pauses": [],
+          "switch_locks": [],
+          "buffs": [],
+          "recordable_events": [],
+          "stop_duration": null,
+          "recording_start": null,
+          "replay_recordings": null,
+          "hits": [
+            {
+              "delay": 0.5,
+              "clock": "real",
+              "ratio": 1,
+              "stat": "atk",
+              "targeting": "single",
+              "crit_rule": "normal",
+              "energy_gain": 0,
+              "offfield_energy_gain": 0,
+              "energy_distribution": {
+                "scope": "once_per_event",
+                "grants": [
+                  {
+                    "recipients": "owner",
+                    "base": 5,
+                    "coefficient": 1,
+                    "multiplier": null,
+                    "eligibility": "always",
+                    "condition": "always"
+                  },
+                  {
+                    "recipients": "team_except_owner",
+                    "base": 3,
+                    "coefficient": 1,
+                    "multiplier": null,
+                    "eligibility": "accepts_shared",
+                    "condition": "always"
+                  }
+                ]
+              },
+              "gauge_gain": 10,
+              "break_shred": 1,
+              "element": "Psyche",
+              "kind": "elemental",
+              "flat": 0,
+              "final": 1,
+              "special": 1,
+              "damage_bonus": 0,
+              "damage_bonus_stat": "damage_bonus_from_hit",
+              "crit_damage_bonus": 0,
+              "crit_damage_bonus_stat": "crit_damage_bonus",
+              "requires_owner_on_field": false,
+              "miss": false,
+              "cancel_on_exit": false,
+              "applies_periodic": [],
+              "resource_gain": {},
+              "random_resource_gain": {}
+            }
+          ]
+        },
+        "E": {
+          "duration": 1,
+          "cooldown": 10,
+          "cooldown_clock": "real",
+          "recharge_mode": "parallel",
+          "energy_cost": 0,
+          "max_charges": 1,
+          "resource_cost": {},
+          "resource_requirements": {},
+          "resource_events": [],
+          "mode_pauses": [],
+          "switch_locks": [],
+          "buffs": [],
+          "recordable_events": [],
+          "stop_duration": null,
+          "recording_start": null,
+          "replay_recordings": null,
+          "hits": [
+            {
+              "delay": 0.5,
+              "clock": "real",
+              "ratio": 3,
+              "stat": "atk",
+              "targeting": "single",
+              "crit_rule": "normal",
+              "energy_gain": 0,
+              "offfield_energy_gain": 0,
+              "energy_distribution": {
+                "scope": "once_per_event",
+                "grants": [
+                  {
+                    "recipients": "owner",
+                    "base": 5,
+                    "coefficient": 1,
+                    "multiplier": null,
+                    "eligibility": "always",
+                    "condition": "always"
+                  },
+                  {
+                    "recipients": "team_except_owner",
+                    "base": 3,
+                    "coefficient": 1,
+                    "multiplier": null,
+                    "eligibility": "accepts_shared",
+                    "condition": "always"
+                  }
+                ]
+              },
+              "gauge_gain": 10,
+              "break_shred": 1,
+              "element": "Psyche",
+              "kind": "elemental",
+              "flat": 0,
+              "final": 1,
+              "special": 1,
+              "damage_bonus": 0,
+              "damage_bonus_stat": "damage_bonus_from_hit",
+              "crit_damage_bonus": 0,
+              "crit_damage_bonus_stat": "crit_damage_bonus",
+              "requires_owner_on_field": false,
+              "miss": false,
+              "cancel_on_exit": false,
+              "applies_periodic": [],
+              "resource_gain": {},
+              "random_resource_gain": {}
+            }
+          ]
+        },
+        "Q": {
+          "duration": 2,
+          "cooldown": 15,
+          "cooldown_clock": "real",
+          "recharge_mode": "parallel",
+          "energy_cost": 100,
+          "max_charges": 1,
+          "resource_cost": {},
+          "resource_requirements": {},
+          "resource_events": [],
+          "mode_pauses": [],
+          "switch_locks": [],
+          "buffs": [],
+          "recordable_events": [],
+          "stop_duration": null,
+          "recording_start": null,
+          "replay_recordings": null,
+          "hits": [
+            {
+              "delay": 0.5,
+              "clock": "real",
+              "ratio": 6,
+              "stat": "atk",
+              "targeting": "single",
+              "crit_rule": "normal",
+              "energy_gain": 0,
+              "offfield_energy_gain": 0,
+              "energy_distribution": {
+                "scope": "once_per_event",
+                "grants": [
+                  {
+                    "recipients": "owner",
+                    "base": 5,
+                    "coefficient": 1,
+                    "multiplier": null,
+                    "eligibility": "always",
+                    "condition": "always"
+                  },
+                  {
+                    "recipients": "team_except_owner",
+                    "base": 3,
+                    "coefficient": 1,
+                    "multiplier": null,
+                    "eligibility": "accepts_shared",
+                    "condition": "always"
+                  }
+                ]
+              },
+              "gauge_gain": 10,
+              "break_shred": 1,
+              "element": "Psyche",
+              "kind": "elemental",
+              "flat": 0,
+              "final": 1,
+              "special": 1,
+              "damage_bonus": 0,
+              "damage_bonus_stat": "damage_bonus_from_hit",
+              "crit_damage_bonus": 0,
+              "crit_damage_bonus_stat": "crit_damage_bonus",
+              "requires_owner_on_field": false,
+              "miss": false,
+              "cancel_on_exit": false,
+              "applies_periodic": [],
+              "resource_gain": {},
+              "random_resource_gain": {}
+            }
+          ]
+        }
+      },
+      "support_hit": {
+        "delay": 0.5,
+        "clock": "real",
+        "ratio": 2,
+        "stat": "atk",
+        "targeting": "single",
+        "crit_rule": "normal",
+        "energy_gain": 0,
+        "offfield_energy_gain": 0,
+        "energy_distribution": {
+          "scope": "once_per_event",
+          "grants": [
+            {
+              "recipients": "owner",
+              "base": 5,
+              "coefficient": 1,
+              "multiplier": null,
+              "eligibility": "always",
+              "condition": "always"
+            },
+            {
+              "recipients": "team_except_owner",
+              "base": 3,
+              "coefficient": 1,
+              "multiplier": null,
+              "eligibility": "accepts_shared",
+              "condition": "always"
+            }
+          ]
+        },
+        "gauge_gain": 10,
+        "break_shred": 1,
+        "element": "Psyche",
+        "kind": "elemental",
+        "flat": 0,
+        "final": 1,
+        "special": 1,
+        "damage_bonus": 0,
+        "damage_bonus_stat": "damage_bonus_from_hit",
+        "crit_damage_bonus": 0,
+        "crit_damage_bonus_stat": "crit_damage_bonus",
+        "requires_owner_on_field": false,
+        "miss": false,
+        "cancel_on_exit": false,
+        "applies_periodic": [],
+        "resource_gain": {},
+        "random_resource_gain": {}
+      }
+    }
+  },
+  "target_positions": [
+    [
+      0,
+      0
+    ],
+    [
+      0.5,
+      0
+    ],
+    [
+      0,
+      0.5
+    ],
+    [
+      0.5,
+      0.5
+    ]
+  ],
+  "input_margin": 0.25,
+  "switch_duration": 0.2,
+  "cycles_enabled": true,
+  "enemy": {
+    "defense": 1080,
+    "resistances": {
+      "default": 0.2,
+      "mental": 0.2,
+      "Cosmos": 0.2,
+      "Anima": 0.2,
+      "Lakshana": 0.2,
+      "Psyche": 0.2
+    },
+    "break_enabled": true,
+    "break_clock": "real",
+    "break_cap": 50,
+    "break_base": 3603,
+    "broken_duration": 5
+  },
+  "cycles": {
+    "blossom_base": 100,
+    "scorch_base": 100,
+    "nova_base": 1000,
+    "blossom_count": 5,
+    "blossom_interval": 2,
+    "blossom_radius": 1,
+    "blossom_spawn_policy": "per_trigger",
+    "charge_icd": 1,
+    "discord_fraction": 0.1,
+    "charge_energy": 10,
+    "effect_clock": "real",
+    "projectile_clock": "real",
+    "bud_cap": 3,
+    "nova_duration": 5,
+    "nova_enhancement": null
+  }
+}

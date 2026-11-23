@@ -1,0 +1,11 @@
+options duration=90 iteration=1 crit=fixed;
+fadia char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_energy=0;
+zankou char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_energy=0;
+mint char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_energy=0;
+target hp=100000000 def=0 resist=0;
+active fadia;
+repeat 8 { fadia attack:5; }
+fadia burst;
+mint burst;
+repeat 8 { zankou attack:5; }
+mint burst;

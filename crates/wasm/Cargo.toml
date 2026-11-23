@@ -1,0 +1,23 @@
+[package]
+name = "ntesim-wasm"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+authors.workspace = true
+description = "Typed WebAssembly bindings and binary report transport for ntesim"
+build = "build.rs"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+ntesim-contracts.workspace = true
+ntesim-core.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+wasm-bindgen = "=0.2.128"
+
+ntesim-data.workspace = true
+ntesim-content.workspace = true
+ntesim-research.workspace = true

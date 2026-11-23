@@ -1,0 +1,19 @@
+[package]
+name = "ntesim-core"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+authors.workspace = true
+description = "Shared deterministic clock, combat, actor and event services for ntesim"
+
+[features]
+performance-diagnostics = []
+
+[dependencies]
+ntesim-contracts.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+num-bigint = "=0.4.6"
+num-rational = "=0.4.2"
+num-traits = "=0.2.19"

@@ -1,0 +1,57 @@
+.pie-layout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.pie-shell {
+  position: relative;
+  flex: 0 1 180px;
+  min-width: 100px;
+}
+
+.pie-chart {
+  display: block;
+  width: 100%;
+  max-height: 180px;
+}
+
+.pie-segment {
+  stroke: #2c282f;
+  stroke-width: 0.7;
+}
+
+.pie-segment:hover,
+.pie-segment:focus {
+  filter: brightness(1.15);
+  stroke: #f8f5fc;
+  stroke-width: 2;
+}
+
+.chart-legend {
+  min-width: 100px;
+  flex: 1;
+  font: 10px var(--mono);
+}
+
+.legend-row {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  padding: 6px 0;
+}
+
+.legend-row i {
+  width: 9px;
+  height: 9px;
+  flex: none;
+}
+
+.legend-row b {
+  margin-left: auto;
+}
+
+.legend-row:hover {
+  color: white;
+}

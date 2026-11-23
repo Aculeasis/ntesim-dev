@@ -1,0 +1,15 @@
+options iteration=1 duration=32 crit=fixed;
+adler char lvl=80/80 awakening=0 talent=1,1,1 qte=1;
+mint char lvl=80/80 awakening=0 talent=1,1,1 qte=1;
+target hp=100000000 def=0 resist=0;
+
+# Blessing follows active Mint. A named off-field Adler hit bypasses that pool.
+# Equal-time entries retain declaration order despite unsorted timestamps.
+incoming mint at=22 damage=1000;
+incoming mint at=2 damage=1000;
+incoming mint at=2 damage=5000;
+incoming adler at=2 damage=0;
+incoming adler at=3 damage=1000;
+active adler;
+adler skill; mint swap;
+wait_until(20); adler swap; adler skill; mint swap;

@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "content_id": "synthetic-v1",
+  "data_status": "synthetic",
+  "seed": 7,
+  "duration_us": 25,
+  "mode_clock": 0,
+  "clocks": [{"id": 0, "rate_ppm": 1000000}],
+  "targets": {"first": {"hp": 100, "max_hp": 100, "shield_order": "oldest_first"}},
+  "resources": {},
+  "actions": {
+    "ward": [{"kind": "shield", "target": "first", "id": "ward", "source": "fixture", "amount": 5}],
+    "attack": [{
+      "kind": "formula_damage",
+      "target": "first",
+      "hit_delay_us": 1,
+      "stats": {"attack": "101/10"},
+      "formula": {
+        "unit": "health_quantum",
+        "flat": "17/5",
+        "terms": [{"stat": "attack", "coefficient": "31/10"}],
+        "stages": [
+          {"id": "synthetic_bonus", "multiplier": "11/10"},
+          {"id": "synthetic_mitigation", "multiplier": "4/5"}
+        ],
+        "rounding": "nearest_ties_even"
+      }
+    }]
+  }
+}

@@ -1,0 +1,9 @@
+options duration=36 iteration=1 crit=fixed;
+blackbird char lvl=80/80 awakening=0 talent=8,8,8 qte=8 start_energy=0;
+mint char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_energy=0;
+target hp=10000000 def=1080 resist=0;
+active blackbird;
+repeat 6 { blackbird attack:5; }
+blackbird skill;
+blackbird burst;
+blackbird attack:5;

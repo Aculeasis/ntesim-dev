@@ -1,0 +1,87 @@
+# Zankou · Insight / Daffodill A3 [3,4,5] / Blackbird
+# Curated comparison profile: see teams.md for exact stat-line values and assumptions.
+options iteration=1000 duration=120 seed=42 start_fons=250000;
+# zankou: 15 useful lines; recipe=crit; main=cd:.6.
+# C: cr,cd,dmg; III x4: cr,cd; IV: cr,cd; II: cr / cd.
+zankou char lvl=80/80 awakening=[] talent=8,8,8 qte=8;
+zankou add weapon=fork_demonblade refine=1 lvl=80/80;
+zankou add cartridge=crimsontwinbutterflies count=4;
+zankou add stats hp=5600 atk=420 cr=0.28 cd=1.80 dmg%=0.1;
+# blackbird: 15 useful lines; recipe=crit; main=cd:.6.
+# C: cr,cd,dmg; III x4: cr,cd; IV: cr,cd; II: cr / cd.
+blackbird char lvl=80/80 awakening=[] talent=8,8,8 qte=8;
+blackbird add weapon=fork_twinbirds refine=1 lvl=80/80;
+blackbird add cartridge=devilsbloodcurse count=4;
+blackbird add stats hp=5600 atk=420 cr=0.60 cd=1.16 dmg%=0.1;
+# sakiri: 15 useful lines; recipe=support; main=atk%:.375.
+# C: atk,cr,dmg; III x4: atk,cr; IV: atk,cr; II: atk / cr.
+sakiri char lvl=80/80 awakening=[4] talent=8,8,8 qte=8;
+sakiri add weapon=fork_mofeikesi refine=1 lvl=80/80;
+sakiri add cartridge=speedyhedgehog count=4;
+sakiri add stats hp=5600 atk=420 atk%=0.7250 cr=0.28 dmg%=0.1 incantation%=0.36;
+# daffodil: 15 useful lines; recipe=bi; main=bi:180.
+# C: bi,cr,dmg; III x4: bi,atk; IV: bi,atk; II: bi / atk.
+daffodil char lvl=80/80 awakening=[3,4,5] talent=8,8,8 qte=8;
+daffodil add weapon=fork_blackbook refine=1 lvl=80/80;
+daffodil add cartridge=diabolos count=4;
+daffodil add stats hp=5600 atk=420 bi=348 cr=0.1 dmg%=0.1 atk%=0.2250 chaos%=0.4;
+# Common stationary, control-susceptible Boss dummy; no incoming attacks or assumed parries.
+target lvl=80 hp=1000000000 max_hp=1000000000 def=1080 resist=0.2 boss=true control_immune=false original_atk=1000 break_gauge=30 max_break_gauge=30 broken_duration=10 discord_fraction=0.1;
+active zankou;
+# Count only observed, immediately executed Support entries for Black Tome seals.
+let tome_supports = 0;
+let next_tome = 0;
+# Continue normal team windows; the simulator owns the time stop.
+while 1 {
+  if .daffodil.support.ready { tome_supports = tome_supports + 1; }
+  daffodil swap;
+  # The existing summon occupies twenty World seconds from completed startup.
+  if tome_supports >= 2 && .time >= next_tome {
+    daffodil arc; next_tome = .time + 20; tome_supports = 0;
+  }
+  if .daffodil.burst.ready { daffodil burst; }
+  if .daffodil.skill.ready { daffodil skill; }
+  if .sakiri.support.ready { tome_supports = tome_supports + 1; }
+  sakiri swap;
+  if .sakiri.burst.ready { sakiri burst; }
+  if .sakiri.skill.ready { sakiri skill; }
+  # Blackbird window:
+  # Cycle 1: switch in, skill, burst (activate ult) and leave.
+  # Subsequent cycles: switch in only when she has energy to ult after finisher + skill (or already has >= 93 energy).
+  let bb_should_swap = 0;
+  if !.blackbird.transformed.active {
+    if .blackbird.burst.ready { bb_should_swap = 1; }
+  } else {
+    if .blackbird.energy >= 93 { bb_should_swap = 1; }
+  }
+  if bb_should_swap {
+    if .blackbird.support.ready { tome_supports = tome_supports + 1; }
+    blackbird swap;
+    if !.blackbird.transformed.active {
+      if .blackbird.skill.ready { blackbird skill; }
+      if .blackbird.burst.ready { blackbird burst; }
+    } else {
+      blackbird burst;
+      if .blackbird.skill.ready { blackbird skill; }
+      if .blackbird.burst.ready { blackbird burst; }
+    }
+  }
+  # Spend a real Phantom Step while its thirty-second grant is alive.
+  if .daffodil.resources.phantom_steps > 0 {
+    daffodil swap;
+    if .daffodil.skill.ready { daffodil skill; }
+  }
+  if .zankou.support.ready { tome_supports = tome_supports + 1; }
+  zankou swap;
+  zankou attack; zankou attack[hold=200ms]; zankou skill;
+  while !.zankou.enhanced_soulcross.active { zankou attack; }
+  zankou skill;
+  if .zankou.burst.ready { zankou burst; }
+  if .zankou.free_inferno.active && .zankou.burst.ready { zankou burst; }
+  # A second Illusion chain spreads newly produced Vile Ash at A0.
+  if .zankou.skill.ready {
+    zankou attack; zankou attack[hold=200ms]; zankou skill;
+    while !.zankou.enhanced_soulcross.active { zankou attack; }
+    zankou skill;
+  }
+}

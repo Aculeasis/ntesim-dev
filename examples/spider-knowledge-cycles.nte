@@ -1,0 +1,31 @@
+options iteration=1 duration=40 crit=fixed seed=42;
+
+sakiri char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_energy=120;
+sakiri add weapon=fork_spider refine=1;
+sakiri add stats ce=0.2;
+mint char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_cycle=100;
+nanally char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_cycle=100;
+target hp=100000000 def=0 resist=0;
+active sakiri;
+
+# Cycle 1: five chain stages grant five stacks through the 0.5s ICD (one per
+# stage; same-instant siblings stay rejected), then the Burst consumes them
+# for a five-stack Team ATK window that also lifts the peer's chain.
+sakiri attack:5;
+sakiri burst;
+mint swap; mint attack:5;
+nanally swap; sakiri swap;
+
+# The window expires at 14s: the returning hit lands exactly on the boundary,
+# then the rebuild reaches the eight-stack cap (capped attempts keep 8/8).
+wait_until(16); sakiri attack; sakiri attack:3; sakiri attack;
+sakiri attack:5;
+mint swap; mint attack:5;
+sakiri swap;
+
+# Cycle 2: one more funded chain (the Support-QTE recovery ends at 26.85s),
+# then the Burst consumes the eight-stack cap (per-stack bonus plus the
+# exact-eight extra) for a second Team ATK window.
+wait_until(28.9); sakiri attack:7;
+sakiri burst;
+mint swap; mint attack:5;

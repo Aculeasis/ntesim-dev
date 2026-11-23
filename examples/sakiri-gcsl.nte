@@ -1,0 +1,19 @@
+# Native Sakiri/Good Boy stats plus equipment contributions. No manual procs.
+options iteration=1000 duration=25 seed=42;
+sakiri char lvl=80/80 awakening=1 talent=8,8,8 qte=8;
+sakiri add weapon=goodboysgrandadventure refine=5;
+sakiri add cartridge=speedyhedgehog count=4;
+sakiri add stats hp=5600 atk=830.25;
+
+mint char lvl=80/80 awakening=6 talent=8,8,8 qte=8;
+mint add weapon=mindroyale refine=5;
+mint add stats hp=5600 atk=1168.15 cr=0.52 cd=0.44 anima%=0.1;
+
+target lvl=80 hp=10000000 def=1080 resist=0.2;
+active sakiri;
+sakiri burst;
+wait(0.2);
+mint swap;
+mint skill;
+wait(1);
+mint burst;

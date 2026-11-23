@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "scope": "Zero native Normal, Skill, and Burst packet binding with partial awakenings",
+  "quality": "partial executable model; complete kit pending",
+  "sources": [
+    "data/extracted/guide_zero.json",
+    "data/extracted/neverness_zero.json",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json",
+    "data/global-2026-10-04/tables/1046AwakenEffect.json",
+    "data/global-2026-10-04/tables/DT_GameplayAbilityTipsData.json",
+    "data/global-2026-10-04/tables/DT_Female051EffectFigure.json"
+  ],
+  "model": [
+    "GA_Female046_Melee public primary packet is GE_Player_Female046_Melee1_Damage. Native coefficients at Normal levels 1/8/9 are 0.230/0.394/0.426; category A/Cosmos metadata stays source-bound. Five admitted ordinary inputs advance stages Melee1 through Melee5 with multiplicities 1,2,3,2,2 (ten hits) under zero.normal_chain_v1.",
+    "GA_Female046_Skill public primary packet is GE_Player_Female046_Skill1_Damage. Native coefficients at Skill levels 1/8/9 are 0.200/0.343/0.370; category E/Cosmos metadata stays source-bound.",
+    "The ordinary Skill train delivers Skill1, Skill2, Skill3, and Skill4 once each, using the four ordered ratios in frozen GA_Female_Skill_1_des and matching native DT_SkillDamageData rows. Children use the admitted primary impact time; animation intervals and travel remain unresolved.",
+    "GA_Female046_UltraSkill public primary packet is GE_Player_Female046_UltraSkill1_Damage. DT_GameplayAbilityTipsData lists UltraSkill1, UltraSkill2, UltraSkill3, UltraSkill4; the display expression multiplies UltraSkill2 by four. The executable train preserves the primary then emits native UltraSkill2 four times, UltraSkill3 once, and UltraSkill4 once at the primary impact time on default target 0. Under zero.burst_area_membership_v1, every scenario-declared target receives that ordered seven-packet train regardless of position, in ascending target_index order with all seven packets for one target before the next (target-major order). This bounded fallback is not a native shape, radius, placement, or reach claim. Native packet spacing and exact AoE geometry remain unresolved.",
+    "Each Burst packet uses its own DT_SkillDamageData coefficient and resonance-projected talent coordinate. Independent raw sums for levels 1/8/9 are 5.000/8.570/9.254; packet order is 1,2,2,2,2,3,4. Q/Cosmos metadata stays source-bound.",
+    "Ordinary awakening effects are gated by their selected IDs (A1/A2/A3/A4/A5/A6 map to Effect1/2/3/4/5/6); resonance_3 remains based on the number of selected awakening effects. A6 Effect6 selects the 300% A1 extra hit and is distinct from resonance_6, which grants team ATK after a Cosmos Esper Cycle and remains unsupported.",
+    "A3 Effect3 adds 0.50 crit rate to the four native Burst packet IDs only at delivery, using shared clamp and per-packet eligible target rolls; FixedCritRate 0 remains the native no-override sentinel. A4 Effect4 contributes min(base_atk*0.001, 0.25) additively in the ordinary damage-bonus zone for those same native Burst packets. The additive-zone mapping is an explicit checked hypothesis; final ATK does not determine this contribution.",
+    "Resonance 3 activates at awakening >= 3 and adds +1 level to Melee, Skill, and UltraSkill, selecting native coordinate level + 1 without manual overrides.",
+    "A1 Blooming Gaze child packet (extra DMG ignoring 75% DEF when target level <= actor level), A2 Finding the Calling (+8 Ultimate Energy on skill cast), A5 Theopneustos (+10% ATK for 20s on QTE), and A6 Deceptive Liberation (300% A1 hit) remain partial kit models."
+  ],
+  "pending": [
+    "Hold attack / plunged attack branches, remaining resources/passive/action rules, A6 Resonance 6 Esper Cycle buff, native Burst spacing, and exact multi-target shape/range/placement remain unresolved. The frozen Global ability text confirms only multiple Cosmos damage instances to an area; saved damage/action tables expose no target geometry, placement, or per-packet recipient fields, and the saved evidence has no GA_Female051_UltraSkill ability asset. All-declared-target membership remains an explicit strict-gated fallback under zero.burst_area_membership_v1, independent of position and not a native geometry claim. Return to Q2-Zero-AoE when a Global-version-bound ability asset or controlled Global combat trace establishes the affected-set boundary and per-packet recipients. R6 Cosmos Esper Cycle team ATK remains a known gap if the cycle is reached."
+  ],
+  "checks": [
+    "zero_actions tests passed: independent damage oracles at 1000 ATK, 0 RES, 0.5 DEF verify Normal across all five stages (10 hits, looping, resonance_3), Skill (100/1, 343/2, 185/1), and Burst (1327/2, 1137/1, 1228/1).",
+    "The ordinary Skill train settles all four native packets with independent coefficient/damage oracles at levels 1 and 8, plus A3 resonance projection to level 9. A1 Blooming Gaze triggers at most once per eligible target across all four packets; levels above Zero suppress only A1.",
+    "Selected-awakening coverage exercises [2] (A2 energy, no A1), [1,6] (A6 selects the 300% A1 extra hit without resonance_6), [3] Burst crit rate without resonance_3, and [1,2,4] resonance_3 without A3; QTE duration uses Effect5 selection.",
+    "The Burst train source check binds native tip list/multiplicity, awakening effect text and Female051 figures; independent damage checks cover all seven packets at levels 1/8/9, resonance, zero DEF/RES, fixed noncritical, target/horizon/death/off-field ownership, one 100-energy admission, and A3 seeded per-packet RNG/replay and no-leak cases. The area fallback checks colocated and separated targets, seven source-projected packets per declared target, different DEF/RES profiles, default target 0, dead-target cancellation, strict acceptance and no fanout for Normal/Skill. A4 checks the 100/250/1000 base-ATK cap, additive zone, and final-ATK independence.",
+    "Off-field Skill delivery attributes all four hits to Zero; dead targets settle 0 hits; the exact horizon settles all four and the prior boundary preserves four pending events. Strict mode accepts zero.skill_packets_v1 and zero.a1_first_hit_v1 hypotheses.",
+    "A2 adds the native base 8 Ultimate Energy once per Skill cast despite the four packet multiplicity; delivery applies the actor's Charge Efficiency and fractional carry (the built-game oracle derives the resulting grant from its compiled charge modifier).",
+    "character_actions.test.mjs has existing native CLI/WASM and real Worker parity coverage for Zero Skill, with independent damage oracles at levels 1, 8, and A3 resonance.",
+    "Focused Burst and Zero/Nacupeda Suit10 cases assert native CLI, WASM and real Worker parity, including the all-declared-target fallback, seven ordered character packet rolls per target, and one admitted Nacupeda selection/cooldown per cast. Refreshed reports agree, including independent same-cast Suit10 four-piece live MaxHP.",
+    "TypeScript and production build pass. Frozen source hashes match the identities below.",
+    "Read-only Q2-Zero-AoE evidence review: DT_GameplayAbilityTipsData describes Divide by Zero as multiple Cosmos damage instances to an area, but its displayed ratio expression does not establish delivery count, timing, or per-packet target selection. The bound DT_SkillDamageData and ability configuration rows have no shape/range/placement/recipient fields, and the saved source manifest has no GA_Female051_UltraSkill runtime asset. No game code or third-party script was executed."
+  ],
+  "source_sha256": {
+    "data/extracted/guide_zero.json": "2e98114db34e93b978e17b1378878c9d2af8ebd6dd5497196f4b64655bcff275",
+    "data/extracted/neverness_zero.json": "dba3592b6cc2f8a1be5f6b18cfe006bce6dd6ee644efd7c822ab2b842385f8bf",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json": "917b0c3675412c0425a0724d09e7dd8ae4d1ef9a100d2ea5669d7484d0901bf2",
+    "data/global-2026-10-04/tables/1046AwakenEffect.json": "77b36d1031484a9178aca9d30a6f275069df322d949f924299b9a198c26682f4",
+    "data/global-2026-10-04/tables/DT_GameplayAbilityTipsData.json": "5c0a0f929376891c033451a25208b55747c43e6bbb24b75506eb0ff50a23584f",
+    "data/global-2026-10-04/tables/DT_Female051EffectFigure.json": "b73f00cf9a2af9a003cd7edc83c87b52bcba73ae08257622e490b53cff8f933a"
+  }
+}

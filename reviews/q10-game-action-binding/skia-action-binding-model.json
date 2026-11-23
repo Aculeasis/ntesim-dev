@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "scope": "Skia native primary action packet binding across Normal, Skill, and Ultimate",
+  "quality": "partial executable model; complete kit pending",
+  "sources": [
+    "data/extracted/guide_skia.json",
+    "data/extracted/neverness_skia.json",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json",
+    "data/global-2026-10-04/tables/1008AwakenEffect.json"
+  ],
+  "model": [
+    "GA_Skia_Melee public primary packet is GE_Player_Skia_Melee1_Damage. Native coefficients at Normal levels 1/8/9 are 0.304/0.521/0.563; category A/LAKSHANA metadata stays source-bound.",
+    "GA_Skia_Skill delivers 6 instances under timing hypothesis skia.skill_burst_packets_v1: primary GE_Player_Skia_Skill1_Damage (Quad Strike hit 1), three child GE_Player_Skia_Skill1_Damage (Quad Strike hits 2..4), one child GE_Player_Skia_Skill2_Damage (Dive hit 1), and one child GE_Player_Skia_Skill3_Damage (Dive hit 2). Native total coefficients at Skill levels 1/8/9 are 1.500/2.570/2.775; category E/LAKSHANA metadata stays source-bound. on_cast refreshes skia.a2_crit_rate (+10% Crit Rate for 15s at A2). before_hit applies skia.fang_thrust status (10s, 12s at A4) and 2% Lakshana RES reduction at A6.",
+    "GA_Skia_UltraSkill delivers 4 instances under timing hypothesis skia.skill_burst_packets_v1: primary GE_Player_Skia_UltraSkill1_Damage (Spread hit 1) and three child GE_Player_Skia_UltraSkill2_Damage (Converge hits 1..3). Native total coefficients at Burst levels 1/8/9 are 4.999/8.568/9.253; category Q/LAKSHANA metadata stays source-bound.",
+    "Resonance 3 activates at awakening >= 3 and adds +1 level to Melee, Skill, and UltraSkill without manual overrides.",
+    "Existing A1 Fang Thrust auto-attack ratio bonus (+60%), A2 Skill Crit Rate buff (+10% for 15s), A3 locked target DMG bonus (+8%), and A6 Lakshana RES reduction (2%) remain preserved as partial kit models.",
+    "Canonical arbitrary awakening selections: Effect1 Fang Thrust coefficient addition, Effect2 timed crit, Effect3 marked-target bonus and Effect4 mark duration use selected identities. Talent resonance_3 and marked-target resistance resonance_6 remain count-based. Existing unsupported owner mechanics remain pending; selection does not complete the kit."
+  ],
+  "pending": [
+    "Native Normal chain timing/reset rules, AirAttack/riposte, shadow clone coordination (ShadowAtk, ShadowAtk1..2, SkillShadowAtk), Shadow Hound Gnaw and full Fang Thrust mark consumption mechanics."
+  ],
+  "checks": [
+    "skia_actions tests passed: independent damage oracles at 1000 ATK, 0 RES verify Normal (152/1, 521/2, 563/2 at A3 resonance), Skill 6-hit train (750/1, 1285/1, 2997/2 at A3 resonance with A3 +8% locked target bonus), Burst 4-hit train (4999/2, 4284/1, 9253/2 at A3 resonance), and A2 Skill Crit Rate buff (+10%).",
+    "Off-field delivery attributes hits to Skia; dead target settles 0 hits; horizon boundaries preserve pending events; strict mode requires accepted skia.skill_burst_packets_v1 hypothesis.",
+    "character_actions.test.mjs and weapon_passives.test.mjs pass with NTESIM_VERIFY_NATIVE=1: full native CLI/WASM reports match across equipped and action cases, including Skia attack, skill (6 hits), burst (4 hits), and 16-hit DSL rotation.",
+    "TypeScript and production build pass. Frozen source hashes match the identities below."
+  ],
+  "source_sha256": {
+    "data/extracted/guide_skia.json": "b1790f4beee585b43f042acb153e6a63214bf51a26d83ddc43ff820e10972d30",
+    "data/extracted/neverness_skia.json": "bc11989a05c9f960676b0d02c66cd169a69dfa7f49f66bc8727cd29257a3a94e",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json": "917b0c3675412c0425a0724d09e7dd8ae4d1ef9a100d2ea5669d7484d0901bf2",
+    "data/global-2026-10-04/tables/1008AwakenEffect.json": "83e8e2a5201d6751e6ffc802fd2e8459f5b5f820699e00d9d098a93c1d2e1c6f"
+  },
+  "continuing_normal_model": "reviews/q10-game-action-binding/skia-normal-chain.json"
+}

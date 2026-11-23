@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "scope": "Lacrimosa five-input ranged Normal chain in the shared gameplay runner",
+  "quality": "executable modeled ranged chain; melee form and complete kit pending",
+  "hypothesis_id": "lacrimosa.ranged_normal_chain_v1",
+  "sources": [
+    "data/extracted/neverness_lacrimosa.json: GA_Lacrimosa_MeleeModA_1_des through MeleeModA_5_des",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json: GE_Player_Lacrimosa_Melee1_Damage through Melee6_Damage",
+    "reviews/q10-game-action-binding/lacrimosa-action-binding-model.json: frozen source hashes"
+  ],
+  "decision": "Retain the existing ranged primary binding. Five admitted inputs deliver Melee1; Melee2 x3; Melee3; Melee4 x3 followed by Melee6; Melee5. Native row names do not follow stage order: Melee6 matches the fourth ranged stage's finisher at every published level. Melee5 matches the fifth stage. The five stages deliver ten hits and loop. Melee form and automatic form changes are not inferred from the GA_Melee identifier.",
+  "hypotheses": [
+    "A different admitted ability or field exit resets the chain; a same-actor switch does not.",
+    "A gap greater than 2 seconds between input starts resets the chain; the exact boundary continues. This is a tested continuity convention pending animation/cancel evidence.",
+    "Each stage delivers ordered coincident packets at the research primary impact timestamp; travel, AoE and animation intervals remain unresolved."
+  ],
+  "independent_oracles": [
+    "1000 ATK, 0 RES and 0.5 DEF factor: level-one stages deal 185.5, 80*3, 569.5, 79*3+968.5, 619.5. Five inputs total 2820; sixth looping input gives 3005.5.",
+    "Level-eight stages deal 318, 137*3, 976, 135.5*3+1660, 1061.5. Five inputs total 4833; sixth gives 5151.",
+    "Purchased level eight at A3 projects level nine: 343.5, 148*3, 1054, 146*3+1792.5, 1146.5. Five inputs total 5218.5; sixth gives 5562."
+  ],
+  "checks": [
+    "python tools/check.py -- python tools/verify_normal_chain_sources.py verifies source hashes and ordered coefficient multiplicity at all nine published levels.",
+    "Native damage tests verify every stage, packet identity, multiplicity, loop and effective talent projection at levels 1, 8 and A3.",
+    "Native causal tests verify ability/field/gap resets, no-op switches, strict hypothesis acceptance and all four fourth-stage packets settling after field exit at the exact horizon.",
+    "Public attack:5 scripts verify independent per-packet and total damage through Worker/WASM with complete native report parity."
+  ],
+  "pending": [
+    "Measured reset/cancel rules and packet intervals; return when frozen animation evidence supplies a concrete model.",
+    "Melee form, form changes, Nightmare DoT, Sleep In cooldown resets, ordinary energy, AoE, travel, plunge, riposte and remaining kit behavior."
+  ]
+}

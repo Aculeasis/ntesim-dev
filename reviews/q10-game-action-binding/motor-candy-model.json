@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "question": "When does Fluff of Fleetness gain and reset on-field ATK stacks, including switching and delayed packets?",
+  "branch_budget_minutes": 10,
+  "total_investigation_budget_minutes": 15,
+  "sources": [
+    "data/global-2026-10-04/tables/DT_ForkUpgradeStarDataTable.json#/rows/upgradestar_pack_fork_MotorCandy_1",
+    "data/global-2026-10-04/tables/CT_ForkBuff.json#/rows/buff_MotorCandy_CD",
+    "data/global-2026-10-04/tables/CT_ForkBuff.json#/rows/buff_MotorCandy_AtkUp"
+  ],
+  "decision": "Start at zero stacks at combat start for an initially active wearer and on every real field entry. Every full world-time interval adds one self base-ATK percentage stack, up to five. Successful departure removes all stacks and invalidates its old timer; same-actor swaps and rejected switches do not reset. Admission precedes equal-time ticks, and ticks precede hits. Delayed hits sample current stacks at delivery. Permanent stacks are exported through the shared BuffManager and stop generating timers at cap. These clock/order/snapshot choices are tested model hypotheses.",
+  "availability": "Frozen Global release availability remains unverified.",
+  "stop_condition": "Check source curves/units, exact tick boundaries, cap, initial off-field ownership, no-op and failed switch, exit/reentry stale timers, delayed delivery, passive-only horizon snapshots, event limits and CLI/WASM/Worker parity.",
+  "return_condition": "New initialization, world/real clock, stacking, snapshot, switching or release evidence conflicts with the model.",
+  "checks": [
+    "169 content and 124 core tests pass. T1-T5 bind .05/.06/.07/.08/.09 per stack and one-second intervals; native unit changes fail. Legal Mint native build receives two R5 stacks at two seconds, checked as (total ATK + base ATK * .18)/total ATK.",
+    "Independent event/damage oracle: 1000 base/total ATK * .5 DEF yields 500 before one second, 525 at one second, 600 just before five seconds and 625 at/after cap. Eight integration cases cover passive-only short/full horizons, exact boundaries, initial off-field entry, earned-stack removal, reentry/stale timers, no-op/failed switch, delayed delivery and event-limit snapshots. Generic core owner removal retains other sources/owners/effect IDs.",
+    "Public Mint/Fleetness T1-T5 with an Iroi teammate runs two continuing field cycles. With the existing two 250ms script swaps, Mint reenters at 7.05 seconds; hit times 0/1/5/7.3/9.1 seconds use 0/1/5/0/2 stacks. Independent ATK multipliers and permanent five-stack final snapshots agree. Full CLI/WASM report parity passes for all five scripts; the real Worker T5 run agrees with direct WASM.",
+    "TypeScript/production build, native_build and scenario_script tests pass. Changed Rust formatting passes. Core/content clippy passes allowing only the two pre-existing content metadata lints collapsible_if and single_element_loop. Native parity uses NTESIM_VERIFY_NATIVE=1 NTESIM_VERIFY_WEAPON=motor_candy; other weapons retain WASM/Worker checks.",
+    "Native animation timing, world/real pause interaction and release availability remain unresolved model limits. Frozen source bytes are unchanged."
+  ],
+  "artifact_sha256": {
+    "target/debug/ntesim.exe": "7f9977bb9f049fd204bc7687499ffb76fce6063cab721c5efcdf1036da80303e",
+    "web/wasm/ntesim_wasm.wasm": "528ffc0b412e92cdbc02bdabe887502ebdea9bfaf4d1a7302eb199a11d77bd94"
+  }
+}

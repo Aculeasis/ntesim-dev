@@ -1,0 +1,22 @@
+options iteration=1 duration=38 crit=fixed seed=42;
+
+hathor char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_hp%=0.1;
+hathor add weapon=fork_Whale refine=1;
+
+# Small authored gauges create real Broken windows after connected Skill hits.
+# Two first-generation Broken defeats share one 30s healing cooldown. The last
+# secondary dummy survives the first period and dies on the next Break at30s.
+target hp=100000000 def=0 resist=0 break_gauge=1/2 max_break_gauge=1 broken_duration=6;
+target hp=6000 def=0 resist=0 break_gauge=1/2 max_break_gauge=1 broken_duration=6;
+target hp=6001 def=0 resist=0 break_gauge=1/2 max_break_gauge=1 broken_duration=6;
+target hp=12500 def=0 resist=0 break_gauge=1/2 max_break_gauge=1 broken_duration=6;
+active hathor;
+
+hathor skill[hold=0];
+wait_until(2); hathor attack;
+# First-Normal216746us contact lands exactly at native Broken recovery.
+wait_until(6.299499); hathor attack;
+
+wait_until(30); hathor skill[hold=0];
+wait_until(32); hathor attack;
+wait_until(36.515674); hathor attack;

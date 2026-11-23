@@ -1,0 +1,46 @@
+archetype,tier,slot1,slot2,slot3,slot4
+Blackbird Nova,T0,blackbird,daffodil,haniel,sakiri
+Blackbird Nova,T0,blackbird,daffodil,fadia,sakiri
+Lacrimosa Quickswap,T0,lacrimosa,sakiri,zankou,blackbird
+Lacrimosa Quickswap,T0,lacrimosa,sakiri,zankou,iroi
+Zankou Break,T0,zankou,daffodil,sakiri,adler
+Zankou Break,T0,zankou,daffodil,sakiri,linko
+Zankou Break,T0,zankou,daffodil,blackbird,adler
+Zankou Break,T0,zankou,daffodil,blackbird,linko
+Zankou Hexed,T0,zankou,linko,sakiri,iroi
+Blackbird Stain,T0.5,blackbird,chaos,daffodil,sakiri
+Blackbird Stain,T0.5,blackbird,chaos,daffodil,iroi
+Blackbird Stain,T0.5,blackbird,chaos,lacrimosa,sakiri
+Blackbird Stain,T0.5,blackbird,chaos,lacrimosa,iroi
+Blackbird Stain,T0.5,blackbird,hathor,daffodil,sakiri
+Blackbird Stain,T0.5,blackbird,hathor,daffodil,iroi
+Blackbird Stain,T0.5,blackbird,hathor,lacrimosa,sakiri
+Blackbird Stain,T0.5,blackbird,hathor,lacrimosa,iroi
+Chaos Remora Bomb,T0.5,chaos,zero,hathor,haniel
+Chaos Remora Bomb,T0.5,chaos,zero,hathor,blackbird
+Chaos Remora Bomb,T0.5,chaos,hotori,hathor,haniel
+Chaos Remora Bomb,T0.5,chaos,hotori,hathor,blackbird
+Hotori Blossom,T0.5,hotori,iroi,jiuyuan,zero
+Hotori Blossom,T0.5,hotori,nanally,jiuyuan,zero
+Hotori Blossom,T0.5,hotori,nanally,iroi,zero
+Nanally Hyper,T0.5,nanally,sakiri,linko,zero
+Nanally Hyper,T0.5,nanally,sakiri,iroi,zero
+Shinku Charge,T0.5,shinku,zero,hathor,iroi
+Shinku Charge,T0.5,shinku,zero,skia,iroi
+Baicang Firefly Hyper,T1,baicang,sakiri,linko,daffodil
+Baicang Firefly Hyper,T1,baicang,sakiri,iroi,daffodil
+Chiz A6 Hyper,T1,chiz,iroi,hathor,zero
+Chiz A6 Hyper,T1,chiz,jiuyuan,hathor,zero
+Daffodil Break,T1,daffodil,sakiri,baicang,haniel
+Hathor Hyper,T1,hathor,haniel,zero,iroi
+Hathor Hyper,T1,hathor,haniel,zero,jiuyuan
+Hathor Hyper,T1,hathor,blackbird,zero,iroi
+Hathor Hyper,T1,hathor,blackbird,zero,jiuyuan
+Aurelia Hyper,T1.5,aurelia,hathor,zero,iroi
+Aurelia Hyper,T1.5,aurelia,hathor,zero,jiuyuan
+Mint Hyper,T1.5,mint,sakiri,linko,zero
+Mint Hyper,T1.5,mint,sakiri,iroi,zero
+Skia Hyper,T2,skia,haniel,zero,iroi
+Skia Hyper,T2,skia,haniel,zero,jiuyuan
+Skia Hyper,T2,skia,blackbird,zero,iroi
+Skia Hyper,T2,skia,blackbird,zero,jiuyuan

@@ -1,0 +1,12 @@
+options duration=60 seed=42;
+blackbird char lvl=80/80 awakening=0 talent=8,8,8 qte=8 start_cycle=100;
+blackbird add weapon=fork_twinbirds refine=1;
+hathor char lvl=80/80 awakening=0 talent=8,8,8 qte=8 start_cycle=100;
+target hp=100000000 def=1080 resist=0;
+active blackbird;
+
+# Both declared initial Cycle pools are spent once; neither is reset or refilled.
+# Blackbird's B2 enhances both applications, including the one while off field.
+# Eligible native Support dispatches on entry before the ordinary Normal.
+hathor swap; wait(2); hathor attack; wait(15);
+blackbird swap; blackbird attack; wait(21); blackbird attack;

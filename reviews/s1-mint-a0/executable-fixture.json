@@ -1,0 +1,241 @@
+{
+  "schema_version": 1,
+  "id": "s1-mint-a0-executable-v1",
+  "content_id": "ntesim-current",
+  "status": "INCOMPLETE",
+  "executable": true,
+  "character_id": "character:1019",
+  "build": "build.json",
+  "awakening": 0,
+  "purchased_skill_level": 8,
+  "horizon_us": 20000000,
+  "command_spacing_us": 250000,
+  "target": {
+    "count": 1,
+    "level": 80,
+    "hp_policy": "benchmark_immortal",
+    "hp_max": 10000000,
+    "hp_current": 10000000,
+    "defense": 1080,
+    "defense_mitigation_factor": {
+      "numerator": 1,
+      "denominator": 2
+    },
+    "resistance": {
+      "type": "neutral",
+      "value": {
+        "numerator": 1,
+        "denominator": 5
+      },
+      "multiplier": {
+        "numerator": 4,
+        "denominator": 5
+      }
+    },
+    "position_mm": [0, 0, 0],
+    "break_enabled": false,
+    "incoming_attacks": []
+  },
+  "initial": {
+    "actor_hp": 17720,
+    "actor_hp_max": 17720,
+    "ultimate_energy": 100,
+    "ultimate_energy_capacity": 100,
+    "stamina": 100,
+    "satiety": 100,
+    "skill_readiness": "ready",
+    "precombat_buffs": false,
+    "precombat_reactions": false
+  },
+  "static_stats": {
+    "base_atk": 1151,
+    "atk": {
+      "numerator": 46383,
+      "denominator": 20
+    },
+    "hp": 17720,
+    "def": 727,
+    "crit_rate": {
+      "numerator": 57,
+      "denominator": 100
+    },
+    "crit_damage_bonus": {
+      "numerator": 47,
+      "denominator": 50
+    },
+    "anima_bonus": {
+      "numerator": 1,
+      "denominator": 10
+    }
+  },
+  "gear_effects": {
+    "weapon": {
+      "id": "weapon:fork_lingganzhongjiezhe",
+      "tier": 5,
+      "proc": {
+        "name": "buff_xiangdao_energy",
+        "trigger": "on_redirect_skill_cast",
+        "energy_grant": 18,
+        "cooldown_us": 20000000,
+        "evidence": "table:CT_ForkBuff/buff_xiangdao_energy"
+      }
+    },
+    "set": {
+      "id": "set:Suit2",
+      "pieces": 4,
+      "proc": {
+        "name": "Nature2_4_CritDamage",
+        "trigger": "on_team_anima_damage_nearby_enemy",
+        "crit_damage_per_stack": {
+          "numerator": 2,
+          "denominator": 25
+        },
+        "max_stacks": 7,
+        "duration_us": 10000000,
+        "evidence": "table:CT_Equipmentbuff/Nature2_4_CritDamage"
+      }
+    }
+  },
+  "passives": {
+    "GA_Mint_Passive_1": {
+      "name": "Transform! Super Mint!",
+      "unlocked": true,
+      "requirement": "Tupo 2",
+      "effect": "Vita Pistils/Blossom AoE expansion on hit",
+      "scenario_influence": "non_influencing",
+      "exclusion_basis": "Break and reactions are disabled in this scenario (break_enabled: false, solo Mint)"
+    },
+    "GA_Mint_Passive_2": {
+      "name": "Bingo! We're Done Here!",
+      "unlocked": true,
+      "requirement": "Tupo 4",
+      "effect": "+20% DEF and +30% interruption resistance while on field",
+      "scenario_influence": "non_influencing",
+      "exclusion_basis": "Pure defensive and poise modifier; does not modify output damage or offensive stats"
+    }
+  },
+  "actions": [
+    {
+      "index": 0,
+      "ability_id": "GA_Mint019_Melee",
+      "name": "Melee Stage 1",
+      "timestamp_us": 0,
+      "array_index": 7,
+      "damage_effect_id": "GE_Player_Mint_Melee1_Damage_New",
+      "atk_rate": {
+        "numerator": 89,
+        "denominator": 500
+      },
+      "energy_cost": 0,
+      "expected_damage": {
+        "non_crit": {
+          "numerator": 45408957,
+          "denominator": 250000
+        },
+        "crit_base": {
+          "numerator": 8809337658,
+          "denominator": 25000000
+        }
+      },
+      "procs_triggered": [
+        {
+          "name": "Nature2_4_CritDamage",
+          "stack_after": 1,
+          "total_crit_damage_after": {
+            "numerator": 51,
+            "denominator": 50
+          }
+        }
+      ]
+    },
+    {
+      "index": 1,
+      "ability_id": "GA_Mint019_Skill",
+      "name": "Redirect Skill",
+      "timestamp_us": 1000000,
+      "array_index": 7,
+      "damage_effect_id": "GE_Player_Mint_Skill1_Damage_New",
+      "atk_rate": {
+        "numerator": 771,
+        "denominator": 500
+      },
+      "energy_cost": 0,
+      "expected_damage": {
+        "non_crit": {
+          "numerator": 393374223,
+          "denominator": 250000
+        },
+        "crit_with_stacks": {
+          "numerator": 79461593046,
+          "denominator": 25000000
+        }
+      },
+      "procs_triggered": [
+        {
+          "name": "buff_xiangdao_energy",
+          "energy_grant": 18,
+          "energy_overflow": 18,
+          "resulting_energy": 100
+        },
+        {
+          "name": "Nature2_4_CritDamage",
+          "stack_after": 2,
+          "total_crit_damage_after": {
+            "numerator": 11,
+            "denominator": 10
+          }
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "ability_id": "GA_Mint019_UltraSkill",
+      "name": "Ultimate Skill",
+      "timestamp_us": 2500000,
+      "array_index": 7,
+      "damage_effect_id": "GE_Player_Mint_UtraSkill1_Damage_New",
+      "atk_rate": {
+        "numerator": 2273,
+        "denominator": 1000
+      },
+      "energy_cost": 100,
+      "expected_damage": {
+        "non_crit": {
+          "numerator": 1159714149,
+          "denominator": 500000
+        },
+        "crit_with_stacks": {
+          "numerator": 24353997129,
+          "denominator": 5000000
+        }
+      },
+      "procs_triggered": [
+        {
+          "name": "Nature2_4_CritDamage",
+          "stack_after": 3,
+          "total_crit_damage_after": {
+            "numerator": 59,
+            "denominator": 50
+          }
+        }
+      ]
+    }
+  ],
+  "resource_conservation": {
+    "ultimate_energy": {
+      "initial": 100,
+      "granted": 18,
+      "spent": 100,
+      "overflow": 18,
+      "final": 0,
+      "conserved": true,
+      "balance_equation": "100 + 18 == 0 + 100 + 18"
+    }
+  },
+  "quality": "incomplete",
+  "caveats": [
+    "Nominal timestamps [0, 1.0s, 2.5s] are explicit research coordinates, not runtime montage measurements",
+    "Missing runtime hit delivery and animation recovery frame data keep strict readiness incomplete",
+    "No actual game DPS claimed: this fixture freezes dependency closures and values for Q1"
+  ]
+}

@@ -1,0 +1,98 @@
+{
+  "content_id": "ntesim-current",
+  "team_size": 4,
+  "initial_active": 0,
+  "initial_resources": {
+    "energy": {
+      "current": 0,
+      "capacity": 100
+    },
+    "stamina": {
+      "current": 100,
+      "capacity": 200
+    }
+  },
+  "steps": [
+    {
+      "kind": "register_callback",
+      "callback": {
+        "id": "crit_energize",
+        "owner_actor": 0,
+        "conditions": [
+          {
+            "type": "requires_crit"
+          }
+        ],
+        "icd_rule": {
+          "rule": "none"
+        },
+        "icd_scope": {
+          "scope": "global"
+        },
+        "payload": {
+          "kind": "grant_pool_resource",
+          "pool": "energy",
+          "amount": 25
+        },
+        "max_triggers": null,
+        "triggers_so_far": 0
+      }
+    },
+    {
+      "kind": "apply_buff",
+      "buff": {
+        "id": "attack_surge",
+        "source": "relic",
+        "recipient": {
+          "type": "active_actor"
+        },
+        "duration_us": 5000000,
+        "refresh_policy": {
+          "policy": "reset"
+        },
+        "max_stacks": 1,
+        "decay_policy": "all_at_once",
+        "stat_modifiers": {
+          "atk_percent": "15/100"
+        }
+      },
+      "owner_actor": 0,
+      "timestamp_us": 0
+    },
+    {
+      "kind": "emit_event",
+      "event": {
+        "kind": "hit_dealt",
+        "source_actor": 0,
+        "target_id": "enemy",
+        "action_id": "slash",
+        "element": "Physical",
+        "is_crit": true,
+        "damage": 500
+      },
+      "timestamp_us": 0
+    },
+    {
+      "kind": "emit_event",
+      "event": {
+        "kind": "hit_dealt",
+        "source_actor": 0,
+        "target_id": "enemy",
+        "action_id": "slash",
+        "element": "Physical",
+        "is_crit": false,
+        "damage": 300
+      },
+      "timestamp_us": 100000
+    },
+    {
+      "kind": "switch_actor",
+      "target_index": 1,
+      "timestamp_us": 1000000
+    },
+    {
+      "kind": "advance_time",
+      "timestamp_us": 6000000
+    }
+  ]
+}

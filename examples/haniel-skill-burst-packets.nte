@@ -1,0 +1,11 @@
+# Unequipped native Haniel: two Skill casts, one paid Burst and post-projectile Hootie.
+# The explicit wait retains the notify-started20s Skill cooldown.
+options iteration=1 duration=35 crit=fixed;
+haniel char lvl=80/80 awakening=0 talent=8,8,8 qte=8;
+mint char lvl=80/80 awakening=0 talent=8,8,8 qte=8;
+target hp=10000000 def=1080 resist=0;
+active haniel;
+haniel skill, burst;
+mint swap;
+wait_until(22);
+haniel skill;

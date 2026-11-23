@@ -1,0 +1,8 @@
+options iteration=1 duration=140 crit=fixed;
+
+zankou char lvl=80/80 awakening=[4] talent=8,8,8 qte=8 start_energy=120;
+zankou add weapon=fork_NestBird refine=1;
+mint char lvl=80/80 awakening=0 talent=1,1,1 qte=1;
+target hp=100000000 def=0 resist=0;
+target hp=100000000 def=0 resist=0;
+active zankou; zankou burst, attack:30; wait(20); zankou burst; mint swap;

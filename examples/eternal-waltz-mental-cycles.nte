@@ -1,0 +1,16 @@
+options iteration=1 duration=160 seed=42;
+fadia char lvl=80/80 awakening=0 talent=8,8,8 qte=8 start_energy=0;
+fadia add weapon=fork_Arachne refine=1;
+fadia add stats dmg%=0.25;
+mint char lvl=80/80 awakening=0 talent=1,1,1 qte=1;
+target hp=100000000 def=1080 resist=0;
+active fadia;
+
+# Fund each paid initial Burst with real Normal chains. Leave Lilith unused.
+repeat 2 {
+  repeat 6 { fadia attack:5; }
+  fadia burst;
+  mint swap; mint attack;
+  wait(11);
+  fadia swap; fadia attack;
+}

@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "scope": "Jiuyuan native first ordinary attack and packet-specific existing Pact application",
+  "quality": "partial executable model; complete kit pending",
+  "sources": [
+    "data/extracted/guide_jiuyuan.json",
+    "data/extracted/neverness_kuhara.json",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json",
+    "data/global-2026-10-04/tables/DT_KuharaEffectFigure.json"
+  ],
+  "model": [
+    "GA_Kuhara_Melee public primary packet is GE_Player_Kuhara_Melee1_Damage. Native coefficients at Normal levels1/8/9 are0.218/0.374/0.404; existing purchased talent and resonance projection owns the effective coordinate. CategoryA/Anima metadata stays source-bound.",
+    "Only GE_Player_Kuhara_Melee5_Damage applies the existing normal-action Pact status. Earlier stages, branch, aim, plunge, Seed/Bud and target-cast packets sharing GA_Kuhara_Melee no longer create or refresh Pact. Existing Skill/Ultimate status application is retained as partial legacy behavior.",
+    "Shared before-hit context exposes the delivered effect identity. The runtime remains generic; Jiuyuan owns the source-specific trigger. Zero damage/dead target cannot commit the speculative Pact; pending/off-field first-attack delivery keeps its owner."
+  ],
+  "pending": [
+    "Ordinary chain advancement, final-stage bullets, complete Skill/Ultimate packet trains, Pact accumulation/automatic/active settlement and associated healing/energy, riposte, aiming/AoE and complete passives. This first-attack result does not verify those branches or the prior partial Pact model."
+  ],
+  "checks": [
+    "190 content tests passed. Independent first-attack oracle is1000ATK * native coefficient *0.5DEF without Pact bonuses:109/187/202. Existing fifth-hit A6 status oracle uses1050ATK *0.5 *1.08 *(12/11)=6804/11 under the current shared rational negative-RES model.",
+    "19 other Melee-action packet IDs neither apply nor refresh Pact; existing fifth-hit status expires exactly25seconds after application despite later hits. Failed/zero/dead and pending/off-field behavior checked.",
+    "weapon_passives.test.mjs passes with NTESIM_VERIFY_NATIVE=1: full native CLI/WASM reports match across equipped cases, including Jiuyuan first attacks at Normal levels1/8 and A0/A1/A6. The actual Worker also executes those four public scripts and reconciles their damage with direct WASM. native_build.test.mjs and scenario_script.test.mjs pass.",
+    "Changed Rust files pass rustfmt; content clippy passes with only the pre-existing metadata.rs collapsible_if and single_element_loop lints allowed. Unqualified workspace formatting remains blocked by unrelated baseline files. Native CLI/WASM and the generated action catalog expose the first-attack binding; TypeScript and production build pass. Frozen source hashes match the identities below."
+  ],
+  "source_sha256": {
+    "data/extracted/guide_jiuyuan.json": "3a1f33228f7b11a655669d24914abb8283f6847949f85ff301b842a289eb4f7f",
+    "data/extracted/neverness_kuhara.json": "2cfbb0dc5640e66ae4fa31fe1eee84098a577851d18115fbdbea3c7cd2841867",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json": "917b0c3675412c0425a0724d09e7dd8ae4d1ef9a100d2ea5669d7484d0901bf2",
+    "data/global-2026-10-04/tables/DT_KuharaEffectFigure.json": "568a2241ac1f25170981f8db326bf38c9703118bab63eaff7b853b0f481cb4de"
+  }
+}

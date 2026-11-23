@@ -1,0 +1,11 @@
+# Partial unequipped Sakiri rotation: two Skill casts and one six-hit Burst.
+# Timing uses the disclosed coincident-packet model; full kit/eating mode is pending.
+options iteration=1 duration=10 crit=fixed;
+sakiri char lvl=80/80 awakening=0 talent=8,8,8 qte=8;
+mint char lvl=80/80 awakening=0 talent=8,8,8 qte=8;
+target hp=10000000 def=1080 resist=0;
+active sakiri;
+sakiri skill, burst;
+mint swap;
+wait(6);
+sakiri skill;

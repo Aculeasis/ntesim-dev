@@ -1,0 +1,117 @@
+# 0014: Preserve autonomous owner event identity
+
+- Status: accepted
+- Recorded: 2026-10-26
+- Decision date: 2026-10-26
+- Current owners: [runner contract](../../openspec/specs/combat-execution/reference.md), [Baicang](../mechanics/characters/baicang/action-damage.md)
+
+## Context and decision
+
+Baicang's low-HP Fadia assist can activate at initial state, an actual HP/MaxHP
+settlement or its own cooldown deadline without any authored command. Assigning
+command zero loses this cause and can point to an unrelated action or no action.
+Inventing an ordinary cast would alter the rotation artifact and its admission,
+recovery and resource meaning. ADRs 0011 and 0012 preserve real switch/Arc inputs;
+this decision extends origin identity to events that have no such input.
+
+Rust records each admitted autonomous activation in a separate ordered ledger.
+Hits and controls serialize exactly one optional authored-command or autonomous
+event index. Delayed owner children and Break contributions retain their parent
+event while retaining their own damage attribution. The event records the actual
+trigger and captured active recipient. Healing records exact basis and ordinary
+settlement results without being represented as damage or an extra cast.
+
+Existing internal owner callbacks carry opaque integer causal keys. Reserve the
+same upper 32-bit half on native and WASM32 for registered autonomous events and
+validate both ranges before reporting them. These internal keys are never public
+command indices. No change is made to the authored action sequence.
+
+## Rationale and consequences
+
+The ledger preserves causal replay and native/WASM transport without UI inference
+from owner names. Owner services receive actual event-settlement notifications;
+cooldown rechecks use real deadlines, not periodic readiness polling. Observing
+vitals is enabled only for parties with a concrete consumer. Unsupported reached
+owner models still diagnose and failed runs remain excluded from aggregation.
+
+The additive wire fields keep historical authored receipts decodable. Consumers
+must validate autonomous references separately from ordinary action metadata.
+The reserved range bounds authored commands and event identities to portable
+32-bit keys; existing work limits are much smaller. A fully typed internal origin
+would remove this range reservation but require unrelated callback migrations.
+
+## Reconsider when
+
+A new concrete producer needs multiple independent parents or exceeds the portable
+key range. Preserve real causes rather than adding invented player inputs.
+
+### Two-parent coordination clarification (2026-10-26)
+
+Blackbird's ordinary Skill owns a bird controller, while a later active ally's
+settled hit requests the bird. `coordinated_hit` therefore retains both the actual
+Skill command and the exact earlier hit index. Rust registration validates the
+source cast, positive applied HP, trigger actor and settlement time against the
+real receipts before consuming a controller opportunity. The autonomous packet
+keeps its own owner and packet metadata; neither parent becomes a fake cast or
+replaces the other. This is a concrete extension of the existing event ledger,
+avoiding parallel owner-specific source identities. Native replay and the bounded
+API transport and Studio observations retain the actual origin.
+
+### State-owned Cycle coordination clarification (2026-11-01)
+
+Nanally's Fair Duel and its Cycle-triggered A3 use the same two-parent ledger:
+the actual Authority Skill command enables the state, and a settled Cycle/Fair
+Duel hit requests the follow-up. The trigger can belong to Nanally herself or
+another party member; a fatal trigger can select another living dummy. Shared
+registration therefore validates structural cast ownership, time, positive HP
+loss and in-range actor/target identities. Content owns each mechanic's actor
+and recipient eligibility. Blackbird retains its active-ally-only checks in its
+observer. Native replay preserves the exact triggering hit and selected child
+recipient without weakening same-owner/same-target packet-parent validation.
+
+## Verification
+
+2026-11-06 clarification: Linko's Hexed follow-up uses `settled_hit` with the
+actual triggering receipt index. Its owner differs from the teammate that hit,
+and that teammate can itself be an autonomous effect or qualified Support. No
+enabling cast is invented and no teammate command or switch origin is inherited.
+Registration checks the settled hit's actor/target identities and equal event
+time. Unlike `coordinated_hit`, it has no source-cast parent or positive-HP-loss
+requirement; the existing owner rule consumes a settled hit on a living Hexed
+dummy. Native passive GA/packet evidence and its semantic receipt remain attached
+to Linko's own event. Browser consumers validate both hit-trigger variants
+structurally; owner eligibility remains in Rust.
+
+The same review exposes the existing origin registry in cast contexts so a
+Baicang Word generated by a connected Normal during the domain can register
+its actual action cause. Its native Burst-category packets retain that event,
+while actual Burst-owned Words and children of autonomous assists keep their
+existing origins. No damage category or talent coordinate is inferred from the
+triggering command, and no fake Burst is added to the authored rotation.
+
+2026-10-28 clarification: HP/MaxHP observation and combat HP loss are distinct.
+Damage and paid-cost primitives record each actual applied loss with its own
+loss-time MaxHP. The event observer drains those records alongside ordinary
+before/after vitals. Structural MaxHP clamps and healing add no combat-loss
+record; a same-event heal cannot hide an already paid cost. Owner loss listeners
+consume these explicit settlements rather than inferring damage from net HP.
+This preserves the original actual-settlement boundary for Fadia's incoming/stat
+transfer dependencies and Edgar's normalized HP-loss accumulator.
+
+2026-10-29 clarification: Fadia membership and Nova extraction expose typed structural-HP receipts separately from hits and healing. Each identifies its source actor, affected actor/target, stat-change cause, time and before/after MaxHP/currentHP. A clamp cannot invent a combat-loss event or energy grant; native aggregation/replay and bounded WASM transport preserve these additive receipts.
+
+Chaos's Remora-end producer uses the actual qualified switch as its field-entry
+cause, retaining the latest application after refresh. Its autonomous passive
+identity is separate from the native damage row's Burst GAName through an exact
+owner packet binding. The shared end generation supplies elapsed real time;
+the owner supplies its final factor and one target. No authored Burst, desired
+input time or synthetic packet parent is introduced. Native aggregation/replay
+checks this source for two continuing expiries.
+
+Rust tests check empty authored rotations, exact threshold/deadline behavior,
+captured healing, live B4/A2 stats, independent recovery/Skill timers, Word and
+Break descendants and portable identity bounds. A legal native party fixture
+checks continuing cycles, seeded full-report replay and failed-run exclusion.
+The same [request](../../examples/baicang-fadia-game-research.json) is compared
+through native, WASM and an actual Worker. Transport checks reject mixed, missing
+or future origins and inconsistent healing receipts without recomputing mechanics.

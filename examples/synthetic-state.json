@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "content_id": "synthetic-v1",
+  "data_status": "synthetic",
+  "seed": 7,
+  "duration_us": 100,
+  "mode_clock": 1,
+  "clocks": [{"id": 0, "rate_ppm": 1000000}, {"id": 1, "rate_ppm": 1000000}],
+  "targets": {
+    "first": {"hp": 100, "max_hp": 100, "shield_order": "oldest_first"},
+    "second": {"hp": 100, "max_hp": 100, "shield_order": "oldest_first"}
+  },
+  "resources": {"energy": {"current": 3, "capacity": 10}},
+  "commands": [
+    {"clock": 0, "delay_us": 0, "effect": {"kind": "shield", "target": "second", "id": "shield", "source": "ally", "amount": 50}},
+    {"clock": 0, "delay_us": 0, "effect": {"kind": "gain", "pool": "energy", "amount": 4}},
+    {"clock": 0, "delay_us": 0, "effect": {"kind": "spend", "pool": "energy", "amount": 4}},
+    {"clock": 0, "delay_us": 10, "effect": {"kind": "damage", "target": "first", "amount": 20, "hit_delay_us": 1}},
+    {"clock": 0, "delay_us": 10, "effect": {"kind": "damage", "target": "second", "amount": 20, "hit_delay_us": 1}},
+    {"clock": 0, "delay_us": 20, "effect": {"kind": "damage", "target": "first", "amount": 20, "hit_delay_us": 1}},
+    {"clock": 0, "delay_us": 20, "effect": {"kind": "damage", "target": "second", "amount": 20, "hit_delay_us": 1}},
+    {"clock": 0, "delay_us": 30, "effect": {"kind": "damage", "target": "first", "amount": 20, "hit_delay_us": 1}},
+    {"clock": 0, "delay_us": 30, "effect": {"kind": "damage", "target": "second", "amount": 20, "hit_delay_us": 1}},
+    {"clock": 0, "delay_us": 40, "effect": {"kind": "heal", "target": "first", "amount": 20}}
+  ]
+}

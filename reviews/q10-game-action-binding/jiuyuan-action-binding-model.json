@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "scope": "Jiuyuan native primary action packet binding across Normal, Skill, and Ultimate",
+  "quality": "partial executable model; complete kit pending",
+  "sources": [
+    "data/extracted/guide_jiuyuan.json",
+    "data/extracted/neverness_kuhara.json",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json",
+    "data/global-2026-10-04/tables/1055AwakenEffect.json"
+  ],
+  "model": [
+    "GA_Kuhara_Melee public primary packet is GE_Player_Kuhara_Melee1_Damage. Native coefficients at Normal levels 1/8/9 are 0.218/0.374/0.404; category A/NATURE metadata stays source-bound. Five admitted ordinary inputs advance stages Melee1 through Melee5 with multiplicities 1,2,3,4,1 (11 hits) under jiuyuan.normal_chain_v1; stage 5 before_hit applies Lethal Rose Pact.",
+    "GA_Kuhara_QTE public primary packet is GE_Player_Kuhara_QTE_Damage. Native coefficients at QTE levels 1/8/9 are 1.488/2.551/2.755; category QTE/NATURE metadata stays source-bound.",
+    "GA_Kuhara_Skill public primary packet is GE_Player_Kuhara_Skill1_Damage (36%), followed by 4x GE_Player_Kuhara_Skill2_Damage (38.2% each) and 1x GE_Player_Kuhara_Skill3_Damage (111.4%) under jiuyuan.skill_burst_packets_v1; category E/NATURE metadata stays source-bound. On hit, before_hit applies jiuyuan.rose_pact (25s duration). At A1, active Pact on target grants +5% ATK.",
+    "GA_Kuhara_UltraSkill public primary packet is GE_Player_Kuhara_UltraSkill1_Damage (61.8%), followed by 3x GE_Player_Kuhara_UltraSkill2_Damage (78.4% each), 7x GE_Player_Kuhara_UltraSkill3_Damage (24.4% each), and 1x GE_Player_Kuhara_UltraSkill4_Damage (132.1%) under jiuyuan.skill_burst_packets_v1; category Q/NATURE metadata stays source-bound. On hit, before_hit applies jiuyuan.rose_pact (25s duration). At A1, active Pact on target grants +5% ATK.",
+    "Resonance 3 activates at awakening >= 3 and adds +1 level to Melee, Skill, and UltraSkill, selecting native coordinate level + 1 without manual overrides.",
+    "Existing A1 (+5% ATK per Pact target), A5 (+8% damage on Pact targets), and resonance_6 (10% Anima RES reduction on Pact targets) remain preserved as partial kit models.",
+    "Canonical arbitrary awakening selections gate modeled A1 and A5 by effect identity. R3 talent bonuses use selection count >=3; R6 Anima RES reduction requires six selections. [5] grants only the existing A5 Pact damage bonus, [6] does not grant A1/A5/R3/R6, and [1,4,5] grants A1/A5 plus R3. Selection does not enable unresolved Pact settlement or Effect6 enemy-skill callbacks."
+  ],
+  "pending": [
+    "Aim and plunge variants, bullet resource model, and Pact settlement triggers (BudBoom/BudEnd)."
+  ],
+  "checks": [
+    "jiuyuan_actions tests passed: independent damage oracles at 1000 ATK, 0 RES verify Normal across all five stages (11 hits, looping, resonance_3, stage 5 Rose Pact with A1/A5 triggers), Skill 6 hits (1501/1, 2573/1, 29169/10 at A3 with A1 ATK bonus), and Burst 12 hits (5999/2, 10281/2, 116613/20 at A3 with A1 ATK bonus).",
+    "Off-field delivery attributes hits to Jiuyuan; dead target settles 0 hits; horizon boundaries preserve pending events; two-skill one-burst rotation settles 24 hits; strict mode accepts jiuyuan.normal_chain_v1 hypothesis.",
+    "Current integration checks: tools/verify_jiuyuan_kit.py; independent mechanic assertions remain in Rust tests.",
+    "weapon_passives.test.mjs and jiuyuan_actions.mjs pass with NTESIM_VERIFY_NATIVE=1: full native CLI/WASM reports match across equipped and action cases, including Jiuyuan attack, attack:5, skill, and burst at levels 1, 8, and A3 resonance.",
+    "TypeScript and production build pass. Frozen source hashes match the identities below."
+  ],
+  "source_sha256": {
+    "data/extracted/guide_jiuyuan.json": "3a1f33228f7b11a655669d24914abb8283f6847949f85ff301b842a289eb4f7f",
+    "data/extracted/neverness_kuhara.json": "2cfbb0dc5640e66ae4fa31fe1eee84098a577851d18115fbdbea3c7cd2841867",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json": "917b0c3675412c0425a0724d09e7dd8ae4d1ef9a100d2ea5669d7484d0901bf2",
+    "data/global-2026-10-04/tables/1055AwakenEffect.json": "fb0a2674a5a844f39ceb923c527a5d6373b1a678b778c85dba62dc3c2520a757"
+  }
+}

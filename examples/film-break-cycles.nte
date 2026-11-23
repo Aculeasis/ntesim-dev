@@ -1,0 +1,12 @@
+options iteration=1 duration=40 crit=fixed;
+
+edgar char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_energy=0;
+edgar add weapon=fork_jiaojuan refine=1;
+mint char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_energy=0;
+target hp=100000000 def=0 resist=0 break_gauge=1/2 max_break_gauge=1 broken_duration=6;
+active edgar;
+
+# Each chain breaks a real gauge, then the dummy recovers its full capacity.
+edgar attack:5; mint swap;
+wait_until(10); edgar swap; edgar attack:5; mint swap;
+wait_until(20); edgar swap; edgar attack:5; mint swap;

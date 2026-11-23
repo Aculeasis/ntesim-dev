@@ -1,0 +1,30 @@
+options iteration=1 duration=30 crit=fixed seed=42;
+
+sakiri char lvl=80/80 awakening=0 talent=1,1,1 qte=1;
+sakiri add weapon=fork_ThiefCandy refine=1;
+mint char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_cycle=100;
+target hp=100000000 def=0 resist=0;
+active sakiri;
+
+# Cycle 1: three Critical Dodges cap the stacks; the chain rides the window.
+# A plain dash between them must not proc, and the fourth Critical Dodge at
+# 6.4s adds no stack but resets the duration to 16.4s.
+sakiri dash[critical=true]; sakiri dash[critical=true]; sakiri dash[critical=true];
+sakiri attack:5;
+sakiri dash;
+sakiri dash[critical=true];
+sakiri attack:5;
+mint swap; mint attack:4;
+sakiri swap;
+
+# The window expires at exactly 16s: the returning hits straddle it (15.6s
+# boosted pins the plain dash as a no-proc, 16.4s lands bare past the expiry)
+# while the Support packet rides the window.
+wait_until(14.8); sakiri attack; sakiri attack; sakiri attack;
+
+# Cycle 2: three fresh Critical Dodges reopen the window, the chain rides it,
+# and the 28.2s hit lands exactly on the second expiry boundary.
+sakiri dash[critical=true]; sakiri dash[critical=true]; sakiri dash[critical=true];
+sakiri attack:5;
+mint swap; mint attack:5;
+wait_until(27.95); sakiri attack;

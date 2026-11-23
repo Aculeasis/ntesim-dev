@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "question": "How does equipped Blast Candy apply its Ultimate-triggered ATK bonus?",
+  "branch_budget_minutes": 15,
+  "total_investigation_budget_minutes": 20,
+  "sources": [
+    "data/global-2026-10-04/tables/DT_ForkItemData.json#/rows/fork_BlastCandy",
+    "data/global-2026-10-04/tables/DT_ForkUpgradeStarDataTable.json#/rows/upgradestar_pack_fork_BlastCandy_1",
+    "data/global-2026-10-04/tables/CT_ForkBuff.json#/rows/buff_BlastCandy_AtkUp",
+    "data/global-2026-10-04/tables/CT_ForkBuff.json#/rows/buff_BlastCandy_CD"
+  ],
+  "decision": "Use the frozen English description and exact refinement curves. Ultimate admission applies a self-only base-ATK percentage bonus before its delivered hits. Recasts refresh one shared-per-wearer effect; switching preserves it until world-time expiry. These timing, base-ATK and refresh rules are explicit tested model hypotheses.",
+  "availability": "Frozen coverage marks release availability unverified. Research execution retains this uncertainty; no released-gear or strict-readiness claim.",
+  "stop_condition": "Implement and check source-bound T1-T5 values, self recipient, same-cast hits, refresh, exact expiry, delayed off-field hits, failed admission and equipped identity rejection.",
+  "return_condition": "New Global availability evidence or native timing/refresh evidence conflicts with the tested interpretation.",
+  "checks": [
+    "ntesim-content: 125 tests pass, including exact T1-T5 frozen ratios (25/30/35/40/45 percent) and 10s duration, source-unit rejection, self-only damage, refresh, exact expiry, off-field delivery, equipment identity, duplicate handlers and failed admission",
+    "web/tests/weapon_passives.test.mjs: native build projection and WASM damage checked against independent (static ATK + base ATK * bonus) / static ATK multiplier; same-cast hit and exact expiry checked for all refinements",
+    "NTESIM_VERIFY_NATIVE=1 enables full shared game-report CLI/WASM parity; only CLI acquisition wrapper fields audit/input_hashes/request_sha256 are excluded",
+    "Actual SIMULATE_NTE Worker execution matches direct WASM; native/wasm artifacts retain identical engine source identity",
+    "Formatting checked on changed Rust files with pinned rustfmt skip_children=true; web typed checks pass",
+    "Full content clippy -D warnings remains blocked by pre-existing collapsible_if and single_element_loop in simulation/metadata.rs; scoped clippy passes with only these two existing lints allowed",
+    "Full web run passed 22 existing modules; the added module initially failed on test-only Worker cleanup and passed its complete focused CLI/WASM/Worker run after correction"
+  ]
+}

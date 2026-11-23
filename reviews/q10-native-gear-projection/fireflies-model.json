@@ -1,0 +1,26 @@
+{
+  "question": "Which frozen Fireflies four-condition parameters bind the equipped stack amount, cap and duration, and how does the source-supported team-hit rule execute in ordinary native builds?",
+  "source_pointers": [
+    "data/global-2026-10-04/tables/DT_EquipmentSuitData.json#/rows/Suit2/SuitStructList/1",
+    "data/global-2026-10-04/tables/CT_Equipmentbuff.json",
+    "docs/GEAR_PROC_CONFIG_CONTRACT.md"
+  ],
+  "branch_budget_minutes": 10,
+  "total_budget_minutes": 15,
+  "stop_condition": "Bind the frozen numeric parameters and execute source-supported team/off-field Anima hits for ordinary native builds, retaining explicit rejection of unsupported nearby-target geometry.",
+  "return_condition": "New source consumer evidence can resolve actual proximity and multi-target geometry, stack refresh behavior, or replace the tested independent-expiry/no-refresh policy.",
+  "decision": "tested_hypothesis",
+  "rationale": "Frozen Suit2 four-condition binds Buff_Equipment_Nature2_4 and advertises eight percent CRIT DMG, seven stacks and ten-second duration. Its three coordinate-one curves serialize 0.08, 7 and 10. Treat the scalar as fractional bonus and CD as per-stack duration in seconds; this agrees with the description and existing independently expiring stack model. The frozen localized and Chinese descriptions both say a nearby enemy taking Anima damage from the Team grants stacks and explicitly retain the effect off-field. Ordinary native hit delivery therefore grants one stack per connected Anima packet to every living wearer, including off-field owners. Proximity is not quantified: one origin target at [0,0,0] remains the accepted geometry hypothesis; multi-target requests and displaced origin targets reject when a connected Anima packet reaches Fireflies.",
+  "affected_scenarios": "Ordinary native studio/DSL builds with source-bound Suit2, team Anima packets, living Fireflies wearers on or off field, one target at the origin; the separate legacy native_mind_royale_fireflies_solo_v1 projector remains one actor, one origin target and native Anima invocations only.",
+  "limits": [
+    "Numeric proximity/radius and multi-target geometry are unsupported; reached team Anima packets reject unless the scenario has one target at the origin.",
+    "Independent expiry, no refresh at cap and expiry-before-hit are executable model hypotheses; source consumers remain unverified.",
+    "Caller timing/costs, complete static/passive application and full character/gear coverage remain incomplete."
+  ],
+  "checks": [
+    "Owning content and CLI source-mutation tests",
+    "Public mint/nanally/haniel native DSL scenario: independent seven-stack crit arithmetic, per-packet/two-wearer event count, delayed off-field source, non-Anima/zero/dead source/dead target/dead wearer exclusions, displaced/multiple-target rejection, Worker/CLI/WASM report parity",
+    "Strict model assumption exact-match, missing and mismatch checks; existing cap-without-refresh and expiry-before-equal-time-hit regressions",
+    "tools/verify_native_fireflies_projection.py remains scoped to the restricted legacy solo projection"
+  ]
+}

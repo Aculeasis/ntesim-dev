@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "scope": "Blackbird native primary action packet binding across Normal, Skill, and Ultimate",
+  "quality": "partial executable model; complete kit pending",
+  "sources": [
+    "data/extracted/guide_blackbird.json",
+    "data/extracted/neverness_blackbird.json",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json",
+    "data/global-2026-10-04/tables/1042AwakenEffect.json",
+    "data/global-2026-10-04/tables/DT_BlackBirdEffectFigure.json"
+  ],
+  "model": [
+    "GA_BlackBird_Melee public primary packet is GE_Player_BlackBird_Melee1_Damage. Native coefficients at Normal levels 1/8/9 are 0.237/0.406/0.439; category A/PSYCHE metadata stays source-bound.",
+    "GA_BlackBird_Skill public primary packet is GE_Player_BlackBird_Skill_Damage, delivering a 4-hit packet train (1 primary + 3 children). Native coefficients at Skill levels 1/8/9 are 1.000/1.714/1.851 per hit; category E/PSYCHE metadata stays source-bound. At A2 (Wayward Chronicle), grants +100% (+1.0) ratio addition to all hits.",
+    "GA_BlackBird_UltraSkill public primary packet is GE_Player_BlackBird_UltraSkill_Damage, delivering a 9-hit packet train (1 primary + 8 children). Native coefficients at Burst levels 1/8/9 are 0.467/0.800/0.864 per hit; category Q/PSYCHE metadata stays source-bound. on_cast activates Requies Animarum team ATK buff (+20% ATK for 15s base, 25s at A4). At A3, grants +100% (+1.0) ratio addition to all UltraSkill hits.",
+    "Resonance 3 activates at awakening >= 3 and adds +1 level to GA_BlackBird_Melee, GA_BlackBird_Skill, and GA_BlackBird_UltraSkill without manual overrides.",
+    "A4 grants +12% team damage bonus and extends Requies Animarum to 25s; A5 reduces target Psyche/Lakshana/Chaos RES by 8% on hit; A6 grants +25% Psyche damage on UltraSkill and +30% Crit DMG on recipient.",
+    "Canonical arbitrary awakening selections: Effect1/2 coefficient additions, Effect4 team duration/damage, Effect5 target resistance reduction and Effect6 self Psyche bonus use selected identities. Burst coefficient resonance_3 and team Crit DMG resonance_6 remain count-based. Existing unsupported owner mechanics remain pending; selection does not complete the kit."
+  ],
+  "pending": [
+    "Native ordinary Normal chain timing/reset rules, AirAttack/riposte, Branch1..Branch3, Evolve form transitions, Malice gauge resource mechanics and Nova settlement interactions."
+  ],
+  "checks": [
+    "blackbird_actions tests passed: independent damage oracles at 1000 ATK, 0 RES verify Normal (237/2, 203/1, 439/2 at A3 resonance), Skill 4 hits (500/1 each, total 2000/1; 857/1 each, total 3428/1; 1357/1 each at A2, total 5428/1; 2851/2 each at A3, total 5702/1), and Burst 9 hits (1401/5 each, total 12609/5; 480/1 each, total 4320/1; 5592/5 each at A3, total 50328/5).",
+    "Off-field delivery attributes hits to Blackbird; dead target settles 0 hits; horizon boundaries preserve pending events; strict mode validates blackbird.skill_burst_packets_v1 hypothesis.",
+    "Current integration checks: tools/verify_blackbird_kit.py; independent mechanic assertions remain in Rust tests.",
+    "character_actions.test.mjs passes with NTESIM_VERIFY_NATIVE=1: full native CLI/WASM reports match across all character action cases and rotation example examples/blackbird-skill-burst-packets.nte (17 hits).",
+    "TypeScript and production build pass. Frozen source hashes match the identities below."
+  ],
+  "source_sha256": {
+    "data/extracted/neverness_blackbird.json": "8466c5a799a1e7bbd40989cd216632b231d0c046749da0bfd3c9587c10512ee4",
+    "data/extracted/guide_blackbird.json": "1d6c1da59db4b69527b09f52b607ef3964f3b4b2c711336a12e4bc2037fc132d",
+    "data/global-2026-10-04/tables/1042AwakenEffect.json": "8b450a33243e6fae0032464db8ae4a6e18c709f860408abd8ebb3492762773d5",
+    "data/global-2026-10-04/tables/DT_BlackBirdEffectFigure.json": "3080bd36ea09d7d4826ebe9680ca9e797438d81ff385edbe07ec8cbf96b125c7",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json": "917b0c3675412c0425a0724d09e7dd8ae4d1ef9a100d2ea5669d7484d0901bf2"
+  },
+  "continuing_normal_model": "reviews/q10-game-action-binding/blackbird-normal-chain.json"
+}

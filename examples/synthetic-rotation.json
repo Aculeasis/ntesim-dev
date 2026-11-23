@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "content_id": "synthetic-v1",
+  "data_status": "synthetic",
+  "seed": 7,
+  "duration_us": 100,
+  "mode_clock": 1,
+  "clocks": [{"id": 0, "rate_ppm": 1000000}, {"id": 1, "rate_ppm": 1000000}],
+  "targets": {
+    "first": {"hp": 100, "max_hp": 100, "shield_order": "oldest_first"},
+    "second": {"hp": 100, "max_hp": 100, "shield_order": "oldest_first"}
+  },
+  "resources": {"energy": {"current": 3, "capacity": 10}},
+  "actions": {
+    "prepare": [
+      {"kind": "shield", "target": "second", "id": "shield", "source": "ally", "amount": 50},
+      {"kind": "gain", "pool": "energy", "amount": 4},
+      {"kind": "spend", "pool": "energy", "amount": 4}
+    ],
+    "attack": [
+      {"kind": "damage", "target": "first", "amount": 20, "hit_delay_us": 1},
+      {"kind": "damage", "target": "second", "amount": 20, "hit_delay_us": 1}
+    ],
+    "heal": [{"kind": "heal", "target": "first", "amount": 20}]
+  }
+}

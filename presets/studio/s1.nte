@@ -1,0 +1,15 @@
+options iteration=1000 duration=20 seed=42;
+
+mint char lvl=80/80 awakening=0 talent=8,8,8 qte=8;
+mint add weapon=fork_lingganzhongjiezhe refine=5;
+mint add cartridge=firefliesandtheforest count=4;
+mint add stats hp=5600 atk=1168.15 def=0 cr=0.52 cd=0.44 dmg%=0;
+
+target lvl=80 hp=3500000 max_hp=10000000 def=1080 resist=0.2;
+
+active mint;
+
+# Rotation
+mint attack;
+mint skill;
+mint burst;

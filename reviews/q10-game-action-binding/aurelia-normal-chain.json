@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "scope": "Aurelia ordinary four-input Legato chain in the shared gameplay runner",
+  "quality": "executable modeled chain; complete kit pending",
+  "hypothesis_id": "aurelia.normal_chain_v1",
+  "sources": [
+    "data/extracted/neverness_mitsuki.json: Melee1_des through Melee4_des; frozen source sha256 e9505773a3a7ae6deab47a46ce5bdd625717a8b193e672470cfe24f3c3fd0c61",
+    "data/extracted/guide_aurelia.json: Cappella ordinary Legato, with separate Staccato/Portamento/Syncopation branches",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json: GE_Player_Mitsuki_Melee1_Damage through Melee4_Damage"
+  ],
+  "decision": "Four admitted Normal inputs deliver nine ordinary unenhanced packets in stages [Melee1], [Melee2], [Melee3 x3], [Melee4 x4]. Descriptions reconcile with native coefficients at all nine levels. Effective native talent projection includes resonance_3. Admission records the input binding; delivery receipts identify actual stage packets and independently sample live modifiers, including existing A1 Cadenza crit rate.",
+  "hypotheses": [
+    "Loop after stage four. Reset on a different admitted ability or field exit; preserve on same-actor switch.",
+    "An input-start gap greater than 2 seconds resets the chain; exact equality continues. This tested continuity convention follows other ordinary-chain models and is not measured animation timing.",
+    "Ordered coincident stage delivery at the selected research primary impact time. Pending hits retain their actor after field exit. Projectile travel/tracking and powered projectile triggers remain unresolved and are not established by these ordinary damage oracles."
+  ],
+  "independent_oracles": [
+    "At 1000 ATK and 0.5 DEF, level-one stages deal 347/2,315,150 x3,99/2 x4: four inputs total 2273/2; fifth looping input yields 1310.",
+    "Level-eight stages deal 595/2,540,257 x3,85 x4: four inputs total 3897/2; fifth yields 2246.",
+    "Purchased level eight at A3 projects level nine: 321,583,555/2 x3,183/2 x4: four inputs total 4205/2; fifth yields 4847/2."
+  ],
+  "checks": [
+    "Content tests verify per-packet/total damage, order, looping, gap/reset/no-op boundaries, strict hypothesis policy and fourth-stage off-field delivery at the exact horizon.",
+    "A1 Cadenza: third-stage hits one microsecond before expiry retain 20% crit rate; fourth-stage hits after expiry use 5%, without resetting the chain.",
+    "verify_aurelia_kit.py independently reconciles Normal descriptions and native coefficients at all nine levels and verifies existing modeled awakening scenarios through CLI/WASM with deterministic replay.",
+    "Public attack:4 scripts through actual Worker/WASM and full native report parity cover levels 1, 8 and effective 9."
+  ],
+  "pending": [
+    "Measured reset/cancel rules and packet intervals; return when frozen animation evidence supplies a concrete model.",
+    "Powered projectile triggers, jellyfish tracking/Crescendo, AoE, Staccato, plunge, riposte, ordinary energy and remaining kit/awakening behavior."
+  ]
+}

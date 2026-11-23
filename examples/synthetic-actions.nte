@@ -1,0 +1,6 @@
+# Artificial actor-local recovery/cooldown/costs. No NTE action legality claim.
+clock 1;
+repeat 3 {
+    do attack;
+    wait 10;
+}

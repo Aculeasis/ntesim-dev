@@ -1,0 +1,17 @@
+# Iroi A0 zero-start Skill-to-Burst rotation with one continuing Normal chain.
+# Five Normal chains and the nine-packet Skill fund a legal 100-energy Burst.
+# The bounded 5% DEF-ignore window is active for Skill, Burst, and continuation hits.
+options iteration=1 duration=32s crit=fixed;
+iroi char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_energy=0;
+mint char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_energy=0;
+sakiri char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_energy=0;
+target hp=100000000 def=1080 resist=0;
+active iroi;
+
+repeat 5 { iroi attack:5; }
+wait_until(25s);
+iroi skill;
+wait_until(26s);
+iroi burst;
+wait_until(27s);
+iroi attack:5;

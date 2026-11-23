@@ -1,0 +1,107 @@
+{
+ "checks": [
+  "Native content build projection binds both source curves across T1..T5 (buff_oulaquantao_Unbal points with bIsPercent=false, buff_oulaquantao_Up ratio with bIsPercent=true), checks the DataList parameter order [{Unbal,false},{Up,true}] on all 5 tiers, enforces ApplyGroupType TWO against the wearer group, and retains the native description receipt (key buff_fork_jiaojuan_effect). Flipping either unit hint (Up in the pre-existing test, Unbal in jiaojuan_unbal_unit_hint_falsifier) is rejected with 'unit hint'.",
+  "Projection stages the frozen points into the proc config GearProcConfig::JiaojuanBreak: break_intensity_bonus 48/57/66/75/84 points and broken_damage_bonus 1/10, 3/25, 7/50, 4/25, 9/50 across T1..T5. There is no 'static break intensity accessor': the BI points are staged-only and have no live consumer in the content simulation.",
+  "Independent zone oracle: Broken-tagged target receives damage-bonus 1/10 and zero ATK bonus; untagged target receives zero damage bonus and zero ATK bonus.",
+  "Independent scenario oracle: unbroken target takes identical damage with and without the proc (1000 non-crit at 0 DEF/0 RES, real run_game_scenario run).",
+  "Independent break-zone oracle via ntesim_core::break_damage: 300 -> 348 BI scales the break damage zone by exactly 1.08 (additive 1 + BI/300 reading; a multiplicative reading is rejected).",
+  "Hand-derived break-zone math against the BI=300 baseline: T1 27/25, T3 111/100, T5 57/50 (exact fractions; the misreadings 37/25, 83/50, 46/25 are rejected). Pure fraction arithmetic on frozen numbers, no core calls.",
+  "Additive-zone join: pre-existing damage bonus 1/2 + T1 Broken bonus 1/10 gives bonus sum 3/5 and M_bonus = 8/5 = 1.6; the multiplicative 33/20 = 1.65 is rejected.",
+  "Broken scenario end-to-end at 1000 ATK, 0 DEF, 0 RES: Broken-tagged target 1100/1 non-crit, untagged 1000/1. The unbroken arm is anchored against a real scenario receipt; the Broken arm drives the executed adapter path (crate::gear::damage_bonus reading the tag from a Broken-tagged GameSimulatorState) plus the core exact damage zones, because the scenario runner has no production injector for the Broken tag.",
+  "Validation rejects a non-fork_jiaojuan weapon id, a malformed ratio, and duplicate jiaojuan procs; cross-group (linko, group THREE) projection is rejected.",
+  "Web integration scenario (web/tests/combat/jiaojuan.mjs) checks T1..T5 proc values, unbroken-target parity against a proc-less baseline, and group rejection; written for CI.",
+  "Focused run: 10/10 jiaojuan tests pass (6 pre-existing + 4 new: jiaojuan_zone_math_hand_derived_t1_t3_t5, jiaojuan_broken_bonus_joins_additive_zone, jiaojuan_broken_scenario_end_to_end, jiaojuan_unbal_unit_hint_falsifier).",
+  "Verified in an isolated git worktree on scaffold commit c748233 (main tree had a broken sibling file at the time): cargo test -p ntesim-content jiaojuan:: 7/7 pass; cargo clippy clean on the four files; cargo fmt --check clean; node --check on the web scenario passes. The four verified files are byte-identical to the main tree."
+ ],
+ "checks_not_run": [
+  "Web tests were not run: no WASM build exists in this Linux environment (web/tests/native-compiler.ts requires target/wasm32-unknown-unknown/release/ntesim_wasm.wasm); the scenario file is written for CI.",
+  "python tools/rust_quality.py was not run: the main tree contains broken sibling-agent files (tuansanlang) that fail the whole-crate gate; the jiaojuan files themselves pass clippy and fmt."
+ ],
+ "combat_scope": "Unconditional static Break Intensity points for the wearer, staged-only for break-damage execution (no live consumer in the content simulation). Additive damage-bonus-zone ratio against Broken enemies only, joining the single M_bonus zone; not a final, special, or multiplicative factor.",
+ "curves": {
+  "buff_oulaquantao_Unbal": {
+   "keys": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "unit": "points",
+   "values": [
+    48.0,
+    57.0,
+    66.0,
+    75.0,
+    84.0
+   ]
+  },
+  "buff_oulaquantao_Up": {
+   "keys": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "unit": "ratio",
+   "values": [
+    0.1,
+    0.12,
+    0.14,
+    0.16,
+    0.18
+   ]
+  }
+ },
+ "cutoff": "2026-10-04",
+ "exclusive_character_ids": [],
+ "exclusive_character_scope": "Frozen ExclusiveCharacterIDArray is empty and ExclusiveDesc has no string; equipment legality follows ApplyGroupType.",
+ "group": "ECharacterGroupType::CHARACTER_GROUP_TYPE_TWO",
+ "hypothesis_id": "weapons.jiaojuan_v1",
+ "independent_oracles": [
+  "T1..T5 projection binding: break_intensity_bonus = 48/57/66/75/84 points (bIsPercent=false), broken_damage_bonus = 1/10, 3/25, 7/50, 4/25, 9/50 (bIsPercent=true), bound from CT_ForkBuff through the refinement DataList in order [{Unbal,false},{Up,true}]; flipping either unit hint is rejected. (jiaojuan_projection_binds_five_curves_rejects_group_and_unit_changes, jiaojuan_unbal_unit_hint_falsifier)",
+  "Break-zone math against the BI=300 baseline: T1 (600+48)/600 = 27/25 = 1.08, T3 (600+66)/600 = 111/100 = 1.11, T5 (600+84)/600 = 57/50 = 1.14; the misreadings 37/25, 83/50, 46/25 are rejected. Hand-derived exact fractions, no core calls. (jiaojuan_zone_math_hand_derived_t1_t3_t5)",
+  "Broken bonus joins the single additive damage-bonus zone: pre-existing 1/2 + T1 1/10 -> bonus sum 3/5, M_bonus = 8/5 = 1.6; the multiplicative 33/20 = 1.65 is rejected. (jiaojuan_broken_bonus_joins_additive_zone)",
+  "Broken scenario at 1000 ATK, 0 DEF, 0 RES: Broken-tagged target takes 1100/1 non-crit, untagged 1000/1. The unbroken arm is anchored against a real run_game_scenario receipt; the Broken arm drives the executed adapter path on a tagged state plus the core exact zones because the scenario runner has no production injector for the Broken tag. (jiaojuan_broken_scenario_end_to_end)"
+ ],
+ "known_gaps": [
+  "Global release availability is unverified in the frozen catalog.",
+  "The content simulation executes no break damage or gauge accumulation, so the staged static Break Intensity points have no live consumer yet. The points are staged in the field GearProcConfig::JiaojuanBreak::break_intensity_bonus; a future break execution must read that field and join them as 1 + BI/300 + break_bonus_sum. The adapter-to-zone link is a Q1-V1 return condition, not a tested path.",
+  "projection.rs now reports \"runtime_execution_validated\": false (coordinator honesty fix, batch 10, crowbar precedent): the flag covers only proc staging/validation plus the executed Broken damage-bonus path, so true would overstate what is validated — the staged Break Intensity points have no live consumer (Q1-V1 return condition). Caveat: 'broken damage bonus executed; break-intensity staging only'. Asserted by jiaojuan_projection_binds_five_curves_rejects_group_and_unit_changes.",
+  "No native break gauge exists in the runtime, so Broken-gated damage only occurs when a scenario declares the content-owned Broken status tag; native break-triggered states are unmodeled.",
+  "The buff curve rows are shared with fork_oulaquantao; the DataList unit hints are identical for both weapons.",
+  "Strict scenarios must pre-accept weapons.jiaojuan_v1; no runtime hook records the hypothesis (no cast/initialize hook is wired for this weapon)."
+ ],
+ "name": "Film - MANISH",
+ "native_curve_rows": "CT_ForkBuff:/rows/buff_oulaquantao_Unbal,buff_oulaquantao_Up",
+ "native_item_row": "DT_ForkItemData:/rows/fork_jiaojuan",
+ "native_refinement_rows": "DT_ForkUpgradeStarDataTable:/rows/upgradestar_pack_fork_jiaojuan_1..5",
+ "content_id": "ntesim-current",
+ "placeholder_mapping": {
+  "{0}": "buff_oulaquantao_Unbal (DataList order 1, points)",
+  "{1}": "buff_oulaquantao_Up (DataList order 2, percent)"
+ },
+ "region": "Global",
+ "schema_version": 1,
+ "source_sha256": {
+  "data/ntesim-current/tables/CT_ForkBuff.json": "93d1ed2069bc8e4358f98bfb5a3e212c13ad84e67eb6379e38414aa665539c15",
+  "data/ntesim-current/tables/DT_Character.json": "cce34c68a6286d9cfeb1525c7e0e05743370e8d5f96f6ddb8feb4ef8db0ab406",
+  "data/ntesim-current/tables/DT_ForkItemData.json": "22f6f587ad9bf3d54905889e81bfe8f213fa29c49522499287c53d42fd6900a4",
+  "data/ntesim-current/tables/DT_ForkUpgradeStarDataTable.json": "b15f6c4cf4b8a6e1c982b431176b406a501f38861a67ddce45a0f589cdeed8c5"
+ },
+ "status": "modeled_hypothesis",
+ "tested_hypotheses": [
+  "Both passive clauses are static (always-on): the frozen description names no trigger, cast, or duration, so no timed buff is staged and no ICD is modeled.",
+  "Broken state is detected through the content-owned ntesim.status.broken target status tag; the tag name is not asserted to be the native GameplayTag because the frozen tables expose no break-gauge binding and the runtime simulates no break gauge.",
+  "The {1} Broken damage ratio joins the single additive damage-bonus zone (M_bonus) only while the target carries an active Broken tag; it is not a final, special, or multiplicative factor, and no ATK bonus is granted.",
+  "The {0} Break Intensity points are static points joining the break damage zone as 1 + BI/300 + break_bonus_sum; they do not enter gauge accumulation (gauge_shred = base_shred x (1 + break_efficiency) x ...).",
+  "The buff curve rows are shared with fork_oulaquantao; the same frozen values serve both weapons."
+ ],
+ "weapon_id": "weapon:fork_jiaojuan",
+ "passive_description": {
+  "key": "buff_fork_jiaojuan_effect",
+  "localized": "Increases Break Intensity by <lv>{0}</>.\nIncreases DMG by <lv>{1}</> against Broken units.",
+  "source": "倾陷强度提升<lv>{0}</>。\n装备者攻击倾陷单位造成的伤害提升<lv>{1}</>。"
+ }
+}

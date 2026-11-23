@@ -1,0 +1,11 @@
+# Partial unequipped Hotori rotation: two Skill casts (7 hits each) and one Burst (10 hits).
+# Timing uses the disclosed coincident-packet model; animation delays and katana combo mode are pending.
+options iteration=1 duration=70 crit=fixed;
+hotori char lvl=80/80 awakening=0 talent=8,8,8 qte=8;
+mint char lvl=80/80 awakening=0 talent=8,8,8 qte=8;
+target hp=10000000 def=1080 resist=0;
+active hotori;
+wait_until(11); hotori skill;
+wait_until(36); hotori burst;
+wait_until(41); mint swap;
+wait_until(61); hotori swap; hotori skill;

@@ -1,0 +1,74 @@
+# S5 · Mint A6 / Sakiri / Zero / Iroi
+options iteration=1000 duration=120 seed=42;
+
+mint char lvl=80/80 awakening=6 talent=8,8,8 qte=8;
+mint add weapon=fork_lingganzhongjiezhe refine=5;
+mint add cartridge=firefliesandtheforest count=4;
+mint add stats hp=5600 atk=1168.15 def=0 cr=0.52 cd=0.44 dmg%=0;
+
+sakiri char lvl=80/80 awakening=1 talent=8,8,8 qte=8;
+sakiri add weapon=fork_mofeikesi refine=5;
+sakiri add cartridge=speedyhedgehog count=4;
+sakiri add stats hp=5600 atk=830.25 def=0 cr=0 cd=0 dmg%=0;
+
+zero char lvl=80/80 awakening=1 talent=8,8,8 qte=8;
+# Unequipped starter build: this character's fixture weapon passive is not implemented.
+zero add cartridge=speedyhedgehog count=4;
+zero add stats hp=15150 atk=2376 def=909 cr=0.05 cd=0.5 dmg%=0.1;
+
+iroi char lvl=80/80 awakening=1 talent=8,8,8 qte=8;
+# Unequipped starter build: this character's fixture weapon passive is not implemented.
+iroi add cartridge=speedyhedgehog count=4;
+iroi add stats hp=17210 atk=2332 def=909 cr=0.05 cd=0.5 dmg%=0.1;
+
+target lvl=80 hp=3500000 max_hp=10000000 def=1080 resist=0.2;
+
+active sakiri;
+
+# Rotation
+# Opening: establish support effects, then give Mint the field.
+sakiri attack, skill, burst;
+zero swap;
+wait(0.6);
+zero skill, burst;
+iroi swap;
+iroi skill;
+mint swap;
+mint attack, burst, skill;
+mint attack:5;
+
+# Refresh support skills and spend most field time attacking with Mint.
+# Twenty-second rounds follow Mind Royale's energy proc cooldown.
+# Support energy generation is incomplete: their opening bursts are not repeated.
+let round = 1;
+while .time + 20 <= .duration {
+  let round_start = .time;
+  sakiri swap;
+  wait(0.6);
+  sakiri skill;
+  zero swap;
+  wait(0.6);
+  zero skill;
+  iroi swap;
+  wait(0.6);
+  iroi skill;
+  mint swap;
+  mint skill;
+  mint attack:7;
+  mint skill;
+
+  # Five rounds replenish Mint's burst cost without resetting combat state.
+  if round % 5 == 0 {
+    mint burst;
+    mint attack:6;
+  } else {
+    mint attack:9;
+  }
+  wait_until(round_start + 20);
+  round = round + 1;
+}
+
+# Keep attacking through the remaining window, without scheduling past the horizon.
+while .time + 0.8 <= .duration {
+  mint attack;
+}

@@ -1,0 +1,22 @@
+options iteration=1 duration=56 crit=fixed seed=42;
+hotori char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_cycle=100;
+hotori add weapon=fork_Worldrain refine=1;
+mint char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_cycle=100;
+iroi char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_cycle=100;
+target hp=100000000 def=0 resist=0;
+active hotori;
+
+# Present Replay needs more than60 Timepiece, so the first Skill lands at11s.
+wait_until(11); hotori skill;
+
+# The outbound switch at13s captures the fresh CI buff and opens bud1.
+wait_until(13); mint swap;
+
+# The paid return at25s still sees the original15s window. The next Skill
+# refreshes the buff after the connected Support's recovery ends.
+wait_until(25); hotori swap; wait_until(26.65); hotori skill;
+iroi swap;
+
+# This third qualified switch uses the refreshed CI after the original window
+# would have expired.
+wait_until(33); hotori swap;

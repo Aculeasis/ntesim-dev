@@ -1,0 +1,11 @@
+options iteration=1 duration=15s;
+
+edgar char lvl=80/80 awakening=4 talent=8,8,8 qte=8 +params=[start_hp=2000];
+edgar add weapon=fork_Castle refine=5;
+
+target hp=10000000 max_hp=10000000 def=1080 resist=0;
+active edgar;
+
+edgar skill;
+wait_until(2s);
+edgar burst;

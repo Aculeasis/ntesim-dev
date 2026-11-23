@@ -1,0 +1,8 @@
+@bokuweb/zstd-wasm 0.0.27
+https://github.com/bokuweb/zstd-wasm
+Author: bokuweb. npm metadata declares MIT.
+The published README states: TypeScript glue is provided under the MIT License,
+and the zstd is provided by Facebook under the BSD 3-Clause License.
+The npm tarball omits a standalone license file. This directory supplies the
+MIT license text and the embedded Zstandard BSD license and Emscripten notice.
+Source: package README/package.json; upstream build.sh uses Emscripten 3.1.74.

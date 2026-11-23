@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "status": "modeled_and_tested",
+  "scope": "Owner-scoped energy for exact direct packet inputs accepted by current character/scenario models",
+  "owners": [
+    {
+      "owner": "daffodil",
+      "character_id": "character:1054",
+      "hypothesis_id": "daffodil.branch_entry_direct_packet_energy_v1",
+      "input_hypothesis_id": "daffodil.branch_entry_direct_packet_inputs_v1",
+      "ability_id": "GA_Daffodill_Melee",
+      "inputs": [
+        { "damage_effect_id": "GE_Player_Daffodill_Branch1_Damage", "charge_add_milli": 722 },
+        { "damage_effect_id": "GE_Player_Daffodill_Branch2_Damage", "charge_add_milli": 594 },
+        { "damage_effect_id": "GE_Player_Daffodill_Branch3_Damage", "charge_add_milli": 2420 },
+        { "damage_effect_id": "GE_Player_Daffodill_Branch4_Damage", "charge_add_milli": 702 },
+        { "damage_effect_id": "GE_Player_Daffodill_Branch5_Damage", "charge_add_milli": 984 },
+        { "damage_effect_id": "GE_Player_Daffodill_Branch6_Damage", "charge_add_milli": 594 },
+        { "damage_effect_id": "GE_Player_Daffodill_Branch7_Damage", "charge_add_milli": 594 },
+        { "damage_effect_id": "GE_Player_Daffodill_EntryAttack1_Damage", "charge_add_milli": 579 },
+        { "damage_effect_id": "GE_Player_Daffodill_EntryAttack2_Damage", "charge_add_milli": 470 },
+        { "damage_effect_id": "GE_Player_Daffodill_EntryAttack4_Damage", "charge_add_milli": 940 }
+      ],
+      "relation": "CHAOS source to other configured recipient elements: 3/5"
+    },
+    {
+      "owner": "aurelia",
+      "character_id": "character:1070",
+      "hypothesis_id": "aurelia.airattack_evadebranch_direct_packet_energy_v1",
+      "input_hypothesis_id": "aurelia.direct_packet_inputs_v1",
+      "ability_id": "GA_Mitsuki_Melee",
+      "inputs": [
+        { "damage_effect_id": "GE_Player_Mitsuki_AirAttack_Damage", "charge_add_milli": 6500 },
+        { "damage_effect_id": "GE_Player_Mitsuki_EvadeBranch_Damage", "charge_add_milli": 1300 }
+      ],
+      "relation": "PSYCHE source to other configured recipient elements: 3/5"
+    },
+    {
+      "owner": "sakiri",
+      "character_id": "character:1003",
+      "hypothesis_id": "sakiri.direct_plunge_packet_energy_v1",
+      "input_hypothesis_id": "sakiri.direct_plunge_packet_v1",
+      "ability_id": "GA_Sagiri_Melee",
+      "inputs": [
+        { "damage_effect_id": "GE_Player_Sagiri_AirAttack1_Damage", "charge_add_milli": 2500 }
+      ],
+      "relation": "INCANTATION source to other configured recipient elements: 3/5"
+    },
+    {
+      "owner": "chaos_qte",
+      "character_id": "character:1071",
+      "hypothesis_id": "chaos.qte_direct_packet_energy_v1",
+      "input_scope": "exact explicit scenario request pair; no natural QTE trigger or action binding",
+      "ability_id": "GA_Chaos071_QTE",
+      "inputs": [
+        { "damage_effect_id": "GE_Player_Chaos_QTE1_Damage", "charge_add_milli": 6400 }
+      ],
+      "relation": "LAKSHANA source to other configured recipient elements: 3/5"
+    }
+  ],
+  "modeled_policy": {
+    "trigger": "one exact modeled direct packet delivered to target zero with positive actual HP loss",
+    "fatal_hit_qualifies": true,
+    "zero_loss_unavailable_target_or_cancelled_packet": "no grant",
+    "source_distribution": "1/1",
+    "other_living_configured_recipient_distribution": "owner-specific frozen relation coefficient",
+    "recipient_charge_efficiency_and_fractional_carry": "per recipient",
+    "capacity_overflow": "shared energy settlement",
+    "delivery_time_active_actor_and_source_owner": "recorded separately",
+    "ordinary_hit_hypothesis_used": false
+  },
+  "independent_oracle": {
+    "recipient_efficiencies": ["28/25", "3/2", "7/5"],
+    "charge_relation_for_test_recipients": "3/5 to each off-source element",
+    "scale": "1/50000 energy unit; each exact ChargeAdd input is independently listed in the owner matrix",
+    "assertions": [
+      "all 14 packet IDs have literal frozen ChargeAdd expectations and per-recipient gross/carry checks",
+      "strict mode requires each direct energy hypothesis separately from its direct-input and ordinary-hit hypotheses",
+      "Chaos QTE ChargeAdd, recipient efficiency/carry, 93-to-100 Burst affordability and 100-unit spending have an independent oracle",
+      "fatal positive-HP-loss hits grant; zero-HP-loss hits do not",
+      "dead recipients are skipped, and a delayed grant after switching retains the source actor"
+    ],
+    "values_are_literal_test_expectations": true
+  },
+  "limits": [
+    "Native eligibility, duplicate suppression, cadence, recipient policy and off-field continuation are not proven by ChargeAdd; direct energy policies are tested hypotheses.",
+    "Natural Branch, Entry, AirAttack, plunge, EvadeBranch and Chaos QTE dispatch, legality, costs, timing, multiplicity, movement, extra targets and callbacks remain unresolved.",
+    "Daffodil Branch6/7 have frozen damage rows but no published-tip binding; only the existing explicit direct packet input accepts them in this model."
+  ],
+  "source_sha256": {
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json": "917b0c3675412c0425a0724d09e7dd8ae4d1ef9a100d2ea5669d7484d0901bf2",
+    "data/global-2026-10-04/tables/DT_SkillTeamChargeRelationData.json": "5e456919997b0f77c4b569ce812267a059bab553a1f87fcb863723c44b66363b"
+  },
+  "checks": [
+    "python tools/cargo.py test -p ntesim-content --lib direct_packet_energy --locked --offline",
+    "python tools/cargo.py build -p ntesim-wasm --release --target wasm32-unknown-unknown --locked --offline",
+    "python tools/cargo.py build -p ntesim-cli --locked --offline",
+    "node tools/web.mjs test tests/ordinary_hit_energy_owners.test.mjs",
+    "python tools/cargo.py test -p ntesim-content ordinary_hit_energy --lib --locked --offline"
+  ]
+}

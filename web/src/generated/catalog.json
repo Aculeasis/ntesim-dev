@@ -1,0 +1,255 @@
+{
+  "characters": [
+    {
+      "slug": "adler",
+      "id": "character:1033",
+      "name": "Adler",
+      "element": "Incantation",
+      "rarity": "A",
+      "group": "CHARACTER_GROUP_TYPE_FIVE"
+    },
+    {
+      "slug": "baicang",
+      "id": "character:1023",
+      "name": "Baicang",
+      "element": "Incantation",
+      "rarity": "S",
+      "group": "CHARACTER_GROUP_TYPE_FIVE"
+    },
+    {
+      "slug": "daffodil",
+      "id": "character:1054",
+      "name": "Daffodill",
+      "element": "Chaos",
+      "rarity": "S",
+      "group": "CHARACTER_GROUP_TYPE_TWO"
+    },
+    {
+      "slug": "jiuyuan",
+      "id": "character:1055",
+      "name": "Jiuyuan",
+      "element": "Anima",
+      "rarity": "S",
+      "group": "CHARACTER_GROUP_TYPE_ONE"
+    },
+    {
+      "slug": "mint",
+      "id": "character:1019",
+      "name": "Mint",
+      "element": "Anima",
+      "rarity": "A",
+      "group": "CHARACTER_GROUP_TYPE_TWO"
+    },
+    {
+      "slug": "nanally",
+      "id": "character:1010",
+      "name": "Nanally",
+      "element": "Anima",
+      "rarity": "S",
+      "group": "CHARACTER_GROUP_TYPE_THREE"
+    },
+    {
+      "slug": "sakiri",
+      "id": "character:1003",
+      "name": "Sakiri",
+      "element": "Incantation",
+      "rarity": "S",
+      "group": "CHARACTER_GROUP_TYPE_FOUR"
+    },
+    {
+      "slug": "aurelia",
+      "id": "character:1070",
+      "name": "Aurelia",
+      "element": "Psyche",
+      "rarity": "A",
+      "group": "CHARACTER_GROUP_TYPE_THREE"
+    },
+    {
+      "slug": "fadia",
+      "id": "character:1039",
+      "name": "Fadia",
+      "element": "Psyche",
+      "rarity": "S",
+      "group": "CHARACTER_GROUP_TYPE_FIVE"
+    },
+    {
+      "slug": "haniel",
+      "id": "character:1020",
+      "name": "Haniel",
+      "element": "Psyche",
+      "rarity": "A",
+      "group": "CHARACTER_GROUP_TYPE_ONE"
+    },
+    {
+      "slug": "hathor",
+      "id": "character:1025",
+      "name": "Hathor",
+      "element": "Lakshana",
+      "rarity": "S",
+      "group": "CHARACTER_GROUP_TYPE_THREE"
+    },
+    {
+      "slug": "hotori",
+      "id": "character:1052",
+      "name": "Hotori",
+      "element": "Cosmos",
+      "rarity": "S",
+      "group": "CHARACTER_GROUP_TYPE_ONE"
+    },
+    {
+      "slug": "skia",
+      "id": "character:1008",
+      "name": "Skia",
+      "element": "Lakshana",
+      "rarity": "A",
+      "group": "CHARACTER_GROUP_TYPE_FOUR"
+    },
+    {
+      "slug": "zero",
+      "id": "character:1046",
+      "name": "Zero",
+      "element": "Cosmos",
+      "rarity": "S",
+      "group": "CHARACTER_GROUP_TYPE_ONE"
+    },
+    {
+      "slug": "iroi",
+      "id": "character:1075",
+      "name": "Iroi",
+      "element": "Anima",
+      "rarity": "S",
+      "group": "CHARACTER_GROUP_TYPE_TWO"
+    },
+    {
+      "slug": "linko",
+      "id": "character:1072",
+      "name": "Linko",
+      "element": "Anima",
+      "rarity": "S",
+      "group": "CHARACTER_GROUP_TYPE_THREE"
+    },
+    {
+      "slug": "zankou",
+      "id": "character:1036",
+      "name": "Zankou",
+      "element": "Incantation",
+      "rarity": "S",
+      "group": "CHARACTER_GROUP_TYPE_FOUR"
+    },
+    {
+      "slug": "blackbird",
+      "id": "character:1042",
+      "name": "Blackbird",
+      "element": "Psyche",
+      "rarity": "S",
+      "group": "CHARACTER_GROUP_TYPE_FOUR"
+    },
+    {
+      "slug": "chaos",
+      "id": "character:1071",
+      "name": "Chaos",
+      "element": "Lakshana",
+      "rarity": "S",
+      "group": "CHARACTER_GROUP_TYPE_FIVE"
+    },
+    {
+      "slug": "lacrimosa",
+      "id": "character:1004",
+      "name": "Lacrimosa",
+      "element": "Chaos",
+      "rarity": "S",
+      "group": "CHARACTER_GROUP_TYPE_TWO"
+    },
+    {
+      "slug": "chiz",
+      "id": "character:1073",
+      "name": "Chiz",
+      "element": "Cosmos",
+      "rarity": "S",
+      "group": "CHARACTER_GROUP_TYPE_FOUR"
+    },
+    {
+      "slug": "edgar",
+      "id": "character:1021",
+      "name": "Edgar",
+      "element": "Cosmos",
+      "rarity": "A",
+      "group": "CHARACTER_GROUP_TYPE_TWO"
+    },
+    {
+      "slug": "shinku",
+      "id": "character:1076",
+      "name": "Shinku",
+      "element": "Cosmos",
+      "rarity": "S",
+      "group": "CHARACTER_GROUP_TYPE_FIVE"
+    }
+  ],
+  "weapons": {
+    "weapon:fork_arachne": "Eternal Waltz",
+    "weapon:fork_bitgame": "Blow up the Crowd",
+    "weapon:fork_bittercake": "The Good, The Bad, The Bitter",
+    "weapon:fork_blackbook": "Youthful Fantasy",
+    "weapon:fork_blastcandy": "Fluff of Fearlessness",
+    "weapon:fork_boxingcandy": "Fluff of Fortitude",
+    "weapon:fork_butterfly": "Reality Refuge",
+    "weapon:fork_castle": "Call of the Twisted City",
+    "weapon:fork_crowbar": "Time Bandit",
+    "weapon:fork_demonblade": "Ravenous Blade",
+    "weapon:fork_door": "The Wrong Gate",
+    "weapon:fork_goldrecord": "Voice of the Voyager",
+    "weapon:fork_goldwool": "What's Desired",
+    "weapon:fork_kite": "Watch Your Heads!",
+    "weapon:fork_knightcandy": "Fluff of Ferocity",
+    "weapon:fork_lunarphase": "Blushing Mirage",
+    "weapon:fork_motorcandy": "Fluff of Fleetness",
+    "weapon:fork_nakupeda": "Your Happiness is Priceless",
+    "weapon:fork_nestbird": "Tears Beneath the Mask",
+    "weapon:fork_paperplane": "Clear Skies",
+    "weapon:fork_policerat": "Hethereau's Keeper",
+    "weapon:fork_prokaryon": "Us.",
+    "weapon:fork_rose": "The Last Rose",
+    "weapon:fork_thiefcandy": "Fluff of Finesse",
+    "weapon:fork_tigertally": "Ready-Ready",
+    "weapon:fork_time": "Marching Beyond Time",
+    "weapon:fork_whale": "Song of the Whale",
+    "weapon:fork_appliance": "\"Real Music\"",
+    "weapon:fork_bopu": "Cosmos Daze, Wild Reverie",
+    "weapon:fork_dustbin": "Dangerous Game",
+    "weapon:fork_jiaojuan": "Shiny Days",
+    "weapon:fork_jingmotingyuan": "Camellia Society",
+    "weapon:fork_koinobori": "A Time Will Come",
+    "weapon:fork_lingganzhongjiezhe": "Mind Royale",
+    "weapon:fork_mamen": "Contemplative Cat",
+    "weapon:fork_mofeikesi": "Good Boy's Grand Adventure",
+    "weapon:fork_moon": "Stellar Veil",
+    "weapon:fork_nonos": "First Step to Success",
+    "weapon:fork_oulaquantao": "Oraora!",
+    "weapon:fork_prism": "Far Side of the Moon",
+    "weapon:fork_rishi": "Day Off",
+    "weapon:fork_snowman": "The Fools' Spring",
+    "weapon:fork_spider": "Failing You, Heavy in My Heart",
+    "weapon:fork_tuansanlang": "The Great Thief",
+    "weapon:fork_twinbirds": "Crime and Punishment",
+    "weapon:fork_vine": "Be Happy",
+    "weapon:fork_worldrain": "The Rain That Shook the World",
+    "weapon:fork_wuhuakuang": "The Forgotten",
+    "weapon:fork_wushoutieyu": "Raging Flames",
+    "weapon:fork_yaodao": "Drawn Blade",
+    "weapon:fork_yuren": "Umbrella"
+  },
+  "sets": {
+    "set:Suit1": "Diabolos",
+    "set:Suit10": "Tiny Big Adventure",
+    "set:Suit11": "Speedy Hedgehog",
+    "set:Suit12": "Quiet Manor",
+    "set:Suit2": "Fireflies and the Forest",
+    "set:Suit3": "Devil's Blood: Curse",
+    "set:Suit4": "Crimson: Twin Butterflies",
+    "set:Suit5": "Street Boxer",
+    "set:Suit6": "Lost Radiance",
+    "set:Suit7": "Kingdom's Guard",
+    "set:Suit8": "Shadow Creed",
+    "set:Suit9": "Thea's Night Tavern"
+  }
+}

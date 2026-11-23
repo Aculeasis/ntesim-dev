@@ -1,0 +1,13 @@
+options iteration=1 duration=30 crit=fixed;
+nanally char lvl=80/80 awakening=0 talent=1,1,1 qte=1;
+nanally add weapon=fork_Prokaryon refine=1;
+nanally add stats dmg%=0.25;
+mint char lvl=80/80 awakening=0 talent=1,1,1 qte=1;
+zero char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_cycle=100;
+target hp=100000000 def=0 resist=0;
+target hp=100000000 def=0 resist=0;
+active nanally;
+
+# Two continuing chains and a real automatic Support with its separate category.
+repeat 5 { nanally attack; wait(0.7); } mint swap; mint attack:5;
+wait_until(15); zero swap; nanally swap; wait(1.31); repeat 5 { nanally attack; wait(0.7); }

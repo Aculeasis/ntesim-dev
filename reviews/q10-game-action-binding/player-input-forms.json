@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "scope": "DSL special/dodge inputs, Adler/Nanally/Jiuyuan aiming and Lacrimosa form transitions in the shared native/WASM runner",
+  "quality": "executable partial content with disclosed transition, timing and spatial hypotheses",
+  "sources": [
+    "data/global-2026-10-04/tables/DT_GameplayAbilityTipsData.json: GA_Adler_Melee, GA_Nanally_Melee, GA_Kuhara_Melee and GA_Lacrimosa_Melee/UltraSkill descriptions",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json: owner Aim, Lacrimosa B_Melee, Pan, SwitchModB and UltraSkillModB rows",
+    "data/extracted/neverness_lacrimosa.json: published melee chain, Flavor Variation and truck ratios"
+  ],
+  "decisions": [
+    "Public special represents a button press, not an assignment of attack mode. Typed player inputs carry no caller damage, timing or desired form. Engine state selects the admitted packet.",
+    "Adler/Nanally/Jiuyuan special enters aiming without a damage packet. Subsequent attacks select native Aim damage. Repeated special toggles off; admitted dodge/skill/burst and field exit exit aiming. Wait and no-op swap preserve it. Reported controls support reset behavior; toggle and timing remain hypotheses.",
+    "Lacrimosa keeps the existing ranged initial form. Flavor Variation selects current-form damage before switching at admission. Dodge resets the ordinary chain while preserving form. Skill/burst and field exit preserve form.",
+    "Lacrimosa melee stage ratios bind uniquely to native B_Melee rows: 0.642+0.232; 0.199*2; 0.246+0.147*3; 0.709+0.273; 0.233*3+1.233. A consecutive grounded third stage adds one 0.194 projectile explosion under a nearby-target hypothesis. Spatial misses and projectile persistence across interruption are not established.",
+    "Melee-form truck ultimate binds to 2.533*2+0.427*5+0.933*3 = 10 ATK; ranged-form car remains 0.942*4+6.233 = 10.001 ATK.",
+    "Melee-to-ranged Flavor Variation prose says one instance per target, while published damage ratios specify 40%*2. Retain the numeric two-packet interpretation as a disclosed hypothesis; ranged-to-melee uses one 79% packet.",
+    "Input timing is an explicit research hypothesis: special 800ms, dodge 500ms, zero energy and no cooldown. Recovery admission is enforced; cancellation, stamina, invulnerability and critical dodge are unsupported. Other owners reject explicitly."
+  ],
+  "independent_oracles": {
+    "level_1_aim_atk_ratios": {"adler": 0.104, "nanally": 0.13, "jiuyuan": 0.16},
+    "level_1_lacrimosa_melee_chain_with_explosion_atk_ratio": 5.067,
+    "level_1_lacrimosa_ranged_chain_atk_ratio": 5.64,
+    "level_1_lacrimosa_round_trip_and_truck_atk_ratio": 22.297,
+    "level_1_lacrimosa_round_trip_and_truck_hit_count": 38
+  },
+  "checks": [
+    "crates/content/src/simulation/tests/player_inputs.rs: independent coefficients, both forms and truck, dodge reset/persistence, failed admission, reached assumptions without hits, delayed packet identity and normal-talent/resonance selection",
+    "web/tests/player_inputs.test.mjs: authored comma lists/repeaters, exact sequential timestamps, native packet/damage oracles, Worker execution and optional whole-report CLI/WASM parity"
+  ],
+  "return_conditions": [
+    "Native transition/animation evidence can replace initial-form, repeated-G toggle, transition moment and input timing hypotheses.",
+    "Projectile position/contact evidence can replace the guaranteed uninterrupted stage-three shatter hypothesis.",
+    "Connect stamina/enemy attack and cancellation models before claiming full dodge behavior."
+  ]
+}

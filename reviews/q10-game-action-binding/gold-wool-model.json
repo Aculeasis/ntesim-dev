@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "question": "How does What's Desired combine permanent Lakshana damage with a refreshed self CRIT damage buff on Skill/Ultimate admission?",
+  "branch_budget_minutes": 10,
+  "total_investigation_budget_minutes": 15,
+  "sources": [
+    "data/global-2026-10-04/tables/DT_ForkUpgradeStarDataTable.json#/rows/upgradestar_pack_fork_GoldWool_1",
+    "data/global-2026-10-04/tables/CT_ForkBuff.json#/rows/buff_GoldWool_Up",
+    "data/global-2026-10-04/tables/CT_ForkBuff.json#/rows/buff_GoldWool_CritDamageUp",
+    "data/global-2026-10-04/tables/CT_ForkBuff.json#/rows/buff_GoldWool_CD",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json#/rows/GE_Player_Chaos_Melee1_Damage",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json#/rows/GE_Player_Chaos_Skill1_Damage",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json#/rows/GE_Player_Chaos_UltraSkill1_Damage"
+  ],
+  "decision": "Apply the permanent refinement ratio to delivered Lakshana packets only. Successful native Skill or Ultimate admission refreshes one wearer CRIT damage modifier before same-time hits; duration is world-time and independent from switching. Use the existing cast-buff-order hypothesis and shared BuffManager; failed admission gives no buff.",
+  "availability": "Frozen Global release availability remains unverified.",
+  "stop_condition": "Check all three T1-T5 curves/units, element/cast classification independence, independent noncritical/critical damage arithmetic, refresh/nonstacking/equal-time expiry, failed admission and off-field ownership, legal compatible Chaos build and CLI/WASM/Worker parity.",
+  "return_condition": "New cast order, snapshot, clock, element or release evidence conflicts with the model.",
+  "checks": [
+    "174 content tests pass. Native T1-T5 bind .20/.25/.30/.35/.40 Lakshana, .40/.50/.60/.70/.80 CRIT damage and 20 seconds; changed duration units fail. Legal A0 Chaos Skill build matches an independent additive-zone ratio including existing Warrant +.20.",
+    "Independent synthetic oracle: 1000 ATK * .5 DEF * (1 + .1 general + .2 Lakshana) * (1 + 1 native CD + .4 active CD). Nature Skill uses only CRIT damage; normal Lakshana uses permanent bonus; Skill/Ultimate refresh never stacks; exact expiry at 25 seconds removes CRIT damage before the hit. Noncritical hits ignore the CRIT damage buff. Delayed hits sample current state at delivery, including exact expiry and off-field ownership; the active ally receives neither modifier. Failed admission grants no buff; duplicate/wrong equipment/zero-duration configs fail.",
+    "Public Chaos T1-T5 runs native primary Attack/Skill/Ultimate packets with 100% CRIT (.05 character + .24 weapon + .71 explicit stat). Hits at 0/.8/2/21.999999/22.799999 seconds independently verify permanent damage, existing Warrant, refreshed CRIT damage and expiry. Full native CLI/WASM reports agree for all five scripts; actual Worker T5 matches direct WASM. Mint compatibility is rejected.",
+    "TypeScript and production build, native_build and scenario_script modules pass. Changed Rust formatting passes. Content clippy passes with only the two pre-existing metadata lints collapsible_if and single_element_loop allowed. Native parity uses NTESIM_VERIFY_NATIVE=1 NTESIM_VERIFY_WEAPON=gold; existing weapons retain direct WASM/Worker coverage.",
+    "Chaos primary adapters select first frozen ordinary/Skill/Ultimate packets and validate GAName membership in the native catalog. Transformed chains, secondary packets, animation timings, exact in-game cast ordering/clocks and release availability remain pending. Research timing assumptions and strict_ready=false/game_dps_computed=false are preserved; frozen evidence is unchanged."
+  ],
+  "artifact_sha256": {
+    "target/debug/ntesim.exe": "4977d2e63b8db86a32146b39439d8add87cd891cdebad2c4305c910477d04b07",
+    "web/wasm/ntesim_wasm.wasm": "0504e1010e5ffe8e5fca52f6a6d8fe24062a9a471c111b0bd57ad2f2513159cc"
+  }
+}

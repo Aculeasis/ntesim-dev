@@ -1,0 +1,11 @@
+# Partial unequipped Edgar rotation: two Skill casts (7 hits each) and one Burst (1 hit).
+# Timing uses the disclosed coincident-packet model; animation delays, channeling, and healing are pending.
+options iteration=1 duration=35 crit=fixed;
+edgar char lvl=80/80 awakening=0 talent=8,8,8 qte=8;
+mint char lvl=80/80 awakening=0 talent=8,8,8 qte=8;
+target hp=10000000 def=1080 resist=0;
+active edgar;
+edgar skill, burst;
+mint swap;
+wait(16);
+edgar skill;

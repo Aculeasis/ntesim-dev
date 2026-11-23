@@ -1,0 +1,322 @@
+@media (min-width: 1600px) {
+  main {
+    padding: 20px 45px;
+  }
+  .character-header {
+    height: 190px;
+  }
+  .character-portrait {
+    height: 220px;
+  }
+  .total-stats {
+    font-size: 14px;
+  }
+  .total-stats > strong {
+    font-size: 13px;
+  }
+  .stat-row td {
+    height: 26px;
+  }
+  .rollup-card h3 {
+    font-size: 18px;
+  }
+  .rollup-value {
+    font-size: 38px;
+  }
+  .stat-grid {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 1050px) {
+  .team-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .rollup-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .three-column {
+    grid-template-columns: 1fr;
+  }
+  .stat-grid {
+    gap: 5px;
+  }
+  .panel {
+    padding: 16px;
+  }
+  .chart-row {
+    grid-template-columns: 130px 1fr 60px;
+  }
+  .time-chart {
+    height: 260px;
+  }
+}
+
+@media (max-width: 650px) {
+  main {
+    padding: 12px;
+  }
+  .site-header {
+    padding: 12px;
+    gap: 18px;
+  }
+  .site-header nav {
+    gap: 12px;
+  }
+  .intro {
+    font-size: 12px;
+  }
+  .team-toolbar {
+    align-items: flex-start;
+  }
+  .team-toolbar label {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+  .team-toolbar select {
+    font-size: 11px;
+    width: 215px;
+  }
+  .team-grid {
+    gap: 6px;
+  }
+  .character-card {
+    padding: 6px;
+  }
+  .character-header {
+    height: 151px;
+    margin: -6px -6px 6px;
+    padding: 12px 9px;
+  }
+  .character-portrait {
+    width: 65%;
+    height: 153px;
+    right: -10%;
+    bottom: -5px;
+  }
+  .character-title {
+    font-size: 12px;
+    width: 65%;
+    margin-bottom: 6px;
+  }
+  .character-level,
+  .character-talent {
+    font-size: 10px;
+  }
+  .character-equipment img {
+    width: 24px;
+    height: 24px;
+  }
+  .card-controls {
+    right: 2px;
+    top: 3px;
+  }
+  .card-controls button {
+    width: 22px;
+    height: 22px;
+    font-size: 17px;
+  }
+  .weapon-card {
+    padding: 5px;
+    gap: 5px;
+    min-height: 57px;
+    font-size: 10px;
+  }
+  .weapon-card > img {
+    width: 31px;
+    height: 31px;
+  }
+  .weapon-card small {
+    font-size: 8px;
+    margin-top: 4px;
+  }
+  .total-stats {
+    padding: 8px 5px;
+    font-size: 9px;
+  }
+  .total-stats > strong {
+    font-size: 10px;
+  }
+  .stat-row td {
+    height: 22px;
+  }
+  .stat-row td:first-child {
+    gap: 3px;
+  }
+  .stat-icon {
+    width: 13px;
+    height: 13px;
+  }
+  .name-search {
+    gap: 6px;
+  }
+  .name-search button {
+    font-size: 11px;
+    padding: 10px 3px;
+  }
+  .editor-toolbar {
+    gap: 8px;
+    flex-wrap: wrap;
+    font-size: 11px;
+  }
+  .editor-toolbar > span {
+    display: none;
+  }
+  .editor-toolbar select {
+    font-size: 11px;
+  }
+  .editor-shell {
+    height: 450px;
+  }
+  .editor-shell #line-numbers {
+    min-width: 31px;
+    padding: 12px 5px;
+  }
+  .editor-actions {
+    grid-template-columns: 1fr 1fr 1.5fr;
+  }
+  .editor-actions #tools-btn,
+  .editor-actions .tools-anchor {
+    margin-left: 0;
+  }
+  .editor-actions button {
+    padding: 10px 8px;
+    font-size: 13px;
+  }
+  .editor-actions #stop-btn {
+    grid-column: 1/-1;
+  }
+  .editor-status {
+    font-size: 9px;
+  }
+  .two-column,
+  .three-column {
+    grid-template-columns: 1fr;
+  }
+  .rollup-card {
+    padding: 15px;
+    min-height: 200px;
+  }
+  .rollup-card h3 {
+    font-size: 12px;
+    line-height: 1.5;
+    min-height: 35px;
+  }
+  .rollup-value {
+    font-size: 25px;
+  }
+  .stat-grid {
+    grid-template-columns: 1fr;
+    font-size: 10px;
+    gap: 3px;
+  }
+  .stat-grid span {
+    justify-content: space-between;
+  }
+  .results-toolbar button,
+  .results-toolbar a {
+    font-size: 11px;
+    padding: 7px;
+  }
+  .results-toolbar > span {
+    font-size: 11px;
+  }
+  .metadata {
+    justify-content: flex-start;
+    padding: 7px;
+    gap: 5px;
+  }
+  .metadata > span {
+    font-size: 10px;
+    padding: 4px;
+  }
+  .chart-row {
+    grid-template-columns: 85px 1fr 42px;
+    gap: 6px;
+    font-size: 9px;
+  }
+  .chart-name {
+    white-space: normal;
+  }
+  .bar-space {
+    height: 28px;
+  }
+  .bar-axis {
+    margin-right: 47px;
+    font-size: 8px;
+  }
+  .time-chart {
+    height: 200px;
+  }
+  .panel-heading {
+    gap: 10px;
+  }
+  .panel-heading h2 {
+    width: 100%;
+    font-size: 15px;
+  }
+  .panel-title-group h2 {
+    width: auto;
+  }
+  .panel-heading label {
+    font-size: 10px;
+  }
+  .panel-heading select {
+    font-size: 10px;
+  }
+  .reference-gallery {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .settings-grid {
+    grid-template-columns: 1fr;
+  }
+  .target-card {
+    grid-template-columns: 1fr 1fr;
+    font-size: 10px;
+  }
+  .run-message {
+    flex-wrap: wrap;
+    font-size: 10px;
+  }
+  #run-clock {
+    margin-left: 0;
+  }
+  .timeline-table {
+    font-size: 10px;
+  }
+  .timeline-table td {
+    padding: 7px 3px;
+  }
+  .timeline-table th {
+    padding: 5px;
+  }
+  .trace-controls {
+    gap: 5px;
+  }
+  .trace-controls select {
+    max-width: 40%;
+    font-size: 10px;
+  }
+  .trace-controls input {
+    font-size: 11px;
+  }
+  .total-stats .tooltip {
+    max-width: 160px;
+    width: 160px;
+    right: -3px;
+    font-size: 10px;
+  }
+  .chart-tooltip {
+    max-width: 190px;
+    font-size: 10px;
+    right: 0;
+  }
+  .editor-shell pre,
+  .editor-shell textarea {
+    line-height: 1.6;
+  }
+  .editor-status span:last-child {
+    display: none;
+  }
+}

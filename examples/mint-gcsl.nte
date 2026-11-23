@@ -1,0 +1,13 @@
+# Native stats plus cartridge/module contributions; supported gear triggers in combat.
+options iteration=1000 duration=20 seed=42;
+mint char lvl=80/80 awakening=6 talent=8,8,8 qte=8;
+mint add weapon=mindroyale refine=5;
+mint add cartridge=firefliesandtheforest count=4;
+mint add stats hp=5600 atk=1168.15 cr=0.52 cd=0.44;
+target lvl=80 hp=10000000 def=1080 resist=0.2;
+active mint;
+mint attack;
+wait(0.2);
+mint skill;
+wait(1);
+mint burst;

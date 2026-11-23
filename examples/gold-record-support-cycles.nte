@@ -1,0 +1,19 @@
+options iteration=1 duration=85;
+
+zero char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_energy=0 start_cycle=100;
+nanally char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_energy=100;
+sakiri char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_energy=0 start_cycle=100;
+nanally add weapon=fork_goldrecord refine=1;
+nanally add stats cr=0.71;
+target hp=100000000 def=0 resist=0 boss=false;
+target hp=100000000 def=0 resist=0 boss=false;
+target hp=100000000 def=0 resist=0 boss=false;
+active zero;
+
+# Three positive Support recipients cap one three-second Ultimate-crit buff.
+nanally swap; wait_until(1.31); nanally burst;
+repeat 6 { repeat 5 { nanally attack; wait(0.6); } }
+sakiri swap; wait(0.6);
+
+# The first window and cat expire naturally; Normals refilled the next Burst.
+wait_until(60); nanally swap; wait_until(61.31); nanally burst;

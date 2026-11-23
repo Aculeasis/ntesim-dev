@@ -1,0 +1,123 @@
+{
+  "content_id": "ntesim-current",
+  "team_size": 4,
+  "actors": [
+    {
+      "actor_index": 0,
+      "character_id": "character:1046",
+      "level": 1,
+      "base_break": 91,
+      "break_intensity": "0/1",
+      "energy": 75,
+      "max_energy": 100
+    },
+    {
+      "actor_index": 1,
+      "character_id": "character:1019",
+      "level": 1,
+      "base_break": 91,
+      "break_intensity": "0/1",
+      "energy": 100,
+      "max_energy": 100
+    },
+    {
+      "actor_index": 2,
+      "character_id": "character:1003",
+      "level": 1,
+      "base_break": 91,
+      "break_intensity": "0/1",
+      "energy": 100,
+      "max_energy": 100
+    },
+    {
+      "actor_index": 3,
+      "character_id": "character:1004",
+      "level": 1,
+      "base_break": 91,
+      "break_intensity": "0/1",
+      "energy": 100,
+      "max_energy": 100
+    }
+  ],
+  "targets": [
+    {
+      "id": "target_0",
+      "position": {
+        "x_mm": 0,
+        "y_mm": 0,
+        "z_mm": 0
+      },
+      "defense": 654,
+      "resistances": {
+        "Physical": "20/100"
+      },
+      "break_cap": 45
+    },
+    {
+      "id": "target_1",
+      "position": {
+        "x_mm": 500,
+        "y_mm": 0,
+        "z_mm": 0
+      },
+      "defense": 1000,
+      "resistances": {
+        "Physical": "20/100"
+      },
+      "break_cap": 100
+    },
+    {
+      "id": "target_2",
+      "position": {
+        "x_mm": 1500,
+        "y_mm": 0,
+        "z_mm": 0
+      },
+      "defense": 1000,
+      "resistances": {
+        "Physical": "20/100"
+      },
+      "break_cap": 100
+    },
+    {
+      "id": "target_3",
+      "position": {
+        "x_mm": 5000,
+        "y_mm": 0,
+        "z_mm": 0
+      },
+      "defense": 1000,
+      "resistances": {
+        "Physical": "20/100"
+      },
+      "break_cap": 100
+    }
+  ],
+  "break_enabled": true,
+  "steps": [
+    {
+      "kind": "deal_attack",
+      "source_actor": 0,
+      "targeting": {
+        "type": "splash_radius",
+        "center_target": "target_0",
+        "radius_mm": 1000
+      },
+      "damage": 500,
+      "break_shred": 45,
+      "energy_gain": 25,
+      "timestamp_us": 0
+    },
+    {
+      "kind": "trigger_reaction",
+      "source_actor": 0,
+      "target_id": "target_1",
+      "reaction": "scorch",
+      "timestamp_us": 100000
+    },
+    {
+      "kind": "advance_time",
+      "timestamp_us": 2100000
+    }
+  ]
+}

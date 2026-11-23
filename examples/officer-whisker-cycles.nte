@@ -1,0 +1,19 @@
+options iteration=1 duration=92 crit=fixed;
+
+haniel char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_energy=0;
+haniel add weapon=fork_PoliceRat refine=1;
+zero char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_energy=0;
+# Boss eligibility is an explicit dummy assumption, without an enemy profile.
+target hp=100000000 def=0 resist=0 boss=false;
+target hp=100000000 def=0 resist=0 psyche=1 boss=true;
+active haniel;
+
+# An ordinary action precedes the first Arc, so its parent is not command zero.
+haniel attack, arc;
+zero swap;
+wait_until(59);
+haniel swap;
+# Exactly sixty seconds after Normal1's native 0.887510s recovery.
+wait_until(60.887510);
+haniel arc;
+zero swap;

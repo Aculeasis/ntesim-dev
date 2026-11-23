@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "scope": "Sakiri native action packet binding across Normal, two-hit Skill, and six-hit Burst packet trains",
+  "quality": "partial executable model; complete kit pending",
+  "sources": [
+    "data/extracted/guide_sakiri.json",
+    "data/extracted/neverness_sagiri.json",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json",
+    "data/global-2026-10-04/tables/DT_SagiriEffectFigure.json",
+    "data/global-2026-10-04/tables/1003AwakenEffect.json"
+  ],
+  "model": [
+    "GA_Sagiri_Melee public primary packet is GE_Player_Sagiri_Melee1_Damage. Native coefficients at Normal levels 1/8/9 are 0.403/0.691/0.746; category A/Incantation metadata stays source-bound.",
+    "An explicit GA_Sagiri_Melee input can deliver one GE_Player_Sagiri_AirAttack1_Damage packet at the effective Normal talent coordinate. This records sakiri.direct_plunge_packet_v1, preserves the ordinary chain, and grants no ordinary-hit energy. Natural jump/plunge dispatch, legality, timing, recovery, recipients and energy eligibility remain unsupported.",
+    "GA_Sagiri_Skill admits GE_Player_Sagiri_Skill1_Damage and delivers two native press hits with child packet GE_Player_Sagiri_Skill2_Damage. Native coefficients at Skill levels 1/8/9 are 1.678/2.876/3.106 (hit 1) and 2.322/3.979/4.298 (hit 2); category E/Incantation metadata stays source-bound.",
+    "GA_Sagiri_UltraSkill admits GE_Player_Sagiri_UltraSkill1_Damage and delivers six native hits with four additional GE_Player_Sagiri_UltraSkill1_Damage instances and one GE_Player_Sagiri_UltraSkill2_Damage instance. Native coefficients at Burst levels 1/8/9 are 1.200/2.057/2.221 (five hits) and 3.000/5.141/5.553 (one hit); category Q/Incantation metadata stays source-bound.",
+    "sakiri.skill_burst_packets_v1 discloses ordered coincident delivery on target zero at the admitted impact timestamp. Animation intervals, area coverage, eating mode and complete kit behavior remain pending. See sakiri-skill-burst-packets.json.",
+    "Resonance 3 activates at awakening >= 3 and adds +1 level to Melee, Skill, and UltraSkill, selecting native coordinate level + 1 without manual overrides.",
+    "Existing A4 Wishful Reliance grant on Feast of Gluttony (+30% base ATK for 20s to allies, excluding Sakiri), A5 airborne reset on Devour Whole primary hit, and A3 kill-stack damage bonuses remain preserved as partial kit models.",
+    "Canonical arbitrary awakening selections: Effect3 defeat stacks, Effect4 Feast team ATK and Effect5 airborne reset use selected identity. Talent resonance_3 and debuff-conditioned resonance_6 damage use count; all existing timing and recipient hypotheses remain. Existing unsupported owner mechanics remain pending."
+  ],
+  "pending": [
+    "Native chain dispatch for Melee2..Melee8 and natural AirAttack/plunge input, holding/eating mode, Scorch Enhancement (Can I Eat This?), Impish Trick DEF debuff, and remaining awakening effects."
+  ],
+  "checks": [
+    "Content tests passed: independent damage oracles at 1000 ATK, 0 RES, 0.5 DEF verify Normal (403/2, 691/2, 373/1), Skill two hits (839/1 + 1161/1 at Lv1, 1438/1 + 3979/2 at Lv8, 1553/1 + 2149/1 at Lv9), and Burst six hits (5x 600/1 + 1500/1 at Lv1, 5x 2057/2 + 5141/2 at Lv8, 5x 2221/2 + 5553/2 at Lv9).",
+    "A4 Feast of Gluttony ATK buff self-exclusion verified across seven settled hits: ally receives +300 ATK multiplying subsequent attacks; Sakiri herself receives no self-buff.",
+    "Off-field delivery attributes hits to Sakiri; dead target settles 0 hits; horizon boundaries preserve pending events; strict mode requires explicit hypothesis acceptance.",
+    "Direct AirAttack tests cover all nine released Normal coordinates, exact category/rate projection, strict hypothesis acceptance, chain continuity, and the no-energy boundary.",
+    "character_actions.test.mjs and weapon_passives.test.mjs pass with NTESIM_VERIFY_NATIVE=1: full native CLI/WASM/Worker reports match across equipped and action cases, including Sakiri two-Skill/one-Burst 10-hit rotation.",
+    "verify_sakiri_kit.py passes across 4 awakening cases, A5 reset on airborne target, rejection on cooldown, and full WASM report parity.",
+    "TypeScript and production build pass. Frozen source hashes match the identities below."
+  ],
+  "source_sha256": {
+    "data/extracted/neverness_sagiri.json": "df78ed285f89dc9553926d5c80db854be5ba1fabf6dab3a02ef56c3f7f73cb6c",
+    "data/extracted/guide_sakiri.json": "f5fc541fe433c0e350d601dec848a39e2a22dedc5f4bed6c16c6acfde39c04aa",
+    "data/global-2026-10-04/tables/1003AwakenEffect.json": "cf2860ffc065897a9993873f9e7ead62ddfe4c116df64e0f683252e6824ce30b",
+    "data/global-2026-10-04/tables/DT_SagiriEffectFigure.json": "1f3e25372656ba44ac2737433b3d40ba2d46c1194edfbb8cc2558c2a028453ec",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json": "917b0c3675412c0425a0724d09e7dd8ae4d1ef9a100d2ea5669d7484d0901bf2"
+  }
+}

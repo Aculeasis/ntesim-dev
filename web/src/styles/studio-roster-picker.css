@@ -1,0 +1,47 @@
+.roster-picker {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  width: 420px;
+  max-width: calc(94vw - 32px);
+  padding: 12px;
+  border: 1px solid #9276a0;
+  border-radius: 7px;
+  box-shadow: 0 14px 40px #000a;
+  background: #211d26;
+  z-index: 10;
+}
+.roster-clear {
+  width: 100%;
+  margin-bottom: 10px;
+}
+.roster-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 7px;
+  max-height: min(410px, 48dvh);
+  overflow: auto;
+  padding: 2px;
+}
+.roster-grid button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 4px;
+  min-width: 0;
+  font-size: 11px;
+  background: #302a36;
+}
+.roster-grid img {
+  width: 100%;
+  height: 68px;
+  object-fit: contain;
+}
+.roster-grid button[aria-pressed='true'] {
+  background: #603a58;
+  border: 2px solid #e2a1d1;
+  padding: 3px;
+}
+.roster-grid button span {
+  padding: 3px 0;
+}

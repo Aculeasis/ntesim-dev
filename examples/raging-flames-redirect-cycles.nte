@@ -1,0 +1,19 @@
+options iteration=1 duration=230 seed=42;
+hathor char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_energy=0;
+hathor add weapon=fork_wushoutieyu refine=1;
+hathor add stats dmg%=0.25;
+mint char lvl=80/80 awakening=0 talent=1,1,1 qte=1;
+target hp=100000000 def=0 resist=0;
+active hathor;
+
+# Two real taps per period earn Power; connected Normals pay both Bursts.
+# Emergency permits two completed paid Cyclone inputs inside the weapon window.
+# Power, energy, cooldowns and weapon timers continue between periods.
+for let i=0; i<2; i=i+1 {
+  wait_until(i*110);
+  hathor skill[hold=0]; hathor attack:15;
+  hathor skill[hold=0]; hathor attack:15;
+  hathor burst;
+  hathor skill; hathor skill;
+  mint swap; mint attack; wait(11); hathor swap;
+}

@@ -1,0 +1,13 @@
+options duration=35 seed=42;
+blackbird char lvl=80/80 awakening=0 talent=8,8,8 qte=8 start_energy=100;
+blackbird add weapon=fork_twinbirds refine=1;
+skia char lvl=80/80 awakening=0 talent=8,8,8 qte=8 start_energy=0;
+skia add weapon=fork_twinbirds refine=1;
+target hp=100000000 def=1080 resist=0;
+active blackbird;
+blackbird burst;
+wait(6);
+skia swap;
+wait(10);
+blackbird swap;
+wait(16);

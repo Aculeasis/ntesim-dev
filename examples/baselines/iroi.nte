@@ -1,0 +1,22 @@
+# Legal A0 source baseline; two continuing 150s periods, no combat resets.
+# Blue group-compatible Arc and declared two-piece static ATK bonus.
+options duration=300 seed=42 start_fons=0
+ stamina_capacity=200 initial_stamina=200 stamina_use_efficiency=1 stamina_recovery_rate=10;
+iroi char lvl=80/80 awakening=0 talent=8,8,8 qte=8 start_energy=0;
+iroi add weapon=fork_appliance refine=1;
+iroi add cartridge=Suit8 count=2;
+iroi add stats atk%=0.5 atk=300 cr=0.3 cd=0.5;
+zero char lvl=80/80 awakening=0 talent=8,8,8 qte=8 start_energy=0;
+zero add weapon=fork_nonos refine=1;
+target hp=100000000 def=1080 resist=0.2;
+target hp=100000000 def=1080 resist=0.2;
+active iroi;
+
+repeat 2 {
+    let period=.time;
+    repeat 12 {iroi attack:5;}
+    iroi skill, burst;
+    iroi attack[hold=2]; wait(4.5); zero swap; wait(2); iroi swap;
+    iroi attack:5;
+    wait_until(period+150);
+}

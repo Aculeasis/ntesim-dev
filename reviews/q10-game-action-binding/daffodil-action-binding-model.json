@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "scope": "Daffodil native Normal chain and Skill/Ultimate packet trains, plus bounded direct Branch/Entry packet inputs",
+  "quality": "executable kit model across primary packets and awakenings",
+  "sources": [
+    "data/extracted/guide_daffodil.json",
+    "data/extracted/neverness_daffodill.json",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json",
+    "data/global-2026-10-04/tables/1054AwakenEffect.json",
+    "data/global-2026-10-04/tables/DT_DaffodillEffectFigure.json"
+  ],
+  "model": [
+    "GA_Daffodill_Melee public primary packet is GE_Player_Daffodill_Melee1_Damage. Native coefficients at Normal levels 1/8/9 are 0.167/0.286/0.309; category A/CHAOS metadata stays source-bound. Five admitted ordinary inputs advance stages Melee1 through Melee5 with multiplicities 1,2,6,3,7 (nineteen hits) under daffodil.normal_chain_v1.",
+    "GA_Daffodill_Skill public primary packet is GE_Player_Daffodill_Skill1_Damage. Native coefficients at Skill levels 1/8/9 are 0.409/0.701/0.757; category E/CHAOS metadata stays source-bound. on_cast delivers an 8-hit packet train (2x Skill1 + 5x Skill2 + 1x Skill5). At A1, grants +100% damage bonus to GA_Daffodill_Skill across all 8 hits.",
+    "GA_Daffodill_UltraSkill public primary packet is GE_Player_Daffodill_UltraSkill1_Damage. Native coefficients at Burst levels 1/8/9 are 0.493/0.845/0.913; category Q/CHAOS metadata stays source-bound. on_cast enters Insight mode (30s base, 9999s at A3) which grants +10% damage bonus, and delivers a 14-hit packet train (3x UltraSkill1 + 3x UltraSkill2 + 7x UltraSkill4 + 1x UltraSkill5).",
+    "The caller may select GE_Player_Daffodill_Branch1_Damage through Branch7 or GE_Player_Daffodill_EntryAttack1_Damage, EntryAttack2_Damage, or EntryAttack4_Damage as an explicit GA_Daffodill_Melee packet input. Frozen damage rows name GA_Daffodill_Melee; public attack tips bind Branch1–5 and EntryAttack1/2/4, while Branch6/7 appear only in the frozen damage rows. Under daffodil.branch_entry_direct_packet_inputs_v1 each request delivers exactly one selected packet using the admitted effective Normal coordinate and impact time, without changing the Normal chain. This is a bounded API-input model, not natural Branch/Entry/Phantom Step dispatch: no additional packets, energy grant, native timing, target rule, or Daffodil-specific Break rule is inferred. With an explicit target break_profile, the separate shared combat.unbal_value_as_target_gauge_v1 hypothesis may consume native UnbalValue; this does not resolve Daffodil Break eligibility/effects. AirAttack, EntryAttack3, and CloseCall remain unsupported.",
+    "Resonance 3 activates at awakening >= 3 and adds +1 level to GA_Daffodill_Melee, GA_Daffodill_Skill, and GA_Daffodill_UltraSkill without manual overrides.",
+    "Awakening 6 (Bloom in the Lake) ignores 15% of the target DEF when dealing damage.",
+    "Canonical arbitrary awakening selections: Effect1 Skill damage, Effect3 Insight duration and Effect6 DEF ignore use selected identities; talent resonance_3 remains count-based. Existing unsupported owner mechanics remain pending; selection does not complete the kit."
+  ],
+  "pending": [
+    "Natural Branch/Entry/Phantom Step dispatch and its multiplicities/timing/target/energy rules; AirAttack, EntryAttack3, CloseCall, native Daffodil Break eligibility/effects, and secondary visual/sound cues."
+  ],
+  "checks": [
+    "daffodil_actions tests passed: independent damage oracles at 1000 ATK, 0 RES verify Normal across all five stages (19 hits, looping, resonance_3), Skill totals across 8 hits (3001/2, 5145/2, 5145/1 at A1 +100% dmg bonus, 5556/1 at A3 resonance), Burst totals across 14 hits (43989/10, 15081/2, 81433/10 with Insight +10% dmg bonus and A3 resonance), A6 DEF ignore (30280/37), and all seven Branch plus EntryAttack1/2/4 direct inputs at Normal coordinates 1/8/9 against independent exact single-packet oracles. Direct packet tests cover strict hypothesis acceptance, no ordinary-hit energy grant, preserving the current Normal-chain stage, and native UnbalValue reaching the shared Break adapter only with an explicit target profile.",
+    "Off-field delivery attributes hits to Daffodil; dead target settles 0 hits; horizon boundaries preserve pending events; strict mode accepts daffodil.normal_chain_v1 hypothesis.",
+    "Current integration checks: tools/verify_daffodil_kit.py; independent mechanic assertions remain in Rust tests.",
+    "character_actions.test.mjs passes with NTESIM_VERIFY_NATIVE=1: full native CLI/WASM reports match across all character action cases including Daffodil attack, skill, burst, and the ten direct Branch/Entry packet inputs; the actual Worker matches the WASM report for each direct input.",
+    "TypeScript and production build pass. Frozen source hashes match the identities below."
+  ],
+  "source_sha256": {
+    "data/extracted/neverness_daffodill.json": "d1a16a7feda253c23075528907da77ddf435455ced9dbee8530cf9a32bb95f34",
+    "data/extracted/guide_daffodil.json": "0faa68b96c2f1afb1576d2a89bfbbaa227e8f820d03f6532860b182971dc23ab",
+    "data/global-2026-10-04/tables/1054AwakenEffect.json": "8fede30ddf7cce1850145e0beb2179575b5bd6a268711d0a002c6410a0666211",
+    "data/global-2026-10-04/tables/DT_DaffodillEffectFigure.json": "f313c00794bab034dec920c26cb5e2359b728415172dd44aa8fa7509cf071b45",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json": "917b0c3675412c0425a0724d09e7dd8ae4d1ef9a100d2ea5669d7484d0901bf2"
+  }
+}

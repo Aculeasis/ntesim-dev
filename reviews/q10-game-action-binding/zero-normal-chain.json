@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "scope": "Zero ordinary five-input Normal chain in the shared gameplay runner",
+  "quality": "executable modeled ordinary chain; hold/plunge attacks, full kit and Esper Cycle pending",
+  "hypothesis_id": "zero.normal_chain_v1",
+  "sources": [
+    "data/extracted/neverness_zero.json: GA_Female_Melee_1_des through GA_Female_Melee_5_des",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json: GE_Player_Female046_Melee1_Damage through Melee8_Damage",
+    "reviews/q10-game-action-binding/zero-action-binding-model.json: frozen source hashes"
+  ],
+  "decision": "Five admitted ordinary Normal inputs advance stages Melee1 through Melee5 with multiplicities 1,2,3,2,2 (ten hits). The chain loops, retaining native effective talent projection including resonance_3.",
+  "hypotheses": [
+    "A different admitted ability or field exit resets the chain; a same-actor switch does not.",
+    "A gap greater than 2 seconds between input starts resets the chain; the exact boundary continues. This is a tested continuity convention pending animation/cancel evidence.",
+    "Each stage delivers ordered coincident packets at the research primary impact timestamp; travel, AoE and animation intervals remain unresolved."
+  ],
+  "independent_oracles": [
+    "1000 ATK, 0 RES and 0.5 DEF factor: level-one stages deal 115, 241.5, 414, 575.5, 683. Five inputs total 2029 (2029/1); sixth looping input gives 2144 (2144/1).",
+    "Level-eight stages deal 197, 414, 710, 986.5, 1171. Five inputs total 3478.5 (6957/2); sixth gives 3675.5 (7351/2).",
+    "Purchased level eight at A3 projects level nine: 213, 447, 766.5, 1065, 1264. Five inputs total 3755.5 (7511/2); sixth gives 3968.5 (7937/2)."
+  ],
+  "checks": [
+    "python tools/check.py -- python tools/verify_normal_chain_sources.py verifies source hashes and ordered coefficient multiplicity at all nine published levels.",
+    "Native damage tests verify every stage, packet identity, multiplicity, loop and effective talent projection at levels 1, 8 and A3.",
+    "Native causal tests verify ability/field/gap resets, no-op switches, strict hypothesis acceptance and all stage-three packets settling after field exit at the exact horizon.",
+    "Public attack:5 scripts verify independent per-packet and total damage through Worker/WASM with complete native report parity."
+  ],
+  "pending": [
+    "Measured reset/cancel rules and packet intervals; return when frozen animation evidence supplies a concrete model.",
+    "Hold/plunge attack branches, A3/A4 Burst buffs, A6 Esper Cycle and complete kit behavior."
+  ]
+}

@@ -1,0 +1,30 @@
+options iteration=1000 duration=20 seed=42;
+
+mint char lvl=80/80 awakening=0 talent=8,8,8 qte=8;
+mint add weapon=fork_lingganzhongjiezhe refine=5;
+mint add cartridge=firefliesandtheforest count=4;
+mint add stats hp=5600 atk=1168.15 def=0 cr=0.52 cd=0.44 dmg%=0;
+
+sakiri char lvl=80/80 awakening=1 talent=8,8,8 qte=8;
+sakiri add weapon=fork_mofeikesi refine=5;
+sakiri add cartridge=speedyhedgehog count=4;
+sakiri add stats hp=5600 atk=830.25 def=0 cr=0 cd=0 dmg%=0;
+
+zero char lvl=80/80 awakening=1 talent=8,8,8 qte=8;
+# Unequipped starter build: this character's fixture weapon passive is not implemented.
+zero add cartridge=speedyhedgehog count=4;
+zero add stats hp=15150 atk=2376 def=909 cr=0.05 cd=0.5 dmg%=0.1;
+
+target lvl=80 hp=3500000 max_hp=10000000 def=1080 resist=0.2;
+
+active sakiri;
+
+# Rotation
+sakiri burst;
+zero swap;
+wait(0.6);
+zero skill;
+mint swap;
+mint attack;
+mint skill;
+mint burst;

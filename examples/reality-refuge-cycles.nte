@@ -1,0 +1,16 @@
+options iteration=1 duration=64 crit=fixed seed=42;
+jiuyuan char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_energy=100;
+jiuyuan add weapon=fork_Butterfly refine=1;
+mint char lvl=80/80 awakening=0 talent=1,1,1 qte=1;
+target hp=100000000 def=0 resist=0;
+target hp=100000000 def=0 resist=0;
+active jiuyuan;
+
+# The original Pact is never refreshed by Normal5. Thirty-five real Normal
+# inputs refill Burst energy and plant a second generation after natural expiry.
+jiuyuan skill;
+wait_until(2); jiuyuan burst;
+jiuyuan attack:35;
+wait_until(34); jiuyuan skill;
+wait_until(36); jiuyuan burst;
+mint swap; mint skill;

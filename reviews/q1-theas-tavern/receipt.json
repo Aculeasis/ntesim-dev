@@ -1,0 +1,68 @@
+{
+  "checks": [
+    "Native geometry build (character:1021, full Suit9 packing): the threshold-2 set_unconditional_pack contribution carries HPMaxUp exactly {1,10}; the console_specialization contribution carries 4 modules x HPMaxUp +0.1 = {2,5}; known_attributes HPMaxUp is the additive sum {1,2}; build::stats::project yields hp_percent 1/2 and hp equal to the hand-computed character_hp * (1 + 1/2) + HPMaxAdd; healing_bonus is 1/5 from the static Heal_4 pack.",
+    "Static projection layer: set:Suit9 set_count=2 applies Heal_2 (HPMaxUp exactly 1/10 over the native 0 base, Heal_2 evidence present); set_count=1 leaves HPMaxUp at the native 0 (no Heal_2 evidence, no Heal_4 evidence); derived hp_receipt equals the hand-computed formula in both cases.",
+    "Studio projection: set_count 0..=4 gives hp_percent 1/10 iff count >= 2 with Heal_2 evidence, and healing_bonus 1/5 with Heal_4 evidence iff count == 4; HealUp never lands in unmodeled_attributes.",
+    "Existing test native_and_manual_healing_bonus_share_the_exact_additive_attribute passes unchanged; the 4pc regression pins pure-native behavior without manual additives and adds no new projection logic.",
+    "Rust content suite, clippy and fmt clean.",
+    "Dedicated 4pc static-pack test file crates/content/src/build/tests/suit9_theas_tavern_static_four_piece.rs (6 tests): frozen Suit9/Heal_4 row binding; equipped native build threshold-4 contribution HealUp {1,5} with Heal_4 evidence (project_build_stats skipped on the equipped Sakiri build: pre-existing fractional-HP projector limit, documented in-test); stat_projection HealUp 1/5 iff set_count == 4; Studio 0..=4 healing_bonus (1,5) iff count == 4 with HealUp never unmodeled; additive oracle 1/4 + 1/5 = 9/20 rejecting 30/20; invalid Studio configs rejected.",
+    "Rust content suite, clippy and fmt clean for the new 4pc file; production code untouched (generic additive-pack interpreter path, no new mechanism)."
+  ],
+  "decision": "Both Suit9 thresholds are unconditional static modifier packs (empty ConditionArray) handled by the generic additive-pack interpreter: 2pc Heal_2 grants HPMaxUp +0.1, 4pc Heal_4 grants HealUp +0.2. No per-set adapter, GearProcConfig variant, or Studio special-case is needed. The scaffolded GearProcConfig::TheasTavernHp and the sets/theas_tavern validate/damage/project stubs are dead code and must be removed (exact lines listed in the agent report).",
+  "hypothesis_id": "sets.theas_tavern_v1",
+  "hypothesis_rationale": "DT_EquipmentSuitData binds Suit9 thresholds 2 -> Heal_2 and 4 -> Heal_4; DT_EquipmentModifyData defines Heal_2 as additive HPMaxUp 0.1 and Heal_4 as additive HealUp 0.2, both with empty ConditionArray. The generic interpreter (crates/data/src/native.rs apply_additive_pack) applies such packs unconditionally in the native geometry compiler and in stat_projection, which the tests pin end-to-end at each layer. No native trigger, stack, expiry, or target-selection evidence exists for either threshold, so there is no live proc to model.",
+  "independent_oracles": [
+    "Frozen Heal_2 PropValue 0.1 reads as the exact fraction 1/10 in the threshold-2 set contribution.",
+    "Edgar's SlotsEffect_edgar specialization pack grants HPMaxUp +0.1 per size-3 module; the test packing has 4 such modules (Hen3, Shu3, ZhiJiao1, ZhiJiao2), giving 2/5.",
+    "Additive HPMaxUp zone composition: 1/10 + 2/5 = 1/2 in known_attributes.",
+    "Hand computation hp = character_hp * (1 + HPMaxUp) + HPMaxAdd from the compiled native base receipts matches known_derived_stats hp_receipt and the projected integer hp.",
+    "Sakiri's native base pack DT_PlayerPackData.rows.Sagiri_base lists HPMaxUp 0.0, so set_count=1 yields exactly 0.",
+    "Studio set_count=2 yields hp_percent 1/10 and healing_bonus 0; set_count=4 yields hp_percent 1/10 and healing_bonus 1/5; set_count=1 yields both zero.",
+    "Heal_2 evidence appears exactly when count >= 2; Heal_4 evidence appears exactly when count == 4.",
+    "4pc static: Studio/native set_count=4 yields HealUp exactly 1/5 with Heal_4 evidence; counts 0..3 yield zero and no Heal_4 evidence.",
+    "Heal zone additivity: manual healing_bonus 1/4 plus the 4pc pack gives 9/20, not (5/4)x(6/5) = 30/20; with only 3 pieces the manual 1/4 stands alone."
+  ],
+  "limits": [
+    "Both thresholds are static; any live/on-hit/on-heal behavior beyond the static packs is unmodeled because the frozen evidence defines none.",
+    "Studio set_count declares threshold applicability; native equipped builds validate actual console packing geometry. Full acquisition/release availability remains unverified.",
+    "The 4pc HealUp value feeds the existing healing_bonus domain (combat.live_healing_modifiers_v1 where supported); combat-side healing settlement is unchanged."
+  ],
+  "schema_version": 1,
+  "scope": "Suit9 (Thea's Night Tavern) two-piece static HPMaxUp and four-piece static HealUp in native builds and Studio",
+  "set_id": "set:Suit9",
+  "source_pointers": [
+    "DT_EquipmentSuitData.rows.Suit9.SuitStructList[0]: two-piece SuitModifyPackID Heal_2",
+    "DT_EquipmentSuitData.rows.Suit9.SuitStructList[1]: four-piece SuitModifyPackID Heal_4",
+    "DT_EquipmentModifyData.rows.Heal_2: additive HPMaxUp 0.1, empty ConditionArray",
+    "DT_EquipmentModifyData.rows.Heal_4: additive HealUp 0.2, empty ConditionArray"
+  ],
+  "source_sha256": {
+    "data/global-2026-10-04/evidence/tables/DT_EquipmentModifyData.json": "1b6cd8327c73f44b57034a0df6874127581b6645244320b3ca1144ff7df9d5fc",
+    "data/global-2026-10-04/evidence/tables/DT_EquipmentSuitData.json": "abe814c99d21165060be7ba7403ba5d160ab619dc62f79d0c87e6249fa7729c1",
+    "data/global-2026-10-04/tables/DT_EquipmentModifyData.json": "0c56827a36a3a580bc51894fc038c60e417935d5918ce81dae19bf72a2a35ef9",
+    "data/global-2026-10-04/tables/DT_EquipmentSuitData.json": "04aefd811ecd2f9fa0a8f3bed759f8a8d4fbdc1a61a08294e897c9ed0323fb3e"
+  },
+  "status": "modeled_and_tested",
+  "four_piece_pack_section": {
+    "file": "crates/content/src/build/tests/suit9_theas_tavern_static_four_piece.rs",
+    "tests": [
+      "frozen_suit9_rows_bind_static_four_piece: pins frozen rows Suit9[1] (condition 4, pack Heal_4, SuitBuff null, \"Healing Bonus by 20%\") and Heal_4 (empty ConditionArray, MODIFY_MODOP_ADDITIVE, HealUp, PropValue 0.2 -> exact fraction 1/5).",
+      "native_build_applies_static_heal_four_piece: equipped native build (legal_native_build, 4 shapes): the threshold-4 set_unconditional_pack contribution carries HealUp exactly {1,5} with Heal_4 evidence; sanity: threshold-2 contribution carries HPMaxUp {1,10} in the same build. project_build_stats is NOT asserted on the equipped Sakiri build: the projector rejects it with \"fractional build HP requires an evidenced quantization policy\" (pre-existing projector limit, unrelated to Heal_4; HealUp never enters hp, pinned by the projection test).",
+      "four_piece_static_projection_applies_at_threshold: stat_projection set_count 1..4: HealUp is 1/5 exactly at 4, zero below; Heal_4 evidence iff count == 4; derived hp_receipt equals the hand-computed base*(1+HPMaxUp)+HPMaxAdd (HealUp does not leak into hp).",
+      "studio_four_piece_healing_bonus_applies_at_four_pieces: Studio 0..=4: healing_bonus is (1,5) iff count == 4 else (0,1); HealUp never in unmodeled_attributes; Heal_4 evidence iff count == 4; Heal_2 evidence iff count >= 2. Extends (does not duplicate) the existing four-piece regression in the 2pc file.",
+      "heal_up_sums_within_single_zone_not_multiplicatively: Studio manual healing_bonus 1/4 + set_count=4 -> 9/20 (additive single zone per COMBAT_FORMULA_CONTRACT section 5); the multiplicative reading would give 30/20 and is rejected; at set_count=3 -> 1/4.",
+      "invalid_studio_configurations_reject: set_count=5 -> \"exceeds native geometry requirement count\"; set_count=4 without set_id -> error; unknown set:Suit999 -> error."
+    ],
+    "evidence": [
+      "data/global-2026-10-04/tables/DT_EquipmentModifyData.json:58-69, row Heal_4: ConditionArray [], one modifier MODIFY_MODOP_ADDITIVE, PropName HealUp, PropValue 0.2.",
+      "data/global-2026-10-04/tables/DT_EquipmentSuitData.json:946+, row Suit9 SuitStructList[1]: SuitCondition 4, SuitModifyPackID \"Heal_4\", SuitBuff null, \"Legendary (4): Increases wearer's Healing Bonus by 20%.\"",
+      "crates/content/src/build/studio_projection.rs:248 (\"healing_bonus\" => \"HealUp\") and :387 (healing_bonus: ratio(optional(\"HealUp\")?)?): the Studio mapping that binds the static pack to the heal-bonus zone."
+    ],
+    "honest_boundaries": {
+      "tested": "4pc HealUp 1/5 applies exactly at threshold 4 in three layers (native equipped contributions, stat_projection, Studio); absent below 4; frozen rows pinned; additive zone composition 9/20 rejects the multiplicative 30/20; invalid Studio configs rejected.",
+      "frozen_derived": "0.2 reads as the exact fraction 1/5; empty ConditionArray makes the pack unconditional; no native triggers, stacks, or expiry exist for Heal_4.",
+      "hypothesis": "HealUp feeds the outgoing heal-bonus zone (combat.live_healing_modifiers_v1 where supported); GearProcConfig::CastleHealingBonus is a live castle weapon proc and is NOT the reference for this static path.",
+      "not_covered": "Combat-side healing settlement (H_raw x (1+outgoing) x (1+incoming)) is unchanged and unpinned; project_build_stats on the equipped Sakiri build is blocked by the pre-existing \"fractional build HP requires an evidenced quantization policy\" projector limit (documented in-test); full acquisition/release availability unverified."
+    }
+  }
+}

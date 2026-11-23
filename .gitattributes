@@ -1,0 +1,14 @@
+# Preserve frozen source bytes when the product moves to another repository.
+* text=auto
+*.py text eol=lf
+*.rs text eol=lf
+*.toml text eol=lf
+*.md text eol=lf
+.gitignore text eol=lf
+.gitattributes text eol=lf
+/.githooks/** text eol=lf
+/data/** -text
+/reviews/** -text
+/fixtures/** -text
+/research/** -text
+/web/assets/** -text

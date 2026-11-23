@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "scope": "Aurelia native primary action packet binding across Normal, Skill, and Ultimate",
+  "quality": "executable kit model across primary packets and awakenings",
+  "sources": [
+    "data/extracted/guide_aurelia.json",
+    "data/extracted/neverness_mitsuki.json",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json",
+    "data/global-2026-10-04/tables/1070AwakenEffect.json",
+    "data/global-2026-10-04/tables/DT_MitsukiEffectFigure.json"
+  ],
+  "model": [
+    "GA_Mitsuki_Melee public primary packet is GE_Player_Mitsuki_Melee1_Damage. Native coefficients at Normal levels 1/8/9 are 0.347/0.595/0.642; category A/PSYCHE metadata stays source-bound.",
+    "Explicit GA_Mitsuki_Melee inputs can deliver one GE_Player_Mitsuki_AirAttack_Damage or GE_Player_Mitsuki_EvadeBranch_Damage packet at the effective Normal talent coordinate. This records aurelia.direct_packet_inputs_v1, preserves the ordinary chain, and grants no ordinary-hit energy. Natural dispatch, legality, timing, recovery, travel, recipients, powered branches and PerfectAtkBullet remain unsupported.",
+    "GA_Mitsuki_Skill public primary packet is GE_Player_Mitsuki_Skill_Damage. Native coefficients at Skill levels 1/8/9 are 1.000/1.714/1.851; category E/PSYCHE metadata stays source-bound. on_cast enters Cadenza state for 12s (extended/refreshed by 5s at A2 up to 12s). At A1, grants +15% Crit Rate while in Cadenza state.",
+    "GA_Mitsuki_UltraSkill public primary packet is GE_Player_Mitsuki_UltraSkill_Damage. Native coefficients at Burst levels 1/8/9 are 0.890/1.525/1.647; category Q/PSYCHE metadata stays source-bound. on_cast enters/extends Cadenza state and delivers a 6-hit packet train (5x GE_Player_Mitsuki_UltraSkill_Damage + 1x GE_Player_Mitsuki_UltraSkill_Damage2 with Lv1/8/9 coefficients 0.552/0.946/1.022). At A3, grants +20% damage bonus to UltraSkill in Cadenza. At A5, grants an additional +15% Crit Rate on UltraSkill across all burst hits.",
+    "Resonance 3 activates at awakening >= 3 and adds +1 level to GA_Mitsuki_Melee, GA_Mitsuki_Skill, and GA_Mitsuki_UltraSkill without manual overrides.",
+    "Resonance 6 (awakening 6) on Skill/UltraSkill cast grants all allies +8% Psyche DMG for 15s (BuffRecipient::TeamAll).",
+    "Canonical arbitrary awakening selections: Effect1/5 crit rate, Effect2 Cadenza extension and Effect3 Cadenza Burst damage use selected identities. Talent resonance_3 and team Psyche resonance_6 remain count-based. Existing unsupported owner mechanics remain pending; selection does not complete the kit."
+  ],
+  "pending": [
+    "Native chain dispatch for Melee2..Melee4 and natural AirAttack/EvadeBranch inputs, PerfectAtkBullet, powered branches, and secondary sound/visual effects."
+  ],
+  "checks": [
+    "aurelia_actions tests passed: independent damage oracles at 1000 ATK, 0 RES verify Normal (347/2, 595/2, 321/1 at A3 resonance), Skill (500/1, 857/1, 1851/2 at A3 resonance), Burst totals across 6 hits (2501/1, 8571/2, 27771/5 at A3 resonance + A3 +20% dmg bonus), A1 Cadenza Crit Rate buff (+15% -> 1/5), and A5 UltraSkill Crit Rate buff (+30% -> 7/20).",
+    "Off-field delivery attributes hits to Aurelia; dead target settles 0 hits; horizon boundaries preserve pending events.",
+    "Direct packet input tests cover all nine released Normal coordinates for AirAttack and EvadeBranch, exact category/rate projection, strict hypothesis acceptance, chain continuity, and the no-energy boundary.",
+    "Current integration checks: tools/verify_aurelia_kit.py; independent mechanic assertions remain in Rust tests.",
+    "weapon_passives.test.mjs passes with NTESIM_VERIFY_NATIVE=1: full native CLI/WASM reports match across equipped and action cases, including Aurelia attack, skill, and burst at levels 1, 8, and A3 resonance.",
+    "TypeScript and production build pass. Frozen source hashes match the identities below."
+  ],
+  "source_sha256": {
+    "data/extracted/neverness_mitsuki.json": "a72d81f5374a3ee221bb237a807f3f2169e988f4085527b6cc2b276577bda71e",
+    "data/extracted/guide_aurelia.json": "474dc222cfef9cb48efe2719092a2f3a29cf0bcb4b8e0f6b210d5696580688c0",
+    "data/global-2026-10-04/tables/1070AwakenEffect.json": "d4831810866647f0d559f9a0ad2d153cf0401b702be0ccdb27624da22fbfee4e",
+    "data/global-2026-10-04/tables/DT_MitsukiEffectFigure.json": "9aa7399e52cdd8e71fd18ae9122e4f3bf49caa4079d1ead7555475f3501e6ce4",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json": "917b0c3675412c0425a0724d09e7dd8ae4d1ef9a100d2ea5669d7484d0901bf2"
+  }
+}

@@ -1,0 +1,102 @@
+.rotation-lanes {
+  padding: 0 15px 0 0;
+}
+
+.rotation-row,
+.rotation-axis {
+  display: grid;
+  grid-template-columns: 85px 1fr;
+  gap: 12px;
+  align-items: center;
+}
+
+.rotation-row {
+  min-height: 42px;
+  padding: 5px 0;
+}
+
+.rotation-row > span {
+  font: 11px var(--mono);
+  color: var(--muted);
+}
+
+.rotation-track {
+  position: relative;
+  height: 31px;
+  background: repeating-linear-gradient(
+    to right,
+    #4e415627 0,
+    #4e415627 calc(25% - 1px),
+    #88729750 calc(25% - 1px),
+    #88729750 25%
+  );
+  border-top: 1px solid #5e4f6150;
+  border-bottom: 1px solid #5e4f6150;
+}
+
+.field-segment {
+  position: absolute;
+  top: 6px;
+  height: 18px;
+  background: var(--actor);
+  opacity: 0.27;
+}
+
+.action-marker {
+  position: absolute;
+  top: 1px;
+  transform: translateX(-50%);
+  padding: 0;
+  min-width: 23px;
+  height: 27px;
+  border: 1px solid var(--actor);
+  border-radius: 3px;
+  color: #241c2b;
+  background: var(--actor);
+  font: bold 10px var(--mono);
+  z-index: 2;
+}
+
+.action-marker:hover,
+.action-marker.selected-event {
+  background: white;
+  color: #28202e;
+  box-shadow: 0 0 0 2px var(--actor);
+}
+
+.action-marker:active {
+  transform: translateX(-50%);
+}
+
+.playhead {
+  position: absolute;
+  top: -7px;
+  bottom: -7px;
+  width: 1px;
+  background: #f4e7fc;
+  z-index: 3;
+  pointer-events: none;
+  box-shadow: 0 0 5px #fff7;
+}
+
+.rotation-axis {
+  height: 23px;
+}
+
+.rotation-axis > div {
+  position: relative;
+  height: 15px;
+}
+
+.rotation-axis span[style] {
+  position: absolute;
+  font: 9px var(--mono);
+  color: var(--muted);
+  transform: translateX(-50%);
+}
+
+#combat-timeline {
+  max-height: 620px;
+  overflow: auto;
+  scrollbar-color: #685574 #29232d;
+}

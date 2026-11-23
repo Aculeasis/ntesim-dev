@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "question": "When can equipped Noros grant self ATK after Skill admission, and how do its10-second buff and20-second trigger cooldown interact?",
+  "branch_budget_minutes": 8,
+  "total_investigation_budget_minutes": 12,
+  "sources": [
+    "data/global-2026-10-04/tables/DT_ForkUpgradeStarDataTable.json#/rows/upgradestar_pack_fork_nonos_1",
+    "data/global-2026-10-04/tables/CT_ForkBuff.json#/rows/buff_nonos_AtkUp",
+    "data/global-2026-10-04/tables/CT_ForkBuff.json#/rows/buff_nonos_CD",
+    "data/global-2026-10-04/tables/CT_ForkBuff.json#/rows/buff_nonos_CD2",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json#/rows/GE_Player_Kuhara_Skill1_Damage"
+  ],
+  "decision": "Use successful native Redirect Skill admission as trigger, self base-ATK percentage for10seconds, one nonstacking buff before same-time hits, and per-wearer20-second world-time cooldown. A cast inside cooldown does not refresh the buff. Switching preserves cooldown and the earned buff. This order/clock rule is a tested model hypothesis; release availability remains unverified.",
+  "stop_condition": "Bind T1-T5 curves/units, validate trigger/buff/ICD boundaries and failed admission, off-field ownership, legal Jiuyuan build and CLI/WASM/Worker parity.",
+  "return_condition": "New source order, ATK scaling, clock, cooldown or release evidence conflicts with the model.",
+  "checks": [
+    "187 content tests pass. T1-T5 bind.12/.13/.14/.15/.16 self base-ATK ratios,10seconds duration and20seconds cooldown; changed native cooldown units fail. Legal compiled Jiuyuan R5 first-Skill build matches(totalATK+baseATK*.16)/totalATK.",
+    "Independent2000totalATK/1000baseATK*.5DEF oracle gives1000 bare and1060 active at R1. A grant at100us expires10,000,100us: one microsecond before remains active, exact expiry loses buff. Recasts inside cooldown do not refresh; a Skill one microsecond before20,000,100us gives no grant, while exact readiness does. Normal/Ultimate input cannot trigger even with E packet classification. Wrong equipment, duplicate proc and zero cooldown fail; failed admission grants nothing.",
+    "Delayed wearer hits retain self buff off-field and sample exact expiry at delivery; the active ally is unchanged. Exit/reentry preserves trigger cooldown, so13seconds remains unbuffed and20seconds grants again.",
+    "Public Jiuyuan/Noros T1-T5 casts at0/6/12/20/30seconds use active/active/bare/active/bare ATK, with grants only0/20seconds and no residual buff at35seconds. Full CLI/WASM reports agree for all five scripts; actual Worker T5 matches direct WASM. Mint compatibility fails. Native first-Skill packet membership is validated in the content-owned catalog; follow-up packets/full kit stay pending.",
+    "TypeScript and production build, native_build, scenario_script and nte_language modules pass. Changed Rust format passes; content clippy allows only the two existing metadata lints. NTESIM_VERIFY_NATIVE=1 NTESIM_VERIFY_WEAPON=noros scopes native comparison; all existing weapon/child cases retain WASM/Worker regression coverage. Public primary-action hypothesis now explicitly allows owner-scheduled modeled follow-ups; flags remain strict_ready=false/game_dps_computed=false."
+  ],
+  "availability": "Frozen Global weapon release availability remains unverified; Jiuyuan is a released compatible group-ONE owner.",
+  "artifact_sha256": {
+    "target/debug/ntesim.exe": "5e1c187a251d373a81ecab6757d74e182e591a5893a74d2e276e632bdfb2a49c",
+    "web/wasm/ntesim_wasm.wasm": "f9856e3c8f993ed3fc7f89ca920f7628a20b79d90b6eb350521be7f7d1f940f9"
+  }
+}

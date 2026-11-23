@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "status": "modeled_and_tested",
+  "owner": "nanally",
+  "character_id": "character:1010",
+  "cutoff": "data/global-2026-10-04",
+  "hypotheses": [
+    "actions.caller_timing_v1",
+    "actions.primary_packet_v1",
+    "nanally.normal_chain_v1",
+    "nanally.skill_five_hits_v1",
+    "nanally.burst_seven_hits_v1",
+    "nanally.underboss_coordination_v2",
+    "nanally.burst_underboss_trigger_v1",
+    "nanally.ordinary_hit_energy_v1"
+  ],
+  "scenario": {
+    "source": "examples/nanally-zero-start-underboss-continuing.nte",
+    "actors": ["character:1010", "character:1019", "character:1003"],
+    "starting_energy": [0, 0, 0],
+    "energy_capacity": [100, 100, 100],
+    "capacity_basis": "Explicit synthetic scenario capacity for all three actors. Sakiri's projected native capacity is not used by this fixture.",
+    "awakening": "Only Effect2 is selected. No Resonance 3, A1 refund, A3 or A4 behavior is included.",
+    "timeline": "Skill at 0s; six five-input Normal chains begin at 1.2s, 5.2s, 9.2s, 13.2s, 17.2s and 21.2s with 800ms input spacing; the 100-cost Burst starts at 25.2s; a continuing five-input Normal chain runs 27.2s..30.4s and Skill starts at 31.2s. Underboss uses the modeled 9s A2 lifetime. The denominator is the full 34s horizon.",
+    "receipts": {
+      "normal_packets": 98,
+      "skill_packets": 10,
+      "direct_burst_packets": 7,
+      "burst_assist_and_trigger_packets": 8,
+      "later_underboss_normal_packets": 9,
+      "later_underboss_skill_packets": 5,
+      "damage_packets": 137,
+      "ordinary_charge_packets": 108,
+      "recipient_grant_events": 324,
+      "burst_costs": 1
+    }
+  },
+  "independent_oracle": {
+    "base_atk": 1000,
+    "target_defense": 1080,
+    "target_resistance": 0,
+    "critical_rate": 0,
+    "ordinary_normal_charge_milli_per_chain": [1138, 1492, 470, 806, 4884, 267, 267, 267, 267, 267, 267, 267, 2966, 2974],
+    "ordinary_normal_charge_per_chain": "16599/1000 = 16.599",
+    "ordinary_skill_charge_milli": [1260, 1260, 1260, 1260, 1260],
+    "ordinary_skill_charge_per_cast": "6300/1000 = 6.3",
+    "pre_burst_charge": "6*16.599 + 6.3 = 105.894; capacity retains 100, overflows 5 and carries 894/1000 before the cost.",
+    "continuation_charge": "One Normal chain and one Skill add 22.899; combined with 894/1000 carry, 23 is granted and 793/1000 remains. Nanally ends at 23 energy; cumulative grants are 128, overflow is 5 and 100 energy was spent.",
+    "each_other_recipient": "The 128.793 total source charge is distributed at 3/5: 77.2758 each. Both allies end at 77 with 1379/5000 carry and zero overflow.",
+    "damage": {
+      "normal": "Seven level-8 full chains: 7*7390/2 = 25865.",
+      "skill": "Ten level-8 direct packets at 857 each = 8570.",
+      "direct_burst": "8569.",
+      "burst_cat_packets": "Eight Cat_AirAttack packets at 428.5 = 3428.",
+      "later_underboss_normal": "2828.",
+      "later_underboss_skill": "1027.5.",
+      "total": "100575/2 = 50287.5.",
+      "horizon_seconds": 34,
+      "horizon_dps_exact": "100575/68"
+    },
+    "zero_charge_packets": "Burst and Cat packets have ChargeAdd zero and are excluded from the ordinary-hit charge vector."
+  },
+  "checks": [
+    "python tools/cargo.py test --package ntesim-content nanally_zero_start_funds_burst_and_continues_under_underboss passed. Rust checks all 137 packet identities and damages, all 324 per-recipient ChargeAdd settlements, the one 100-energy Burst spend, final fractional ledgers and exact total damage.",
+    "node tools/web.mjs test tests/character_actions.test.mjs passed. The fixture checks the authored NTE script through WASM, verifies exact damage and the independent ChargeAdd vector, then compares the same explicit request with native and actual Worker consumers.",
+    "Rust and Web scenarios set synthetic 100 energy capacity for Nanally, Mint and Sakiri; this keeps the ledger bounded and does not infer Sakiri's native capacity."
+  ],
+  "limits": [
+    "Synthetic stats, fixed non-critical damage, the explicit three-actor capacity and 34-second schedule are runner checks, not game measurements or an optimized rotation.",
+    "Ordinary ChargeAdd eligibility, 3/5 team distribution, chain continuity, caller timing, target-zero HP-loss triggers and the A2 nine-second Underboss lifetime are bounded hypotheses pending native evidence.",
+    "The initial Skill and the continuation Skill are separated by more than Authority's modeled 12-second lifetime; Skill early-end recast is not exercised.",
+    "Only ordinary Normal/Skill packets, the direct Burst packet train and bounded Underboss coordination are included. A1, A3, A4, additional targets, heavy/plunge/riposte/QTE coordination and native summon cadence remain outside this result."
+  ],
+  "source_sha256": {
+    "data/extracted/neverness_nanally.json": "6552cfa78edae737f9a209bf8d7c1685c7de9e2a07ce612f202d028404b3c675",
+    "data/extracted/guide_nanally.json": "e79564371a9881d62be4db4a280e7de356270b441c437e6dd9b383645a8a074c",
+    "data/global-2026-10-04/tables/1010AwakenEffect.json": "2e63814f50541f04a2825238ee7f6a8ac092049a3564355e762d644860f94cf1",
+    "data/global-2026-10-04/tables/DT_GameplayAbilityCostData.json": "a0a166ad8ee91762f8bd80cd1aafb69ae2aec4efa0b3a92dba0afa822e0c4326",
+    "data/global-2026-10-04/tables/DT_GameplayAbilityTipsData.json": "5c0a0f929376891c033451a25208b55747c43e6bbb24b75506eb0ff50a23584f",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json": "917b0c3675412c0425a0724d09e7dd8ae4d1ef9a100d2ea5669d7484d0901bf2",
+    "data/global-2026-10-04/tables/DT_SkillTeamChargeRelationData.json": "5e456919997b0f77c4b569ce812267a059bab553a1f87fc863723c44b66363b"
+  }
+}

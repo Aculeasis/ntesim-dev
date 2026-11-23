@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "scope": "Hotori native primary action packet binding across Normal, QTE, Skill, and Ultimate multi-hit packet trains",
+  "quality": "executable kit model across primary packets, packet trains, and awakenings",
+  "sources": [
+    "data/extracted/guide_hotori.json",
+    "data/extracted/neverness_jin.json",
+    "data/global-2026-10-04/evidence/local/b6de62905e57070858a24a9ae4ed5a4d3de970627e1aac5ab4267474301187a5.json",
+    "data/global-2026-10-04/evidence/local/e0c2e4f26bfd9566e09ccd4818eb76b5fcad828110beaeb8001b4aca3f1121e0.json",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json",
+    "data/global-2026-10-04/tables/DT_GameplayAbilityTipsData.json",
+    "data/global-2026-10-04/tables/1052AwakenEffect.json",
+    "data/global-2026-10-04/tables/DT_JinEffectFigure.json"
+  ],
+  "model": [
+    "GA_Jin_Melee public primary packet is GE_Player_Jin_Melee1_Damage. Native coefficients at Normal levels 1/8/9 are 0.200/0.343/0.370; category A/COSMOS metadata stays source-bound. Five admitted ordinary inputs advance stages Melee1 through Melee5 with multiplicities 1,4,5,3,2 (15 hits) under hotori.normal_chain_v1.",
+    "GA_Jin_QTE public primary packet is GE_Player_Jin_QTE_Damage. Native coefficients at QTE levels 1/8/9 are 2.000/3.428/3.702; category QTE/COSMOS metadata stays source-bound.",
+    "GA_Jin_Skill public primary packet is GE_Player_Jin_Skill1_Damage (40%), followed by 5x GE_Player_Jin_Skill3_Damage (40% each) and 1x GE_Player_Jin_Skill2_Damage (60.1%) under hotori.skill_burst_packets_v1; category E/COSMOS metadata stays source-bound.",
+    "GA_Jin_UltraSkill public primary packet is GE_Player_Jin_UltraSkill1_Damage (17%), followed by 5x GE_Player_Jin_UltraSkill1_1..5_Damage (17% each), 1x GE_Player_Jin_UltraSkill2_Damage (130.3%), 1x GE_Player_Jin_UltraSkill4_Damage (44.3%), and 2x GE_Player_Jin_UltraSkill3_Damage (261.6% each) under hotori.skill_burst_packets_v1; category Q/COSMOS metadata stays source-bound. on_cast enters Time Stop (12s base) which triggers A1 (+12% Time Stop dmg per recorded skill) and A2 (+20% Time Stop damage bonus).",
+    "Resonance 3 activates at awakening >= 3 and adds +1 level to GA_Jin_Melee, GA_Jin_Skill, and GA_Jin_UltraSkill without manual overrides.",
+    "Awakening 5 (All-Seeing) increases entire team damage against single target by 15% when Hotori is deployed.",
+    "Awakening 6 (Time Takes Away) ignores 30% of target DEF during Time Stop, and resonance_6 grants +30% team ATK.",
+    "Canonical arbitrary awakening selections: Effect1/2 Time Stop damage, Effect5 team single-target damage and Effect6 Time Stop DEF ignore use selected identities. Team ATK and talent levels remain count-based resonance bonuses, preserving the existing R6 20% description versus 30% native-figure conflict. Existing unsupported owner mechanics remain pending."
+  ],
+  "pending": [
+    "Katana combo mode, Timepiece rewind pacing, and replay execution."
+  ],
+  "checks": [
+    "hotori_actions tests passed: independent damage oracles at 1000 ATK, 0 RES verify Normal across all five stages (15 hits, looping, resonance_3), Skill 7 hits (3001/2, 2573/1, 2776/1 at A3 resonance), Burst 10 hits (3999/1, 6852/1, 41112/5 at A2 +20% dmg bonus, 44418/5 at A3 resonance), A6 DEF ignore (1199286/85), and strict mode hypothesis acceptance.",
+    "Off-field delivery attributes hits to Hotori; dead target settles 0 hits; two-skill one-burst rotation settles 24 hits; strict mode accepts hotori.normal_chain_v1 hypothesis.",
+    "Current integration checks: tools/verify_hotori_kit.py; independent mechanic assertions remain in Rust tests.",
+    "hotori_actions.mjs passes with NTESIM_VERIFY_NATIVE=1: full native CLI/WASM reports match across all character action cases including Normal chain attack:5, 7-hit Skill and 10-hit Burst.",
+    "TypeScript and production build pass. Frozen source hashes match the identities below."
+  ],
+  "source_sha256": {
+    "data/extracted/neverness_jin.json": "6578b21ad8471733b6687013adb4044c1e044df846d6645d8b3241513e89b81d",
+    "data/extracted/guide_hotori.json": "fee697a06107c921ae51af61c5267780f319fe2b513c7d5151d49d42a6073e32",
+    "data/global-2026-10-04/tables/1052AwakenEffect.json": "de9d9b60a164672ad01d59ac76269d92a091cd413b364f3eb6dc47de3aeeea0c",
+    "data/global-2026-10-04/tables/DT_GameplayAbilityTipsData.json": "5c0a0f929376891c033451a25208b55747c43e6bbb24b75506eb0ff50a23584f",
+    "data/global-2026-10-04/tables/DT_JinEffectFigure.json": "9af68eef475379f2741d9d989427e4fb6a3b65cc78904d0f185e8018d1f30c17",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json": "917b0c3675412c0425a0724d09e7dd8ae4d1ef9a100d2ea5669d7484d0901bf2"
+  }
+}

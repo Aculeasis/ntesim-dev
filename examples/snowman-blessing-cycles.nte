@@ -1,0 +1,21 @@
+options iteration=1 duration=20 crit=fixed seed=42;
+
+adler char lvl=80/80 awakening=0 talent=1,1,1 qte=1;
+adler add weapon=fork_snowman refine=1;
+mint char lvl=80/80 awakening=0 talent=1,1,1 qte=1;
+target hp=100000000 def=0 resist=0;
+active adler;
+
+# Cycle 1: the Blessing cast shields the active wearer for 8s; the chain rides
+# the shielded ATK zone while it is live.
+adler skill; adler attack:5;
+mint swap; mint attack:2;
+
+# The shield expires mid-fight at 8s: the returning chain hit lands exactly on
+# the boundary at bare ATK before the second Blessing re-shields for cycle 2.
+wait_until(7.75); adler swap; adler attack;
+adler skill; adler attack:5;
+mint swap; mint attack:2;
+
+# Cycle 2 ends the same way: the 16.8s hit settles on the exact expiry instant.
+wait_until(16.55); adler swap; adler attack;

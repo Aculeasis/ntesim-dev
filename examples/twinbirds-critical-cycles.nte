@@ -1,0 +1,19 @@
+options iteration=1 duration=220 seed=42;
+blackbird char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_energy=0;
+blackbird add weapon=fork_twinbirds refine=1;
+blackbird add stats dmg%=0.25;
+mint char lvl=80/80 awakening=0 talent=1,1,1 qte=1;
+target hp=100000000 def=0 resist=0;
+active blackbird;
+
+# Ordinary chains pay both Bursts. Both actors attack within and after the
+# shared15s window, retaining the independent Requies Animarum ATK buff.
+repeat 2 {
+  blackbird attack:30; blackbird burst;
+  mint swap; mint attack:5; blackbird swap;
+  blackbird attack:5;
+  # Form time pauses off field. Let it expire on field before ordinary Skill.
+  wait(22);
+  blackbird skill; blackbird attack:5;
+  mint swap; wait(16); mint attack; blackbird swap;
+}

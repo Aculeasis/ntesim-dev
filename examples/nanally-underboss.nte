@@ -1,0 +1,11 @@
+# Partial unequipped continuing Underboss rotation. Normal/Skill coefficients
+# deliberately differ from Burst: the summon uses its captured Burst talent.
+# Recipient scope and coincident packet timing remain disclosed hypotheses.
+# Selected A2 keeps Underboss active for the subsequent Skill at authored timing.
+options iteration=1 duration=15 crit=fixed;
+nanally char lvl=80/80 awakening=[2] talent=1,1,8 qte=1 +params=[start_energy=100];
+target hp=10000000 def=1080 resist=0;
+active nanally;
+nanally burst;
+nanally attack:5;
+nanally skill;

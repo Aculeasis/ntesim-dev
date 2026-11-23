@@ -1,0 +1,51 @@
+# Zankou · Hexed
+# Curated comparison profile: see teams.md for exact stat-line values and assumptions.
+options iteration=1000 duration=120 seed=42 start_fons=250000;
+# zankou: 15 useful lines; recipe=crit; main=cd:.6.
+# C: cr,cd,dmg; III x4: cr,cd; IV: cr,cd; II: cr / cd.
+zankou char lvl=80/80 awakening=[] talent=8,8,8 qte=8;
+zankou add weapon=fork_demonblade refine=1 lvl=80/80;
+zankou add cartridge=crimsontwinbutterflies count=4;
+zankou add stats hp=5600 atk=420 cr=0.28 cd=1.80 dmg%=0.1;
+# sakiri: 15 useful lines; recipe=support; main=atk%:.375.
+# C: atk,cr,dmg; III x4: atk,cr; IV: atk,cr; II: atk / cr.
+sakiri char lvl=80/80 awakening=[6] talent=8,8,8 qte=8;
+sakiri add weapon=fork_mofeikesi refine=1 lvl=80/80;
+sakiri add cartridge=crimsontwinbutterflies count=4;
+sakiri add stats hp=5600 atk=420 atk%=0.7250 cr=0.28 dmg%=0.1 incantation%=0.36;
+# iroi: 15 useful lines; recipe=support; main=atk%:.375.
+# C: atk,cr,dmg; III x4: atk,cr; IV: atk,cr; II: atk / cr.
+iroi char lvl=80/80 awakening=[] talent=8,8,8 qte=8;
+iroi add weapon=fork_door refine=1 lvl=80/80;
+iroi add cartridge=speedyhedgehog count=4;
+iroi add stats hp=5600 atk=420 atk%=1.1250 cr=0.28 dmg%=0.1;
+# linko: 15 useful lines; recipe=crit; main=cd:.6.
+# C: cr,cd,dmg; III x4: cr,cd; IV: cr,cd; II: cr / cd.
+linko char lvl=80/80 awakening=[] talent=8,8,8 qte=8;
+linko add weapon=fork_moon refine=1 lvl=80/80;
+linko add cartridge=firefliesandtheforest count=4;
+linko add stats hp=5600 atk=420 cr=0.60 cd=1.16 dmg%=0.1;
+# Common stationary, control-susceptible Boss dummy; no incoming attacks or assumed parries.
+target lvl=80 hp=1000000000 max_hp=1000000000 def=1080 resist=0.2 boss=true control_immune=false original_atk=1000 break_gauge=30 max_break_gauge=30 broken_duration=10 discord_fraction=0.1;
+active zankou;
+# Refresh short support windows, then preserve a sustained damage window.
+let next_support = 0;
+let last_burst = -20;
+while 1 {
+  if .time >= next_support {
+    linko swap;
+    if .linko.skill.ready { linko skill; }
+    if .linko.burst.ready { linko burst; }
+    iroi swap;
+    if .iroi.skill.ready { iroi skill; }
+    if .iroi.burst.ready { iroi burst; }
+    sakiri swap;
+    if .sakiri.burst.ready { sakiri burst; }
+    if .sakiri.skill.ready { sakiri skill; }
+    zankou swap;
+    next_support = .time + 12;
+  }
+  if .zankou.burst.ready { zankou burst; }
+  if .zankou.skill.ready { zankou skill; }
+  zankou attack;
+}

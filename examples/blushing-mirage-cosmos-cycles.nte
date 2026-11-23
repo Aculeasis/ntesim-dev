@@ -1,0 +1,15 @@
+options iteration=1 duration=100 seed=42;
+shinku char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_energy=0;
+shinku add weapon=fork_LunarPhase refine=1;
+shinku add stats dmg%=0.25;
+mint char lvl=80/80 awakening=0 talent=1,1,1 qte=1;
+target hp=100000000 def=1080 resist=0;
+active shinku;
+
+# Initial Bursts use the disclosed public action cost/timing model. Ordinary
+# chains fund both casts; Rage follow-up dispatch remains outside this slice.
+repeat 2 {
+  shinku attack:30; shinku burst;
+  mint swap; mint attack; shinku swap; shinku attack:5;
+  wait(17); shinku attack;
+}

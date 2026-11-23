@@ -1,0 +1,15 @@
+PCG32 transition and initialization in crates/core/src/rng.rs are adapted
+from pcg-c-basic by Melissa O'Neill, Copyright (c) 2014 Melissa O'Neill.
+https://github.com/imneme/pcg-c-basic/blob/master/pcg_basic.c
+https://www.pcg-random.org/
+
+This adapted portion is licensed under the Apache License, Version 2.0.
+See pcg32-APACHE-2.0.txt in this directory.
+
+ntesim modifications: Rust port, explicit named stream validation,
+checked draw counters, atomic bounded sampling, attempt limit, serialized
+audit state and draw receipts. The versioned contract and tests document
+these changes. Upstream's global generator and demo program are not used.
+
+This notice applies to the adapted RNG portion. It does not select a
+license for the rest of ntesim; the product license decision remains open.

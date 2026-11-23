@@ -1,0 +1,18 @@
+options duration=95 seed=42;
+baicang char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_energy=120;
+baicang add stats ce=3;
+target hp=100000000 def=0 resist=0;
+active baicang;
+
+# Stored Words retain individual lifetimes; domain spawn activates them.
+if .baicang.resources.words || .baicang.mods.domain || .baicang.domain.active {wait(199);}
+repeat 2 {
+    repeat 3 {baicang attack:5;}
+    if .baicang.resources.words!=3 {wait(199);}
+    let burst_start=.time;
+    baicang burst;
+    if .baicang.resources.words || !.baicang.domain.active
+        || .baicang.mods.domain!=burst_start+12-.time {wait(199);}
+    wait(.baicang.mods.domain);
+    if .baicang.mods.domain || .baicang.domain.active {wait(199);}
+}

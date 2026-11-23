@@ -1,0 +1,15 @@
+options duration=120 iteration=1 crit=fixed;
+# Unequipped actors isolate native hit energy and form transitions.
+adler char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_energy=0;
+lacrimosa char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_energy=0;
+mint char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_energy=0;
+target hp=100000000 def=0 resist=0;
+active adler;
+
+repeat 12 { adler attack:5; }
+mint swap; mint burst;
+lacrimosa swap; lacrimosa burst, special;
+repeat 9 { lacrimosa attack:5; }
+lacrimosa burst, special;
+repeat 4 { lacrimosa attack:5; }
+mint swap; mint burst;

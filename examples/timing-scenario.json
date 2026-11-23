@@ -1,0 +1,43 @@
+{
+  "content_id": "ntesim-current",
+  "team_size": 4,
+  "horizon_real_us": 10000000,
+  "mode_pauses": [
+    {
+      "start_real_us": 1000000,
+      "duration_us": 3000000,
+      "reason": "burst_cinematic"
+    },
+    {
+      "start_real_us": 2000000,
+      "duration_us": 3000000,
+      "reason": "camera_freeze"
+    }
+  ],
+  "hitlags": [
+    {
+      "actor_index": 0,
+      "start_real_us": 500000,
+      "duration_real_us": 100000,
+      "dilated_rate_ppm": 0
+    }
+  ],
+  "actions": [
+    {
+      "actor_index": 0,
+      "start_real_us": 0,
+      "spec": {
+        "action_id": "sakiri_skill",
+        "startup_us": 400000,
+        "hit_offsets_us": [
+          400000
+        ],
+        "recovery_us": 600000,
+        "earliest_switch_offset_us": 800000
+      }
+    }
+  ],
+  "hotori_probe": {
+    "is_real_player": true
+  }
+}

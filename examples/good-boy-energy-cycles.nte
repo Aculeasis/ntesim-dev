@@ -1,0 +1,17 @@
+options iteration=1 duration=90 crit=fixed;
+
+sakiri char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_energy=120;
+sakiri add weapon=fork_mofeikesi refine=1;
+sakiri add stats ce=0.5;
+mint char lvl=80/80 awakening=0 talent=1,1,1 qte=1;
+target hp=100000000 def=0 resist=0 boss=true control_immune=true;
+active sakiri;
+
+# The permanent weapon bonus adds to the authored Charge Efficiency.
+sakiri skill; sakiri burst; repeat 8 { sakiri attack:5; }
+mint swap;
+wait_until(50); mint attack:5;
+
+# The same energy pool pays again; an ally then generates off-field receipts.
+wait_until(60); sakiri swap; wait_until(61); sakiri skill; sakiri burst;
+mint swap; mint attack:5;

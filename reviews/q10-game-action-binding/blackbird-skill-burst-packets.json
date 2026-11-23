@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "question": "Which packets and multiplicities belong to ordinary Blackbird Skill/Burst casts?",
+  "branch_budget_minutes": 10,
+  "total_investigation_budget_minutes": 15,
+  "sources": [
+    "data/extracted/guide_blackbird.json#/skills/1",
+    "data/extracted/guide_blackbird.json#/skills/2",
+    "data/extracted/neverness_blackbird.json#/skills/1",
+    "data/extracted/neverness_blackbird.json#/skills/2",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json#/rows/GE_Player_BlackBird_Skill_Damage",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json#/rows/GE_Player_BlackBird_UltraSkill_Damage"
+  ],
+  "stop_condition": "Identify packets/multiplicities from saved descriptions and native arrays; use a disclosed bounded timing hypothesis if intervals are absent.",
+  "return_condition": "New timing/reachability evidence changes Netherplume Rite 4x Skill_Damage or Requies Animarum 9x UltraSkill_Damage, Malice gauge or Evolve forms.",
+  "decision": "Netherplume Rite describes 4 instances (100% * 4 at Lv1), matching native Skill_Damage (4 hits). Requies Animarum describes 9 instances (46.7% * 9 at Lv1), matching native UltraSkill_Damage (9 hits). Require each action's primary packet; schedule children once after admission with the admitted effective native coordinate. Each hit settles independently; Requies Animarum team ATK (+20%), A4 team DMG (+12%), and A6 Psyche DMG (+25%) buffs trigger consistently.",
+  "timing_hypothesis": "blackbird.skill_burst_packets_v1: ordered coincident delivery on target zero at selected primary impact time. This supports packet totals and ownership, not native frame timing. Same-time delivery precedes queued gear callbacks; timing-sensitive results retain this assumption.",
+  "checks": [
+    "Independent content damage oracles: at 1000 ATK/DEF.5/RES0, Skill levels 1/8/effective9 total 2000/1, 3428/1, 5702/1 (with A2 ratio addition 5428/1 at Lv8); Burst levels 1/8/effective9 total 12609/5, 4320/1, 50328/5 (with +20% ATK buff).",
+    "Pending horizons, off-field ownership, dead/lethal targets, rejected energy admission and alternate primary are checked. Strict requires matching hypothesis acceptance.",
+    "Description and native arrays agree at all nine levels. Public two-Skill/one-Burst rotation produces 17 hits and spends 100 energy once; CLI/WASM/Worker agree. Full content, relevant character/gear web suites, replay and modeled awakening verifier pass.",
+    "No full kit/readiness claim. Normal chains, Evolve stance transformations, Malice gauge consumption and full awakening mechanics remain pending."
+  ],
+  "reference_sha256": {
+    "data/extracted/neverness_blackbird.json": "8466c5a799a1e7bbd40989cd216632b231d0c046749da0bfd3c9587c10512ee4",
+    "data/extracted/guide_blackbird.json": "1d6c1da59db4b69527b09f52b607ef3964f3b4b2c711336a12e4bc2037fc132d",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json": "917b0c3675412c0425a0724d09e7dd8ae4d1ef9a100d2ea5669d7484d0901bf2"
+  }
+}

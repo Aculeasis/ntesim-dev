@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "status": "modeled_and_tested",
+  "owner": "iroi",
+  "character_id": "character:1075",
+  "hypotheses": [
+    "actions.caller_timing_v1",
+    "actions.primary_packet_v1",
+    "iroi.normal_chain_v1",
+    "iroi.skill_nine_packet_train_v1",
+    "iroi.skill_team_heal_v1",
+    "iroi.burst_primary_packet_v1",
+    "iroi.burst_post_cast_team_heal_v1",
+    "iroi.ordinary_hit_energy_v1",
+    "damage.fixed_crit_rate_as_probability_v1"
+  ],
+  "scenario": {
+    "source": "examples/iroi-skill-burst-continuing-energy.nte",
+    "starting_energy": 0,
+    "energy_capacity": 100,
+    "capacity_basis": "Explicit scenario capacity for Iroi, Mint and Sakiri; no frozen projection is inferred by this fixture.",
+    "starting_hp": [
+      "10000/20000",
+      "10000/20000",
+      "20000/20000"
+    ],
+    "charge_efficiency": "1/1",
+    "other_living_recipient_relation": "3/5",
+    "timeline": "25 ordinary Normal inputs form five 5-input chains at 0s..24s; Skill starts at 25s and its nine packets land at 25.5s; the 100-cost Burst starts at 26s and hits at 26.0001s; one 5-input Normal chain continues at 27s..31s. The denominator is the complete 32-second horizon.",
+    "heal_settlement": "The Skill heals once at 25s; the Burst's one-time heal follows its direct hit at 26.0001s. Source MaxHP is 20000 for all three recipients.",
+    "receipts": {
+      "normal_packets_before_skill": 80,
+      "skill_packets": 9,
+      "burst_packets": 1,
+      "normal_packets_after_burst": 16,
+      "damage_packets": 106,
+      "energy_source_packets": 105,
+      "skill_heal_recipients": 3,
+      "burst_heal_recipients": 3
+    }
+  },
+  "independent_oracle": {
+    "base_atk": 1000,
+    "target_defense": 1080,
+    "target_resistance": 0,
+    "critical_rate": 0,
+    "normal_coefficients_level_1": [
+      "760/1000",
+      "159/1000",
+      "103/1000",
+      "702/1000",
+      "258/1000"
+    ],
+    "normal_packet_multiplicities": [1, 3, 8, 1, 3],
+    "pre_skill_damage": "5 * 3537/2 = 8842.5",
+    "skill_damage": "(1500 + 7*179 + 1250) * 1000 * 20/39 / 1000 = 80060/39",
+    "burst_damage": "3000 * 1000 * 20/39 / 1000 = 60000/39",
+    "continuation_damage": "3537 * 1000 * 20/39 / 1000 = 70740/39",
+    "skill_buff_boundary": "The cast-time 5% DEF-ignore applies to Iroi through TeamAll. The +200 ATK grant is self-excluded, so Iroi's own Skill, Burst and continued Normal use 1000 ATK. Skill impact is explicitly delayed 500ms past the grant.",
+    "total_damage": "8842.5 + (80060 + 60000 + 70740)/39 = 1111315/78",
+    "horizon_seconds": 32,
+    "horizon_dps_exact": "1111315/2496",
+    "energy_packets": {
+      "normal_charge_milli_per_chain": [2431, 996, 996, 996, 642, 642, 642, 642, 642, 642, 642, 642, 5525, 1989, 1989, 1989],
+      "normal_charge_per_chain": "22047/1000 = 22.047",
+      "skill_charge_milli": [300, 614, 614, 614, 614, 614, 614, 614, 200],
+      "skill_charge": "4798/1000 = 4.798",
+      "pre_burst_source_charge": "5*22.047 + 4.798 = 115.033; at capacity 100, 100 is retained, 15 overflows, and 33/1000 carries before the cost.",
+      "source_after_burst_and_continuation": "Spend 100 once at 26s, then 22.047 combines with 33/1000 carry: 22 granted; final energy 22, cumulative granted 137, overflow 15 and carry 2/25.",
+      "each_other_living_recipient": "137.080*3/5 = 82.248; each ends at 82 energy with carry 31/125 and no overflow."
+    },
+    "healing": {
+      "skill_coordinate_1": "20000*943/1000 = 18860 gross per recipient; Iroi and Mint each receive 10000 and overflow 8860, Sakiri is full and overflows 18860.",
+      "burst_coordinate_1": "20000*1413/1000 = 28260 gross per recipient after Skill fills the injured actors; all three are full, so applied is 0 and overflow is 28260 each."
+    }
+  },
+  "checks": [
+    "python tools/cargo.py test --package ntesim-content iroi_zero_start_skill_burst_rotation_reconciles_damage_healing_and_energy passed. Rust checks all 106 packet identities and exact damage, 105 per-hit charge receipts, the sole 100-energy Burst spend, source and ally final ledgers, six heal settlements, HP caps, and direct-hit-before-Burst-heal order.",
+    "node tools/web.mjs test tests/character_actions.test.mjs passed. The Iroi fixture compiles the authored example, normalizes the bounded input schedule, checks exact WASM damage/healing/energy ledgers and replay, and compares the actual Worker request report.",
+    "Buff ordering is tested with 500ms from Skill cast to packet delivery; the +ATK team grant remains self-excluded and DEF-ignore includes Iroi."
+  ],
+  "limits": [
+    "Synthetic 1000 ATK, zero resistance/crit and the 32-second schedule are independent runner checks, not game measurements or an optimal rotation.",
+    "Ordinary packet ChargeAdd eligibility, the 3/5 distribution, recipient life rules and chain reset/cadence are bounded owner hypotheses; native caller/animation timing remains open.",
+    "The 500ms Skill impact delay deliberately resolves the cast-time buff boundary in this scenario; native Skill packet timing is not established by this test.",
+    "Only Iroi's one-time Skill and post-cast Burst heals are included. Continuous TreatPeriod, Imagination, Regression/revival, summon behavior, Branch/hold, Blossom copies and off-field lifecycles remain unsupported."
+  ],
+  "source_sha256": {
+    "data/extracted/neverness_oneiroi.json": "80e6a9dcf392ececb6cb50fffb508aa2cf60a8bb3b7b2ab43e176d575e001962",
+    "data/extracted/guide_iroi.json": "8c5eb4617356218b1e05015636d51c12035bd2c80652c3da9788030a9110c973",
+    "data/global-2026-10-04/tables/1075AwakenEffect.json": "a6fc3e1441313da82a5edf3023f152a2110b10acabb9a6ea880175ca4fd7801c",
+    "data/global-2026-10-04/tables/DT_CharacterAbilityEffectConfig.json": "bc2980f145351c405bf581a6336a4c862a25cde3c87de9d2af239be382065998",
+    "data/global-2026-10-04/tables/DT_GameplayAbilityCostData.json": "a0a166ad8ee91762f8bd80cd1aafb69ae2aec4efa0b3a92dba0afa822e0c4326",
+    "data/global-2026-10-04/tables/DT_GameplayAbilityTipsData.json": "5c0a0f929376891c033451a25208b55747c43e6bbb24b75506eb0ff50a23584f",
+    "data/global-2026-10-04/tables/DT_OneiroiEffectFigure.json": "6c6b543fb1f97d5a538ba82184b9f21d4aee9b39e672f0b6283c538179e69bb9",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json": "917b0c3675412c0425a0724d09e7dd8ae4d1ef9a100d2ea5669d7484d0901bf2",
+    "data/global-2026-10-04/tables/DT_SkillTeamChargeRelationData.json": "5e456919997b0f77c4b569ce812267a059bab553a1f87fcb863723c44b66363b"
+  }
+}

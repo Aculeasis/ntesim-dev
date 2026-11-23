@@ -1,0 +1,125 @@
+{
+  "status": "implemented_with_explicit_limits",
+  "owner": "content.characters.edgar",
+  "model_hypothesis": {
+    "id": "edgar.ultimate_periodic_healing_v1",
+    "description": "An admitted Edgar GA_Edgar_UltraSkill starts one healing tick per second beginning one second after cast through the native Finnegan's Wake duration endpoint inclusive. Each tick selects the currently active living actor, including Edgar, uses Edgar's live MaxHP at callback time and the cast's effective native Burst talent coordinate for the frozen flat-plus-MaxHP heal curves, then caps at missing HP. Ticks cannot revive a recipient; dead Edgar cancels the stream, off-field living Edgar continues, and a later admitted Burst replaces prior ticks. Full-HP overflow, source MaxHP sampling, recipient switching, inclusive endpoint and recast invalidation are tested hypotheses. Reached live healing bonuses use the separate explicit combat.live_healing_modifiers_v1 formula hypothesis. A5+ admission requires base HP, HP percent excluding Edgar's A5, HP flat, static HP, configured MaxHP and runtime MaxHP to agree after one nearest-integer settlement; caller-provided initial MaxHP is already final and is never boosted a second time. A6's allied DEF grant is outside this healing result."
+  },
+  "key_model_hypothesis": {
+    "id": "edgar.key_of_truth_v1",
+    "contract": "characters/edgar/skill.rs KEY_HYPOTHESIS owns the strict acceptance text for admission-time grants, actor-index self exclusion, persistence without consumption and sampling only at Ultimate admission. These uncertain lifecycle rules are covered by native causal tests."
+  },
+  "healing_modifier_hypothesis": {
+    "id": "combat.live_healing_modifiers_v1",
+    "description_source": "crates/content/src/runtime_api.rs::HEALING_MODIFIERS_HYPOTHESIS",
+    "strict_validation": "registered in simulation/validation.rs; exact description required only when a nonzero modifier is reached by an Edgar/Be Happy callback"
+  },
+  "sources": [
+    {
+      "path": "data/global-2026-10-04/tables/DT_EdgarEffectFigure.json",
+      "sha256": "ca6bf09ce8e24b7d48747af08779219df97bbda21b5b5b426492e80a3bc29974",
+      "source_id": "table:DT_EdgarEffectFigure",
+      "pointers": [
+        "GA_UltraSkill_Treat_Value: 350 at talent level 1; source curve retained for level-specific values",
+        "GA_UltraSkill_Treat_MaxHPPer: 0.011 at talent level 1; source curve retained for level-specific values",
+        "GA_UltraSkill_Treat_Period: 1 second",
+        "GA_UltraSkill_Duration: 10 seconds",
+        "GA_UltraSkill_PerKeyAddDuration: 1 second per reached Key of Truth"
+      ]
+    },
+    {
+      "path": "data/extracted/guide_edgar.json",
+      "sha256": "961c085ec4403f73208019d2ee8432d4efd2cf99bdff58cb679c7969b746acd4",
+      "pointers": [
+        "Ultimate: heals the current character over 10 seconds",
+        "A5: Edgar Max HP +20%",
+        "A6: 15% DEF to allies within Finnegan's Wake"
+      ]
+    },
+    {
+      "path": "data/global-2026-10-04/tables/1021AwakenEffect.json",
+      "sha256": "e385441cf04998dddf3239898b05d494fbd4c3a1510d7841c4dc974d203424d2",
+      "source_id": "table:1021AwakenEffect",
+      "pointers": [
+        "1021 Effect1: teammate QTE grants one Key of Truth",
+        "1021 Effect5: Edgar Max HP +20%",
+        "1021 Effect6: 15% DEF to allies within Finnegan's Wake"
+      ]
+    },
+    {
+      "path": "data/extracted/neverness_edgar.json",
+      "sha256": "544d54df0e6d3af33a0faaf1c7c26c41011b733b882c5e0767618b4a8dbb47f4",
+      "pointers": [
+        "Passive2 Unchanging Warmth: Edgar's Redirect Skill Wild Current or Support Skill Weight of Knowledge grants one Key of Truth, cap three; each key extends Ultimate by one second",
+        "Awakening 1: teammate QTE grants one Key of Truth"
+      ]
+    }
+  ],
+  "runtime": {
+    "tick_schedule": "one callback each period, starting cast+period and including the duration endpoint; each Ultimate samples 0-3 currently held Keys of Truth at every awakening and uses 10 seconds plus one second per sampled key",
+    "key_of_truth": "An admitted own Skill or QTE grants one key at every awakening; at A1+, an admitted QTE by another living actor grants one key to each living Edgar by actor index, including off-field Edgar and another Edgar actor. This avoids double-granting the QTE wearer while permitting another Edgar to receive the A1 grant. Keys cap at three and persist through Burst and field switches under an explicit no-consumption hypothesis. Admission-time grants require living caster and owner; failed admission grants none. Keys gained during Wake extend a later Ultimate only; they do not move an already scheduled endpoint. The observer consumes the resolved admitted ability ID, so future supported PlayerInput ability adapters can use the same boundary. Edgar currently has no supported PlayerInput QTE route: PlayerInput only defines Special/Dodge and Edgar's input adapter remains unsupported.",
+    "key_trace": "edgar_key_of_truth_granted records actor/source and actual before/after key count; edgar_key_of_truth_sampled records the actual admission-time key count, zero consumed keys and Wake endpoint. Healing tick count/time exposes the scheduled endpoint.",
+    "heal_formula": "exact_base = flat_value + Edgar_live_MaxHP * max_hp_ratio; apply source healing_bonus and current-recipient incoming_healing_bonus multiplicatively once, round the combined exact amount once to nearest integer, then VitalState caps to missing HP",
+    "receipt": "edgar_healing_tick reports callback time, active recipient, source MaxHP, gross/applied/overflow healing, and HP transition",
+    "replacement": "each admitted Burst increments an owner generation; earlier callbacks become inert",
+    "unsupported": [
+      "A6 HP-loss charge conversion, rounding, frequency, cap settlement and any interaction with Burst damage remain unresolved; native 0.03 extra-charge ratio and 20.0 limit do not establish a free +20% Burst damage scalar",
+      "A6 DEF range geometry and native duration, stacking and removal rules remain unverified beyond the explicit collapsed in-range team lifecycle hypothesis",
+      "Other gear healing-bonus producers remain unmodeled; public heal% stats and Call of the Twisted City are supported, while exact reached callback modifiers have native tests",
+      "A6 native range geometry and recipients beyond the collapsed team model, plus Skill Wild Current continuous/lowest-HP healing, remain outside this result"
+    ]
+  },
+  "independent_oracles": [
+    "Native HP projection: base HP 1,000, +10% HP and +50 flat HP yields 1,150 at A4 and 1,350 at A5; base HP 1,001, +1/3 HP and +1/3 flat HP yields 1,535 at A5 after one settlement",
+    "L1 at 10,000 MaxHP: 350 + 10,000*0.011 = 460 per tick",
+    "L8 at 10,000 MaxHP: 600 + 10,000*0.0188 = 788 per tick",
+    "purchased L8 with resonance_3 at effective L9: 648 + 10,000*0.0203 = 851 per tick"
+  ],
+  "coverage": [
+    "native cast and callback delivery",
+    "current field recipient changes between ticks while Edgar is off-field",
+    "full-HP overflow and VitalState cap",
+    "reached callback modifiers use independent source-outgoing and recipient-incoming queries; stacked bonuses, cross-talk exclusion, strict missing/accepted hypothesis, and 3.5 base healing where modifier-before-rounding yields 4 are tested",
+    "10 ticks at exact 10-second endpoint and 9 ticks just before endpoint",
+    "recast invalidates coincident old tick and begins the replacement at its next period",
+    "dead source cancels; dead recipient is not revived",
+    "A0 own Skill followed by Burst samples one key and produces 11 healing ticks without changing Skill or Burst packet damage",
+    "A6 15% native DEF curve produces a timed team buff before same-time hits; an Edgar/Adler rotation independently checks Adler Skill 248 before and 278 during Wake, with Burst 1,240 on a hit at exact expiry using base DEF 1,000, existing DEF +20%, flat DEF +40, sourced Skill ratio 0.2 and Burst ratio 1.0; off-field living Edgar retains ownership and defeated Edgar stops applying the grant (later Skill 248)",
+    "A6 buff lifetime/recipient/source snapshot, exact half-open expiry, successful-admission guard, recast reset, latest-owner shared refresh without stacking, and strict missing/accepted hypothesis are covered by native scenarios",
+    "A1 teammate QTE grants one key to off-field Edgar; field switches preserve it, own QTE grants exactly once, and a fourth admitted own key grant leaves the capped count at three before a 13-tick Burst",
+    "An admitted Edgar QTE grants its own key and the A1 teammate key to a second Edgar actor; actor-index exclusion prevents self double-grants",
+    "A key gained during an active 10-tick Wake leaves that stream unchanged and is still sampled by a second Burst for an 11-tick stream; traces report actual sampled count and zero consumed keys",
+    "Non-QTE teammates, failed admissions, dead Edgar owners and defeated QTE casters grant no keys; strict mode requires the accepted key timing/lifecycle hypothesis",
+    "failed energy admission creates no healing stream",
+    "strict missing hypothesis rejects and explicit acceptance runs",
+    "A5 MaxHP projection uses base HP plus additive HP-percent and flat provenance with one nearest-integer settlement; caller-provided final MaxHP is never boosted again",
+    "Actual Worker/WASM and full native report parity pass for keyed A0 Burst at 2 seconds with ticks at 3-13 seconds, three-key Burst at 48 seconds with ticks at 49-61 seconds, independent unchanged packet damage, and the existing A4/A5 healing fixtures.",
+    "Native build compiler validates original vitals before awakening projection and preserves full or explicit damaged HP. The A5 scalar matches both frozen Effect5 and the Edgar figure curve. Non-Edgar identities receive no Edgar bonus; a full foreign Arachne build fixture is not claimed because its original derived HP reaches the unchanged integral-HP requirement in build/stats.rs."
+  ],
+  "checks": [
+    "python tools/cargo.py test -p ntesim-content --lib edgar --locked --offline",
+    "python tools/cargo.py clippy -p ntesim-content --lib --tests --locked --offline",
+    "node tools/web.mjs check",
+    "Supported player_inputs and marching_beyond_time native tests pass; actual marching_beyond_time Worker and full native report parity pass after the shared admission integration",
+    "tools/verify_edgar_kit.py checks a deliberate pre-expiry A6 active snapshot (CLI rc=2 accepted only with successful invariants and pending work), then a complete post-expiry A6 report in the full CLI/WASM parity batch; the verifier passes on the current artifacts",
+    "Changed Rust files pass targeted rustfmt; repository-wide cargo fmt --check still reports pre-existing formatting diffs outside this change",
+    "All build::tests and focused Edgar tests pass, including native A5 compilation, once-only HP settlement, source agreement, missing/contradictory research provenance and projection awakening range rejection",
+    "Current native CLI/release WASM builds, studio catalog generation, production web build and native_build web tests pass; NTESIM_VERIFY_NATIVE=1 selected edgar_actions and Full native tests pass actual Worker and full report parity",
+    "Research library tests compile with --no-run after migrating the manual static-stat constructors; this is compilation coverage, not a claim that legacy research scenarios pass",
+    "Native `edgar_a6_def_window_runs_native_adler_skill_and_burst_damage`, `edgar_a6_def_hypothesis_is_a_strict_native_boundary`, and the focused `python tools/cargo.py test -p ntesim-content --locked --offline edgar` pass. `node tools/web.mjs check` passes. A6 allied DEF is executable under edgar.a6_wake_team_def_v1; range geometry and native inherited timing/stack/removal evidence remain pending. The native 0.03 charge and 20.0 limit rows do not settle A6 HP-loss energy conversion or a damage modifier. The authored Edgar/Adler Worker report and full native report parity, the combined Edgar owner plus parity web test, and `tools/verify_edgar_kit.py` pass on current artifacts. No full Edgar kit readiness is claimed."
+  ],
+  "selected_checks": [
+    "Final CLI/WASM builds, catalog generation and production build pass; actual Edgar and Be Happy Worker/full native report parity and tools/verify_edgar_kit.py pass after exact healing integration. Those historical public fixtures carry zero healing modifiers; nonzero coverage remains native managed-buff callback fixtures. Castle public DSL nonzero healing modifiers now pass actual Worker/full native report parity; see reviews/q1-castle/receipt.json.",
+    "python tools/cargo.py test -p ntesim-core --lib healing --locked --offline",
+    "python tools/cargo.py test -p ntesim-content --lib edgar --locked --offline",
+    "python tools/cargo.py clippy -p ntesim-core --lib --tests --locked --offline",
+    "python tools/cargo.py clippy -p ntesim-content --lib --tests --locked --offline",
+    "simulation::tests::edgar_actions::healing_modifier_hypothesis_is_known_and_exact_text_is_required_in_strict_mode",
+    "simulation::runtime::assumption_merge_tests::callback_healing_hypothesis_reaches_resolved_report_assumptions"
+  ],
+  "remaining_edgar_work": [
+    "A6 range geometry and native lifetime/stacking/removal behavior beyond the tested collapsed team hypothesis; HP-loss charge conversion and any Burst-damage interaction",
+    "Wild Current channel intervals and lowest-HP teammate healing",
+    "plunge, riposte and complete kit interactions"
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "scope": "Edgar ordinary five-input Normal chain in the shared gameplay runner",
+  "quality": "executable modeled chain; complete kit pending",
+  "hypothesis_id": "edgar.normal_chain_v1",
+  "sources": [
+    "data/extracted/neverness_edgar.json: Basic Combat Practice, Melee1_des through Melee5_des",
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json: GE_Player_Edgar_Melee1_Damage through Melee5_Damage",
+    "reviews/q10-game-action-binding/edgar-action-binding-model.json: frozen source hashes"
+  ],
+  "decision": "Each admitted Normal input advances one of five stages, looping after the fifth. Stage three delivers two native Melee3 packets; the remaining stages deliver one. Native talent projection and live delivery modifiers remain shared. The admitted input ledger retains the primary input binding; hit receipts identify the actual stage packet.",
+  "hypotheses": [
+    "A different admitted ability or field exit resets the chain; a same-actor switch does not.",
+    "A gap greater than 2 seconds between input starts resets the chain; the exact 2-second boundary continues. This is a research continuity convention, not measured animation timing.",
+    "The third-stage projectiles deliver in order at the input's research primary impact time. Native animation/travel intervals remain unresolved."
+  ],
+  "independent_oracles": [
+    "At 1000 ATK and 0.5 DEF, level-one stages deal 154.5, 313.5, 195+195, 416.5, 349: five inputs total 1623.5. A sixth looping input gives 1778.",
+    "Level-eight stages deal 265, 537.5, 334+334, 714, 598: five inputs total 2783.5. A sixth looping input gives 3047.5. Normal is excluded from Edgar resonance_3."
+  ],
+  "checks": [
+    "Native owner tests verify per-packet damage, stage identities, loop, reset boundaries, no-op switch, pending horizon and off-field projectile ownership.",
+    "Public attack:5 scripts verify independent per-hit and total damage at levels 1 and 8 through Worker/WASM and full native report parity."
+  ],
+  "pending": [
+    "Measured reset/cancel rules and packet intervals; return when frozen animation evidence provides a concrete model.",
+    "AoE, projectile travel, plunge, riposte, healing, ordinary energy and remaining kit behavior."
+  ]
+}

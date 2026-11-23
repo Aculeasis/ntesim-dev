@@ -1,0 +1,7 @@
+# Explicit synthetic quantities, not character coefficients or game timings.
+clock 0;
+do ward;
+repeat 2 {
+    wait 10;
+    do attack;
+}

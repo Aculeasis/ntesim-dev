@@ -1,0 +1,20 @@
+# One earned extra Skill preserves each ordinary sixteen-second deadline.
+# This source still declares the bounded caller timing for Lacrimosa's actions.
+options duration=100 seed=42;
+lacrimosa char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_energy=0;
+target hp=100000000 def=1080 resist=0;
+target hp=100000000 def=1080 resist=0;
+active lacrimosa;
+
+repeat 2 {
+    let ready_at=.time+16;
+    lacrimosa skill;
+    lacrimosa attack:4;
+    if .lacrimosa.skill.ready {wait(999);}
+    lacrimosa attack;
+    if !.lacrimosa.skill.ready || .lacrimosa.skill.cd!=0 {wait(999);}
+    lacrimosa skill;
+    lacrimosa attack:5;
+    if .lacrimosa.skill.ready || .lacrimosa.skill.cd+.time!=ready_at {wait(999);}
+    wait_until(ready_at);
+}

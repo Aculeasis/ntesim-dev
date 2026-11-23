@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "status": "modeled_and_tested",
+  "owner": "aurelia",
+  "character_id": "character:1070",
+  "hypotheses": [
+    "aurelia.ordinary_hit_energy_v1",
+    "aurelia.normal_chain_v1",
+    "aurelia.skill_burst_packets_v1"
+  ],
+  "scenario": {
+    "source": "nine four-input Normal chains, one Skill, one 100-energy Burst, then one four-input Normal chain",
+    "starting_energy": 0,
+    "energy_capacity": 120,
+    "recipient_efficiency": "1/1",
+    "other_living_recipient_relation": "3/5",
+    "source_packets": [
+      "GE_Player_Mitsuki_Melee1_Damage",
+      "GE_Player_Mitsuki_Melee2_Damage",
+      "GE_Player_Mitsuki_Melee3_Damage x3",
+      "GE_Player_Mitsuki_Melee4_Damage x4",
+      "GE_Player_Mitsuki_Skill_Damage"
+    ]
+  },
+  "independent_oracle": {
+    "normal_chain_charge_add_milli": [2168, 3936, 1872, 1872, 1872, 620, 620, 620, 620],
+    "skill_charge_add_milli": 6700,
+    "pre_burst_charge_add": "9*14.2 + 6.7 = 134.5",
+    "pre_burst_settlement": "134 whole gross, 0.5 carry, 120 retained, 14 overflow",
+    "burst": "100 spent; 20 remains",
+    "post_burst_normal_chain": "14 whole gross; final source energy 34",
+    "source_final": {
+      "granted": 148,
+      "spent": 100,
+      "overflow": 14,
+      "energy": 34,
+      "charge_remainder": "7/10"
+    },
+    "each_other_living_recipient_final": {
+      "relation": "3/5",
+      "granted": 89,
+      "energy": 89,
+      "charge_remainder": "11/50"
+    },
+    "values_are_literal_test_expectations": true
+  },
+  "checks": [
+    "Rust ordinary_hit_energy test validates every exact per-packet ChargeAdd, source/ally distribution, carry, capacity/overflow, Burst spend and final ledger.",
+    "Actual compiled NTE Worker test checks 97 hit receipts and all 91 ordinary source packets; native CLI and WASM reports match the Worker report.",
+    "Starting energy is zero; the Burst is admitted only after modeled ordinary chain and Skill energy grants."
+  ],
+  "limits": [
+    "Ordinary-hit eligibility, positive-HP-loss gating, per-packet grants and 3/5 ally distribution remain the named Aurelia model hypothesis, not established native caller behavior.",
+    "NTE browser inputs are currently compile-time scheduled; this does not establish live readiness waits or a shared live interpreter.",
+    "Natural AirAttack/EvadeBranch dispatch and their direct-packet energy policy are outside this scenario."
+  ],
+  "source_sha256": {
+    "data/global-2026-10-04/tables/DT_SkillDamageData.json": "917b0c3675412c0425a0724d09e7dd8ae4d1ef9a100d2ea5669d7484d0901bf2",
+    "data/global-2026-10-04/tables/DT_SkillTeamChargeRelationData.json": "5e456919997b0f77c4b569ce812267a059bab553a1f87fcb863723c44b66363b"
+  }
+}

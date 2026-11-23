@@ -1,0 +1,13 @@
+options iteration=1 duration=45 seed=42;
+aurelia char lvl=80/80 awakening=0 talent=1,1,1 qte=1;
+aurelia add weapon=fork_moon refine=1;
+aurelia add stats dmg%=0.25 cr=0.95;
+mint char lvl=80/80 awakening=0 talent=1,1,1 qte=1;
+target hp=100000000 def=0 resist=0;
+active aurelia;
+
+# Native sibling packets share one stack attempt; eleven inputs reach the cap.
+aurelia attack:11; mint swap; mint attack:5;
+# The first stack generation expires off field; the second starts from zero.
+wait_until(25); aurelia swap; aurelia attack:11;
+wait(6);

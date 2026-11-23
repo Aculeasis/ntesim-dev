@@ -1,0 +1,6 @@
+// Continuous held Normal prefixes and three reached heavy sections, twice.
+options duration=8;
+nanally char lvl=80/80 awakening=0 talent=8,8,8 qte=8 start_energy=0;
+target hp=100000000 def=1080 resist=0;
+active nanally;
+nanally attack[hold=3s]:2;

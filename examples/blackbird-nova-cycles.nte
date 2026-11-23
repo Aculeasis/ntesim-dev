@@ -1,0 +1,11 @@
+options duration=30 seed=42;
+blackbird char lvl=80/80 awakening=0 talent=8,8,8 qte=8 start_cycle=100;
+blackbird add weapon=fork_twinbirds refine=1;
+lacrimosa char lvl=80/80 awakening=0 talent=8,8,8 qte=8 start_cycle=100;
+target hp=100000000 def=1080 resist=0;
+active blackbird;
+
+# Each authored generation spends its outgoing Cycle once. Its automatic child
+# gets its own accumulator and cannot create a grandchild. State is never reset.
+lacrimosa swap; wait(1); lacrimosa attack:2; wait(11);
+blackbird swap; wait(1); blackbird attack:2; wait(11);

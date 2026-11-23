@@ -1,0 +1,11 @@
+# Partial unequipped Aurelia rotation: two Skill casts (1 hit each) and one Burst (6 hits).
+# Timing uses the disclosed coincident-packet model; animation delays, jellyfish tracking and AoE are pending.
+options iteration=1 duration=15 crit=fixed;
+aurelia char lvl=80/80 awakening=0 talent=8,8,8 qte=8;
+mint char lvl=80/80 awakening=0 talent=8,8,8 qte=8;
+target hp=10000000 def=1080 resist=0;
+active aurelia;
+aurelia skill, burst;
+mint swap;
+wait(11);
+aurelia skill;

@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "scope": "Worldrain weapon passive projection and runtime damage bonus",
+  "quality": "executable weapon passive; secondary cycle intensity unmodeled",
+  "weapon_id": "weapon:fork_Worldrain",
+  "apply_group_type": "ECharacterGroupType::CHARACTER_GROUP_TYPE_ONE",
+  "sources": [
+    "data/global-2026-10-04/tables/DT_ForkItemData.json",
+    "data/global-2026-10-04/tables/DT_ForkUpgradeStarDataTable.json",
+    "data/global-2026-10-04/tables/CT_ForkBuff.json"
+  ],
+  "model": [
+    "Worldrain passive grants Cosmos damage bonus across tiers 1 to 5: 30%, 33%, 36%, 39%, 42%.",
+    "Eligibility is bounded to Cosmos packets with native DamageSourceCategory E or Q (Redirect Skill or Ultimate).",
+    "Eligibility follows delivered packets, including off-field delivery, independently of active input role.",
+    "Secondary Cycle Intensity proc (36/45/54/63/72 for 15s after Redirect Skill) remains unmodeled in the damage zone.",
+    "Global release availability remains unverified in the frozen catalog."
+  ],
+  "checks": [
+    "worldrain unit tests pass: independent damage oracles at 1000 ATK, 0 RES, 0.5 DEF verify E and Q Cosmos packets scale linearly across T1-T5 (130/1, 133/1, 136/1, 139/1, 142/1 for Skill Lv1; 17251/20, 176491/200, 22559/25, 184453/200, 94217/100 for Burst Lv1).",
+    "Normal attacks (A), non-Cosmos packets (E Nature, Q Normal), and non-equipped actors receive no bonus.",
+    "Off-field skill delivery retains wearer eligibility after switching.",
+    "Web test suite in weapon_passives.test.mjs verifies T1-T5 damage bonus with NTESIM_VERIFY_NATIVE=1 matching native CLI/WASM.",
+    "Group incompatibility check rejects equipping on non-Group-ONE characters."
+  ],
+  "source_sha256": {
+    "data/global-2026-10-04/tables/DT_ForkItemData.json": "22f6f587ad9bf3d54905889e81bfe8f213fa29c49522499287c53d42fd6900a4",
+    "data/global-2026-10-04/tables/DT_ForkUpgradeStarDataTable.json": "b15f6c4cf4b8a6e1c982b431176b406a501f38861a67ddce45a0f589cdeed8c5",
+    "data/global-2026-10-04/tables/CT_ForkBuff.json": "93d1ed2069bc8e4358f98bfb5a3e212c13ad84e67eb6379e38414aa665539c15"
+  }
+}

@@ -1,0 +1,10 @@
+// Natural Cycle generation, qualified spend, enhanced Buds and continuing carry.
+options duration=40;
+nanally char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_energy=0 start_cycle=0;
+zero char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_energy=0 start_cycle=100;
+target hp=100000000 def=1080 resist=0;
+active nanally;
+repeat 4 { nanally attack:5; wait(700ms); }
+zero swap;
+nanally swap;
+nanally attack;

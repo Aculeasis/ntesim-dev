@@ -1,0 +1,12 @@
+options iteration=1 duration=85 crit=fixed;
+zero char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_energy=100;
+zero add weapon=fork_BlastCandy refine=1;
+adler char lvl=80/80 awakening=0 talent=1,1,1 qte=1;
+target hp=100000000 def=0 resist=0;
+active zero;
+
+zero burst; zero attack:5; adler swap;
+wait_until(15); zero swap; wait(0.6);
+repeat 10 { zero attack:5; }
+zero burst; zero attack:5; adler swap;
+wait(12); zero swap; wait(0.6); zero attack:5;

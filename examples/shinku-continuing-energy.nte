@@ -1,0 +1,16 @@
+# Shinku A0 rotation: build ordinary Ultimate energy from empty, pay once, then continue.
+# The ordinary chain and initial Burst are modeled; Rage follow-up inputs are excluded.
+options iteration=1 duration=44 crit=fixed;
+shinku char lvl=80/80 awakening=0 talent=8,8,8 qte=8 start_energy=0;
+mint char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_energy=0;
+sakiri char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_energy=0;
+target hp=100000000 def=1080 resist=0;
+active shinku;
+
+repeat 6 { shinku attack:5; }
+shinku skill;
+wait(4.8s);
+shinku skill;
+shinku burst;
+wait(6s);
+shinku attack:5;

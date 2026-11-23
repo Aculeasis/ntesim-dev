@@ -1,0 +1,17 @@
+options iteration=1 duration=30 crit=fixed;
+mint char lvl=80/80 awakening=0 talent=1,1,1 qte=1;
+mint add weapon=fork_MotorCandy refine=1;
+adler char lvl=80/80 awakening=0 talent=1,1,1 qte=1;
+target hp=100000000 def=0 resist=0;
+active mint;
+
+mint attack;
+wait_until(1); mint attack;
+wait_until(5); mint skill;
+wait_until(7); adler swap; adler attack;
+
+# A new field entry starts a fresh clock; resources and cooldowns continue.
+wait_until(15); mint swap; mint attack;
+wait_until(16.25); mint attack;
+wait_until(20.25); mint skill;
+wait_until(22); adler swap; adler attack;
