@@ -106,6 +106,7 @@ class BrowserDistributionTests(unittest.TestCase):
         job = workflow["jobs"]["deploy"]
         self.assertEqual(job["environment"]["name"], "github-pages")
         self.assertEqual(job["env"]["NTESIM_BUILD_CPUS"], "all")
+        self.assertEqual(job["env"]["RUSTUP_HOME"], "${{ github.workspace }}/cache/rustup")
         steps = job["steps"]
         actions = {s.get("uses", "").split("@")[0]: i for i, s in enumerate(steps) if "uses" in s}
         self.assertEqual(steps[actions["actions/checkout"]]["with"]["fetch-depth"], 0)

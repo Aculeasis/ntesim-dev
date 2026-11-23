@@ -28,6 +28,8 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     env:
       NTESIM_BUILD_CPUS: all
+      # Install into the same Rustup home that tools/cargo.py checks first.
+      RUSTUP_HOME: ${{ github.workspace }}/cache/rustup
     steps:
       - uses: actions/checkout@v7
         with:
