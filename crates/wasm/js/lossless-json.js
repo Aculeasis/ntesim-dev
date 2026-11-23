@@ -1,15 +1,31 @@
+function endOfJsonString(text, start) {
+  for (let quote = text.indexOf('"', start); quote !== -1; quote = text.indexOf('"', start)) {
+    // An odd run of backslashes escapes the quote.
+    let before = quote;
+    while (before > start && text[before - 1] === '\\') before--;
+    if ((quote - before) % 2 === 0) return quote + 1;
+    start = quote + 1;
+  }
+  throw new SyntaxError('Unterminated JSON string');
+}
+
 function parseLosslessJson(text) {
-  // Consume complete strings before numeric tokens, so quoted numbers and
-  // escapes stay verbatim. Keep slices only where unsafe integers change;
-  // safe-only documents go straight to the native parser without a second copy.
-  // Scan runs of ordinary string characters together; escapes are disjoint.
-  const tokens = /"[^"\\]*(?:\\.[^"\\]*)*"|(-?(?:0|[1-9]\d*)(?:\.\d+)?(?:[eE][+-]?\d+)?)/g;
+  // Match opening quotes separately so a missing closing quote cannot restart the scan.
+  const tokens = /"|(-?(?:0|[1-9]\d*)(?:\.\d+)?(?:[eE][+-]?\d+)?)/g;
+  const keyEnd = /[ \t\n\r]*:/y;
   let match, previous = 0, parts;
   while ((match = tokens.exec(text))) {
     const token = match[1];
-    if (!token || /[.eE]/.test(token) || Number.isSafeInteger(Number(token))) continue;
+    if (token === undefined) {
+      tokens.lastIndex = endOfJsonString(text, tokens.lastIndex);
+      continue;
+    }
+    if (/[.eE]/.test(token) || Number.isSafeInteger(Number(token))) continue;
+    // Leave unquoted object keys invalid for JSON.parse.
+    keyEnd.lastIndex = tokens.lastIndex;
+    if (keyEnd.test(text)) continue;
     (parts ??= []).push(text.slice(previous, match.index), JSON.stringify(token));
-    previous = match.index + token.length;
+    previous = tokens.lastIndex;
   }
   if (parts) {
     parts.push(text.slice(previous));

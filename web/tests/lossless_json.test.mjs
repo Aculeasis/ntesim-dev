@@ -34,6 +34,8 @@ for (const malformed of [
   '"bad\\x"',
   '"newline\n"',
   '"unterminated9007199254740993',
+  '"unfinished\\"',
+  '{"ok":9007199254740993, 9007199254740993 \t: 0}',
 ])
   assert.throws(() => parseLosslessJson(malformed), SyntaxError);
 console.log(
