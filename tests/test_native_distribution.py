@@ -6,8 +6,9 @@ from pathlib import Path
 import stat
 import subprocess
 import sys
+from types import SimpleNamespace
 import unittest
-from unittest.mock import patch
+from unittest.mock import call, patch
 import warnings
 import zipfile
 
@@ -128,6 +129,22 @@ class BrowserDistributionTests(unittest.TestCase):
         with patch.object(Path, "read_bytes", lambda path: read(path) + (
                 b"\n# changed" if path == ROOT / "tools/studio_build.py" else b"")):
             self.assertNotEqual(browser.source_identity()["inputs_sha256"], before["inputs_sha256"])
+
+    def test_browser_build_prefetches_workspace_dependencies_only_online(self):
+        vite = ["node", "tools/web.mjs", "build"]
+        for offline in (False, True):
+            with self.subTest(offline=offline), temporary_directory(prefix="browser-build-") as temporary, \
+                 patch.object(browser, "os", SimpleNamespace(environ={})), \
+                 patch.object(browser, "studio_build", return_value={}), \
+                 patch.object(browser, "cargo") as cargo, \
+                 patch.object(browser.subprocess, "run", side_effect=subprocess.CalledProcessError(1, vite)) as run:
+                with self.assertRaises(subprocess.CalledProcessError):
+                    browser.build(Path(temporary) / "studio.zip", offline)
+                expected = [] if offline else [call("fetch", "--locked")]
+                expected.append(call("build", "-p", "ntesim-wasm", "--release", "--target", browser.TARGET,
+                                     "--locked", *(["--offline"] if offline else [])))
+                self.assertEqual(cargo.call_args_list, expected)
+                self.assertEqual(run.call_args.args, (vite,))
 
     def test_build_identity_uses_head_and_only_explicit_tags(self):
         with git_fixture() as root:

@@ -213,6 +213,9 @@ def build(output, offline, release=False):
     os.environ["NTESIM_STUDIO_BUILD"] = env["NTESIM_STUDIO_BUILD"]
     if output.exists() or output.with_suffix(output.suffix + ".sha256").exists():
         raise ValueError("archive and checksum destinations must be new")
+    if not offline:
+        # Offline staging queries workspace metadata, including host dependencies.
+        cargo("fetch", "--locked")
     cargo("build", "-p", "ntesim-wasm", "--release", "--target", TARGET,
           "--locked", *(["--offline"] if offline else []))
     if release:
