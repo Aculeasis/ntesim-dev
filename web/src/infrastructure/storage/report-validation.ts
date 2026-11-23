@@ -205,8 +205,17 @@ export function validateReportBundle(
     for (const key of ['count', 'mean', 'min', 'max', 'std', 'p25', 'p50', 'p75'])
       if (typeof stats[key] !== 'number' || !Number.isFinite(stats[key])) throw invalid();
   };
-  const isAvailable = (key: string, b: 'relative' | 'absolute') =>
-    array(target.samples).every((sample) => record(record(sample)[key])[b] !== null);
+  const availabilityCache = new Map<string, boolean>();
+  const isAvailable = (key: string, b: 'relative' | 'absolute') => {
+    const cacheKey = `${key}:${b}`;
+    const cached = availabilityCache.get(cacheKey);
+    if (cached !== undefined) return cached;
+    const available = array(target.samples).every(
+      (sample) => record(record(sample)[key])[b] !== null,
+    );
+    availabilityCache.set(cacheKey, available);
+    return available;
+  };
 
   for (const key of ['dps', 'eps', 'granted_eps', 'hps', 'shp']) {
     const pair = record(metrics[key]);
