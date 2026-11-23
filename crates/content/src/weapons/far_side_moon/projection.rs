@@ -67,7 +67,10 @@ pub(crate) fn project(
     )?;
     let proc = GearProcConfig::FarSideMoon {
         crit_rate_bonus: ratio(parameter("buff_Prism_CritUp")?)?,
-        skill_damage_bonus: ratio(parameter("buff_Prism_DamageUp1")?)?,
+        skill_damage_per_stack: ratio(
+            parameter("buff_Prism_DamageUp1")?
+                .div(ExactFraction::new(u128::from(super::MAX_SKILL_STACKS), 1)?)?,
+        )?,
         basic_attack_damage_bonus: ratio(parameter("buff_Prism_DamageUp2")?)?,
         lakshana_damage_bonus: ratio(parameter("buff_Prism_LakshanaUp")?)?,
         duration_us,
@@ -78,8 +81,8 @@ pub(crate) fn project(
         proc,
         native,
         json!({"runtime_execution_validated":true,
-        "runtime_evidence":"Native Rust regressions check Daffodil Skill, one ordinary Normal packet and Burst packets against equipped-static-stat baselines; the public web oracle authors all nineteen Normal hits and awaits refreshed CLI/WASM parity verification.",
-        "known_gaps":"Frozen release availability, native cast-to-hit timing and full Daffodil kit lifecycle are unverified. The Redirect Skill refresh, 15-second world-time window, and same-time grant order are explicit tested hypotheses.",
+        "runtime_evidence":"Continuing Daffodil sources exercise Basic Attack stack generation and Redirect Skill delivery at all five refinements. A controlled Lakshana packet test checks the overlap bonus and its expiry.",
+        "known_gaps":"Shared stack refresh at cap, world-time duration and equal-time grant order are explicit model assumptions. The supported roster has no native Lakshana wearer in this weapon group.",
         "scope":crate::weapons::far_side_moon::HYPOTHESIS_ID.description()}),
     )
 }

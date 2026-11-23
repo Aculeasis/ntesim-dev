@@ -139,6 +139,7 @@ pub(crate) fn apply(event: ContentEvent, ctx: &mut CallbackContext<'_>) -> Resul
         | ContentEvent::BitGameOffFieldStack { .. }
         | ContentEvent::BitGameOnFieldStack { .. }
         | ContentEvent::FarSideMoonGrant { .. }
+        | ContentEvent::FarSideMoonSkillStack { .. }
         | ContentEvent::KnightCandyCritStack { .. }
         | ContentEvent::OraoraBasicAttackStack { .. }
         | ContentEvent::MindRoyaleEnergyGrant { .. }

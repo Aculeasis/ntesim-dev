@@ -151,7 +151,7 @@ export type GearProc =
   | {
       kind: 'far_side_moon';
       crit_rate_bonus: Ratio;
-      skill_damage_bonus: Ratio;
+      skill_damage_per_stack: Ratio;
       basic_attack_damage_bonus: Ratio;
       lakshana_damage_bonus: Ratio;
       duration_us: number;

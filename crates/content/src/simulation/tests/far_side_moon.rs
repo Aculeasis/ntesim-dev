@@ -11,8 +11,8 @@ fn request() -> GameScenarioRequest {
             numerator: 16,
             denominator: 100,
         },
-        skill_damage_bonus: Ratio {
-            numerator: 28,
+        skill_damage_per_stack: Ratio {
+            numerator: 7,
             denominator: 100,
         },
         basic_attack_damage_bonus: Ratio {
@@ -206,8 +206,8 @@ fn far_side_of_the_moon_scales_native_daffodil_skill_normal_and_burst_packets_by
             ExactFraction::new(1, 1).unwrap()
         };
         let mut bonus = ExactFraction::new(0, 1).unwrap();
-        if category.ends_with("_E") {
-            bonus = bonus.add(ExactFraction::new(28, 100).unwrap()).unwrap();
+        if category.ends_with("_E") && time >= 16_000_000 {
+            bonus = bonus.add(ExactFraction::new(14, 100).unwrap()).unwrap();
         }
         if category.ends_with("_A")
             && ((support::world_time_at(&report, time) < 15_000_000)
@@ -311,6 +311,7 @@ fn far_side_of_the_moon_filters_delivered_categories_and_elements_and_refreshes_
     use crate::simulation::metadata::InputActionRole;
     let mut equipped = request();
     equipped.actors[0].static_stats.crit_rate = Ratio::zero();
+    equipped.relative_duration_us = 24_000_000;
     append_synthetic(
         &mut equipped,
         0,
@@ -434,13 +435,22 @@ fn far_side_of_the_moon_filters_delivered_categories_and_elements_and_refreshes_
         let owner = hit["actor_index"] == 0;
         let active = owner && time < 18_000_000;
         let mut bonus = ExactFraction::new(0, 1).unwrap();
-        if owner && category.ends_with("_E") {
-            bonus = bonus.add(ExactFraction::new(28, 100).unwrap()).unwrap();
+        let stacks = if time > 5_000_000 && time <= 10_000_000 {
+            2u32
+        } else if time > 1_000_000 && time <= 6_000_000 {
+            1u32
+        } else {
+            0u32
+        };
+        if owner && category.ends_with("_E") && stacks > 0 {
+            bonus = bonus
+                .add(ExactFraction::new(u128::from(stacks) * 7, 100).unwrap())
+                .unwrap();
         }
         if active && category.ends_with("_A") {
             bonus = bonus.add(ExactFraction::new(28, 100).unwrap()).unwrap();
         }
-        if active && element == "lakshana" {
+        if active && stacks > 0 && element == "lakshana" {
             bonus = bonus.add(ExactFraction::new(16, 100).unwrap()).unwrap();
         }
         let expected = exact(&base["non_crit_damage"])
@@ -456,10 +466,18 @@ fn far_side_of_the_moon_filters_delivered_categories_and_elements_and_refreshes_
             .count(),
         2
     );
+    assert_eq!(
+        events
+            .iter()
+            .filter(|entry| entry["event_kind"] == "far_side_moon_skill_stack")
+            .count(),
+        3
+    );
     assert!(
         crate::simulation::tests::support::final_buffs(&report)
             .iter()
-            .all(|buff| buff["id"] != "far_side_moon.redirect_window")
+            .all(|buff| buff["id"] != "far_side_moon.redirect_window"
+                && buff["id"] != "far_side_moon.skill_stacks")
     );
 }
 
@@ -528,6 +546,7 @@ fn far_side_moon_projection_binds_five_curves() {
     let tables = projection_tables();
     let expected_crit = [(4, 25), (1, 5), (6, 25), (7, 25), (8, 25)];
     let expected_damage = [(7, 25), (7, 20), (21, 50), (49, 100), (14, 25)];
+    let expected_skill_stack = [(7, 100), (7, 80), (21, 200), (49, 400), (7, 50)];
     let mut actor = projection_actor();
     for tier in 1..=5 {
         let i = (tier - 1) as usize;
@@ -544,12 +563,16 @@ fn far_side_moon_projection_binds_five_curves() {
         let proc = &report["compiled_proc"];
         let (cn, cd) = expected_crit[i];
         let (dn, dd) = expected_damage[i];
+        let (sn, sd) = expected_skill_stack[i];
         assert_eq!(proc["crit_rate_bonus"], json!(format!("{}/{}", cn, cd)));
         assert_eq!(
             proc["lakshana_damage_bonus"],
             json!(format!("{}/{}", cn, cd))
         );
-        assert_eq!(proc["skill_damage_bonus"], json!(format!("{}/{}", dn, dd)));
+        assert_eq!(
+            proc["skill_damage_per_stack"],
+            json!(format!("{}/{}", sn, sd))
+        );
         assert_eq!(
             proc["basic_attack_damage_bonus"],
             json!(format!("{}/{}", dn, dd))
@@ -624,8 +647,184 @@ fn far_side_moon_tier_values_hand_derived() {
     for ((n, d), (en, ed)) in damage_decimals.iter().zip(damage_expected.iter()) {
         assert_eq!(reduced(*n, *d), (*en, *ed));
     }
+    // Skill stack per-stack decimals (DamageUp1 / 4) reduced to exact fractions:
+    // 0.07 -> 7/100, 0.0875 -> 7/80, 0.105 -> 21/200, 0.1225 -> 49/400, 0.14 -> 7/50.
+    let skill_stack_decimals = [(28, 400), (35, 400), (42, 400), (49, 400), (56, 400)];
+    let skill_stack_expected = [(7, 100), (7, 80), (21, 200), (49, 400), (7, 50)];
+    for ((n, d), (en, ed)) in skill_stack_decimals.iter().zip(skill_stack_expected.iter()) {
+        assert_eq!(reduced(*n, *d), (*en, *ed));
+    }
     // Overlap falsifier: at T1 an A-category Lakshana packet inside the window gets
     // 1 + 7/25 + 4/25 = 36/25 additively, not (1+7/25) x (1+4/25) = 928/625 multiplicatively.
     assert_eq!(reduced(25 + 7 + 4, 25), (36, 25));
     assert_ne!(reduced(25 + 7 + 4, 25), reduced(32 * 29, 25 * 25));
+}
+
+#[test]
+fn far_side_of_the_moon_stacks_bounded_refresh_at_cap_and_respect_acquisition_gate_and_positive_hp_loss()
+ {
+    use crate::simulation::metadata::InputActionRole;
+    let mut request = request();
+    // Hit 0 at 0us: Non-Basic (category E) packet -> does NOT grant stack
+    append_synthetic(&mut request, 0, InputActionRole::Normal, "CHAOS", "E", 0);
+    // Hit 1 at 100_000us: Basic Attack (category A) packet -> grants stack 1 (expires at 5_100_000)
+    append_synthetic(
+        &mut request,
+        100_000,
+        InputActionRole::Normal,
+        "CHAOS",
+        "A",
+        0,
+    );
+    // Hit 2 at 200_000us (< 300ms since Hit 1): category A packet -> rejected by acquisition gate
+    append_synthetic(
+        &mut request,
+        200_000,
+        InputActionRole::Normal,
+        "CHAOS",
+        "A",
+        0,
+    );
+    // Hit 3 at 450_000us (>= 300ms since Hit 1): category A packet -> grants stack 2 (expires at 5_450_000)
+    append_synthetic(
+        &mut request,
+        450_000,
+        InputActionRole::Normal,
+        "CHAOS",
+        "A",
+        0,
+    );
+    // Hit 4 at 800_000us: category A packet -> grants stack 3 (expires at 5_800_000)
+    append_synthetic(
+        &mut request,
+        800_000,
+        InputActionRole::Normal,
+        "CHAOS",
+        "A",
+        0,
+    );
+    // Hit 5 at 1_200_000us: category A packet -> grants stack 4 (cap reached, expires at 6_200_000)
+    append_synthetic(
+        &mut request,
+        1_200_000,
+        InputActionRole::Normal,
+        "CHAOS",
+        "A",
+        0,
+    );
+    // Hit 6 at 1_600_000us: category A packet at cap -> stays at 4 stacks, refreshes deadline to 6_600_000
+    append_synthetic(
+        &mut request,
+        1_600_000,
+        InputActionRole::Normal,
+        "CHAOS",
+        "A",
+        0,
+    );
+    // Hit 7 at 2_000_000us by ally (actor_index 1): category A packet -> does not grant wearer stacks
+    request.actions.push(GameActionCommand::SwitchActor {
+        timestamp_us: 1_900_000,
+        target_actor_index: 1,
+        cooldown_us: 0,
+    });
+    append_synthetic(
+        &mut request,
+        2_000_000,
+        InputActionRole::Normal,
+        "CHAOS",
+        "A",
+        0,
+    );
+    if let Some(GameActionCommand::InvokeAbility { actor_index, .. }) = request.actions.last_mut() {
+        *actor_index = 1;
+    }
+    request.actions.push(GameActionCommand::SwitchActor {
+        timestamp_us: 2_100_000,
+        target_actor_index: 0,
+        cooldown_us: 0,
+    });
+    // Hit 8 at 6_599_999us: Category E packet inside the 4-stack window -> gains 4 * 7/100 = 28/100
+    append_synthetic(
+        &mut request,
+        6_599_999,
+        InputActionRole::Normal,
+        "CHAOS",
+        "E",
+        0,
+    );
+    // Hit 9 at 6_600_000us: Category E packet exactly at expiry (expiry precedes hit) -> 0 bonus
+    append_synthetic(
+        &mut request,
+        6_600_000,
+        InputActionRole::Normal,
+        "CHAOS",
+        "E",
+        0,
+    );
+
+    let mut ally = request.actors[0].clone();
+    ally.slot = 1;
+    ally.character_id = "character:1019".into();
+    ally.weapon_id.clear();
+    ally.gear_procs.clear();
+    request.actors.push(ally);
+
+    let mut baseline = request.clone();
+    baseline.actors[0].gear_procs.clear();
+    baseline.actors[0].weapon_id.clear();
+    let base_report = run_game_scenario(&baseline, &ExecutionLimits::default()).unwrap();
+    let report = run_game_scenario(&request, &ExecutionLimits::default()).unwrap();
+    assert_eq!(report["execution_completed"], true);
+
+    let base_hits = base_report["hit_receipts"].as_array().unwrap();
+    let hits = report["hit_receipts"].as_array().unwrap();
+    assert_eq!(hits.len(), base_hits.len());
+
+    let hit8 = hits
+        .iter()
+        .find(|h| h["time_us"] == 6_599_999 && h["actor_index"] == 0)
+        .unwrap();
+    let base8 = base_hits
+        .iter()
+        .find(|h| h["time_us"] == 6_599_999 && h["actor_index"] == 0)
+        .unwrap();
+    let expected8 = exact(&base8["non_crit_damage"])
+        .mul(ExactFraction::new(128, 100).unwrap())
+        .unwrap();
+    assert_eq!(exact(&hit8["non_crit_damage"]), expected8);
+
+    let hit9 = hits
+        .iter()
+        .find(|h| h["time_us"] == 6_600_000 && h["actor_index"] == 0)
+        .unwrap();
+    let base9 = base_hits
+        .iter()
+        .find(|h| h["time_us"] == 6_600_000 && h["actor_index"] == 0)
+        .unwrap();
+    assert_eq!(
+        exact(&hit9["non_crit_damage"]),
+        exact(&base9["non_crit_damage"])
+    );
+
+    let stack_events: Vec<&Value> = report["trace"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .filter(|e| e["event_kind"] == "far_side_moon_skill_stack")
+        .collect();
+    assert_eq!(stack_events.len(), 5);
+    assert_eq!(stack_events[0]["data"]["stacks"], 1);
+    assert_eq!(stack_events[0]["time_us"], 100_000);
+    assert_eq!(stack_events[1]["data"]["stacks"], 2);
+    assert_eq!(stack_events[1]["time_us"], 450_000);
+    assert_eq!(stack_events[2]["data"]["stacks"], 3);
+    assert_eq!(stack_events[2]["time_us"], 800_000);
+    assert_eq!(stack_events[3]["data"]["stacks"], 4);
+    assert_eq!(stack_events[3]["time_us"], 1_200_000);
+    assert_eq!(stack_events[4]["data"]["stacks"], 4);
+    assert_eq!(stack_events[4]["time_us"], 1_600_000);
+    assert_eq!(
+        stack_events[4]["data"]["expires_at_us"],
+        1_600_000 + 5_000_000
+    );
 }

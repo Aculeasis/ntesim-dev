@@ -207,6 +207,10 @@ pub(crate) enum ContentEvent {
         lakshana_damage_bonus: Ratio,
         duration_us: u64,
     },
+    FarSideMoonSkillStack {
+        actor_index: usize,
+        stack_amount: Ratio,
+    },
     KnightCandyCritStack {
         actor_index: usize,
         stack_amount: Ratio,

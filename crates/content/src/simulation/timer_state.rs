@@ -394,6 +394,7 @@ pub(crate) fn gear_timers(
     future(&mut state.be_happy.ready_at_us, from, delta)?;
     future(&mut state.bopu.ready_at_us, from, delta)?;
     future(&mut state.demon_blade.ready_at_us, from, delta)?;
+    future(&mut state.far_side_moon.ready_at_us, from, delta)?;
     future(&mut state.mind_royale.ready_at_us, from, delta)?;
     future(&mut state.moon.ready_at_us, from, delta)?;
     future(&mut state.noros.ready_at_us, from, delta)?;

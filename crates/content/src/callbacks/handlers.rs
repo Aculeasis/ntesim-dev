@@ -94,6 +94,10 @@ pub(super) fn apply_gear_callback(
             lakshana_damage_bonus,
             duration_us,
         ),
+        ContentEvent::FarSideMoonSkillStack {
+            actor_index,
+            stack_amount,
+        } => crate::weapons::far_side_moon::apply_skill_stack(ctx, actor_index, stack_amount),
         ContentEvent::KnightCandyCritStack {
             actor_index,
             stack_amount,

@@ -7,6 +7,7 @@ pub(crate) struct RuntimeState {
     pub(crate) mind_royale: crate::weapons::mind_royale::State,
     pub(crate) motor_candy: crate::weapons::motor_candy::State,
     pub(crate) demon_blade: crate::weapons::demon_blade::State,
+    pub(crate) far_side_moon: crate::weapons::far_side_moon::State,
     pub(crate) moon: crate::weapons::moon::State,
     pub(crate) bopu: crate::weapons::bopu::State,
     pub(crate) spider: crate::weapons::spider::State,

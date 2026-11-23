@@ -4,7 +4,7 @@ pub(crate) fn validate_config(
 ) -> Result<crate::gear::validation::ProcValidation, String> {
     let crate::simulation::GearProcConfig::FarSideMoon {
         crit_rate_bonus,
-        skill_damage_bonus,
+        skill_damage_per_stack,
         basic_attack_damage_bonus,
         lakshana_damage_bonus,
         duration_us,
@@ -22,7 +22,7 @@ pub(crate) fn validate_config(
     }
     for value in [
         *crit_rate_bonus,
-        *skill_damage_bonus,
+        *skill_damage_per_stack,
         *basic_attack_damage_bonus,
         *lakshana_damage_bonus,
     ] {

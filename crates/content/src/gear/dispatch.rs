@@ -269,6 +269,7 @@ pub(crate) fn on_hit(
 }
 
 pub(crate) fn on_hp_loss_hit(ctx: &mut CastContext<'_>) -> Result<(), String> {
+    crate::weapons::far_side_moon::on_hp_loss_hit(ctx)?;
     crate::weapons::gold_record::on_hit(ctx)
 }
 

@@ -431,8 +431,8 @@ pub enum HypothesisId {
     WeaponsDustbinV1 = 209,
     /// `weapons.eternal_waltz_v1`
     WeaponsEternalWaltzV1 = 210,
-    /// `weapons.far_side_moon_v1`
-    WeaponsFarSideMoonV1 = 211,
+    /// `weapons.far_side_moon_v2`
+    WeaponsFarSideMoonV2 = 211,
     /// `weapons.forgotten_hp_threshold_v1`
     WeaponsForgottenHpThresholdV1 = 212,
     /// `weapons.gold_record_v1`
@@ -1748,8 +1748,8 @@ static HYPOTHESES: [Hypothesis; 447] = [
         description: "Eternal Waltz adds its frozen Max HP ratio in the compiled build HP-percent domain. Successful wearer Ultimate admission refreshes one wearer-only Mental damage bonus before same-time hits for the frozen duration; switching preserves it until world-time expiry, and expiry precedes equal-time hits. Native PSYCHE packets do not match the Mental bonus. Static HP integer settlement, cast order and clocks are tested model hypotheses. Global release availability remains unverified in the frozen catalog.",
     },
     Hypothesis {
-        id: "weapons.far_side_moon_v1",
-        description: "Far Side of the Moon adds its frozen Crit Rate to the wearer's base crit rate and its permanent Redirect Skill bonus to delivered native E-category packets. Successful wearer Redirect Skill admission refreshes one nonstacking 15-second world-time window before same-time hits; the temporary bonus applies independently to delivered native A-category and Lakshana-element packets, and the two may overlap additively. Input role triggers the window while delivered packet category and element select damage. Switching preserves the wearer-owned window; failed casts do not grant it, exact expiry precedes equal-time hits, and delayed packets sample delivery-time buffs. Cast order and world-time duration are tested hypotheses; frozen Global release availability remains unverified.",
+        id: "weapons.far_side_moon_v2",
+        description: "Far Side of the Moon adds its refinement Crit Rate to the wearer's base crit rate. Positive HP loss from the wearer's delivered native A-category packet grants one stack in ProcCallback, up to four, with a 300ms acquisition gate across all recipients. Each grant renews one shared five-second stack deadline, including at cap. Delivered native E-category packets add the current stack total. Successful wearer Redirect Skill admission refreshes one 15-second Basic Attack window before same-time hits. Lakshana damage gains its refinement bonus during overlap of the two carriers, additive with any matching category bonus. Switching preserves both effects and their acquisition gate. Effects and gate use world time, expiry precedes equal-time hits, and delayed packets read delivery-time state. Shared stack refresh, clock choice and callback order are tested model assumptions.",
     },
     Hypothesis {
         id: "weapons.forgotten_hp_threshold_v1",
@@ -3902,8 +3902,8 @@ static PARSE_TABLE: [(&str, HypothesisId); 447] = [
         HypothesisId::WeaponsEternalWaltzV1,
     ),
     (
-        "weapons.far_side_moon_v1",
-        HypothesisId::WeaponsFarSideMoonV1,
+        "weapons.far_side_moon_v2",
+        HypothesisId::WeaponsFarSideMoonV2,
     ),
     (
         "weapons.forgotten_hp_threshold_v1",

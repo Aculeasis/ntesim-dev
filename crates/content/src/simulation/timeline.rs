@@ -89,6 +89,7 @@ impl Recorder {
                 ("be_happy", gear.be_happy.ready_at_us),
                 ("bopu", gear.bopu.ready_at_us),
                 ("demon_blade", gear.demon_blade.ready_at_us),
+                ("far_side_moon", gear.far_side_moon.ready_at_us),
                 ("mind_royale", gear.mind_royale.ready_at_us),
                 ("moon", gear.moon.ready_at_us),
                 ("noros", gear.noros.ready_at_us),

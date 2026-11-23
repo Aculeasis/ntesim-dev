@@ -28,24 +28,27 @@ Base weapon ATK follows the upgrade progression curve and breakthrough stages:
 
 Parameters across refinement ranks T1 to T5 from `DT_ForkUpgradeStarDataTable` and `CT_ForkBuff`:
 
-| Rank | buff_Prism_CritUp | buff_Prism_DamageUp1 | buff_Prism_DamageUp2 | buff_Prism_LakshanaUp | buff_Prism_DamageUp2_CD |
-|---|---|---|---|---|---|
-| T1 | 16.00% | 28.00% | 28.00% | 16.00% | 15.00 |
-| T2 | 20.00% | 35.00% | 35.00% | 20.00% | 15.00 |
-| T3 | 24.00% | 42.00% | 42.00% | 24.00% | 15.00 |
-| T4 | 28.00% | 49.00% | 49.00% | 28.00% | 15.00 |
-| T5 | 32.00% | 56.00% | 56.00% | 32.00% | 15.00 |
+| Rank | buff_Prism_CritUp | buff_Prism_DamageUp1 (Max Stacks) | Redirect Skill Per Stack | buff_Prism_DamageUp2 | buff_Prism_LakshanaUp | buff_Prism_DamageUp2_CD |
+|---|---|---|---|---|---|---|
+| T1 | 16.00% | 28.00% | 7.00% (7/100) | 28.00% | 16.00% | 15.00 |
+| T2 | 20.00% | 35.00% | 8.75% (7/80) | 35.00% | 20.00% | 15.00 |
+| T3 | 24.00% | 42.00% | 10.50% (21/200) | 42.00% | 24.00% | 15.00 |
+| T4 | 28.00% | 49.00% | 12.25% (49/400) | 49.00% | 28.00% | 15.00 |
+| T5 | 32.00% | 56.00% | 14.00% (7/50) | 56.00% | 32.00% | 15.00 |
 
 ## Activation and trigger mechanics
 
 - **Field State & Trigger Conditions**:
   - Evaluated based on the wearer's active vs off-field state and damage delivery.
-  - Parameters specify explicit cooldowns and thresholds.
+  - Category-A (Basic Attack) damage packets causing positive HP loss grant one stack of Redirect Skill damage in the post-hit callback phase (`ProcCallback`), bounded to 4 stacks, with a 300 ms world-time acquisition gate shared across all recipients.
+  - Successfully admitted wearer Redirect Skill casts refresh one 15-world-second Basic Attack damage window before same-time hits.
+  - During overlap of the stack carrier and cast window, the wearer gains the refinement Lakshana damage bonus additively with any matching category bonus.
 - **Stacking and Refresh Behavior**:
-  - Stacks are bounded by the explicit limits declared in the passive description.
-  - Reapplication adheres to the identified ICD and expiration/reset rules.
+  - Each qualified Basic Attack hit grants one stack and refreshes the shared 5-second stack deadline, including at the 4-stack cap.
+  - Expiry precedes equal-time hits.
 - **Reset / State Transitions**:
-  - Switching characters or transitioning field state triggers resets where explicitly stated in the skill description.
+  - Switching characters preserves both active carriers and the acquisition gate.
+  - World-time pauses extend live effect and acquisition deadlines without granting extra stacks.
 
 ## Complete implementation handoff
 
@@ -59,4 +62,4 @@ Parameters across refinement ranks T1 to T5 from `DT_ForkUpgradeStarDataTable` a
     - Secondary Stat `CritDamageBase` contributes +48.00% to the baseline stat pool.
     - Passive effect contributions scale with refinement rank T1 through T5 without double-counting base terms.
 
-Continuing native cycles (`examples/prism-gravitide-cycles.nte`, `prism_cycles.rs`): a native lvl80 Daffodil wearer (16180 HP, the group-compatible `CHARACTER_GROUP_TYPE_TWO` owner) and a Mint peer (12120 HP) execute the live source with native clocks: Redirect Skill casts at0s and17s respect the notify-started16s cooldown, with two full chains and a two-input visit at static ATK1000, plus two Mint chains. Every tier settles all 57 wearer and 16 peer chain packets against exact native ATK-1000 coefficients (wearer skills 409/337/498, chain 167/153x2/132x2/62x2/141/263/524/193/127/101x4/101x2/473, peer 104/231/170/262/341/184/255/523): the eight category-E Skill packets carry the equipped-static Redirect Skill zone 28/35/42/49/56 percent on both casts, the category-A chain packets carry the Basic Attack zone 28/35/42/49/56 percent only inside the 15s window, and every owner packet receipt keeps the CritUp rate 16/20/24/28/32 percent with no critical under fixed crit. The first window survives the field switch and its expiry is exact: a Normal starts at14.875380s, its first contact lands at15s after equal-time expiry, and both of that input's packets retain bare coefficients. The second cast refreshes the window to32s before the40s horizon end; both refresh receipts carry the exact `until {expiry}us` detail and no window instance survives to the final state. Every frozen Daffodil packet is Chaos-typed, so the window's Lakshana zone has no native packet to bind and remains covered by the synthetic category/element unit tests. An independent ChargeAdd energy oracle (owner x1, peers x3/5) settles 68+3779/5000 wearer and 55+4861/5000 peer Ultimate energy with zero spent, and every tier reconciles its full source report with direct native execution and serialized replay. The current CLI also executes the source directly; final browser source-consumer parity remains browser integration.
+Continuing native cycles (`examples/prism-gravitide-cycles.nte`, `prism_cycles.rs`): a native lvl80 Daffodil wearer (16180 HP, the group-compatible `CHARACTER_GROUP_TYPE_TWO` owner) and a Mint peer (12120 HP) execute the live source with native clocks: Redirect Skill casts at 0s and 17s respect the notify-started 16s cooldown, with two full chains and a two-input visit at static ATK 1000, plus two Mint chains. Every tier settles all 57 wearer and 16 peer chain packets against exact native ATK-1000 coefficients (wearer skills 409/337/498, chain 167/153x2/132x2/62x2/141/263/524/193/127/101x4/101x2/473, peer 104/231/170/262/341/184/255/523): the eight category-E Skill packets carry 0 stacks on the first cast at 0s (no preceding Basic Attack hits) and 2 stacks (14/17.5/21/24.5/28 percent, 2x the per-stack zone 7/100, 7/80, 21/200, 49/400, 7/50) on the second cast at 17s granted by the two preceding Normal hits at ~13.52s and 15s. The category-A chain packets carry the Basic Attack zone 28/35/42/49/56 percent only inside the 15s window, and every owner packet receipt keeps the CritUp rate 16/20/24/28/32 percent with no critical under fixed crit. The first window survives the field switch and its expiry is exact: a Normal starts at 14.875380s, its first contact lands at 15s after equal-time expiry, and both of that input's packets retain bare coefficients while refreshing the stack deadline to 20s. The second cast refreshes the window to 32s before the 40s horizon end; both refresh receipts carry the exact `until {expiry}us` detail and no window instance survives to the final state. Every frozen Daffodil packet is Chaos-typed, so the window's Lakshana zone has no native packet to bind and remains covered by the synthetic category/element unit tests. An independent ChargeAdd energy oracle (owner x1, peers x3/5) settles 68+3779/5000 wearer and 55+4861/5000 peer Ultimate energy with zero spent, and every tier reconciles its full source report with direct native execution and serialized replay. The current CLI also executes the source directly; final browser source-consumer parity remains browser integration.

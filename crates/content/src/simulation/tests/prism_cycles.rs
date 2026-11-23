@@ -250,11 +250,20 @@ fn assert_skill_packets(report: &Value, tier: u32) {
     let zone = DAMAGE_TIERS[(tier - 1) as usize];
     for hit in hits {
         let effect = hit["damage_effect_id"].as_str().unwrap();
+        let time = hit["time_us"].as_u64().unwrap();
         assert_eq!(hit["critical"], false);
+        let expected = if time < 17_000_000 {
+            ExactFraction::new(base_damage(&SKILL_BASE_DAMAGE, effect).into(), 1).unwrap()
+        } else {
+            zoned(
+                base_damage(&SKILL_BASE_DAMAGE, effect),
+                (zone.0, zone.1 * 2),
+            )
+        };
         assert_eq!(
             exact(&hit["non_crit_damage"]),
-            zoned(base_damage(&SKILL_BASE_DAMAGE, effect), zone),
-            "tier {tier} {effect}"
+            expected,
+            "tier {tier} {effect} at {time}"
         );
     }
 }
@@ -441,8 +450,9 @@ fn prism_continuing_cycles_refresh_and_expire_the_redirect_window_with_native_en
         assert!(
             crate::simulation::tests::support::final_buffs(&report)
                 .iter()
-                .all(|buff| buff["id"] != "far_side_moon.redirect_window"),
-            "the refreshed window expired before the horizon"
+                .all(|buff| buff["id"] != "far_side_moon.redirect_window"
+                    && buff["id"] != "far_side_moon.skill_stacks"),
+            "the refreshed window and stacks expired before the horizon"
         );
         let replay: GameScenarioRequest =
             serde_json::from_value(serde_json::to_value(&req).unwrap()).unwrap();

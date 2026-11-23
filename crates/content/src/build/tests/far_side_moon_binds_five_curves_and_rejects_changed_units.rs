@@ -40,11 +40,11 @@ fn far_side_of_the_moon_binds_all_five_refinement_curves_and_ignores_cosmetic_ex
     actor.character_id = "character:1054".into();
 
     let expected = [
-        [(4, 25), (7, 25), (7, 25), (4, 25)],
-        [(1, 5), (7, 20), (7, 20), (1, 5)],
-        [(6, 25), (21, 50), (21, 50), (6, 25)],
-        [(7, 25), (49, 100), (49, 100), (7, 25)],
-        [(8, 25), (14, 25), (14, 25), (8, 25)],
+        [(4, 25), (7, 100), (7, 25), (4, 25)],
+        [(1, 5), (7, 80), (7, 20), (1, 5)],
+        [(6, 25), (21, 200), (21, 50), (6, 25)],
+        [(7, 25), (49, 400), (49, 100), (7, 25)],
+        [(8, 25), (7, 50), (14, 25), (8, 25)],
     ];
     for (tier, values) in (1..=5).zip(expected) {
         actor.weapon_tier = tier;
@@ -60,7 +60,7 @@ fn far_side_of_the_moon_binds_all_five_refinement_curves_and_ignores_cosmetic_ex
         let proc = &report["compiled_proc"];
         for (name, value) in [
             ("crit_rate_bonus", values[0]),
-            ("skill_damage_bonus", values[1]),
+            ("skill_damage_per_stack", values[1]),
             ("basic_attack_damage_bonus", values[2]),
             ("lakshana_damage_bonus", values[3]),
         ] {
@@ -97,7 +97,7 @@ fn far_side_of_the_moon_binds_all_five_refinement_curves_and_ignores_cosmetic_ex
         .unwrap();
     assert_eq!(procs.len(), 5);
     assert!(procs.iter().all(|proc| proc["kind"] == "far_side_moon"));
-    assert!(catalog["gear_assumptions"]["far_side_moon"]["weapons.far_side_moon_v1"].is_string());
+    assert!(catalog["gear_assumptions"]["far_side_moon"]["weapons.far_side_moon_v2"].is_string());
     assert!(
         catalog["gear_assumptions"]["far_side_moon"]["gear.skill_cast_buff_before_hits_v1"]
             .is_string()
