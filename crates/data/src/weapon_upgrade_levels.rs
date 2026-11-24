@@ -1,4 +1,4 @@
-//! Consumed level-to-modifier bindings for the 51 supported weapons.
+//! Consumed level-to-modifier bindings for supported weapons.
 //! Ten referenced upgrade groups each expose levels 1..=80. NeedExp and the
 //! ten unreferenced source groups are cache-only. Exact stat values remain
 //! owned by the modifier compiler; these bindings do not approximate growth.

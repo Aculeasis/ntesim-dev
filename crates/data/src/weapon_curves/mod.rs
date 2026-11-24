@@ -1,5 +1,5 @@
 //! Exact sparse Constant curves reached by supported weapon refinements.
-//! 154 listed parameter curves plus two Nest Bird mechanic curves are retained.
+//! Listed parameter curves and two Nest Bird mechanic curves are retained.
 //! Default/extrapolation sentinels and 51 unconsumed curves stay cache-only.
 use crate::native::Table;
 use serde_json::{Value, json};
@@ -93,10 +93,10 @@ mod tests {
             .flat_map(|row| row["DataList"].as_array().unwrap())
             .map(|entry| entry["NameID"].as_str().unwrap().to_ascii_lowercase())
             .collect::<BTreeSet<_>>();
-        assert_eq!(required.len(), 154);
+        assert_eq!(required.len(), 159);
         required.extend(["buff_nestbird_down".into(), "buff_nestbird_cd1".into()]);
         let rows = transport()["rows"].as_object().unwrap();
-        assert_eq!(rows.len(), 156);
+        assert_eq!(rows.len(), 161);
         assert_eq!(
             required,
             rows.keys().map(|name| name.to_ascii_lowercase()).collect()
@@ -105,7 +105,7 @@ mod tests {
             rows.values()
                 .map(|row| row["Keys"].as_array().unwrap().len())
                 .sum::<usize>(),
-            618
+            640
         );
         for row in rows.values() {
             assert_eq!(row.as_object().unwrap().len(), 2);

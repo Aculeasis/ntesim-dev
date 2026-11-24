@@ -11,6 +11,7 @@ pub(crate) mod castle;
 pub(crate) mod crowbar;
 pub(crate) mod demon_blade;
 pub(crate) mod dustbin;
+pub(crate) mod echoes_on_hold;
 pub(crate) mod eternal_waltz;
 pub(crate) mod far_side_moon;
 pub(crate) mod forgotten;

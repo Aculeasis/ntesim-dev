@@ -70,7 +70,7 @@ fn all_frozen_weapon_refinements_resolve_listed_parameters_without_release_claim
                 .count();
         }
     }
-    assert_eq!((count, parameters, interior), (255, 770, 159));
+    assert_eq!((count, parameters, interior), (260, 795, 162));
 }
 
 #[test]

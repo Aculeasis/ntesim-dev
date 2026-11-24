@@ -395,6 +395,10 @@ fn gear_assumptions() -> Value {
     for &(kind, id) in BATCH_TWO_FOUR_WEAPON_ASSUMPTIONS {
         gear_assumptions[kind] = json!({(id.as_str()): id.description()});
     }
+    gear_assumptions["echoes_on_hold"] = json!({
+        (crate::weapons::echoes_on_hold::HYPOTHESIS_ID.as_str()): crate::weapons::echoes_on_hold::HYPOTHESIS_ID.description(),
+        (crate::gear::SKILL_CAST_BUFF_HYPOTHESIS_ID.as_str()): crate::gear::SKILL_CAST_BUFF_HYPOTHESIS_ID.description(),
+    });
     gear_assumptions
 }
 

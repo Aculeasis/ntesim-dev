@@ -57,7 +57,8 @@ pub(crate) fn atk_percent(
             | GearProcConfig::RoseThorn { atk_bonus, .. }
             | GearProcConfig::RishiAtk { atk_bonus, .. }
             | GearProcConfig::TigerTallyAtk { atk_bonus, .. }
-            | GearProcConfig::WhaleAtk { atk_bonus, .. } => Some(*atk_bonus),
+            | GearProcConfig::WhaleAtk { atk_bonus, .. }
+            | GearProcConfig::EchoesOnHold { atk_bonus, .. } => Some(*atk_bonus),
             GearProcConfig::ForgottenHpStats { atk_bonus, .. }
                 if u128::from(actor.hp) * 2 > u128::from(actor.hp_max) =>
             {

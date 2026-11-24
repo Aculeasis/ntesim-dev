@@ -116,6 +116,7 @@ mod daffodil_secondary;
 mod demon_blade;
 mod direct_packet_energy;
 mod dustbin;
+mod echoes_on_hold;
 mod edgar_actions;
 mod edgar_adler;
 mod edgar_events;

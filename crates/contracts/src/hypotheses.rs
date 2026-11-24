@@ -895,6 +895,8 @@ pub enum HypothesisId {
     ZeroCosmosCycleAtkV1 = 444,
     CombatSinglePacketSupportV1 = 445,
     LacrimosaA6FreeReactionEntryV1 = 446,
+    /// `weapons.echoes_on_hold_v1`
+    WeaponsEchoesOnHoldV1 = 447,
 }
 
 struct Hypothesis {
@@ -902,7 +904,7 @@ struct Hypothesis {
     description: &'static str,
 }
 
-static HYPOTHESES: [Hypothesis; 447] = [
+static HYPOTHESES: [Hypothesis; 448] = [
     Hypothesis {
         id: "ability_index.primary_action_role_v1",
         description: "Interpret DT_CharacterAbilityConfig.CharacterAbilityList[].Value.AbilityIndex values 1, 2, 3, and 4 as Normal, RedirectSkill, Ultimate, and Qte action roles. This is an explicit model mapping kept separate from AbilityGameplayTag and does not establish native timing, reachability, cost, or weapon trigger semantics.",
@@ -2691,9 +2693,13 @@ static HYPOTHESES: [Hypothesis; 447] = [
         id: "lacrimosa.a6_free_reaction_entry_v1",
         description: "Lacrimosa Effect6 arms a five-World-second entry window on committed Devilish Gift when its internal cooldown is ready. A supported Nova/Scorch switch to her, including Discord from that application, consumes the window, admits QTE and starts a five-World-second Effect6 cooldown with zero outgoing Cycle spent. Standard paid reactions remain available.",
     },
+    Hypothesis {
+        id: "weapons.echoes_on_hold_v1",
+        description: "Echoes on Hold grants team DEF Ignore and Cosmos penetration at combat start, refreshes Cosmos penetration on wearer Redirect Skill, and refreshes DEF Ignore after 3 wearer Follow-up Attack packets following an Ultimate.",
+    },
 ];
 
-static PARSE_TABLE: [(&str, HypothesisId); 447] = [
+static PARSE_TABLE: [(&str, HypothesisId); 448] = [
     (
         "ability_index.primary_action_role_v1",
         HypothesisId::AbilityIndexPrimaryActionRoleV1,
@@ -3897,6 +3903,10 @@ static PARSE_TABLE: [(&str, HypothesisId); 447] = [
     ("weapons.crowbar_v1", HypothesisId::WeaponsCrowbarV1),
     ("weapons.demon_blade_v1", HypothesisId::WeaponsDemonBladeV1),
     ("weapons.dustbin_v1", HypothesisId::WeaponsDustbinV1),
+    (
+        "weapons.echoes_on_hold_v1",
+        HypothesisId::WeaponsEchoesOnHoldV1,
+    ),
     (
         "weapons.eternal_waltz_v1",
         HypothesisId::WeaponsEternalWaltzV1,

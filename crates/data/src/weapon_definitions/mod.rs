@@ -117,7 +117,7 @@ mod tests {
 
     #[test]
     fn only_consumed_fields_and_explicit_exclusive_owner_lists_remain() {
-        assert_eq!(definitions().len(), 51);
+        assert_eq!(definitions().len(), 52);
         assert_eq!(
             definitions()
                 .iter()
@@ -126,7 +126,7 @@ mod tests {
             11
         );
         let rows = transport()["rows"].as_object().unwrap();
-        assert_eq!(rows.len(), 51);
+        assert_eq!(rows.len(), definitions().len());
         for row in rows.values() {
             assert_eq!(row.as_object().unwrap().len(), 3);
             assert_eq!(row["ItemName"].as_object().unwrap().len(), 1);

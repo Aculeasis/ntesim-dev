@@ -9,6 +9,7 @@ pub(crate) const BAICANG_DOT_PACKET_HYPOTHESIS_ID: HypothesisId =
 pub(crate) const ADLER_SKILL_DOT_PACKET_HYPOTHESIS_ID: HypothesisId =
     HypothesisId::CharacterAdlerSkillDotPacketSemanticsV1;
 pub(crate) const DOT_DAMAGE_TAG: &str = "State.Damage.Dot";
+pub(crate) const FOLLOW_UP_DAMAGE_TAG: &str = "State.Damage.Followup";
 /// Content-owned target-status label; it is not asserted to be the native
 /// GameplayTag name because the frozen tables do not expose that binding.
 pub(crate) const SCORCH_STATUS_TAG: &str = "ntesim.status.scorch";
@@ -101,6 +102,12 @@ pub(crate) fn resolve(effect_id: &str) -> Option<PacketSemantics> {
                 "ntesim.damage.attachment",
             ][..],
             crate::characters::jiuyuan::pact::HYPOTHESIS_ID,
+        ),
+        crate::characters::haniel::hootie::ENSEMBLE
+        | crate::characters::haniel::hootie::SYMPHONY
+        | crate::characters::haniel::hootie::EXTRA => (
+            &["State.Damage", FOLLOW_UP_DAMAGE_TAG][..],
+            crate::characters::haniel::hootie::HYPOTHESIS,
         ),
         _ => return None,
     };

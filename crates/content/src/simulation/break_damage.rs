@@ -86,6 +86,11 @@ pub(crate) fn schedule(
         let element =
             crate::registry::get_character_descriptor_by_id(&config.character_id)?.element;
         let name = element.as_str();
+        let resistance_penetration = if name == "COSMOS" {
+            crate::weapons::echoes_on_hold::cosmos_penetration(&buffs).unwrap_or(Ratio::zero())
+        } else {
+            Ratio::zero()
+        };
         let resistance_key = format!("ECharacterElementType::CHARACTER_ELEMENT_TYPE_{name}");
         let target = &state.targets[target_index];
         let resistance = request.targets[target_index]
@@ -113,7 +118,8 @@ pub(crate) fn schedule(
                     &state.buffs,
                     target_index,
                     &resistance_key,
-                )?,
+                )?
+                .add(F::from_ratio(resistance_penetration)?)?,
                 special: F::new(1, 1)?,
             },
         )?;

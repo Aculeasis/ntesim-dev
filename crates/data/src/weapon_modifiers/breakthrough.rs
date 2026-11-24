@@ -2,6 +2,12 @@ use super::{BreakthroughGroup, SecondaryStat};
 
 pub(super) const GROUPS: &[BreakthroughGroup] = &[
     BreakthroughGroup {
+        prefix: "fork_elyms_rank5",
+        attack: [0, 26, 51, 77, 102, 128, 154],
+        secondary: SecondaryStat::CritRate,
+        ten_thousandths: [960, 1200, 1440, 1680, 1920, 2160, 2400],
+    },
+    BreakthroughGroup {
         prefix: "fork_Arachne_rank5",
         attack: [0, 18, 36, 55, 74, 93, 112],
         secondary: SecondaryStat::HealthRatio,

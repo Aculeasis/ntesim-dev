@@ -20,6 +20,9 @@ fn haniel_continuing_request(case: &Case) -> GameScenarioRequest {
     req.targets[0].defense = 1080;
     req.targets[0].resistance = Ratio::zero();
     req.relative_duration_us = 40_000_000;
+    let hootie = crate::characters::haniel::hootie::HYPOTHESIS;
+    req.model_assumptions
+        .insert(hootie.into(), hootie.description().into());
 
     let mut actions = Vec::new();
     for input in 0..40 {

@@ -33,6 +33,14 @@ pub(super) struct WeaponAdapter {
 
 pub(super) const WEAPON_ADAPTERS: &[WeaponAdapter] = &[
     WeaponAdapter {
+        weapon_id: crate::weapons::echoes_on_hold::WEAPON_ID,
+        preview_character_id: "character:1020",
+        label: "Echoes on Hold",
+        case_sensitive: false,
+        matches_proc: |proc| matches!(proc, GearProcConfig::EchoesOnHold { .. }),
+        projector: WeaponProjector::Plain(crate::weapons::echoes_on_hold::projection::project),
+    },
+    WeaponAdapter {
         weapon_id: "weapon:fork_twinbirds",
         preview_character_id: "character:1019",
         label: "Twinflight",

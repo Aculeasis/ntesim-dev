@@ -39,6 +39,7 @@ export const ARTWORK: Record<string, Record<string, string>> = {
     'weapon:fork_demonblade': 'weapons_weaponforkdemonblade.webp',
     'weapon:fork_door': 'weapons_weaponforkdoor.webp',
     'weapon:fork_dustbin': 'weapons_weaponforkdustbin.webp',
+    'weapon:fork_elyms': 'weapons_weaponforkelyms.webp',
     'weapon:fork_goldrecord': 'weapons_weaponforkgoldrecord.webp',
     'weapon:fork_goldwool': 'weapons_weaponforkgoldwool.webp',
     'weapon:fork_kite': 'weapons_weaponforkkite.webp',

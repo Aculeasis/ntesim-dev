@@ -52,6 +52,6 @@ The upgrade migration independently checks all 800 retained coordinates against
 cached source bindings and exact rational stat sums. Breakthrough checks compare
 all 357 selected terminal packs/caps with the original source, reject levels above
 each nonterminal cap and preserve exact rational stat sums. Actual Worker checks
-compile all 51 weapons across all seven breakthrough stages in native/WASM and
+compile every supported weapon across a representative spread of breakthrough stages in native/WASM and
 compare execution, aggregation and replay. Those scripts declare `start_fons=0` explicitly for reached Fons-dependent
 passive reads; they do not infer funds or alter Chiz's combat resources.

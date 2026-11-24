@@ -3,6 +3,17 @@ use crate::character::WeaponGroup;
 
 pub(super) const DEFINITIONS: &[Definition] = &[
     Definition {
+        native_id: "fork_elyms",
+        title: "Echoes on Hold",
+        rarity: Rarity::Orange,
+        group: WeaponGroup::One,
+        upgrade_pack: "upgrade_pack_Fork_rank5_1",
+        breakthrough_pack: "Breakthrough_pack_fork_elyms",
+        refinement_pack: "upgradestar_pack_fork_elyms",
+        exclusive_character_ids: &[],
+        exclusive_description: None,
+    },
+    Definition {
         native_id: "fork_Arachne",
         title: "Eternal Waltz",
         rarity: Rarity::Orange,

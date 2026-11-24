@@ -52,6 +52,9 @@ pub(super) fn request() -> GameScenarioRequest {
         0,
         0,
     )];
+    let hootie = crate::characters::haniel::hootie::HYPOTHESIS;
+    req.model_assumptions
+        .insert(hootie.into(), hootie.description().into());
     req
 }
 

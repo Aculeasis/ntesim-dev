@@ -13,10 +13,10 @@ export async function verifyWeaponUpgradeParity({ engine, simulate, input, cli }
   assert.ifError(result.error);
   assert.equal(result.status, 0, result.stderr);
   const catalog = parseLosslessJson(result.stdout);
-  const characters = JSON.parse(
+  const { characters, weapons: weaponNames } = JSON.parse(
     readFileSync(new URL('../../src/generated/catalog.json', import.meta.url), 'utf8'),
-  ).characters;
-  assert.equal(Object.keys(catalog.weapons).length, 51);
+  );
+  assert.deepEqual(Object.keys(catalog.weapons).sort(), Object.keys(weaponNames).sort());
   const progressionCases = ['1/20', '30/30', '40/40', '50/50', '60/60', '70/70', '80/80'];
   let index = 0;
   for (const [weaponId, weapon] of Object.entries(catalog.weapons)) {

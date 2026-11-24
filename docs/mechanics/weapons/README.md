@@ -12,6 +12,7 @@ The canonical native ID is the stable key; directory names follow a research rec
 | `weapon:fork_Crowbar` | Time Bandit | Executable T1–T5; live timed BI through continuing native Haniel Break cycles | [passive](crowbar/passive.md) |
 | `weapon:fork_Door` | The Wrong Gate | Executable T1–T5; live-ATK Iroi healing and continuing buffs | [passive](wrong-gate/passive.md) |
 | `weapon:fork_dustbin` | Decomposer | Executable T1–T5; live gauge reduction, BI capture and continuing ICD | [passive](dustbin/passive.md) |
+| `weapon:fork_elyms` | Echoes on Hold | Executable T1–T5 with independent DEF Ignore and Cosmos penetration windows | [passive](echoes-on-hold/passive.md) |
 | `weapon:fork_GoldRecord` | Voice of the Voyager | T1–T5 continuing Nanally Support/Burst cycles; Cat category exclusions | [passive](gold-record/passive.md) |
 | `weapon:fork_jiaojuan` | Film - MANISH | Executable T1–T5; three native Break/recovery cycles and wearer-only BI | [passive](jiaojuan/passive.md) |
 | `weapon:fork_jingmotingyuan` | Silent Garden | Executable T1–T5 Arc trains/costs/stacks through continuing native Baicang cycles; native packet intervals remain modeled | [passive](jingmotingyuan/passive.md) |

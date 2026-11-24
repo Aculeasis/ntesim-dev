@@ -168,5 +168,5 @@ try {
   rmSync(directory, { recursive: true });
 }
 console.log(
-  'Equipped T1–T5 Boss/HP scenarios, 23 owners at A0/A3 and 51 weapons across seven progression stages: native/WASM/Worker parity, aggregation and replay',
+  'Equipped T1–T5 Boss/HP scenarios, owners at A0/A3, and weapon progression: native/WASM/Worker parity, aggregation and replay',
 );

@@ -7,6 +7,14 @@ use std::{collections::BTreeMap, sync::OnceLock};
 
 mod definitions;
 
+pub const ECHOES_ON_HOLD_PARAMETERS: [(&str, bool); 5] = [
+    ("ntesim.echoes_on_hold.atk", true),
+    ("ntesim.echoes_on_hold.team_def_ignore", true),
+    ("ntesim.echoes_on_hold.wearer_def_ignore", true),
+    ("ntesim.echoes_on_hold.cosmos_penetration", true),
+    ("ntesim.echoes_on_hold.duration", false),
+];
+
 pub const TABLE_NAME: &str = "typed_weapon_refinements";
 pub const SOURCE_ID: &str = "table:typed_weapon_refinements";
 const OVERLAY_TABLE: &str = "DT_ForkUpgradeStarDataTable";
@@ -94,7 +102,7 @@ mod tests {
             })
             .collect::<BTreeSet<_>>();
         let rows = transport()["rows"].as_object().unwrap();
-        assert_eq!(rows.len(), 255);
+        assert_eq!(rows.len(), required.len());
         assert_eq!(
             required,
             rows.keys().map(|name| name.to_ascii_lowercase()).collect()
@@ -103,7 +111,7 @@ mod tests {
             rows.values()
                 .map(|row| row["DataList"].as_array().unwrap().len())
                 .sum::<usize>(),
-            770
+            795
         );
         for row in rows.values() {
             assert_eq!(row.as_object().unwrap().len(), 2);

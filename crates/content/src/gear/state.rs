@@ -22,6 +22,7 @@ pub(crate) struct RuntimeState {
     pub(crate) rishi: crate::weapons::rishi::State,
     pub(crate) police_rat: crate::weapons::police_rat::State,
     pub(crate) black_book: crate::weapons::black_book::State,
+    pub(crate) echoes_on_hold: crate::weapons::echoes_on_hold::State,
 }
 
 pub(crate) fn initialize_runtime(
@@ -151,6 +152,7 @@ pub(crate) fn initialize(
     assumptions.extend(crate::weapons::bit_game::initialize(ctx)?);
     crate::weapons::whale::initialize(ctx)?;
     crate::weapons::twinbirds::initialize(ctx)?;
+    crate::weapons::echoes_on_hold::initialize(ctx)?;
     for actor in &ctx.request.actors {
         for proc in &actor.gear_procs {
             let hypothesis_id = match proc {
@@ -194,6 +196,9 @@ pub(crate) fn initialize(
                 }
                 GearProcConfig::RishiAtk { .. } => Some(crate::weapons::rishi::HYPOTHESIS_ID),
                 GearProcConfig::MamenFons { .. } => Some(crate::weapons::mamen::HYPOTHESIS_ID),
+                GearProcConfig::EchoesOnHold { .. } => {
+                    Some(crate::weapons::echoes_on_hold::HYPOTHESIS_ID)
+                }
                 _ => None,
             };
             if let Some(id) = hypothesis_id {

@@ -1,6 +1,51 @@
 use super::{Curve, key};
+use crate::weapon_refinements::ECHOES_ON_HOLD_PARAMETERS;
 
 pub(super) const CURVES: &[Curve] = &[
+    Curve {
+        native_id: ECHOES_ON_HOLD_PARAMETERS[0].0,
+        keys: &[
+            key(1, 1500),
+            key(2, 1875),
+            key(3, 2250),
+            key(4, 2625),
+            key(5, 3000),
+        ],
+    },
+    Curve {
+        native_id: ECHOES_ON_HOLD_PARAMETERS[1].0,
+        keys: &[
+            key(1, 1200),
+            key(2, 1400),
+            key(3, 1600),
+            key(4, 1800),
+            key(5, 2000),
+        ],
+    },
+    Curve {
+        native_id: ECHOES_ON_HOLD_PARAMETERS[2].0,
+        keys: &[
+            key(1, 1000),
+            key(2, 1250),
+            key(3, 1500),
+            key(4, 1750),
+            key(5, 2000),
+        ],
+    },
+    Curve {
+        native_id: ECHOES_ON_HOLD_PARAMETERS[3].0,
+        keys: &[
+            key(1, 800),
+            key(2, 1100),
+            key(3, 1400),
+            key(4, 1700),
+            key(5, 2000),
+        ],
+    },
+    Curve {
+        native_id: ECHOES_ON_HOLD_PARAMETERS[4].0,
+        keys: &[key(1, 200000), key(5, 200000)],
+    },
     Curve {
         native_id: "Buff_TwinBirds_MagUp",
         keys: &[

@@ -63,6 +63,10 @@ fn reviewed_weapon_assumptions_survive_no_action_runs_and_enforce_strict_accepta
         ),
         ("weapon:fork_rishi", crate::weapons::rishi::HYPOTHESIS_ID),
         ("weapon:fork_mamen", crate::weapons::mamen::HYPOTHESIS_ID),
+        (
+            "weapon:fork_elyms",
+            crate::weapons::echoes_on_hold::HYPOTHESIS_ID,
+        ),
     ] {
         let adapter = gear::WEAPON_ADAPTERS
             .iter()

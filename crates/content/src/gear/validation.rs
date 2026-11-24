@@ -154,6 +154,9 @@ fn validate_proc(proc: &GearProcConfig, ctx: &ConfigContext<'_>) -> Result<ProcV
         GearProcConfig::BitterCake { .. } => crate::weapons::bittercake::validate_config(proc, ctx),
         GearProcConfig::SpiderTeamAtk { .. } => crate::weapons::spider::validate_config(proc, ctx),
         GearProcConfig::BitGame { .. } => crate::weapons::bit_game::validate_config(proc, ctx),
+        GearProcConfig::EchoesOnHold { .. } => {
+            crate::weapons::echoes_on_hold::validate_config(proc, ctx)
+        }
     }
 }
 
@@ -248,6 +251,9 @@ pub(crate) fn validate_action_deadlines(
             }
             GearProcConfig::FirefliesCritDamage { duration_us, .. } => {
                 crate::sets::fireflies::validate_deadline(&ctx, duration_us)?
+            }
+            GearProcConfig::EchoesOnHold { duration_us, .. } => {
+                crate::weapons::echoes_on_hold::validate_deadline(&ctx, duration_us)?
             }
             GearProcConfig::KnightCandyCritDamage { duration_us, .. } => {
                 crate::weapons::knight_candy::validate_deadline(&ctx, duration_us)?

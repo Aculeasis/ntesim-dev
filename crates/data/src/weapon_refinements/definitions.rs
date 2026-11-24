@@ -1,6 +1,28 @@
-use super::{Definition, Description, Parameter};
+use super::{Definition, Description, ECHOES_ON_HOLD_PARAMETERS, Parameter};
+
+const fn echoes_parameter(index: usize) -> Parameter {
+    let (native_id, percent_hint) = ECHOES_ON_HOLD_PARAMETERS[index];
+    Parameter {
+        native_id,
+        percent_hint,
+    }
+}
 
 pub(super) const DEFINITIONS: &[Definition] = &[
+    Definition {
+        pack: "upgradestar_pack_fork_elyms",
+        parameters: &[
+            echoes_parameter(0),
+            echoes_parameter(1),
+            echoes_parameter(2),
+            echoes_parameter(3),
+            echoes_parameter(4),
+        ],
+        description: Description::Shared {
+            key: "ntesim.echoes_on_hold.voicemail_redial",
+            text: "Voicemail #Redial. Grants <lv>{0}</> ATK to the wearer. Three Follow-up Attack hits after the wearer's Ultimate grant <lv>{1}</> team DEF Ignore and <lv>{2}</> additional wearer DEF Ignore. The wearer's Redirect Skill grants <lv>{3}</> team Cosmos Resistance Penetration. Both windows activate on combat entry and independently refresh for <lv>{4}</>s. Each window is unique within the team.",
+        },
+    },
     Definition {
         pack: "upgradestar_pack_fork_Arachne",
         parameters: &[

@@ -7,6 +7,7 @@ use crate::runtime_api::CallbackContext;
 use crate::simulation::state::TimedBuffDeclaration;
 use crate::simulation::{ExactFraction, GameEventPayload, GameEventReceipt};
 use ntesim_core::buffs::dispatch::{BuffRecipient, BuffStackingScope, DecayPolicy, RefreshPolicy};
+use ntesim_core::execution::CausalPriority;
 use ntesim_core::formula::Ratio;
 use std::collections::BTreeMap;
 
@@ -58,6 +59,7 @@ pub(crate) struct TimedBuffGrant {
     pub declarations: Vec<TimedBuffDeclaration>,
     pub event_kind: String,
     pub data: Option<GameEventPayload>,
+    pub phase: CausalPriority,
 }
 
 impl TimedBuffGrant {
@@ -69,7 +71,7 @@ impl TimedBuffGrant {
         }
         ctx.trace.push(GameEventReceipt {
             time_us: ctx.state.current_time_us,
-            phase: "BuffTickOrExpiry".into(),
+            phase: format!("{:?}", self.phase),
             event_kind: self.event_kind.clone(),
             active_actor: ctx.state.active_actor_index,
             hit_index: None,
@@ -203,6 +205,7 @@ impl BuffGrantBuilder {
             declarations,
             event_kind: self.event_kind,
             data: self.data,
+            phase: CausalPriority::BuffTickOrExpiry,
         }
     }
 

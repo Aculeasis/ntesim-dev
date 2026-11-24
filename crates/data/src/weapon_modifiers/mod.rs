@@ -132,7 +132,7 @@ mod tests {
         })
         .collect::<BTreeSet<_>>();
         let rows = transport()["rows"].as_object().unwrap();
-        assert_eq!(rows.len(), 1157);
+        assert_eq!(rows.len(), 1164);
         assert_eq!(
             required,
             rows.keys().map(|key| key.to_ascii_lowercase()).collect()

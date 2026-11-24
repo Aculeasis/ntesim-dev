@@ -160,6 +160,7 @@ pub(crate) fn on_cast(ctx: &mut CastContext<'_>) -> Result<(), String> {
     crate::weapons::thief_candy::on_cast(ctx)?;
     crate::weapons::rose::on_cast(ctx)?;
     crate::weapons::tiger_tally::on_cast(ctx)?;
+    crate::weapons::echoes_on_hold::on_cast(ctx)?;
     crate::sets::speedy_hedgehog::on_cast(ctx)?;
     crate::registry::weapon_passive_on_cast("", ctx)?;
     crate::registry::set_effect_on_cast("", ctx)?;
@@ -204,6 +205,7 @@ pub(crate) fn damage_bonus(
     let modifiers = crate::weapons::rose::damage_bonus(ctx, packet, modifiers)?;
     let modifiers = crate::weapons::tiger_tally::damage_bonus(ctx, packet, modifiers)?;
     let modifiers = crate::weapons::black_book::damage_bonus(ctx, packet, modifiers)?;
+    let modifiers = crate::weapons::echoes_on_hold::damage_bonus(ctx, packet, modifiers)?;
     let modifiers = crate::registry::weapon_passive_damage_bonus("", ctx, modifiers)?;
     let modifiers = crate::registry::set_effect_damage_bonus("", ctx, modifiers)?;
     let modifiers = crate::sets::devils_blood::damage_bonus(ctx, modifiers)?;
@@ -268,9 +270,13 @@ pub(crate) fn on_hit(
     crate::sets::crimson::on_hit(ctx)
 }
 
-pub(crate) fn on_hp_loss_hit(ctx: &mut CastContext<'_>) -> Result<(), String> {
+pub(crate) fn on_hp_loss_hit(
+    ctx: &mut CastContext<'_>,
+    packet_group_id: Option<&str>,
+) -> Result<(), String> {
     crate::weapons::far_side_moon::on_hp_loss_hit(ctx)?;
-    crate::weapons::gold_record::on_hit(ctx)
+    crate::weapons::gold_record::on_hit(ctx)?;
+    crate::weapons::echoes_on_hold::on_hp_loss_hit(ctx, packet_group_id)
 }
 
 pub(crate) fn on_control(

@@ -442,7 +442,10 @@ fn trigger_equipment_hit(
     };
     if applied_hp_loss > 0 {
         crate::registry::on_hp_loss_hit(&mut hit_context)?;
-        crate::gear::on_hp_loss_hit(&mut hit_context)?;
+        crate::gear::on_hp_loss_hit(
+            &mut hit_context,
+            metadata.binding.energy_group_id.as_deref(),
+        )?;
     }
     for control in controls {
         crate::gear::on_control(&mut hit_context, control)?;

@@ -226,6 +226,13 @@ pub enum GearProcConfig {
         duration_us: u64,
         icd_us: u64,
     },
+    EchoesOnHold {
+        atk_bonus: Ratio,
+        team_def_ignore: Ratio,
+        wearer_def_ignore: Ratio,
+        cosmos_penetration: Ratio,
+        duration_us: u64,
+    },
     FarSideMoon {
         crit_rate_bonus: Ratio,
         skill_damage_per_stack: Ratio,

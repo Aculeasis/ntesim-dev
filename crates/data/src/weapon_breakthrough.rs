@@ -1,4 +1,4 @@
-//! Consumed terminal breakthrough bindings for all 51 supported weapons.
+//! Consumed terminal breakthrough bindings for supported weapons.
 //! Every group has seven exact cap/modifier coordinates. Currency and material
 //! costs are acquisition evidence only; no combat or build consumer reads them.
 use crate::native::Table;
@@ -16,6 +16,10 @@ pub struct Group {
 }
 
 pub const GROUPS: &[Group] = &[
+    Group {
+        pack: "Breakthrough_pack_fork_elyms",
+        modifier_prefix: "fork_elyms_rank5",
+    },
     Group {
         pack: "Breakthrough_pack_fork_Arachne",
         modifier_prefix: "fork_Arachne_rank5",
@@ -280,9 +284,9 @@ mod tests {
                 .map(|group| group.pack.to_ascii_lowercase())
                 .collect()
         );
-        assert_eq!(GROUPS.len(), 51);
+        assert_eq!(GROUPS.len(), crate::weapon_definitions::definitions().len());
         let rows = transport()["rows"].as_object().unwrap();
-        assert_eq!(rows.len(), 357);
+        assert_eq!(rows.len(), GROUPS.len() * LEVEL_CAPS.len());
         for group in GROUPS {
             for (stage, cap) in LEVEL_CAPS.iter().enumerate() {
                 let row = &rows[&format!("{}_{stage}", group.pack)];
