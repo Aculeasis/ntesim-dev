@@ -40,10 +40,11 @@
 
 .replay-portrait > img {
   position: absolute;
-  height: 200px;
+  height: calc(100% - 4px);
   width: 100%;
   object-fit: contain;
-  bottom: -15px;
+  object-position: center bottom;
+  bottom: 0;
   transition:
     transform 0.2s,
     opacity 0.2s;

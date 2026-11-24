@@ -27,15 +27,3 @@
 .floating-card-tooltip p {
   margin: 5px 0;
 }
-
-.character-portrait[src$='characters_zero.webp'] {
-  height: 139px;
-  width: 58%;
-  bottom: 0;
-  right: 0;
-}
-
-.replay-portrait > img[src$='characters_zero.webp'] {
-  height: 150px;
-  bottom: 0;
-}

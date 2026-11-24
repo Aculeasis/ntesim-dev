@@ -24,6 +24,11 @@ export const ARTWORK: Record<string, Record<string, string>> = {
     chiz: 'characters_chiz.webp',
     edgar: 'characters_edgar.webp',
     shinku: 'characters_shinku.webp',
+    'akane-rin': 'characters_akane-rin.webp',
+    ellie: 'characters_ellie.webp',
+    elyms: 'characters_elyms.webp',
+    exe: 'characters_exe.webp',
+    nitsa: 'characters_nitsa.webp',
   },
   weapons: {
     'weapon:fork_appliance': 'weapons_weaponforkappliance.webp',
