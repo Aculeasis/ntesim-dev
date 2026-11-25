@@ -45,8 +45,10 @@ pub(crate) fn validate(
 }
 pub(crate) fn created(
     ctx: &mut CallbackContext<'_>,
+    _owner_index: usize,
     target: usize,
     generation: u64,
+    _existing_remaining_us: Option<u64>,
 ) -> Result<bool, String> {
     let mut assumptions = BTreeMap::new();
     let mut armed = false;

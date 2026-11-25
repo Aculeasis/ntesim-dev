@@ -267,7 +267,18 @@ pub(crate) const ORDINARY_HIT_ENERGY_OWNERS: &[OrdinaryHitEnergyOwner] = &[
         source: GameEnergySource::ChizHit,
         event_kind: "chiz_ordinary_hit_energy_grant",
     },
+    OrdinaryHitEnergyOwner {
+        character_id: "character:1057",
+        display_name: "Akane Rin",
+        abilities: &["GA_Akane_Melee", "GA_Akane_Skill"],
+        hypothesis_id: AKANE_HIT_ENERGY_HYPOTHESIS_ID,
+        source: GameEnergySource::AkaneHit,
+        event_kind: "akane_ordinary_hit_energy_grant",
+    },
 ];
+
+pub(crate) const AKANE_HIT_ENERGY_HYPOTHESIS_ID: HypothesisId =
+    HypothesisId::AkaneOrdinaryHitEnergyV1;
 
 pub(crate) const SHINKU_HIT_ENERGY_HYPOTHESIS_ID: HypothesisId =
     HypothesisId::ShinkuOrdinaryHitEnergyV1;

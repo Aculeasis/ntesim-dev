@@ -147,6 +147,18 @@ fn legacy(
                 hypothesis_id: super::chaos::remora::MODEL,
             })
         }
+        ("character:1057", "GA_Akane_Melee", super::akane::secondary::RIPOSTE) => {
+            Some(OwnerChildPacketBinding {
+                packet_ga_name: "GA_Akane_PerfectEvade",
+                hypothesis_id: super::akane::secondary::MODEL,
+            })
+        }
+        ("character:1057", "GA_Akane_Passive_1", super::akane::passive::PACKET) => {
+            Some(OwnerChildPacketBinding {
+                packet_ga_name: "GA_Akane_Skill",
+                hypothesis_id: super::akane::passive::MODEL,
+            })
+        }
         ("character:1010", "GA_Nanally_Melee", super::nanally::riposte::PACKET) => {
             Some(OwnerChildPacketBinding {
                 packet_ga_name: "GA_Nanally_ExtremEvadeAtk",

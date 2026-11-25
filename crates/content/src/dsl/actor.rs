@@ -148,10 +148,22 @@ impl ActorDraft {
             let result = match key.as_str() {
                 "start_hp" => integer(&value).map(|v| draft.start_hp = Some(v)),
                 "start_energy" => integer(&value).map(|v| draft.start_energy = Some(v)),
-                "start_timepiece" | "start_grains" | "start_loans" | "start_malice"
-                | "start_crime" | "start_power" | "start_moon" | "start_plot" | "start_bullets"
-                | "start_resonance" | "start_karma" | "start_keys" | "start_stocks"
-                | "start_skill_stocks" | "start_kindling" => value.number().and_then(|v| {
+                "start_timepiece"
+                | "start_grains"
+                | "start_loans"
+                | "start_malice"
+                | "start_crime"
+                | "start_power"
+                | "start_moon"
+                | "start_plot"
+                | "start_bullets"
+                | "start_resonance"
+                | "start_karma"
+                | "start_keys"
+                | "start_stocks"
+                | "start_skill_stocks"
+                | "start_kindling"
+                | "start_string_energy" => value.number().and_then(|v| {
                     let (numerator, denominator) = v.to_safe_ratio()?;
                     let initial = Some(Ratio {
                         numerator,
@@ -174,6 +186,7 @@ impl ActorDraft {
                             draft.initial_resources.stocks = initial
                         }
                         "start_kindling" => draft.initial_resources.kindling = initial,
+                        "start_string_energy" => draft.initial_resources.string_energy = initial,
                         _ => unreachable!(),
                     }
                     crate::registry::validate_initial_resources(

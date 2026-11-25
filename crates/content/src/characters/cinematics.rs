@@ -37,6 +37,7 @@ pub(crate) fn binding(character: &str, ability: &str) -> Result<Release, String>
         "character:1052" => Release::ActionCompletion,
         "character:1075" => super::iroi::CINEMATIC_RELEASE,
         "character:1055" => super::jiuyuan::CINEMATIC_RELEASE,
+        "character:1057" => super::akane::CINEMATIC_RELEASE,
         "character:1004" => super::lacrimosa::CINEMATIC_RELEASE,
         "character:1072" => super::linko::CINEMATIC_RELEASE,
         "character:1019" => super::mint::CINEMATIC_RELEASE,

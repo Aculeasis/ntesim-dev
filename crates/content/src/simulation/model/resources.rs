@@ -34,6 +34,8 @@ pub struct GameInitialResources {
     pub stocks: Option<Ratio>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub kindling: Option<Ratio>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub string_energy: Option<Ratio>,
 }
 
 impl GameInitialResources {
@@ -52,5 +54,6 @@ impl GameInitialResources {
             && self.keys.is_none()
             && self.stocks.is_none()
             && self.kindling.is_none()
+            && self.string_energy.is_none()
     }
 }

@@ -10,7 +10,7 @@ This document describes the baseline logical Global package and remaining legacy
 
 Enemy tables and other unconsumed tables were removed under [decision 0009](../../../docs/decisions/0009-anonymous-targets-and-typed-content.md). Remaining adapters are transitional: required runtime constants are moving to typed Rust structures, without unused source fields or JSON storage.
 
-`coverage.json` enumerates supported character, weapon and set identities using kind-prefixed native IDs. The roster establishes 23 selected released characters. Release evidence, numeric values, activation conditions and executable completeness remain separate statuses; inventory membership does not certify mechanics coverage or strict readiness.
+`coverage.json` enumerates supported character, weapon and set identities using kind-prefixed native IDs. The roster establishes 24 selected released characters. Release evidence, numeric values, activation conditions and executable completeness remain separate statuses; inventory membership does not certify mechanics coverage or strict readiness.
 
 `presets/` freezes historical build selections and conditions. [ACCEPTANCE.md](../calibration/spec.md) marks these as optional legacy references; snapshots are partial historical inputs, not current product acceptance or a complete executable preset. Embedded source filenames in these snapshots are historical provenance, never runtime paths. They do not impose limits on universal builds. Snapshots also retain their original assumptions and candidate values; importing them does not validate those assumptions.
 

@@ -108,6 +108,10 @@ pub const RESONANCES: &[ResonanceLevels] = &[
         skills: &["GA_Kuhara_Skill", "GA_Kuhara_UltraSkill", "GA_Kuhara_Melee"],
     },
     ResonanceLevels {
+        native_id: "1057",
+        skills: &["GA_Akane_Melee", "GA_Akane_Skill", "GA_Akane_UltraSkill"],
+    },
+    ResonanceLevels {
         native_id: "1070",
         skills: &[
             "GA_Mitsuki_Melee",
@@ -214,10 +218,10 @@ mod tests {
             .map(|row| row.native_id)
             .collect::<BTreeSet<_>>();
         assert_eq!(actual, expected);
-        assert_eq!(actual.len(), 23);
+        assert_eq!(actual.len(), 24);
         assert_eq!(
             RESONANCES.iter().map(|row| row.skills.len()).sum::<usize>(),
-            66
+            69
         );
         for row in transport()["rows"].as_object().unwrap().values() {
             assert_eq!(row.as_object().unwrap().len(), 1);

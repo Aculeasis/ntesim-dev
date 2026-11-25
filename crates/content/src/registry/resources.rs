@@ -86,6 +86,12 @@ pub(crate) fn validate_initial_resources(
         }
         crate::characters::zankou::passives::initial_kindling(initial.kindling)?;
     }
+    if let Some(value) = initial.string_energy {
+        if character != "character:1057" {
+            return Err("start_string_energy is only supported by Akane Rin.".into());
+        }
+        crate::characters::akane::skill::parse_initial_string_energy(value)?;
+    }
     Ok(())
 }
 
@@ -133,6 +139,10 @@ pub(crate) fn initial_resource_assumptions(
     }
     if initial.kindling.is_some() {
         let id = crate::characters::zankou::passives::HYPOTHESIS_ID;
+        values.insert(id.into(), id.description().into());
+    }
+    if initial.string_energy.is_some() {
+        let id = crate::characters::akane::skill::STRING_ENERGY_HYPOTHESIS_ID;
         values.insert(id.into(), id.description().into());
     }
     values

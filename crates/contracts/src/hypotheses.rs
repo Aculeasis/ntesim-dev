@@ -329,574 +329,590 @@ pub enum HypothesisId {
     OwnerActionRoleCharacter1055QteV1 = 158,
     /// `owner.action_role.character_1057_qte_v1`
     OwnerActionRoleCharacter1057QteV1 = 159,
-    /// `owner.action_role.character_1057_skill_v1`
-    OwnerActionRoleCharacter1057SkillV1 = 160,
-    /// `owner.action_role.character_1057_ultimate_v1`
-    OwnerActionRoleCharacter1057UltimateV1 = 161,
     /// `owner.action_role.character_1070_qte_v1`
-    OwnerActionRoleCharacter1070QteV1 = 162,
+    OwnerActionRoleCharacter1070QteV1 = 160,
     /// `owner.action_role.character_1071_qte_v1`
-    OwnerActionRoleCharacter1071QteV1 = 163,
+    OwnerActionRoleCharacter1071QteV1 = 161,
     /// `owner.action_role.character_1071_skill_v1`
-    OwnerActionRoleCharacter1071SkillV1 = 164,
+    OwnerActionRoleCharacter1071SkillV1 = 162,
     /// `owner.action_role.character_1071_ultimate_v1`
-    OwnerActionRoleCharacter1071UltimateV1 = 165,
+    OwnerActionRoleCharacter1071UltimateV1 = 163,
     /// `owner.action_role.character_1072_qte_v1`
-    OwnerActionRoleCharacter1072QteV1 = 166,
+    OwnerActionRoleCharacter1072QteV1 = 164,
     /// `owner.action_role.character_1073_qte_v1`
-    OwnerActionRoleCharacter1073QteV1 = 167,
+    OwnerActionRoleCharacter1073QteV1 = 165,
     /// `owner.action_role.character_1075_qte_v1`
-    OwnerActionRoleCharacter1075QteV1 = 168,
+    OwnerActionRoleCharacter1075QteV1 = 166,
     /// `owner.action_role.character_1076_qte_v1`
-    OwnerActionRoleCharacter1076QteV1 = 169,
+    OwnerActionRoleCharacter1076QteV1 = 167,
     /// `owner.packet_binding.character_1010_skill_lv3_v1`
-    OwnerPacketBindingCharacter1010SkillLv3V1 = 170,
+    OwnerPacketBindingCharacter1010SkillLv3V1 = 168,
     /// `published.preview_inputs_v1`
-    PublishedPreviewInputsV1 = 171,
+    PublishedPreviewInputsV1 = 169,
     /// `research.preview.single_packet_v1`
-    ResearchPreviewSinglePacketV1 = 172,
+    ResearchPreviewSinglePacketV1 = 170,
     /// `sakiri.aoe_all_in_range_dummy_v1`
-    SakiriAoeAllInRangeDummyV1 = 173,
+    SakiriAoeAllInRangeDummyV1 = 171,
     /// `sakiri.direct_plunge_packet_energy_v1`
-    SakiriDirectPlungePacketEnergyV1 = 174,
+    SakiriDirectPlungePacketEnergyV1 = 172,
     /// `sakiri.direct_plunge_packet_v1`
-    SakiriDirectPlungePacketV1 = 175,
+    SakiriDirectPlungePacketV1 = 173,
     /// `sakiri.normal_chain_v1`
-    SakiriNormalChainV1 = 176,
+    SakiriNormalChainV1 = 174,
     /// `sakiri.ordinary_hit_energy_v1`
-    SakiriOrdinaryHitEnergyV1 = 177,
+    SakiriOrdinaryHitEnergyV1 = 175,
     /// `sakiri.skill_burst_packets_v1`
-    SakiriSkillBurstPacketsV1 = 178,
+    SakiriSkillBurstPacketsV1 = 176,
     /// `sets.crimson_v1`
-    SetsCrimsonV1 = 179,
+    SetsCrimsonV1 = 177,
     /// `sets.hp_suit_v1`
-    SetsHpSuitV1 = 180,
+    SetsHpSuitV1 = 178,
     /// `sets.lost_radiance_v1`
-    SetsLostRadianceV1 = 181,
+    SetsLostRadianceV1 = 179,
     /// `sets.quiet_manor_v1`
-    SetsQuietManorV1 = 182,
+    SetsQuietManorV1 = 180,
     /// `sets.shadow_creed_v1`
-    SetsShadowCreedV1 = 183,
+    SetsShadowCreedV1 = 181,
     /// `shinku.aoe_all_in_range_dummy_v1`
-    ShinkuAoeAllInRangeDummyV1 = 184,
+    ShinkuAoeAllInRangeDummyV1 = 182,
     /// `shinku.burst_packets_v1`
-    ShinkuBurstPacketsV1 = 185,
+    ShinkuBurstPacketsV1 = 183,
     /// `shinku.direct_ultimate_followups_v1`
-    ShinkuDirectUltimateFollowupsV1 = 186,
+    ShinkuDirectUltimateFollowupsV1 = 184,
     /// `shinku.normal_chain_v1`
-    ShinkuNormalChainV1 = 187,
+    ShinkuNormalChainV1 = 185,
     /// `shinku.ordinary_hit_energy_v1`
-    ShinkuOrdinaryHitEnergyV1 = 188,
+    ShinkuOrdinaryHitEnergyV1 = 186,
     /// `shinku.pre_dawn_refresh_v1`
-    ShinkuPreDawnRefreshV1 = 189,
+    ShinkuPreDawnRefreshV1 = 187,
     /// `shinku.skill_packets_v1`
-    ShinkuSkillPacketsV1 = 190,
+    ShinkuSkillPacketsV1 = 188,
     /// `skia.normal_chain_v1`
-    SkiaNormalChainV1 = 191,
+    SkiaNormalChainV1 = 189,
     /// `skia.ordinary_hit_energy_v1`
-    SkiaOrdinaryHitEnergyV1 = 192,
+    SkiaOrdinaryHitEnergyV1 = 190,
     /// `skia.skill_burst_packets_v1`
-    SkiaSkillBurstPacketsV1 = 193,
+    SkiaSkillBurstPacketsV1 = 191,
     /// `skill_levels.coordinates_v1`
-    SkillLevelsCoordinatesV1 = 194,
+    SkillLevelsCoordinatesV1 = 192,
     /// `skill_levels.resonance_3_v1`
-    SkillLevelsResonance3V1 = 195,
+    SkillLevelsResonance3V1 = 193,
     /// `speedy_hedgehog.proc_v1`
-    SpeedyHedgehogProcV1 = 196,
+    SpeedyHedgehogProcV1 = 194,
     /// `weapons.appliance_v1`
-    WeaponsApplianceV1 = 197,
+    WeaponsApplianceV1 = 195,
     /// `weapons.be_happy_v1`
-    WeaponsBeHappyV1 = 198,
+    WeaponsBeHappyV1 = 196,
     /// `weapons.bit_game_v1`
-    WeaponsBitGameV1 = 199,
+    WeaponsBitGameV1 = 197,
     /// `weapons.bittercake_damage_event_v1`
-    WeaponsBittercakeDamageEventV1 = 200,
+    WeaponsBittercakeDamageEventV1 = 198,
     /// `weapons.black_book_v1`
-    WeaponsBlackBookV1 = 201,
+    WeaponsBlackBookV1 = 199,
     /// `weapons.blast_candy_v1`
-    WeaponsBlastCandyV1 = 202,
+    WeaponsBlastCandyV1 = 200,
     /// `weapons.bopu_v1`
-    WeaponsBopuV1 = 203,
+    WeaponsBopuV1 = 201,
     /// `weapons.boxing_candy_v1`
-    WeaponsBoxingCandyV1 = 204,
+    WeaponsBoxingCandyV1 = 202,
     /// `weapons.call_of_the_twisted_city_v1`
-    WeaponsCallOfTheTwistedCityV1 = 205,
+    WeaponsCallOfTheTwistedCityV1 = 203,
     /// `weapons.contemplative_cat_v1`
-    WeaponsContemplativeCatV1 = 206,
+    WeaponsContemplativeCatV1 = 204,
     /// `weapons.crowbar_v1`
-    WeaponsCrowbarV1 = 207,
+    WeaponsCrowbarV1 = 205,
     /// `weapons.demon_blade_v1`
-    WeaponsDemonBladeV1 = 208,
+    WeaponsDemonBladeV1 = 206,
     /// `weapons.dustbin_v1`
-    WeaponsDustbinV1 = 209,
+    WeaponsDustbinV1 = 207,
     /// `weapons.eternal_waltz_v1`
-    WeaponsEternalWaltzV1 = 210,
+    WeaponsEternalWaltzV1 = 208,
     /// `weapons.far_side_moon_v2`
-    WeaponsFarSideMoonV2 = 211,
+    WeaponsFarSideMoonV2 = 209,
     /// `weapons.forgotten_hp_threshold_v1`
-    WeaponsForgottenHpThresholdV1 = 212,
+    WeaponsForgottenHpThresholdV1 = 210,
     /// `weapons.gold_record_v1`
-    WeaponsGoldRecordV1 = 213,
+    WeaponsGoldRecordV1 = 211,
     /// `weapons.gold_wool_v1`
-    WeaponsGoldWoolV1 = 214,
+    WeaponsGoldWoolV1 = 212,
     /// `weapons.good_boy_v1`
-    WeaponsGoodBoyV1 = 215,
+    WeaponsGoodBoyV1 = 213,
     /// `weapons.jiaojuan_v1`
-    WeaponsJiaojuanV1 = 216,
+    WeaponsJiaojuanV1 = 214,
     /// `weapons.jingmotingyuan_v1`
-    WeaponsJingmotingyuanV1 = 217,
+    WeaponsJingmotingyuanV1 = 215,
     /// `weapons.kite_v1`
-    WeaponsKiteV1 = 218,
+    WeaponsKiteV1 = 216,
     /// `weapons.knight_candy_v1`
-    WeaponsKnightCandyV1 = 219,
+    WeaponsKnightCandyV1 = 217,
     /// `weapons.koinobori_v1`
-    WeaponsKoinoboriV1 = 220,
+    WeaponsKoinoboriV1 = 218,
     /// `weapons.lunarphase_v1`
-    WeaponsLunarphaseV1 = 221,
+    WeaponsLunarphaseV1 = 219,
     /// `weapons.marching_beyond_time_v1`
-    WeaponsMarchingBeyondTimeV1 = 222,
+    WeaponsMarchingBeyondTimeV1 = 220,
     /// `weapons.mind_royale_v1`
-    WeaponsMindRoyaleV1 = 223,
+    WeaponsMindRoyaleV1 = 221,
     /// `weapons.moon_v1`
-    WeaponsMoonV1 = 224,
+    WeaponsMoonV1 = 222,
     /// `weapons.motor_candy_v1`
-    WeaponsMotorCandyV1 = 225,
+    WeaponsMotorCandyV1 = 223,
     /// `weapons.nakupeda_v1`
-    WeaponsNakupedaV1 = 226,
+    WeaponsNakupedaV1 = 224,
     /// `weapons.native_curve_v1`
-    WeaponsNativeCurveV1 = 227,
+    WeaponsNativeCurveV1 = 225,
     /// `weapons.nest_bird_v1`
-    WeaponsNestBirdV1 = 228,
+    WeaponsNestBirdV1 = 226,
     /// `weapons.noros_v1`
-    WeaponsNorosV1 = 229,
+    WeaponsNorosV1 = 227,
     /// `weapons.oraora_v1`
-    WeaponsOraoraV1 = 230,
+    WeaponsOraoraV1 = 228,
     /// `weapons.paper_plane_v1`
-    WeaponsPaperPlaneV1 = 231,
+    WeaponsPaperPlaneV1 = 229,
     /// `weapons.police_rat_v2`
-    WeaponsPoliceRatV2 = 232,
+    WeaponsPoliceRatV2 = 230,
     /// `weapons.prokaryon_v1`
-    WeaponsProkaryonV1 = 233,
+    WeaponsProkaryonV1 = 231,
     /// `weapons.raging_flames_v1`
-    WeaponsRagingFlamesV1 = 234,
+    WeaponsRagingFlamesV1 = 232,
     /// `weapons.reality_refuge_v1`
-    WeaponsRealityRefugeV1 = 235,
+    WeaponsRealityRefugeV1 = 233,
     /// `weapons.rishi_v2`
-    WeaponsRishiV2 = 236,
+    WeaponsRishiV2 = 234,
     /// `weapons.rose_break_extension_v1`
-    WeaponsRoseBreakExtensionV1 = 237,
+    WeaponsRoseBreakExtensionV1 = 235,
     /// `weapons.rose_v1`
-    WeaponsRoseV1 = 238,
+    WeaponsRoseV1 = 236,
     /// `weapons.snowman_v1`
-    WeaponsSnowmanV1 = 239,
+    WeaponsSnowmanV1 = 237,
     /// `weapons.spider_v1`
-    WeaponsSpiderV1 = 240,
+    WeaponsSpiderV1 = 238,
     /// `weapons.the_wrong_gate_healing_v1`
-    WeaponsTheWrongGateHealingV1 = 241,
+    WeaponsTheWrongGateHealingV1 = 239,
     /// `weapons.thief_candy_v1`
-    WeaponsThiefCandyV1 = 242,
+    WeaponsThiefCandyV1 = 240,
     /// `weapons.tiger_tally_v2`
-    WeaponsTigerTallyV2 = 243,
+    WeaponsTigerTallyV2 = 241,
     /// `weapons.tuansanlang_v1`
-    WeaponsTuansanlangV1 = 244,
+    WeaponsTuansanlangV1 = 242,
     /// `weapons.twinbirds_v1`
-    WeaponsTwinbirdsV1 = 245,
+    WeaponsTwinbirdsV1 = 243,
     /// `weapons.whale_v1`
-    WeaponsWhaleV1 = 246,
+    WeaponsWhaleV1 = 244,
     /// `weapons.worldrain_v1`
-    WeaponsWorldrainV1 = 247,
+    WeaponsWorldrainV1 = 245,
     /// `weapons.yaodao_separate_packet_v1`
-    WeaponsYaodaoSeparatePacketV1 = 248,
+    WeaponsYaodaoSeparatePacketV1 = 246,
     /// `weapons.yaodao_v1`
-    WeaponsYaodaoV1 = 249,
+    WeaponsYaodaoV1 = 247,
     /// `weapons.yuren_v1`
-    WeaponsYurenV1 = 250,
+    WeaponsYurenV1 = 248,
     /// `zankou.normal_chain_v1`
-    ZankouNormalChainV1 = 251,
+    ZankouNormalChainV1 = 249,
     /// `zankou.ordinary_hit_energy_v1`
-    ZankouOrdinaryHitEnergyV1 = 252,
+    ZankouOrdinaryHitEnergyV1 = 250,
     /// `zero.a1_first_hit_v1`
-    ZeroA1FirstHitV1 = 253,
+    ZeroA1FirstHitV1 = 251,
     /// `zero.aoe_all_in_range_dummy_v1`
-    ZeroAoeAllInRangeDummyV1 = 254,
+    ZeroAoeAllInRangeDummyV1 = 252,
     /// `zero.burst_a3_crit_rate_v1`
-    ZeroBurstA3CritRateV1 = 255,
+    ZeroBurstA3CritRateV1 = 253,
     /// `zero.burst_a4_damage_bonus_v1`
-    ZeroBurstA4DamageBonusV1 = 256,
+    ZeroBurstA4DamageBonusV1 = 254,
     /// `zero.burst_all_in_range_v1`
-    ZeroBurstAllInRangeV1 = 257,
+    ZeroBurstAllInRangeV1 = 255,
     /// `zero.burst_packets_v1`
-    ZeroBurstPacketsV1 = 258,
+    ZeroBurstPacketsV1 = 256,
     /// `zero.normal_chain_v1`
-    ZeroNormalChainV1 = 259,
+    ZeroNormalChainV1 = 257,
     /// `zero.ordinary_hit_energy_v1`
-    ZeroOrdinaryHitEnergyV1 = 260,
+    ZeroOrdinaryHitEnergyV1 = 258,
     /// `zero.skill_packets_v1`
-    ZeroSkillPacketsV1 = 261,
+    ZeroSkillPacketsV1 = 259,
     /// `combat.hp_cost_fixture_v1`
-    CombatHpCostFixtureV1 = 262,
+    CombatHpCostFixtureV1 = 260,
     /// `sets.devils_blood_v1`
-    SetsDevilsBloodV1 = 263,
+    SetsDevilsBloodV1 = 261,
     /// `combat.live_break_damage_v1`
-    CombatLiveBreakDamageV1 = 264,
+    CombatLiveBreakDamageV1 = 262,
     /// `daffodil.resonance_skill_capture_v1`
-    DaffodilResonanceSkillCaptureV1 = 265,
+    DaffodilResonanceSkillCaptureV1 = 263,
     /// `daffodil.insight_break_capture_v1`
-    DaffodilInsightBreakCaptureV1 = 266,
+    DaffodilInsightBreakCaptureV1 = 264,
     /// `daffodil.broken_chaos_resistance_v1`
-    DaffodilBrokenChaosResistanceV1 = 267,
+    DaffodilBrokenChaosResistanceV1 = 265,
     /// `sets.diabolos_v1`
-    SetsDiabolosV1 = 268,
+    SetsDiabolosV1 = 266,
     /// `sets.street_boxer_v1`
-    SetsStreetBoxerV1 = 269,
+    SetsStreetBoxerV1 = 267,
     /// `combat.support_dispatch_v1`
-    CombatSupportDispatchV1 = 270,
+    CombatSupportDispatchV1 = 268,
     /// `combat.esper_cycle_reactions_v1`
-    CombatEsperCycleReactionsV1 = 271,
+    CombatEsperCycleReactionsV1 = 269,
     /// `character.zankou.vile_ash_dot_scheduling_v2`
-    CharacterZankouVileAshDotSchedulingV2 = 272,
+    CharacterZankouVileAshDotSchedulingV2 = 270,
     /// `weapons.nest_bird_v2`
-    WeaponsNestBirdV2 = 273,
+    WeaponsNestBirdV2 = 271,
     /// `lacrimosa.nightmare_all_targets_v1`
-    LacrimosaNightmareAllTargetsV1 = 274,
+    LacrimosaNightmareAllTargetsV1 = 272,
     /// `weapons.twinbirds_v2`
-    WeaponsTwinbirdsV2 = 275,
+    WeaponsTwinbirdsV2 = 273,
     /// `sets.diabolos_v2`
-    SetsDiabolosV2 = 276,
+    SetsDiabolosV2 = 274,
     /// `combat.stain_switch_v1`
-    CombatStainSwitchV1 = 277,
+    CombatStainSwitchV1 = 275,
     /// `combat.remora_charge_v1`
-    CombatRemoraChargeV1 = 278,
+    CombatRemoraChargeV1 = 276,
     /// `sets.street_boxer_v2`
-    SetsStreetBoxerV2 = 279,
+    SetsStreetBoxerV2 = 277,
     /// `character.zankou.crimson_reverie_v1`
-    CharacterZankouCrimsonReverieV1 = 280,
+    CharacterZankouCrimsonReverieV1 = 278,
     /// `character.zankou.silent_sunset_v1`
-    CharacterZankouSilentSunsetV1 = 281,
+    CharacterZankouSilentSunsetV1 = 279,
     /// `character.zankou.heartwrench_skill_v1`
-    CharacterZankouHeartwrenchSkillV1 = 282,
+    CharacterZankouHeartwrenchSkillV1 = 280,
     /// `combat.support_dispatch_v2`
-    CombatSupportDispatchV2 = 283,
+    CombatSupportDispatchV2 = 281,
     /// `weapons.police_rat_v3`
-    WeaponsPoliceRatV3 = 284,
+    WeaponsPoliceRatV3 = 282,
     /// `zero.support_packets_v1`
-    ZeroSupportPacketsV1 = 285,
+    ZeroSupportPacketsV1 = 283,
     /// `combat.support_dispatch_v3`
-    CombatSupportDispatchV3 = 286,
+    CombatSupportDispatchV3 = 284,
     /// `sakiri.support_packets_v1`
-    SakiriSupportPacketsV1 = 287,
+    SakiriSupportPacketsV1 = 285,
     /// `haniel.harmony_ensemble_v1`
-    HanielHarmonyEnsembleV1 = 288,
+    HanielHarmonyEnsembleV1 = 286,
     /// `iroi.live_atk_healing_v1`
-    IroiLiveAtkHealingV1 = 289,
+    IroiLiveAtkHealingV1 = 287,
     /// `nanally.support_packets_v1`
-    NanallySupportPacketsV1 = 290,
+    NanallySupportPacketsV1 = 288,
     /// `combat.support_dispatch_v4`
-    CombatSupportDispatchV4 = 291,
+    CombatSupportDispatchV4 = 289,
     /// `weapons.gold_record_v2`
-    WeaponsGoldRecordV2 = 292,
+    WeaponsGoldRecordV2 = 290,
     /// `weapons.jiaojuan_v2`
-    WeaponsJiaojuanV2 = 293,
+    WeaponsJiaojuanV2 = 291,
     /// `weapons.kite_v2`
-    WeaponsKiteV2 = 294,
+    WeaponsKiteV2 = 292,
     /// `weapons.koinobori_v2`
-    WeaponsKoinoboriV2 = 295,
+    WeaponsKoinoboriV2 = 293,
     /// `chiz.normal_grain_v1`
-    ChizNormalGrainV1 = 296,
+    ChizNormalGrainV1 = 294,
     /// `weapons.good_boy_v2`
-    WeaponsGoodBoyV2 = 297,
+    WeaponsGoodBoyV2 = 295,
     /// `combat.control_effects_v1`
-    CombatControlEffectsV1 = 298,
+    CombatControlEffectsV1 = 296,
     /// `sakiri.suppress_v1`
-    SakiriSuppressV1 = 299,
+    SakiriSuppressV1 = 297,
     /// `weapons.good_boy_v3`
-    WeaponsGoodBoyV3 = 300,
+    WeaponsGoodBoyV3 = 298,
     /// `jiuyuan.natural_pact_v1`
-    JiuyuanNaturalPactV1 = 301,
+    JiuyuanNaturalPactV1 = 299,
     /// `weapons.reality_refuge_v2`
-    WeaponsRealityRefugeV2 = 302,
+    WeaponsRealityRefugeV2 = 300,
     /// `combat.stamina_v1`
-    CombatStaminaV1 = 303,
+    CombatStaminaV1 = 301,
     /// `nanally.critical_riposte_v1`
-    NanallyRiposteV1 = 304,
+    NanallyRiposteV1 = 302,
     /// `mint.riposte_v1`
-    MintRiposteV1 = 305,
+    MintRiposteV1 = 303,
     /// `mint.plunge_v1`
-    MintPlungeV1 = 306,
+    MintPlungeV1 = 304,
     /// `mint.hold_attack_v1`
-    MintHoldAttackV1 = 307,
+    MintHoldAttackV1 = 305,
     /// `mint.passive2_entry_def_v1`
-    MintPassive2EntryDefV1 = 308,
+    MintPassive2EntryDefV1 = 306,
     /// `sakiri.critical_riposte_v1`
-    SakiriRiposteV1 = 309,
+    SakiriRiposteV1 = 307,
     /// `iroi.critical_riposte_v1`
-    IroiRiposteV1 = 310,
+    IroiRiposteV1 = 308,
     /// `iroi.plunge_v1`
-    IroiPlungeV1 = 311,
+    IroiPlungeV1 = 309,
     /// `iroi.daydream_branch_v1`
-    IroiDaydreamBranchV1 = 312,
+    IroiDaydreamBranchV1 = 310,
     /// `iroi.dream_state_v1`
-    IroiDreamStateV1 = 313,
+    IroiDreamStateV1 = 311,
     /// `iroi.regression_v1`
-    IroiRegressionV1 = 314,
+    IroiRegressionV1 = 312,
     /// `iroi.bud_copy_b2_v1`
-    IroiBudCopyB2V1 = 315,
+    IroiBudCopyB2V1 = 313,
     /// `adler.critical_riposte_v1`
-    AdlerRiposteV1 = 316,
+    AdlerRiposteV1 = 314,
     /// `adler.plunge_v1`
-    AdlerPlungeV1 = 317,
+    AdlerPlungeV1 = 315,
     /// `adler.normal_chain_13_v1`
-    AdlerNormalChain13V1 = 318,
+    AdlerNormalChain13V1 = 316,
     /// `adler.burst_intervals_v1`
-    AdlerBurstIntervalsV1 = 319,
+    AdlerBurstIntervalsV1 = 317,
     /// `adler.righteous_heart_v1`
-    AdlerRighteousHeartV1 = 320,
+    AdlerRighteousHeartV1 = 318,
     /// `adler.blessing_party_interception_v1`
-    AdlerBlessingPartyInterceptionV1 = 321,
+    AdlerBlessingPartyInterceptionV1 = 319,
     /// `aurelia.critical_riposte_v1`
-    AureliaRiposteV1 = 322,
+    AureliaRiposteV1 = 320,
     /// `aurelia.plunge_v1`
-    AureliaPlungeV1 = 323,
+    AureliaPlungeV1 = 321,
     /// `aurelia.cadenza_power_select_v1`
-    AureliaCadenzaPowerSelectV1 = 324,
+    AureliaCadenzaPowerSelectV1 = 322,
     /// `aurelia.staccato_v1`
-    AureliaStaccatoV1 = 325,
+    AureliaStaccatoV1 = 323,
     /// `aurelia.staccato_perfect_dodge_v1`
-    AureliaStaccatoPerfectDodgeV1 = 326,
+    AureliaStaccatoPerfectDodgeV1 = 324,
     /// `aurelia.crescendo_b4_v1`
-    AureliaCrescendoB4V1 = 327,
+    AureliaCrescendoB4V1 = 325,
     /// `aurelia.harmonics_b2_v1`
-    AureliaHarmonicsB2V1 = 328,
+    AureliaHarmonicsB2V1 = 326,
     /// `aurelia.a2_cadenza_v1`
-    AureliaA2CadenzaV1 = 329,
+    AureliaA2CadenzaV1 = 327,
     /// `aurelia.r6_psyche_v1`
-    AureliaR6PsycheV1 = 330,
+    AureliaR6PsycheV1 = 328,
     /// `aurelia.shadow_creed_skill_finish_v1`
-    AureliaShadowCreedSkillFinishV1 = 331,
+    AureliaShadowCreedSkillFinishV1 = 329,
     /// `baicang.power_words_v1`
-    BaicangPowerWordsV1 = 332,
+    BaicangPowerWordsV1 = 330,
     /// `baicang.hold_branches_v1`
-    BaicangHoldBranchesV1 = 333,
+    BaicangHoldBranchesV1 = 331,
     /// `baicang.execute_and_fatal_hit_debt_v1`
-    BaicangExecuteAndFatalHitDebtV1 = 334,
+    BaicangExecuteAndFatalHitDebtV1 = 332,
     /// `baicang.plunge_v1`
-    BaicangPlungeV1 = 335,
+    BaicangPlungeV1 = 333,
     /// `baicang.riposte_v1`
-    BaicangRiposteV1 = 336,
+    BaicangRiposteV1 = 334,
     /// `combat.packet_cycle_accrual_v1`
-    CombatPacketCycleAccrualV1 = 337,
+    CombatPacketCycleAccrualV1 = 335,
     /// `baicang.moderate_mischief_v1`
-    BaicangModerateMischiefV1 = 338,
+    BaicangModerateMischiefV1 = 336,
     /// `baicang.height_aware_plunge_v1`
-    BaicangHeightAwarePlungeV1 = 339,
+    BaicangHeightAwarePlungeV1 = 337,
     /// `blackbird.b2_stain_v1`
-    BlackbirdB2StainV1 = 340,
+    BlackbirdB2StainV1 = 338,
     /// `blackbird.b2_nova_v1`
-    BlackbirdB2NovaV1 = 341,
+    BlackbirdB2NovaV1 = 339,
     /// `blackbird.primary_packet_groups_v1`
-    BlackbirdPrimaryPacketGroupsV1 = 342,
+    BlackbirdPrimaryPacketGroupsV1 = 340,
     /// `blackbird.skill_cycle_fill_v1`
-    BlackbirdSkillCycleFillV1 = 343,
+    BlackbirdSkillCycleFillV1 = 341,
     /// `baicang.cancel_windows_v1`
-    BaicangCancelWindowsV1 = 344,
+    BaicangCancelWindowsV1 = 342,
     /// `baicang.forced_interrupt_v1`
-    BaicangForcedInterruptV1 = 345,
+    BaicangForcedInterruptV1 = 343,
     /// `baicang.actor_hitstop_v1`
-    BaicangActorHitstopV1 = 346,
+    BaicangActorHitstopV1 = 344,
     /// `skia.gnaw_entry_state_v1`
-    SkiaGnawEntryStateV1 = 347,
+    SkiaGnawEntryStateV1 = 345,
     /// `baicang.skia_entry_v1`
-    BaicangSkiaEntryV1 = 348,
+    BaicangSkiaEntryV1 = 346,
     /// `baicang.fadia_assist_v1`
-    BaicangFadiaAssistV1 = 349,
+    BaicangFadiaAssistV1 = 347,
     /// `baicang.lacrimosa_entry_jump_v1`
-    BaicangLacrimosaEntryJumpV1 = 350,
+    BaicangLacrimosaEntryJumpV1 = 348,
     /// `lacrimosa.bat_evade_exit_v1`
-    LacrimosaBatEvadeExitV1 = 351,
+    LacrimosaBatEvadeExitV1 = 349,
     /// `baicang.qualified_support_v1`
-    BaicangQualifiedSupportV1 = 352,
+    BaicangQualifiedSupportV1 = 350,
     /// `blackbird.ordinary_malice_v1`
-    BlackbirdOrdinaryMaliceV1 = 353,
+    BlackbirdOrdinaryMaliceV1 = 351,
     /// `blackbird.coordinated_bird_v1`
-    BlackbirdCoordinatedBirdV1 = 354,
+    BlackbirdCoordinatedBirdV1 = 352,
     /// `blackbird.ordinary_clock_v1`
-    BlackbirdOrdinaryClockV1 = 355,
+    BlackbirdOrdinaryClockV1 = 353,
     /// `blackbird.ordinary_secondary_v1`
-    BlackbirdOrdinarySecondaryV1 = 356,
+    BlackbirdOrdinarySecondaryV1 = 354,
     /// `blackbird.qualified_support_v1`
-    BlackbirdQualifiedSupportV1 = 357,
+    BlackbirdQualifiedSupportV1 = 355,
     /// `blackbird.primary_form_v1`
-    BlackbirdPrimaryFormV1 = 358,
+    BlackbirdPrimaryFormV1 = 356,
     /// `blackbird.evolve_actions_v1`
-    BlackbirdEvolveActionsV1 = 359,
+    BlackbirdEvolveActionsV1 = 357,
     /// `blackbird.evolved_secondary_v1`
-    BlackbirdEvolvedSecondaryV1 = 360,
+    BlackbirdEvolvedSecondaryV1 = 358,
     /// `blackbird.evolved_support_v1`
-    BlackbirdEvolvedSupportV1 = 361,
+    BlackbirdEvolvedSupportV1 = 359,
     /// `owner.action_role.character_1042_evolve_qte_v1`
-    OwnerActionRoleCharacter1042EvolveQteV1 = 362,
+    OwnerActionRoleCharacter1042EvolveQteV1 = 360,
     /// `blackbird.branches_v1`
-    BlackbirdBranchesV1 = 363,
+    BlackbirdBranchesV1 = 361,
     /// `blackbird.cancel_gates_v1`
-    BlackbirdCancelGatesV1 = 364,
+    BlackbirdCancelGatesV1 = 362,
     /// `blackbird.combat_transitions_v1`
-    BlackbirdCombatTransitionsV1 = 365,
+    BlackbirdCombatTransitionsV1 = 363,
     /// `blackbird.explicit_parry_v1`
-    BlackbirdExplicitParryV1 = 366,
+    BlackbirdExplicitParryV1 = 364,
     /// `chaos.ordinary_crime_v1`
-    ChaosOrdinaryCrimeV1 = 367,
+    ChaosOrdinaryCrimeV1 = 365,
     /// `chaos.ordinary_clock_v1`
-    ChaosOrdinaryClockV1 = 368,
+    ChaosOrdinaryClockV1 = 366,
     /// `chaos.primary_form_v1`
-    ChaosPrimaryFormV1 = 369,
+    ChaosPrimaryFormV1 = 367,
     /// `chaos.forced_interrupt_v1`
-    ChaosForcedInterruptV1 = 370,
+    ChaosForcedInterruptV1 = 368,
     /// `chaos.neutral_verdict_v1`
-    ChaosNeutralVerdictV1 = 371,
+    ChaosNeutralVerdictV1 = 369,
     /// `chaos.jump_cancel_v1`
-    ChaosJumpCancelV1 = 372,
+    ChaosJumpCancelV1 = 370,
     /// `chaos.normal_combo_verdict_v1`
-    ChaosNormalComboVerdictV1 = 373,
+    ChaosNormalComboVerdictV1 = 371,
     /// `chaos.warrant_transfer_v1`
-    ChaosWarrantTransferV1 = 374,
+    ChaosWarrantTransferV1 = 372,
     /// `chaos.qualified_support_v1`
-    ChaosQualifiedSupportV1 = 375,
+    ChaosQualifiedSupportV1 = 373,
     /// `chaos.verdict_continuation_v1`
-    ChaosVerdictContinuationV1 = 376,
+    ChaosVerdictContinuationV1 = 374,
     /// `chaos.secondary_actions_v1`
-    ChaosSecondaryActionsV1 = 377,
+    ChaosSecondaryActionsV1 = 375,
     /// `hathor.b2_remora_v1`
-    HathorB2RemoraV1 = 378,
+    HathorB2RemoraV1 = 376,
     /// `chaos.b2_remora_end_v1`
-    ChaosB2RemoraEndV1 = 379,
+    ChaosB2RemoraEndV1 = 377,
     /// `inputs.dash_directions_v1`
-    InputsDashDirectionsV1 = 380,
+    InputsDashDirectionsV1 = 378,
     /// `weapons.gold_wool_chaos_realfinish_v1`
-    WeaponsGoldWoolChaosRealfinishV1 = 381,
+    WeaponsGoldWoolChaosRealfinishV1 = 379,
     /// `chiz.exact_grain_v1`
-    ChizExactGrainV1 = 382,
+    ChizExactGrainV1 = 380,
     /// `chiz.charge_passives_v1`
-    ChizChargePassivesV1 = 383,
+    ChizChargePassivesV1 = 381,
     /// `chiz.ordinary_clock_v1`
-    ChizOrdinaryClockV1 = 384,
+    ChizOrdinaryClockV1 = 382,
     /// `chiz.exact_finance_v1`
-    ChizExactFinanceV1 = 385,
+    ChizExactFinanceV1 = 383,
     /// `chiz.pressed_skill_v1`
-    ChizPressedSkillV1 = 386,
+    ChizPressedSkillV1 = 384,
     /// `chiz.held_skill_v1`
-    ChizHeldSkillV1 = 387,
+    ChizHeldSkillV1 = 385,
     /// `chiz.held_full_v1`
-    ChizHeldFullV1 = 388,
+    ChizHeldFullV1 = 386,
     /// `chiz.action_cancels_v1`
-    ChizActionCancelsV1 = 389,
+    ChizActionCancelsV1 = 387,
     /// `chiz.secondary_actions_v1`
-    ChizSecondaryActionsV1 = 390,
+    ChizSecondaryActionsV1 = 388,
     /// `chiz.market_v1`
-    ChizMarketV1 = 391,
+    ChizMarketV1 = 389,
     /// `chiz.recorded_market_trace_v1`
-    ChizRecordedMarketTraceV1 = 392,
+    ChizRecordedMarketTraceV1 = 390,
     /// `chiz.barren_v1`
-    ChizBarrenV1 = 393,
+    ChizBarrenV1 = 391,
     /// `chiz.battle_entry_v1`
-    ChizBattleEntryV1 = 394,
+    ChizBattleEntryV1 = 392,
     /// `daffodil.ordinary_clock_v1`
-    DaffodilOrdinaryClockV1 = 395,
+    DaffodilOrdinaryClockV1 = 393,
     /// `daffodil.action_cancels_v1`
-    DaffodilActionCancelsV1 = 396,
+    DaffodilActionCancelsV1 = 394,
     /// `daffodil.secondary_actions_v1`
-    DaffodilSecondaryActionsV1 = 397,
+    DaffodilSecondaryActionsV1 = 395,
     /// `daffodil.phantom_step_v1`
-    DaffodilPhantomStepV1 = 398,
+    DaffodilPhantomStepV1 = 396,
     /// `daffodil.held_normal_v1`
-    DaffodilHeldNormalV1 = 399,
+    DaffodilHeldNormalV1 = 397,
     /// `combat.discord_break_gauge_v1`
-    CombatDiscordBreakGaugeV1 = 400,
+    CombatDiscordBreakGaugeV1 = 398,
     /// `daffodil.discord_cap_reduction_v1`
-    DaffodilDiscordCapReductionV1 = 401,
+    DaffodilDiscordCapReductionV1 = 399,
     /// `edgar.full_kit_v1`
-    EdgarFullKitV1 = 402,
+    EdgarFullKitV1 = 400,
     /// `fadia.incoming_share_v1`
-    FadiaIncomingShareV1 = 403,
+    FadiaIncomingShareV1 = 401,
     /// `fadia.ordinary_clock_v1`
-    FadiaOrdinaryClockV1 = 404,
+    FadiaOrdinaryClockV1 = 402,
     /// `fadia.full_kit_v1`
-    FadiaFullKitV1 = 405,
+    FadiaFullKitV1 = 403,
     /// `haniel.nova_extraction_v1`
-    HanielNovaExtractionV1 = 406,
+    HanielNovaExtractionV1 = 404,
     /// `haniel.ordinary_clock_v1`
-    HanielOrdinaryClockV1 = 407,
+    HanielOrdinaryClockV1 = 405,
     /// `haniel.cannon_ricochet_v1`
-    HanielCannonRicochetV1 = 408,
+    HanielCannonRicochetV1 = 406,
     /// `haniel.full_kit_v1`
-    HanielFullKitV1 = 409,
+    HanielFullKitV1 = 407,
     /// `hathor.ordinary_clock_v1`
-    HathorOrdinaryClockV1 = 410,
+    HathorOrdinaryClockV1 = 408,
     /// `hathor.tap_power_v1`
-    HathorTapPowerV1 = 411,
+    HathorTapPowerV1 = 409,
     /// `hathor.gaze_v1`
-    HathorGazeV1 = 412,
+    HathorGazeV1 = 410,
     /// `hathor.held_skill_v1`
-    HathorHeldSkillV1 = 413,
+    HathorHeldSkillV1 = 411,
     /// `combat.incoming_defense_v1`
-    CombatIncomingDefenseV1 = 414,
+    CombatIncomingDefenseV1 = 412,
     /// `hathor.burst_emergency_v1`
-    HathorBurstEmergencyV1 = 415,
+    HathorBurstEmergencyV1 = 413,
     /// `hathor.hybrid_emergency_v1`
-    HathorHybridEmergencyV1 = 416,
+    HathorHybridEmergencyV1 = 414,
     /// `hathor.cyclone_v1`
-    HathorCycloneV1 = 417,
+    HathorCycloneV1 = 415,
     /// `hathor.combat_lifecycle_v1`
-    HathorCombatLifecycleV1 = 418,
+    HathorCombatLifecycleV1 = 416,
     /// `hathor.secondary_actions_v1`
-    HathorSecondaryActionsV1 = 419,
+    HathorSecondaryActionsV1 = 417,
     /// `hathor.airattack_v1`
-    HathorAirattackV1 = 420,
+    HathorAirattackV1 = 418,
     /// `hathor.branch_v1`
-    HathorBranchV1 = 421,
+    HathorBranchV1 = 419,
     /// `hotori.katana_chain_v1`
-    HotoriKatanaV1 = 422,
+    HotoriKatanaV1 = 420,
     /// `hotori.mode_damage_v1`
-    HotoriModeDamageV1 = 423,
+    HotoriModeDamageV1 = 421,
     /// `hotori.recorded_replay_v1`
-    HotoriRecordedReplayV1 = 424,
+    HotoriRecordedReplayV1 = 422,
     /// `hotori.time_stop_clock_v1`
-    HotoriTimeStopClockV1 = 425,
+    HotoriTimeStopClockV1 = 423,
     /// `hotori.timepiece_v1`
-    HotoriTimepieceV1 = 426,
+    HotoriTimepieceV1 = 424,
     /// `nanally.cycle_followups_v1`
-    NanallyCycleFollowUpsV1 = 427,
+    NanallyCycleFollowUpsV1 = 425,
     /// `nanally.blossom_enhancement_v1`
-    NanallyBlossomEnhancementV1 = 428,
+    NanallyBlossomEnhancementV1 = 426,
     /// `nanally.combat_lifecycle_v1`
-    NanallyCombatLifecycleV1 = 429,
+    NanallyCombatLifecycleV1 = 427,
     /// `nanally.authority_removal_v1`
-    NanallyAuthorityRemovalV1 = 430,
+    NanallyAuthorityRemovalV1 = 428,
     /// `nanally.action_clock_v1`
-    NanallyActionClockV1 = 431,
+    NanallyActionClockV1 = 429,
     /// `linko.xiaozhen_pet_v1`
-    LinkoXiaozhenPetV1 = 432,
+    LinkoXiaozhenPetV1 = 430,
     /// `lacrimosa.sleep_in_v1`
-    LacrimosaSleepInV1 = 433,
+    LacrimosaSleepInV1 = 431,
     /// `mint.ordinary_clock_v1`
-    MintOrdinaryClockV1 = 434,
+    MintOrdinaryClockV1 = 432,
     /// `iroi.action_clock_v1`
-    IroiActionClockV1 = 435,
+    IroiActionClockV1 = 433,
     /// `lacrimosa.broken_shatter_v1`
-    LacrimosaBrokenShatterV1 = 436,
+    LacrimosaBrokenShatterV1 = 434,
     /// `zankou.forms_v1`
-    ZankouFormsV1 = 437,
+    ZankouFormsV1 = 435,
     /// `zankou.form_modifiers_v1`
-    ZankouFormModifiersV1 = 438,
-    ZankouCombatPassivesV1 = 439,
-    ZankouStoryModeV1 = 440,
-    SakiriBurstAtkV1 = 441,
-    CombatRelativeClockPolicyV1 = 442,
-    AdlerTemperanceV1 = 443,
-    ZeroCosmosCycleAtkV1 = 444,
-    CombatSinglePacketSupportV1 = 445,
-    LacrimosaA6FreeReactionEntryV1 = 446,
+    ZankouFormModifiersV1 = 436,
+    ZankouCombatPassivesV1 = 437,
+    ZankouStoryModeV1 = 438,
+    SakiriBurstAtkV1 = 439,
+    CombatRelativeClockPolicyV1 = 440,
+    AdlerTemperanceV1 = 441,
+    ZeroCosmosCycleAtkV1 = 442,
+    CombatSinglePacketSupportV1 = 443,
+    LacrimosaA6FreeReactionEntryV1 = 444,
     /// `weapons.echoes_on_hold_v1`
-    WeaponsEchoesOnHoldV1 = 447,
+    WeaponsEchoesOnHoldV1 = 445,
+    /// `akane.ordinary_clock_v1`
+    AkaneOrdinaryClockV1 = 446,
+    /// `akane.normal_chain_v1`
+    AkaneNormalChainV1 = 447,
+    /// `akane.ordinary_hit_energy_v1`
+    AkaneOrdinaryHitEnergyV1 = 448,
+    /// `akane.string_energy_v1`
+    AkaneStringEnergyV1 = 449,
+    /// `akane.rhythm_wave_v1`
+    AkaneRhythmWaveV1 = 450,
+    /// `akane.sonic_boom_v1`
+    AkaneSonicBoomV1 = 451,
+    /// `akane.perfect_pitch_v1`
+    AkanePerfectPitchV1 = 452,
+    /// `akane.awakenings_v1`
+    AkaneAwakeningsV1 = 453,
+    /// `akane.aoe_all_in_range_dummy_v1`
+    AkaneAoeAllInRangeDummyV1 = 454,
+    /// `akane.secondary_actions_v1`
+    AkaneSecondaryActionsV1 = 455,
 }
 
 struct Hypothesis {
@@ -904,7 +920,7 @@ struct Hypothesis {
     description: &'static str,
 }
 
-static HYPOTHESES: [Hypothesis; 448] = [
+static HYPOTHESES: [Hypothesis; 456] = [
     Hypothesis {
         id: "ability_index.primary_action_role_v1",
         description: "Interpret DT_CharacterAbilityConfig.CharacterAbilityList[].Value.AbilityIndex values 1, 2, 3, and 4 as Normal, RedirectSkill, Ultimate, and Qte action roles. This is an explicit model mapping kept separate from AbilityGameplayTag and does not establish native timing, reachability, cost, or weapon trigger semantics.",
@@ -1544,14 +1560,6 @@ static HYPOTHESES: [Hypothesis; 448] = [
     Hypothesis {
         id: "owner.action_role.character_1057_qte_v1",
         description: "Classify this exact frozen character action as QTE because its DT_CharacterAbilityConfig identity names the owner action as QTE while DT_CharacterAbilityEffectConfig has no row; this role is an owner-reviewed model hypothesis for this ability only.",
-    },
-    Hypothesis {
-        id: "owner.action_role.character_1057_skill_v1",
-        description: "Classify this exact Akane action as Skill because the frozen character action identity names its normal skill and the effect-config row is absent; owner role is an explicit model hypothesis.",
-    },
-    Hypothesis {
-        id: "owner.action_role.character_1057_ultimate_v1",
-        description: "Classify this exact Akane action as UltraSkill because the frozen character action identity names its ultimate and the effect-config row is absent; owner role is an explicit model hypothesis.",
     },
     Hypothesis {
         id: "owner.action_role.character_1070_qte_v1",
@@ -2697,9 +2705,49 @@ static HYPOTHESES: [Hypothesis; 448] = [
         id: "weapons.echoes_on_hold_v1",
         description: "Echoes on Hold grants team DEF Ignore and Cosmos penetration at combat start, refreshes Cosmos penetration on wearer Redirect Skill, and refreshes DEF Ignore after 3 wearer Follow-up Attack packets following an Ultimate.",
     },
+    Hypothesis {
+        id: "akane.ordinary_clock_v1",
+        description: "Akane Rin Stringblade, Rhythm Wave, Synced Resonance, Sonic Boom, and secondary actions execute on rate-one montage clocks rounded to microseconds with explicit N2 (19.8ms x2) and N3 (19.8ms x3 + 18.0ms x4) HitPause slowdowns, +30ms DamageActorAkane_Melee4 DelayTriggerTime, zero-flight SoundMark and Melee1 projectile delivery, 4012833us CINEMATIC_RELEASE world pause subsuming UltraSkill1 hitpause, and explicit cancel, jump, and switch-lock windows.",
+    },
+    Hypothesis {
+        id: "akane.normal_chain_v1",
+        description: "Stringblade executes four ground stages (N1 x2, N2 x2, N3 x3 Melee3 + x4 Melee3_1, N4 x1) with AppearMelee and MeleePre variants, conditional Melee3_1 continuation, and ComboSectionMap preservation across Evade and Critical Riposte; field exit resets active stage and action state.",
+    },
+    Hypothesis {
+        id: "akane.ordinary_hit_energy_v1",
+        description: "For Akane Rin character:1057 only, modeled Normal, Skill, Hold, Plunge, Riposte, and QTE native packets grant their nonnegative DT_SkillDamageData.ChargeAdd once per positive actual HP loss against target zero and distribute 0.6x team energy via DT_SkillTeamChargeRelationData Lakshana rows, plus HeterochromeAdd Cycle accrual; non-combat Buff_Akane057_BattleState +3/s Ultimate Energy regeneration is omitted.",
+    },
+    Hypothesis {
+        id: "akane.string_energy_v1",
+        description: "Akane Rin maintains bounded integer String Energy in 0..=30 (default 0, actor option start_string_energy, or 30 on battle entry at R3), gaining +1 on N1/N2/Airattack, +2 on N3/PerfectEvadeAttack, +4 on QTE, +6 on N4/Skill/Skill2, and 0 on UltraSkill/UpgradeSkill deduplicated once per cast stage, spending 30 -> 0 strictly on Synced Resonance hit prior to R6 +10 refund.",
+    },
+    Hypothesis {
+        id: "akane.rhythm_wave_v1",
+        description: "Rhythm Wave shares a 16.0s cooldown between Press (Overtone 25.0s single-target mark, +40% or A5 +64% CoefAdd on N1-N4 and Critical Riposte against the marked dummy while N2-N4 AoE hitboxes strike all living dummies) and Hold (hold >= 0.2s, Reverb Field 25.0s AoE aura, +60% or A5 +90% Skill/Hold DMG bonus) with mutual removal; at String Energy == 30 with an active mode, Press redirects to Press-only Synced Resonance (0.0s independent cooldown preserving Rhythm Wave cooldown and mode timer, emitting UpgradeSkill_Damage without UI-only UpgradeSkill_DisplayGE).",
+    },
+    Hypothesis {
+        id: "akane.sonic_boom_v1",
+        description: "Sonic Boom Stage 1 costs 100 Ultimate Energy on a 20.0s cooldown, delivers 10x UltraSkill1_Damage, grants 20.0s Solo Cadenza (allowing continued Ultimate Energy gain) and 20.0s Starlit Anthem (+20% ATK), and unlocks manual Stage 2 (0 cost, 0.1s cooldown, UltraSkill2_Damage, refreshing Starlit Anthem and ending Solo Cadenza without altering Stage 1 cooldown) between 4.0s and 20.0s elapsed without auto-casting on expiry.",
+    },
+    Hypothesis {
+        id: "akane.perfect_pitch_v1",
+        description: "Perfect Pitch unlocks permanently for the combat on the first team Remora reaction; while Akane Rin is alive (on or off field) with Overtone or Reverb Field active, the active mode applies Remora every 3.0s to its marked or AoE targets honoring team enhancements without incrementing Esper Cycle reaction counters. Any team or periodic Remora reapplication onto an active-Remora target outside a 1.0s per-target ICD emits Category E GE_Reaction_3_new_1057_Damage (150% ATK, bound under GA_Akane_Skill) with discrete floor(existing_remaining_seconds) * 0.20 CoefAdd capped at +160% sampled before timer refresh.",
+    },
+    Hypothesis {
+        id: "akane.awakenings_v1",
+        description: "Akane Rin A1-A6 identity-gated awakenings and R3/R6 count-gated resonance tiers apply verified modifiers: A1 10.0*BaseATK team heal plus +50% DEF and 60% Poise for 15.0s, A2 -12% Lakshana RES on marked/field targets, A3 +10.0 Skill_Damage ratio and 8.0s pull field, A4 +30% CritDMG for 15.0s, A5 +64%/+90% mode upgrades, A6 16% DefIgnore during Starlit Anthem, R3 battle-entry 30 String Energy plus +8.0 UpgradeSkill/+10.0 UltraSkill2 and skill level boosts, and R6 post-spend +10 refund plus +64% CritDMG for 25.0s stacking independently with A4.",
+    },
+    Hypothesis {
+        id: "akane.aoe_all_in_range_dummy_v1",
+        description: "Akane Rin AoE abilities (N2-N4, Rhythm Wave Hold, Synced Resonance under Reverb Field, Sonic Boom Stage 1/2, Stage Dive, Altered Chord, and Critical Riposte) strike all living scenario-declared dummies in ascending target_index under the all-in-range contract, while Overtone CoefAdd applies exclusively to the marked dummy.",
+    },
+    Hypothesis {
+        id: "akane.secondary_actions_v1",
+        description: "Akane Rin secondary actions execute Stage Dive plunge (Airattack_Damage with 1 + height_bonus in 0..=1), Evade (15.0 stamina), Critical Riposte (PerfectEvadeAttack_Damage), and Altered Chord QTE (QTE_Damage).",
+    },
 ];
 
-static PARSE_TABLE: [(&str, HypothesisId); 448] = [
+static PARSE_TABLE: [(&str, HypothesisId); 456] = [
     (
         "ability_index.primary_action_role_v1",
         HypothesisId::AbilityIndexPrimaryActionRoleV1,
@@ -2760,6 +2808,28 @@ static PARSE_TABLE: [(&str, HypothesisId); 448] = [
         "aim.mode_transitions_v1",
         HypothesisId::AimModeTransitionsV1,
     ),
+    (
+        "akane.aoe_all_in_range_dummy_v1",
+        HypothesisId::AkaneAoeAllInRangeDummyV1,
+    ),
+    ("akane.awakenings_v1", HypothesisId::AkaneAwakeningsV1),
+    ("akane.normal_chain_v1", HypothesisId::AkaneNormalChainV1),
+    (
+        "akane.ordinary_clock_v1",
+        HypothesisId::AkaneOrdinaryClockV1,
+    ),
+    (
+        "akane.ordinary_hit_energy_v1",
+        HypothesisId::AkaneOrdinaryHitEnergyV1,
+    ),
+    ("akane.perfect_pitch_v1", HypothesisId::AkanePerfectPitchV1),
+    ("akane.rhythm_wave_v1", HypothesisId::AkaneRhythmWaveV1),
+    (
+        "akane.secondary_actions_v1",
+        HypothesisId::AkaneSecondaryActionsV1,
+    ),
+    ("akane.sonic_boom_v1", HypothesisId::AkaneSonicBoomV1),
+    ("akane.string_energy_v1", HypothesisId::AkaneStringEnergyV1),
     ("aurelia.a2_cadenza_v1", HypothesisId::AureliaA2CadenzaV1),
     (
         "aurelia.airattack_evadebranch_direct_packet_energy_v1",
@@ -3737,14 +3807,6 @@ static PARSE_TABLE: [(&str, HypothesisId); 448] = [
     (
         "owner.action_role.character_1057_qte_v1",
         HypothesisId::OwnerActionRoleCharacter1057QteV1,
-    ),
-    (
-        "owner.action_role.character_1057_skill_v1",
-        HypothesisId::OwnerActionRoleCharacter1057SkillV1,
-    ),
-    (
-        "owner.action_role.character_1057_ultimate_v1",
-        HypothesisId::OwnerActionRoleCharacter1057UltimateV1,
     ),
     (
         "owner.action_role.character_1070_qte_v1",

@@ -6,6 +6,7 @@ use serde_json::{Map, Value, json};
 use std::{collections::BTreeMap, sync::OnceLock};
 
 mod adler;
+mod akane;
 mod blackbird;
 mod cang;
 mod chaos071;
@@ -31,6 +32,7 @@ mod zankou;
 
 const PACKET_GROUPS: &[&[Packet]] = &[
     adler::PACKETS,
+    akane::PACKETS,
     blackbird::PACKETS,
     cang::PACKETS,
     chaos071::PACKETS,
@@ -64,7 +66,8 @@ pub const SOURCE_ID: &str = "table:typed_native_damage";
 const OVERLAY_TABLE: &str = "DT_SkillDamageData";
 
 fn cycle_milli(id: &str) -> Option<u64> {
-    cang::cycle_milli(id)
+    akane::cycle_milli(id)
+        .or_else(|| cang::cycle_milli(id))
         .or_else(|| blackbird::cycle_milli(id))
         .or_else(|| chaos071::cycle_milli(id))
         .or_else(|| chiichan073::cycle_milli(id))
@@ -232,11 +235,12 @@ mod tests {
     #[test]
     fn only_consumed_packet_fields_and_exact_coordinates_are_retained() {
         let rows = transport()["rows"].as_object().unwrap();
-        assert_eq!(rows.len(), 611);
+        assert_eq!(rows.len(), 625);
         for (id, row) in rows {
             let expected = if id.starts_with("GE_Player_Cang_")
                 || id.starts_with("GE_Player_BlackBird_")
                 || id.starts_with("GE_Player_Chaos_")
+                || akane::cycle_milli(id).is_some()
                 || chiichan073::cycle_milli(id).is_some()
                 || daffodill::cycle_milli(id).is_some()
                 || edgar::cycle_milli(id).is_some()

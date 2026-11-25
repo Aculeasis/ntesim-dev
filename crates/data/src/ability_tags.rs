@@ -1,5 +1,5 @@
 //! Consumed Global 2026-10-04 action tags, independent from input roles.
-//! Only configured actions of the 23 supported owners are retained. Missing
+//! Only configured actions of the 24 supported owners are retained. Missing
 //! source rows remain missing; tags do not imply a primary button or a trigger.
 use serde_json::{Value, json};
 use std::{collections::BTreeMap, sync::OnceLock};
@@ -40,6 +40,18 @@ pub const TAGS: &[AbilityTag] = &[
     },
     AbilityTag {
         ability_id: "GA_Adler_UltraSkill",
+        tag: NativeTag::UltraSkill,
+    },
+    AbilityTag {
+        ability_id: "GA_Akane_Melee",
+        tag: NativeTag::Melee,
+    },
+    AbilityTag {
+        ability_id: "GA_Akane_Skill",
+        tag: NativeTag::Skill,
+    },
+    AbilityTag {
+        ability_id: "GA_Akane_UltraSkill",
         tag: NativeTag::UltraSkill,
     },
     AbilityTag {
@@ -338,7 +350,7 @@ mod tests {
             .map(|row| row.ability_id)
             .collect::<BTreeSet<_>>();
         assert_eq!(ids.len(), TAGS.len());
-        assert_eq!(ids.len(), 69);
+        assert_eq!(ids.len(), 72);
         let rows = &transport()["rows"];
         for ability in ["GA_Chaos071_Skill", "GA_Chaos071_UltraSkill"] {
             assert_eq!(
@@ -362,7 +374,6 @@ mod tests {
             "GA_Female046_Skill",
             "GA_Female046_UltraSkill",
             "GA_Mint019_QTE",
-            "GA_Akane_Skill",
         ] {
             assert!(
                 rows.get(ability).is_none(),

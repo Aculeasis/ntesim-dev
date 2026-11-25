@@ -27,6 +27,22 @@ pub const TITLES: &[AbilityTitle] = &[
         title: "Tranquility",
     },
     AbilityTitle {
+        ability_id: "GA_Akane_Melee",
+        title: "Stringblade",
+    },
+    AbilityTitle {
+        ability_id: "GA_Akane_QTE",
+        title: "Altered Chord",
+    },
+    AbilityTitle {
+        ability_id: "GA_Akane_Skill",
+        title: "Rhythm Wave",
+    },
+    AbilityTitle {
+        ability_id: "GA_Akane_UltraSkill",
+        title: "Sonic Boom",
+    },
+    AbilityTitle {
         ability_id: "GA_BlackBird_Evolve_Melee",
         title: "Fleeting Shadow",
     },
@@ -408,13 +424,12 @@ mod tests {
             .map(|row| row.ability_id)
             .collect::<BTreeSet<_>>();
         assert_eq!(ids.len(), TITLES.len());
-        assert_eq!(ids.len(), 96);
+        assert_eq!(ids.len(), 100);
         assert!(
             TITLES
                 .iter()
                 .all(|row| !row.title.is_empty() && row.title == row.title.trim())
         );
-        assert!(!ids.contains("GA_Akane_Skill"));
         assert!(!ids.contains("GA_Mint_Passive_1"));
         assert_eq!(
             TITLES

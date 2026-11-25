@@ -222,7 +222,7 @@ mod tests {
             }
         }
 
-        assert_eq!(projected, 22);
+        assert_eq!(projected, 23);
         assert_eq!(unsupported, BTreeSet::from(["fadia"]));
     }
 

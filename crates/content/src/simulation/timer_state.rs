@@ -304,6 +304,37 @@ pub(crate) fn owner_timers(
                 future(deadline, from, delta)?;
             }
         }
+        RuntimeState::Akane(state) if world => {
+            match &mut state.mode {
+                crate::characters::akane::skill::Mode::Overtone { until_us, .. } => {
+                    future(until_us, from, delta)?;
+                }
+                crate::characters::akane::skill::Mode::ReverbField {
+                    until_us,
+                    pull_until_us,
+                    ..
+                } => {
+                    future(until_us, from, delta)?;
+                    future(pull_until_us, from, delta)?;
+                }
+                crate::characters::akane::skill::Mode::None => {}
+            }
+            future(&mut state.rhythm_wave_ready_at_us, from, delta)?;
+            future(&mut state.cadenza_started_us, from, delta)?;
+            future(&mut state.cadenza_unlock_us, from, delta)?;
+            future(&mut state.cadenza_until_us, from, delta)?;
+            future(&mut state.stage2_ready_at_us, from, delta)?;
+            future(&mut state.anthem_until_us, from, delta)?;
+            future(&mut state.a1_until_us, from, delta)?;
+            future(&mut state.a4_until_us, from, delta)?;
+            future(&mut state.r6_until_us, from, delta)?;
+            if let Some(next_tick) = &mut state.perfect_pitch_next_tick_us {
+                future(next_tick, from, delta)?;
+            }
+            for deadline in state.perfect_pitch_icd_until_us.values_mut() {
+                future(deadline, from, delta)?;
+            }
+        }
         _ => {}
     }
     Ok(())
@@ -379,6 +410,11 @@ pub(crate) fn owner_action(
             }
             if let Some(pressed) = &mut state.pressed {
                 pressed.pause_action(owner, start, duration)?;
+            }
+        }
+        RuntimeState::Akane(state) => {
+            if let Some(clock) = &mut state.clock {
+                clock.global_freeze(owner, start, duration)?;
             }
         }
         _ => {}

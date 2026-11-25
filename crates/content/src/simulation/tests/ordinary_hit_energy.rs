@@ -277,6 +277,16 @@ const CASES: &[Case] = &[
         ),
         skill: None,
     },
+    Case {
+        owner: "character:1057",
+        source: "akane_hit",
+        melee: (
+            "GA_Akane_Melee",
+            "GE_Player_Akane_Melee1_Damage",
+            &[1244, 1244],
+        ),
+        skill: Some(("GA_Akane_Skill", "GE_Player_Akane_Skill_Damage", &[4200])),
+    },
 ];
 
 fn action(ability: &str, effect: &str, delay: u64) -> GameActionCommand {
@@ -378,6 +388,11 @@ fn request(case: &Case, skill: bool) -> GameScenarioRequest {
         // rewind must settle within the default 20s horizon.
         if let GameActionCommand::InvokeAbility { timestamp_us, .. } = &mut req.actions[0] {
             *timestamp_us = 11_000_000;
+        }
+    }
+    if case.owner == "character:1057" {
+        for (k, v) in crate::characters::akane::source_assumptions() {
+            req.model_assumptions.insert(k, v);
         }
     }
     if case.owner == "character:1033" && skill {
@@ -829,7 +844,10 @@ fn ordinary_delayed_grants_keep_source_after_switch_and_include_fatal_damage() {
         ];
         req.relative_duration_us = 2000;
         req.targets[0].hp_current = 1;
-        if matches!(case.owner, "character:1010" | "character:1036") {
+        if matches!(
+            case.owner,
+            "character:1010" | "character:1036" | "character:1057"
+        ) {
             // These finite Normals cannot switch before their owner recovery gate.
             let report = run_game_scenario(&req, &ExecutionLimits::default()).unwrap();
             assert_eq!(report["execution_completed"], false);

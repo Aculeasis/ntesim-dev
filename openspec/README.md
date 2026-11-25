@@ -39,6 +39,7 @@ python tools/openspec.py validate --all --strict --no-interactive --concurrency 
 | Runtime content and authored builds | [runtime-content](specs/runtime-content/spec.md) |
 | Distribution requirements | [distribution](specs/distribution/spec.md) |
 | Independent calibration and arithmetic checks | [calibration](specs/calibration/spec.md) |
+| Akane behavior | [characters/akane](specs/characters/akane/spec.md) |
 | Lacrimosa behavior | [characters/lacrimosa](specs/characters/lacrimosa/spec.md) |
 | Linko behavior | [characters/linko](specs/characters/linko/spec.md) |
 | Nanally behavior | [characters/nanally](specs/characters/nanally/spec.md) |

@@ -34,6 +34,7 @@ export type EnergySource =
   | 'adler_hit'
   | 'lacrimosa_hit'
   | 'shinku_hit'
+  | 'akane_hit'
   | 'zero_a2'
   | 'nanally_a1'
   | 'sakiri_a5'

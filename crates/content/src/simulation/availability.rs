@@ -22,6 +22,7 @@ pub(super) fn ability(
     let energy_cost = if utility.is_some() { 0 } else { energy_cost };
     let cooldown_us = utility
         .map(|action| action.ready_at_us)
+        .or_else(|| crate::registry::cooldown_override(config, actor, ability_id, damage_effect_id))
         .unwrap_or_else(|| {
             actor
                 .ability_cooldowns

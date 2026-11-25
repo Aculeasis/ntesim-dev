@@ -75,6 +75,7 @@ pub(crate) fn set_effect_id(set_id: &str) -> Option<&'static str> {
 }
 
 static ADLER_KIT: AdlerKit = AdlerKit;
+static AKANE_KIT: AkaneKit = AkaneKit;
 static AURELIA_KIT: AureliaKit = AureliaKit;
 static BAICANG_KIT: BaicangKit = BaicangKit;
 static BLACKBIRD_KIT: BlackbirdKit = BlackbirdKit;
@@ -101,6 +102,7 @@ static ZERO_KIT: ZeroKit = ZeroKit;
 pub(crate) fn lookup_kit(character_id: &str) -> Option<&'static dyn CharacterKit> {
     match character_id {
         "character:1033" => Some(&ADLER_KIT),
+        "character:1057" => Some(&AKANE_KIT),
         "character:1070" => Some(&AURELIA_KIT),
         "character:1023" => Some(&BAICANG_KIT),
         "character:1042" => Some(&BLACKBIRD_KIT),
@@ -157,6 +159,28 @@ pub(crate) fn on_cast(ctx: &mut CastContext<'_>) -> Result<(), String> {
         }
     }
     kit.on_cast(ctx)
+}
+
+pub(crate) fn cooldown_override(
+    config: &GameActorConfig,
+    actor: &ActorRuntime,
+    ability_id: &str,
+    damage_effect_id: &str,
+) -> Option<u64> {
+    if config.character_id == "character:1057" {
+        crate::characters::akane::skill::cooldown_override(actor, ability_id, damage_effect_id)
+    } else {
+        None
+    }
+}
+
+pub(crate) fn preserves_cooldown(
+    config: &GameActorConfig,
+    ability_id: &str,
+    damage_effect_id: &str,
+) -> bool {
+    config.character_id == "character:1057"
+        && crate::characters::akane::skill::preserves_cooldown(ability_id, damage_effect_id)
 }
 
 pub(crate) fn utility_invocation(
@@ -232,7 +256,8 @@ pub(crate) fn held_normal_override(
             | crate::characters::RuntimeState::Mint(_)
             | crate::characters::RuntimeState::Haniel(_)
             | crate::characters::RuntimeState::Hathor(_)
-            | crate::characters::RuntimeState::Iroi(_) => Ok(None),
+            | crate::characters::RuntimeState::Iroi(_)
+            | crate::characters::RuntimeState::Akane(_) => Ok(None),
             crate::characters::RuntimeState::Daffodil(_) => {
                 crate::characters::daffodil::held::replacement(request, actor, time_us)
             }
@@ -363,6 +388,10 @@ pub(crate) fn validate_back_dash_binding(
             request,
             crate::simulation::PlayerInput::Dash,
         )?,
+        "character:1057" => crate::characters::akane::secondary::validate_input(
+            request,
+            crate::simulation::PlayerInput::Dash,
+        )?,
         _ => return Err("no owner Back Dodge binding".into()),
     };
     model.ok_or("Back Dodge requires the owner's accepted secondary model")?;
@@ -430,6 +459,12 @@ pub(crate) fn on_committed_player_input(
     ) {
         crate::characters::chiz::cancel::committed_input(ctx, actor, input)?;
         crate::characters::chiz::secondary::committed(ctx, actor, command_index, input)?;
+    }
+    if matches!(
+        &ctx.state.actors[actor].character,
+        crate::characters::RuntimeState::Akane(_)
+    ) {
+        crate::characters::akane::secondary::committed_input(ctx, actor, command_index, input)?;
     }
     Ok(())
 }
@@ -888,6 +923,8 @@ pub(crate) fn validate_action_inputs(
     crate::characters::chaos::support::validate(request)?;
     crate::characters::chaos::secondary::validate(request)?;
     crate::characters::chaos::remora::validate_inputs(request)?;
+    crate::characters::akane::passive::validate_inputs(request)?;
+    crate::characters::akane::secondary::validate(request)?;
     crate::characters::chaos::warrant::validate(request)?;
     crate::characters::chaos::verdict::validate(request, packets)?;
     crate::characters::baicang::cancel::validate(request)?;
@@ -1030,6 +1067,15 @@ pub(crate) fn cancel_owned_packet_after_defeat(config: &GameActorConfig, effect_
     {
         return true;
     }
+    if config.character_id == "character:1057"
+        && matches!(
+            effect_id,
+            crate::characters::akane::secondary::RIPOSTE
+                | crate::characters::akane::passive::PACKET
+        )
+    {
+        return true;
+    }
     (config.character_id == "character:1042"
         && crate::characters::blackbird::secondary::cancel_after_defeat(effect_id))
         || (config.character_id == "character:1036"
@@ -1154,14 +1200,39 @@ pub(crate) fn validate_remora_extensions(
     state: &crate::simulation::state::GameSimulatorState,
     assumptions: &mut std::collections::BTreeMap<String, String>,
 ) -> Result<(), String> {
-    crate::characters::chaos::remora::validate(request, state, assumptions)
+    crate::characters::chaos::remora::validate(request, state, assumptions)?;
+    for (owner, config) in request.actors.iter().enumerate() {
+        if config.character_id == "character:1057" && state.actors[owner].hp > 0 {
+            crate::runtime_api::record_hypothesis_id(
+                request,
+                assumptions,
+                crate::characters::akane::passive::MODEL,
+            )?;
+        }
+    }
+    Ok(())
 }
 pub(crate) fn on_remora_created(
     ctx: &mut crate::runtime_api::CallbackContext<'_>,
+    owner_index: usize,
     target: usize,
     generation: u64,
+    existing_remaining_us: Option<u64>,
 ) -> Result<bool, String> {
-    crate::characters::chaos::remora::created(ctx, target, generation)
+    let armed = crate::characters::chaos::remora::created(
+        ctx,
+        owner_index,
+        target,
+        generation,
+        existing_remaining_us,
+    )?;
+    crate::characters::akane::passive::on_remora_applied(
+        ctx,
+        owner_index,
+        target,
+        existing_remaining_us,
+    )?;
+    Ok(armed)
 }
 pub(crate) fn on_remora_removed(
     ctx: &mut crate::runtime_api::CallbackContext<'_>,

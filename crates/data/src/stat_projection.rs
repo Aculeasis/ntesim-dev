@@ -205,7 +205,7 @@ mod tests {
             assert_eq!(projected["attributes"], native["attributes"]);
             count += 1;
         }
-        assert_eq!(count, 23);
+        assert_eq!(count, 24);
     }
 
     #[test]

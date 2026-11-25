@@ -124,7 +124,7 @@ The party Fons balance is readable as `.team.fons` when `start_fons` is declared
 | options start_fons=X | Optional nonnegative exact integer; required when a reached Fons-dependent model needs it |
 | add cartridge=name count=X | Equip set pieces; set bonuses follow their thresholds |
 
-awakening=3 equals awakening=[1,2,3]. Selection order does not affect execution, and compiled requests sort effect indices while source roundtrips preserve the authored text. All 23 released characters accept arbitrary selections for their currently modeled actions and effects. Individual awakenings require their exact effect index, resonance_3 activates at three selected effects, and resonance_6 activates at six. This selection support preserves each owner's partial mechanics and does not complete unsupported effect producers. Multiple cartridge sets require legal total piece capacity and are **pending**.
+awakening=3 equals awakening=[1,2,3]. Selection order does not affect execution, and compiled requests sort effect indices while source roundtrips preserve the authored text. All 24 released characters accept arbitrary selections for their currently modeled actions and effects. Individual awakenings require their exact effect index, resonance_3 activates at three selected effects, and resonance_6 activates at six. This selection support preserves each owner's partial mechanics and does not complete unsupported effect producers. Multiple cartridge sets require legal total piece capacity and are **pending**.
 
 Console/module geometry, layouts, automatic console stats and module specialization bonuses are outside simulator scope. The script supplies cartridge/module stat contributions through add stats; only declared 2-/4-piece set effects apply automatically.
 
@@ -145,6 +145,7 @@ Optional character +params initial state:
 | start_plot | 0 | Haniel integer Plot Armor in 0..4, or 0..6 with A1; preload triggers no Harmony/Ensemble |
 | start_bullets | 0 | Jiuyuan integer PowerBullets in 0..6; independent of energy/Cycle, preserved on switch and cleared on death |
 | start_resonance | 0 | Daffodil integer Resonance in 0..2; persistent Support pool, without self Eyes or Phantom Step grants |
+| start_string_energy | 0 | Akane Rin integer String Energy in 0..30 (R3 raises battle-entry floor to 30) |
 | start_<resource> (**other owners pending**) | Owner-defined starting value | Document each resource name, capacity and default in its character model |
 
 `start_hp%` keeps its evaluated expression as an exact ratio and floors the product with final projected integer Max HP once. For example, `start_hp%=0.58` with 100 final Max HP starts at 58 HP. A positive fraction that floors to zero is rejected. Equipment and additive HP contributions are included before this conversion.
@@ -213,7 +214,7 @@ For example, `target hp=10000000 def=1080 resist=0.2 break_gauge=1/3 max_break_g
 | character arc | Activate the equipped weapon's supported Arc (Silent Garden, Eclipse, Justice Executioner or Black Tome); the Rust owner supplies costs, cooldown, packets or field lifecycle |
 | character dash | Dash input with the modeled 500ms research recovery; `dash[critical=true]` explicitly assumes Critical Dodge success for reached owner effects |
 | character plunge | Supported owners listed above require explicit `airtime` and `height_bonus`; other owners remain unsupported |
-| character jump | Native grounded Jump/cancel for Baicang, Blackbird, Chaos, Chiz, Daffodil, Edgar, Fadia, Haniel, Hathor, Nanally and Zankou; requires the owner's current input gate and preserves costs/pending effects |
+| character jump | Native grounded Jump/cancel for Akane Rin, Baicang, Blackbird, Chaos, Chiz, Daffodil, Edgar, Fadia, Haniel, Hathor, Nanally and Zankou; requires the owner's current input gate and preserves costs/pending effects |
 
 Comma-separated actions run left to right. :N repeats an input N times; N is a positive integer literal. attack:5 is five consecutive attack inputs; the character model handles the chain. An off-field action implicitly swaps first. Initial active selects a character without a swap event. Native models own costs, cooldowns, recovery and all resulting damage/effects.
 
@@ -645,6 +646,8 @@ Mint's managed `.mods.attendance`/`.attendance.active` and `.mods.crit_damage`/`
 
 Hathor and Haniel also expose `.out_of_combat.active` from their native combat
 flag, separately from field control. Authored combat transitions remain Q4-L5.
+
+Akane Rin (`akane` / `Akane` / `"Akane Rin"`) accepts `start_string_energy` in `0..=30` and exposes `.resources.string`/`.string` (String Energy `0..30`), `.mode` (`0` = none, `1` = `Overtone`, `2` = `Reverb Field`), `.overtone`/`.overtone.active`/`.mods.overtone`, `.reverb`/`.reverb.active`/`.mods.reverb`, `.cadenza`/`.cadenza.active`/`.mods.cadenza`, `.anthem`/`.anthem.active`/`.mods.anthem`, `.perfect_pitch`/`.perfect_pitch.active`, `.mods.{a1,a4,r6}`, `.skill.ready`, `.skill.cd`, `.burst.ready`, `.burst.cd`, and `.energy`. `Rhythm Wave` Press/Hold (`hold >= 0.2s`) mutually replaces `Overtone`/`Reverb Field` on a shared `16s` cooldown, redirects to Press-only `Synced Resonance` at `30` String Energy without altering mode timers or Skill cooldown, and `Sonic Boom` unlocks manual Stage 2 in `Solo Cadenza` `[4s, 20s)` without auto-casting. See the [Akane Rin mechanics reference](mechanics/characters/akane/action-damage.md).
 
 ## Expressions and control flow
 

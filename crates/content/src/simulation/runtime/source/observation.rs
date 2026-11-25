@@ -171,6 +171,19 @@ impl Observation<'_> {
             "energymax" => actor.energy.capacity(),
             "onfield" => u64::from(index == self.state.active_actor_index),
             "normal" => actor.character.next_normal(self.state.current_time_us)?,
+            "string" => return self.owner_field(name, "resources", "string"),
+            "mode" => {
+                if self.state.live_owner_state_active(index, "overtone")? {
+                    1
+                } else if self.state.live_owner_state_active(index, "reverb")? {
+                    2
+                } else {
+                    0
+                }
+            }
+            "overtone" | "reverb" | "cadenza" | "anthem" | "perfect_pitch" => {
+                return self.owner_field(name, "state", field);
+            }
             _ => return Err(format!("Unsupported live field .{name}.{field}.")),
         };
         number(value).map(Value::Number)

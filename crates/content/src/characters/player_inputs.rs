@@ -25,6 +25,7 @@ pub(crate) fn validate(character: &str, input: PlayerInput) -> Result<(), String
                 | "character:1025"
                 | "character:1042"
                 | "character:1054"
+                | "character:1057"
                 | "character:1071"
                 | "character:1073"
                 | "character:1010"

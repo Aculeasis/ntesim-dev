@@ -30,6 +30,7 @@ pub(super) fn initial_assumptions(character: &str) -> BTreeMap<String, String> {
         "character:1036" => crate::characters::zankou::source_assumptions(),
         "character:1003" => crate::characters::sakiri::source_assumptions(),
         "character:1020" => crate::characters::haniel::source_assumptions(),
+        "character:1057" => crate::characters::akane::source_assumptions(),
         "character:1071" => crate::characters::chaos::source_assumptions(),
         "character:1075" => crate::characters::iroi::source_assumptions(),
         _ => BTreeMap::new(),
@@ -320,6 +321,23 @@ pub(super) fn project(
                 _ => {}
             }
         }
+        if character == "character:1057" {
+            match kind {
+                "skill" => {
+                    cooldown_us =
+                        crate::characters::akane::parameters::PARAMETERS.skill_cooldown_us;
+                    recovery_us = 1_498_994;
+                    hit_delay_us = 345_126;
+                }
+                "burst" => {
+                    cooldown_us =
+                        crate::characters::akane::parameters::PARAMETERS.burst_cooldown_us;
+                    recovery_us = 4_115_238;
+                    hit_delay_us = 2_856_699;
+                }
+                _ => {}
+            }
+        }
         actions.insert(
             kind.into(),
             PublicAction {
@@ -345,6 +363,12 @@ pub(super) fn project(
         actions.insert(
             "plunge".into(),
             crate::characters::baicang::plunge::public_action(),
+        );
+    }
+    if character == "character:1057" {
+        actions.insert(
+            "plunge".into(),
+            crate::characters::akane::secondary::public_plunge(),
         );
     }
     if character == "character:1071" {
@@ -502,6 +526,7 @@ mod tests {
             ("character:1046", 100), // Zero
             ("character:1052", 100), // Hotori (capacity 100, burst cost 0 via Timepiece units)
             ("character:1055", 100), // Jiuyuan
+            ("character:1057", 100), // Akane Rin
             ("character:1071", 100), // Chaos
             ("character:1072", 100), // Linko
             ("character:1073", 100), // Chiz

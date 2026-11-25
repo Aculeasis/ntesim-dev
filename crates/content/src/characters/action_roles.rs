@@ -87,16 +87,6 @@ pub(crate) fn resolve(character_id: &str, ability_id: &str) -> Option<OwnerActio
         ("character:1054", "GA_Daffodill_QTE") => qte("owner.action_role.character_1054_qte_v1"),
         ("character:1055", "GA_Kuhara_QTE") => qte("owner.action_role.character_1055_qte_v1"),
         ("character:1057", "GA_Akane_QTE") => qte("owner.action_role.character_1057_qte_v1"),
-        ("character:1057", "GA_Akane_Skill") => primary(
-            ActionCategory::Skill,
-            "owner.action_role.character_1057_skill_v1",
-            "Classify this exact Akane action as Skill because the frozen character action identity names its normal skill and the effect-config row is absent; owner role is an explicit model hypothesis.",
-        ),
-        ("character:1057", "GA_Akane_UltraSkill") => primary(
-            ActionCategory::UltraSkill,
-            "owner.action_role.character_1057_ultimate_v1",
-            "Classify this exact Akane action as UltraSkill because the frozen character action identity names its ultimate and the effect-config row is absent; owner role is an explicit model hypothesis.",
-        ),
         ("character:1070", "GA_Mitsuki_QTE") => qte("owner.action_role.character_1070_qte_v1"),
         ("character:1071", "GA_Chaos071_QTE") => qte("owner.action_role.character_1071_qte_v1"),
         ("character:1071", "GA_Chaos071_Skill") => primary(
@@ -147,8 +137,6 @@ pub(crate) fn known_hypotheses() -> std::collections::BTreeMap<&'static str, &'s
         ("character:1054", "GA_Daffodill_QTE"),
         ("character:1055", "GA_Kuhara_QTE"),
         ("character:1057", "GA_Akane_QTE"),
-        ("character:1057", "GA_Akane_Skill"),
-        ("character:1057", "GA_Akane_UltraSkill"),
         ("character:1070", "GA_Mitsuki_QTE"),
         ("character:1071", "GA_Chaos071_QTE"),
         ("character:1071", "GA_Chaos071_Skill"),

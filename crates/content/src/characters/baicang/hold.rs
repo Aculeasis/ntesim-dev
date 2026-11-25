@@ -32,6 +32,7 @@ pub(crate) fn validate_inputs(
                 | "character:1071"
                 | "character:1073"
                 | "character:1054"
+                | "character:1057"
                 | "character:1036"
                 | "character:1021"
                 | "character:1020"

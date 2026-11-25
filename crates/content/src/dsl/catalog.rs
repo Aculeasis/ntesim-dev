@@ -103,11 +103,14 @@ mod tests {
             ("Daffodill", "character:1054"),
             ("shinku", "character:1076"),
             ("Crimson", "character:1076"),
+            ("akane", "character:1057"),
+            ("akanerin", "character:1057"),
+            ("Akane", "character:1057"),
+            ("Akane Rin", "character:1057"),
             ("zankou", "character:1036"),
         ] {
             assert_eq!(catalog.resolve("character", name).unwrap(), id);
         }
-        assert!(catalog.resolve("character", "Akane").is_err());
         assert!(catalog.resolve("character", " ").is_err());
     }
 }

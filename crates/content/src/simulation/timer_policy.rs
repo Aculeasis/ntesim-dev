@@ -38,6 +38,7 @@ pub(crate) fn immediate_callback(event: &GameEventData) -> bool {
                         | crate::characters::haniel::hootie::Event::Expire { .. }
                 )
                 | ZankouCombat(_)
+                | Akane(crate::characters::akane::events::Event::PerfectPitchTick { .. })
                 | IroiClock(crate::characters::iroi::clock::Event::LambAi { .. })
                 | Edgar(crate::characters::edgar::clock::Event::FieldTick { .. })
         ),
@@ -128,6 +129,12 @@ fn content_domain(event: &crate::callbacks::ContentEvent) -> ClockDomain {
             | crate::characters::chaos::events::Event::VerdictRead { owner, command, .. }
             | crate::characters::chaos::events::Event::VerdictCommit { owner, command, .. }
             | crate::characters::chaos::events::Event::SupportFinish { owner, command, .. },
+        )
+        | Akane(
+            crate::characters::akane::events::Event::ModeOvertone { owner, command, .. }
+            | crate::characters::akane::events::Event::ModeReverb { owner, command, .. }
+            | crate::characters::akane::events::Event::SyncedBuffs { owner, command, .. }
+            | crate::characters::akane::events::Event::SkillFinish { owner, command, .. },
         )
         | Chiz(
             crate::characters::chiz::events::Event::HeldPhase { owner, command, .. }

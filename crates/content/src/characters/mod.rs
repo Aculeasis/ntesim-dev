@@ -1,6 +1,7 @@
 pub(crate) mod action_packet_bindings;
 pub(crate) mod action_roles;
 pub(crate) mod adler;
+pub(crate) mod akane;
 pub(crate) mod aurelia;
 pub(crate) mod baicang;
 pub(crate) mod blackbird;

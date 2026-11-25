@@ -22,7 +22,8 @@
     "character:1072": "Linko",
     "character:1073": "Chiz",
     "character:1075": "Iroi",
-    "character:1076": "Shinku"
+    "character:1076": "Shinku",
+    "character:1057": "Akane Rin"
   },
   "aliases": {
     "sakiri": "character:1003",
@@ -47,13 +48,18 @@
     "linko": "character:1072",
     "chiz": "character:1073",
     "iroi": "character:1075",
-    "shinku": "character:1076"
+    "shinku": "character:1076",
+    "akane": "character:1057"
   },
   "abilities": {
     "GA_Adler_Melee": "Deliverance",
     "GA_Adler_QTE": "Pristine Reflection",
     "GA_Adler_Skill": "Evil's Bane",
     "GA_Adler_UltraSkill": "Tranquility",
+    "GA_Akane_Melee": "Stringblade",
+    "GA_Akane_QTE": "Altered Chord",
+    "GA_Akane_Skill": "Rhythm Wave",
+    "GA_Akane_UltraSkill": "Sonic Boom",
     "GA_BlackBird_Evolve_Melee": "Fleeting Shadow",
     "GA_BlackBird_Evolve_Skill": "Netherplume Rite",
     "GA_BlackBird_Evolve_UltraSkill": "Requies Animarum",

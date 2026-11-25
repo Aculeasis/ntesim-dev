@@ -11,7 +11,11 @@ fn run(source: &str) -> SourceScenarioReport {
 fn source_next_normal_tracks_two_continuing_chains_for_every_released_owner() {
     for owner in crate::registry::character_descriptors().unwrap() {
         let name = owner.slug;
-        let length = if name == "aurelia" { 4 } else { 5 };
+        let length = if matches!(name, "aurelia" | "akane") {
+            4
+        } else {
+            5
+        };
         let result = run(&format!(
             "options duration=60 crit=fixed;
             {name} char lvl=80/80 awakening=0 talent=1,1,1 qte=1;

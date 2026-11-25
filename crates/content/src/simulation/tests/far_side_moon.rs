@@ -828,3 +828,53 @@ fn far_side_of_the_moon_stacks_bounded_refresh_at_cap_and_respect_acquisition_ga
         1_600_000 + 5_000_000
     );
 }
+
+#[test]
+fn akane_rin_far_side_of_the_moon_redirect_and_perfect_pitch_synergy() {
+    let tables = projection_tables();
+    let mut actor = projection_actor();
+    actor.character_id = "character:1057".into();
+    let report = crate::weapons::far_side_moon::projection::project(
+        &tables,
+        1,
+        "ntesim-current",
+        &mut actor,
+        &[],
+    )
+    .unwrap();
+    assert_eq!(report["runtime_execution_validated"], true);
+
+    let res = crate::simulation::PreparedSourceScenario::new(
+        "options duration=15 iteration=1 crit=random;\n\
+         akane char lvl=80/80 awakening=0 talent=10,10,10 qte=10 start_string_energy=30;\n\
+         akane add weapon=fork_prism refine=1;\n\
+         chaos char lvl=80/80 awakening=0 talent=10,10,10 qte=10 start_cycle=100;\n\
+         target hp=100000000 def=0 resist=0;\n\
+         active akane;\n\
+         akane skill;\n\
+         akane attack;\n\
+         akane skill;\n\
+         chaos swap;\n\
+         wait_until(.time + 1);\n\
+         akane swap;\n\
+         wait_until(.time + 4);\n",
+        Default::default(),
+        &Default::default(),
+    )
+    .unwrap()
+    .run(1)
+    .unwrap();
+    assert!(res.report.execution_completed, "{:?}", res.diagnostic);
+    let json = serde_json::to_value(&res.report).unwrap();
+    let trace = json["trace"].as_array().unwrap();
+    assert!(
+        trace
+            .iter()
+            .any(|e| e["event_kind"] == "far_side_moon_redirect_window")
+    );
+    assert!(
+        trace
+            .iter()
+            .any(|e| e["event_kind"] == "far_side_moon_skill_stack")
+    );
+}

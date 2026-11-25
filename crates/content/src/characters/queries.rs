@@ -234,6 +234,9 @@ impl RuntimeState {
             Self::Zankou(state) if name == "kindling" => wide_fraction(
                 crate::simulation::ExactFraction::new(u128::from(state.kindling_stacks), 1)?,
             ),
+            Self::Akane(state) if name == "string" => wide_fraction(
+                crate::simulation::ExactFraction::new(u128::from(state.string_energy), 1)?,
+            ),
             _ => Err(format!(
                 "Unknown resource '{name}' for this character model."
             )),
@@ -347,6 +350,34 @@ impl RuntimeState {
                 .and_then(|finance| finance.market.as_ref())
                 .and_then(|market| market.session.as_ref())
                 .map_or(0, |session| session.ends_at_us.saturating_sub(now))),
+            Self::Akane(state)
+                if matches!(
+                    name,
+                    "overtone" | "reverb" | "mode" | "cadenza" | "anthem" | "a1" | "a4" | "r6"
+                ) =>
+            {
+                Ok(match name {
+                    "overtone" => match state.mode {
+                        super::akane::skill::Mode::Overtone { until_us, .. } => {
+                            until_us.saturating_sub(now)
+                        }
+                        _ => 0,
+                    },
+                    "reverb" => match state.mode {
+                        super::akane::skill::Mode::ReverbField { until_us, .. } => {
+                            until_us.saturating_sub(now)
+                        }
+                        _ => 0,
+                    },
+                    "mode" => state.mode_until_us(now).saturating_sub(now),
+                    "cadenza" => state.cadenza_until_us.saturating_sub(now),
+                    "anthem" => state.anthem_until_us.saturating_sub(now),
+                    "a1" => state.a1_until_us.saturating_sub(now),
+                    "a4" => state.a4_until_us.saturating_sub(now),
+                    "r6" => state.r6_until_us.saturating_sub(now),
+                    _ => unreachable!(),
+                })
+            }
             _ => Err(format!(
                 "Unknown timed modifier '{name}' for this character model."
             )),
@@ -371,6 +402,10 @@ impl RuntimeState {
                 | (
                     Self::Haniel(_),
                     "hootie" | "paranormal_ace" | "symphony_token"
+                )
+                | (
+                    Self::Akane(_),
+                    "overtone" | "reverb" | "mode" | "cadenza" | "anthem" | "a1" | "a4" | "r6"
                 )
         )
     }
@@ -443,6 +478,7 @@ impl RuntimeState {
             }
             Self::Chiz(state) if name == "hoarding" => Ok(state.hoarding_active),
             Self::Chiz(state) if name == "out_of_combat" => Ok(state.out_of_combat),
+            Self::Akane(state) if name == "perfect_pitch" => Ok(state.perfect_pitch_unlocked),
             _ => Err(format!("Unknown state '{name}' for this character model.")),
         }
     }

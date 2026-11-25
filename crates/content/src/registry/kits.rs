@@ -78,6 +78,136 @@ impl CharacterKit for AdlerKit {
     }
 }
 
+pub(super) struct AkaneKit;
+impl CharacterKit for AkaneKit {
+    fn skill_gear_trigger_on_finish(&self, request: &GameScenarioRequest) -> bool {
+        crate::characters::akane::clock::accepted(request)
+    }
+    fn single_packet_support(&self) -> Option<&'static crate::runtime_api::SinglePacketSupport> {
+        Some(&crate::characters::akane::SUPPORT)
+    }
+    fn select_source_command(
+        &self,
+        actor: &ActorRuntime,
+        command: &mut crate::simulation::GameActionCommand,
+    ) -> Result<(), String> {
+        crate::characters::akane::skill::select_source_command(actor, command)
+    }
+    fn resource_admission_failure(
+        &self,
+        request: &GameScenarioRequest,
+        command: usize,
+        actor: &ActorRuntime,
+        ability: &str,
+        now: u64,
+    ) -> Option<crate::simulation::rejection::AdmissionFailure> {
+        crate::characters::akane::skill::resource_admission_failure(
+            request, command, actor, ability, now,
+        )
+    }
+    fn initialize(
+        &self,
+        request: &GameScenarioRequest,
+        config: &GameActorConfig,
+        actor: &mut ActorRuntime,
+    ) -> Result<(), String> {
+        crate::characters::akane::skill::initialize(request, config, actor)
+    }
+    fn normal_action_override(
+        &self,
+        actor: &ActorRuntime,
+    ) -> Option<crate::runtime_api::NormalActionOverride> {
+        crate::characters::akane::secondary::replacement(actor)
+    }
+    fn critical_dodge_model(&self, request: &GameScenarioRequest) -> Option<crate::HypothesisId> {
+        crate::characters::akane::secondary::accepted(request)
+            .then_some(crate::characters::akane::secondary::MODEL)
+    }
+    fn on_critical_dodge(&self, ctx: &mut CastContext<'_>) -> Result<(), String> {
+        crate::characters::akane::secondary::critical_dodge(ctx)
+    }
+    fn on_player_input(
+        &self,
+        request: &GameScenarioRequest,
+        actor: &mut ActorRuntime,
+        input: crate::simulation::PlayerInput,
+    ) -> Result<(), String> {
+        crate::characters::akane::secondary::on_input(request, actor, input)
+    }
+    fn validate_player_input(
+        &self,
+        request: &GameScenarioRequest,
+        input: crate::simulation::PlayerInput,
+    ) -> Result<Option<crate::HypothesisId>, String> {
+        if input == crate::simulation::PlayerInput::Jump
+            && crate::characters::akane::clock::accepted(request)
+        {
+            return Ok(Some(crate::characters::akane::clock::MODEL));
+        }
+        crate::characters::akane::secondary::validate_input(request, input)
+    }
+    fn validate_plunge(
+        &self,
+        ctx: &crate::runtime_api::PlungeInputContext<'_>,
+    ) -> Result<(), String> {
+        crate::characters::akane::secondary::validate_plunge(ctx)
+    }
+    fn validate_packet_admission(
+        &self,
+        _config: &GameActorConfig,
+        actor: &ActorRuntime,
+        ability: &str,
+        packet: &str,
+        _now: u64,
+    ) -> Result<(), String> {
+        crate::characters::akane::secondary::validate_packet(actor, ability, packet)
+    }
+    fn direct_packet_energy(
+        &self,
+        ability: &str,
+        packet: &str,
+    ) -> Option<crate::runtime_api::DirectPacketEnergyPolicy> {
+        crate::characters::akane::secondary::energy(ability, packet)
+    }
+    fn primary_packet(&self, ability: &str) -> Option<&'static str> {
+        crate::characters::akane::primary_packet(ability)
+    }
+    fn on_cast(&self, ctx: &mut CastContext<'_>) -> Result<(), String> {
+        crate::characters::akane::skill::on_cast(ctx)
+    }
+    fn on_hit(&self, ctx: &mut ActorHitContext<'_>) -> Result<(), String> {
+        crate::characters::akane::skill::on_hit(ctx)
+    }
+    fn on_field_exit(
+        &self,
+        ctx: &mut crate::runtime_api::CallbackContext<'_>,
+        actor: usize,
+    ) -> Result<(), String> {
+        crate::characters::akane::clock::exit(ctx, actor)
+    }
+    fn damage_bonus(
+        &self,
+        ctx: &DamageContext<'_>,
+        bonus: HitModifiers,
+    ) -> Result<HitModifiers, String> {
+        crate::characters::akane::awakenings::damage_bonus(ctx, bonus)
+    }
+    fn cast_buff_duration(&self, _config: &GameActorConfig, ability: &str) -> Option<u64> {
+        crate::characters::akane::buff_duration(ability)
+    }
+    fn recovery_lock_override(
+        &self,
+        request: &GameScenarioRequest,
+        actor: &ActorRuntime,
+        ability: &str,
+        now: u64,
+    ) -> Option<(u64, crate::HypothesisId)> {
+        crate::characters::akane::clock::cancel::recovery(request, actor, ability, now)
+            .ok()
+            .flatten()
+    }
+}
+
 pub(super) struct AureliaKit;
 impl CharacterKit for AureliaKit {
     fn single_packet_support(&self) -> Option<&'static crate::runtime_api::SinglePacketSupport> {

@@ -30,6 +30,7 @@ mod adler_energy;
 mod adler_r6;
 mod adler_shields;
 mod adler_skill;
+mod akane_actions;
 mod appliance;
 mod appliance_cycles;
 mod aurelia_actions;

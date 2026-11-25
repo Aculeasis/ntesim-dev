@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 import { Localization, english } from '../src/domain/localization';
 import names from '../src/generated/names.json';
 import catalog from '../src/generated/catalog.json';
-assert.equal(Object.keys(names.characters).length, 23);
+assert.equal(Object.keys(names.characters).length, 24);
 for (const [slug, id] of Object.entries(names.aliases)) {
   const native = id.split(':')[1],
     expected = catalog.characters.find((p) => p.slug === slug && p.id === id)?.name;
@@ -157,5 +157,5 @@ assert.ok(fanoutEvent.detail.includes('base 3/2'));
 assert.ok(fanoutEvent.detail.includes(english.character('character:1075')));
 assert.ok(fanoutEvent.detail.includes(english.character('character:1019')));
 console.log(
-  'Localization: all 23 released identities, typed Rust action titles and fallback behavior match the native catalog',
+  'Localization: all 24 released identities, typed Rust action titles and fallback behavior match the native catalog',
 );

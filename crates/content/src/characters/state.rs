@@ -24,6 +24,7 @@ pub(crate) enum RuntimeState {
     Chaos(Box<super::chaos::skill::State>),
     Linko(super::linko::awakenings::State),
     Adler(super::adler::awakenings::State),
+    Akane(Box<super::akane::skill::State>),
 }
 impl RuntimeState {
     pub(crate) fn new(character_id: &str) -> Self {
@@ -51,6 +52,7 @@ impl RuntimeState {
             "character:1071" => Self::Chaos(Default::default()),
             "character:1072" => Self::Linko(Default::default()),
             "character:1033" => Self::Adler(Default::default()),
+            "character:1057" => Self::Akane(Default::default()),
             _ => Self::Generic,
         }
     }
@@ -82,6 +84,7 @@ impl RuntimeState {
             Self::Chaos(state) => Some((&mut state.normal_stage, &mut state.normal_started_us)),
             Self::Linko(state) => Some((&mut state.normal_stage, &mut state.normal_started_us)),
             Self::Adler(state) => Some((&mut state.normal_stage, &mut state.normal_started_us)),
+            Self::Akane(state) => Some((&mut state.normal_stage, &mut state.normal_started_us)),
         }
     }
     pub(crate) fn reset_normal_chain(&mut self) {
@@ -191,6 +194,13 @@ impl RuntimeState {
             }
             Self::Adler(s) => {
                 s.riposte_ready = false;
+                s.normal_stage = 0;
+                s.normal_started_us = None;
+            }
+            Self::Akane(s) => {
+                s.riposte_ready = false;
+                s.melee_pre_ready = false;
+                s.entry_normal_ready = false;
                 s.normal_stage = 0;
                 s.normal_started_us = None;
             }
@@ -391,6 +401,18 @@ impl RuntimeState {
         match self {
             Self::Adler(state) => Ok(state),
             _ => Err("Adler runtime extension unavailable".into()),
+        }
+    }
+    pub(crate) fn akane(&self) -> Result<&super::akane::skill::State, String> {
+        match self {
+            Self::Akane(state) => Ok(state),
+            _ => Err("Akane runtime extension unavailable".into()),
+        }
+    }
+    pub(crate) fn akane_mut(&mut self) -> Result<&mut super::akane::skill::State, String> {
+        match self {
+            Self::Akane(state) => Ok(state),
+            _ => Err("Akane runtime extension unavailable".into()),
         }
     }
 }

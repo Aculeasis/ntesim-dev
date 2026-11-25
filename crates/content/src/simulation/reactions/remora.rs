@@ -1,4 +1,4 @@
-use super::{EventContext, ExactFraction, ReactionSnapshot, trace};
+use super::{EventContext, ExactFraction, ReactionSnapshot};
 use crate::simulation::{GameEnergySource, GameEventPayload, GameEventReceipt};
 use ntesim_core::buffs::dispatch::{
     BuffDefinition, BuffManager, BuffRecipient, BuffStackingScope, DecayPolicy, RefreshPolicy,
@@ -20,6 +20,35 @@ pub(super) struct Generation {
 
 pub(super) fn apply(ctx: &mut EventContext<'_>, snapshot: ReactionSnapshot) -> Result<(), String> {
     let target = ctx.request.aim_target(snapshot.command_index);
+    apply_to_target(
+        &mut crate::runtime_api::CallbackContext {
+            state: ctx.state,
+            request: ctx.request,
+            queue: ctx.queue,
+            sequence: ctx.sequence,
+            trace: ctx.trace,
+        },
+        snapshot.owner_index,
+        target,
+        snapshot.command_index,
+    )
+}
+
+pub(crate) fn apply_from_owner(
+    ctx: &mut crate::runtime_api::CallbackContext<'_>,
+    owner_index: usize,
+    target: usize,
+    command_index: usize,
+) -> Result<(), String> {
+    apply_to_target(ctx, owner_index, target, command_index)
+}
+
+fn apply_to_target(
+    ctx: &mut crate::runtime_api::CallbackContext<'_>,
+    owner_index: usize,
+    target: usize,
+    command_index: usize,
+) -> Result<(), String> {
     let mut assumptions = Default::default();
     let policy = crate::registry::remora_enhancement(ctx.request, ctx.state, &mut assumptions)?;
     let duration_us = policy
@@ -29,6 +58,22 @@ pub(super) fn apply(ctx: &mut EventContext<'_>, snapshot: ReactionSnapshot) -> R
         policy.crit_rate_bonus
     });
     let now = ctx.state.current_time_us;
+    let existing_remaining_us = if crate::simulation::state::target_tagged_status_stacks(
+        &ctx.state.buffs,
+        target,
+        STATUS_TAG,
+        ctx.state.mode_clock.relative_us(),
+    )? > 0
+    {
+        ctx.state
+            .reactions
+            .remora
+            .get(&target)
+            .and_then(|current| current.expires_us.checked_sub(now))
+            .filter(|remaining| *remaining > 0)
+    } else {
+        None
+    };
     let expires_us = now
         .checked_add(duration_us)
         .ok_or("Remora deadline overflow")?;
@@ -42,7 +87,7 @@ pub(super) fn apply(ctx: &mut EventContext<'_>, snapshot: ReactionSnapshot) -> R
             id: generation,
             applied_us: now,
             expires_us,
-            command: snapshot.command_index,
+            command: command_index,
         },
     );
     ctx.state
@@ -61,21 +106,17 @@ pub(super) fn apply(ctx: &mut EventContext<'_>, snapshot: ReactionSnapshot) -> R
                 stat_modifiers: std::collections::BTreeMap::from([(CRIT_STAT.into(), bonus)]),
                 semantic_tags: BTreeSet::from([STATUS_TAG.into()]),
             },
-            snapshot.owner_index,
+            owner_index,
             ctx.state.mode_clock.relative_us(),
         )
         .map_err(|error| format!("Remora application failed: {error:?}"))?;
     ctx.state.execution_model_assumptions.extend(assumptions);
     let armed = crate::registry::on_remora_created(
-        &mut crate::runtime_api::CallbackContext {
-            state: ctx.state,
-            request: ctx.request,
-            queue: ctx.queue,
-            sequence: ctx.sequence,
-            trace: ctx.trace,
-        },
+        ctx,
+        owner_index,
         target,
         generation,
+        existing_remaining_us,
     )?;
     // Refresh retires the old callback even when the new duration is shorter.
     ctx.queue.retain(|event| {
@@ -100,16 +141,22 @@ pub(super) fn apply(ctx: &mut EventContext<'_>, snapshot: ReactionSnapshot) -> R
                 },
             });
     }
-    trace(
-        ctx,
-        "reaction_remora_applied",
-        Some(snapshot.owner_index),
-        Some(GameEventPayload {
+    ctx.trace.push(GameEventReceipt {
+        time_us: ctx.state.current_time_us,
+        phase: "ReactionOrBreak".into(),
+        event_kind: "reaction_remora_applied".into(),
+        active_actor: ctx.state.active_actor_index,
+        hit_index: None,
+        from_actor: Some(owner_index),
+        to_actor: None,
+        energy_change: None,
+        energy_fanout: None,
+        data: Some(GameEventPayload {
             target_index: Some(target),
             duration_us: Some(duration_us),
             ..Default::default()
         }),
-    );
+    });
     Ok(())
 }
 
@@ -199,6 +246,13 @@ pub(crate) fn crit_rate_bonus(
             .copied()
             .unwrap_or(crate::formula::Ratio::zero()),
     )
+}
+
+pub(crate) fn command_for_target(
+    state: &crate::simulation::state::GameSimulatorState,
+    target: usize,
+) -> Option<usize> {
+    state.reactions.remora.get(&target).map(|g| g.command)
 }
 
 pub(super) fn is_active(ctx: &EventContext<'_>, target_index: usize) -> Result<bool, String> {

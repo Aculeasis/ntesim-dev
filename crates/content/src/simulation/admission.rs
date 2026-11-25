@@ -347,7 +347,14 @@ pub(super) fn admit_ability(
         cmd.cooldown_us,
         super::state::AbilityTimingOverrides {
             recovery_lock: recovery_override.map(|(deadline, _)| deadline),
-            ready_at: cmd.utility.map(|action| action.ready_at_us),
+            ready_at: cmd.utility.map(|action| action.ready_at_us).or_else(|| {
+                crate::registry::cooldown_override(
+                    config,
+                    &state.actors[cmd.actor_idx],
+                    &cmd.ability_id,
+                    &cmd.damage_effect_id,
+                )
+            }),
         },
     ) {
         Ok(timing) => timing,
@@ -377,7 +384,8 @@ pub(super) fn admit_ability(
         cmd.energy_cost,
         timing,
         state.current_time_us,
-        cmd.utility.is_some(),
+        cmd.utility.is_some()
+            || crate::registry::preserves_cooldown(config, &cmd.ability_id, &cmd.damage_effect_id),
     )?;
 
     record_admission_trace(
@@ -470,7 +478,8 @@ fn finish_admission(
     let state = &mut *ctx.state;
     let is_ultimate_cinematic = metadata.action.primary_slot
         == Some(super::metadata::PrimaryActionSlot::Ultimate)
-        && cmd.damage_effect_id != "GE_Player_Shinku_UltraSkillPre_Rage_Damage";
+        && cmd.damage_effect_id != "GE_Player_Shinku_UltraSkillPre_Rage_Damage"
+        && cmd.damage_effect_id != "GE_Player_Akane_UltraSkill2_Damage";
     super::pause::committed(
         state,
         request,

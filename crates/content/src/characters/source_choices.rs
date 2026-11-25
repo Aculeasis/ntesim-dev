@@ -106,6 +106,9 @@ pub(crate) fn assumptions(character: &str, action: &str, held: bool) -> BTreeMap
             super::iroi::riposte::HYPOTHESIS_ID,
             super::iroi::plunge::HYPOTHESIS_ID,
         ],
+        ("character:1057", "dash" | "plunge" | "jump", _) => {
+            &[super::akane::clock::MODEL, super::akane::secondary::MODEL]
+        }
         _ => &[],
     };
     models

@@ -75,6 +75,8 @@ impl RuntimeState {
             Self::Chaos(s) => ordinary!(s),
             Self::Linko(s) => ordinary!(s),
             Self::Adler(s) => ordinary!(s),
+            Self::Akane(s) if s.entry_normal_ready || s.melee_pre_ready => 0,
+            Self::Akane(s) => ordinary!(s),
         };
         Ok(stage as u64 + 1)
     }

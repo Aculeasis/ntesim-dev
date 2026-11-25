@@ -2,13 +2,14 @@
 
 Frozen cutoff: Global the Global source snapshot of 2026-10-04. Each owner file has one broad responsibility card for action packets, damage rules, and modeled owner effects. Linked JSON/model records are provenance and verification evidence; they remain preserved.
 
-The shared build/request/preview and public DSL paths accept canonical individual awakening selections for all 23 owners; ordinary effects are identity-gated, resonance effects are count-gated, integer DSL awakening is prefix sugar, and requests sort selections while source order roundtrips. In each card, source-backed IDs/values are distinguishable from executable model decisions. Text explicitly marked as a hypothesis or bounded model choice is not established native behavior; its checks verify only the named scenarios. A supported slice does not imply whole-kit coverage.
+The shared build/request/preview and public DSL paths accept canonical individual awakening selections for all 24 owners; ordinary effects are identity-gated, resonance effects are count-gated, integer DSL awakening is prefix sugar, and requests sort selections while source order roundtrips. In each card, source-backed IDs/values are distinguishable from executable model decisions. Text explicitly marked as a hypothesis or bounded model choice is not established native behavior; its checks verify only the named scenarios. A supported slice does not imply whole-kit coverage.
 
 Chaos and Baicang are separate identities: Chaos is `character:1071` (`GA_Chaos071_*`); Baicang is `character:1023` (`GA_Cang_*`). Owner slugs follow the corresponding frozen action models.
 
 ## Released owners
 
 - [Adler](adler/action-damage.md)
+- [Akane Rin](akane/action-damage.md)
 - [Aurelia](aurelia/action-damage.md)
 - [Baicang](baicang/action-damage.md)
 - [Blackbird](blackbird/action-damage.md) — also see [Malice and coordinated damage](blackbird/malice-and-coordinated-damage.md)

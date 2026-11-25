@@ -100,6 +100,10 @@ const sources: Record<EnergyGrant['source'], EnergySourceDetails> = {
     kind: 'shinku_hit_energy',
     label: 'Shinku ordinary hit',
   },
+  akane_hit: {
+    kind: 'akane_hit_energy',
+    label: 'Akane ordinary hit',
+  },
   adler_hit: {
     kind: 'adler_hit_energy',
     label: 'Adler ordinary hit',

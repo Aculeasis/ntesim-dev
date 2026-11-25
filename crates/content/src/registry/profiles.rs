@@ -70,6 +70,7 @@ pub struct PreviewCharacterProfile {
 pub fn get_character_profile(slug: &str) -> Result<PreviewCharacterProfile, String> {
     match slug {
         "adler" => Ok(crate::characters::adler::preview::profile()),
+        "akane" => Ok(crate::characters::akane::preview::profile()),
         "aurelia" => Ok(crate::characters::aurelia::preview::profile()),
         "baicang" => Ok(crate::characters::baicang::preview::profile()),
         "blackbird" => Ok(crate::characters::blackbird::preview::profile()),
@@ -120,6 +121,7 @@ pub fn validate_awakening_selection(
                 | "character:1052"
                 | "character:1054"
                 | "character:1055"
+                | "character:1057"
                 | "character:1070"
                 | "character:1071"
                 | "character:1072"
