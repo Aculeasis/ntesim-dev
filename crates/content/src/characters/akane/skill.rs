@@ -45,7 +45,7 @@ pub(crate) struct State {
     pub(crate) perfect_pitch_unlocked: bool,
     pub(crate) perfect_pitch_next_tick_us: Option<u64>,
     pub(crate) perfect_pitch_icd_until_us: BTreeMap<usize, u64>,
-    pub(crate) perfect_pitch_coef_adds: BTreeMap<usize, crate::simulation::ExactFraction>,
+    pub(crate) perfect_pitch_final_bonuses: BTreeMap<usize, crate::simulation::ExactFraction>,
     pub(crate) entry_normal_ready: bool,
     pub(crate) melee_pre_ready: bool,
     pub(crate) riposte_ready: bool,
@@ -434,7 +434,7 @@ pub(crate) fn on_cast(ctx: &mut CastContext<'_>) -> Result<(), String> {
         ctx.record_hypothesis(CHAIN_HYPOTHESIS_ID)?;
         ctx.record_hypothesis(STRING_ENERGY_HYPOTHESIS_ID)?;
 
-        let (stage, appear, pre, overtone_target) = {
+        let (stage, appear, pre, overtone_target, reverb_active) = {
             let state = ctx.actor.character.akane_mut()?;
             let appear = state.entry_normal_ready;
             let pre = state.melee_pre_ready;
@@ -454,7 +454,8 @@ pub(crate) fn on_cast(ctx: &mut CastContext<'_>) -> Result<(), String> {
             let marked = state
                 .overtone_target(ctx.time_us)
                 .filter(|&t| ctx.targets.get(t).is_some_and(|tgt| tgt.hp_current > 0));
-            (stage, appear, pre, marked)
+            let reverb_active = state.reverb_active(ctx.time_us);
+            (stage, appear, pre, marked, reverb_active)
         };
 
         let kind = if appear {
@@ -467,16 +468,33 @@ pub(crate) fn on_cast(ctx: &mut CastContext<'_>) -> Result<(), String> {
 
         match stage {
             0 => {
-                let target = overtone_target.unwrap_or(ctx.target_index);
-                ctx.scope_primary_target_group("GE_Player_Akane_Melee1_Damage")?;
-                if target != ctx.target_index {
-                    redirect_primary_target(ctx, target);
+                if let Some(target) = overtone_target {
+                    ctx.scope_primary_target_group("GE_Player_Akane_Melee1_Damage")?;
+                    if target != ctx.target_index {
+                        redirect_primary_target(ctx, target);
+                    }
+                    ctx.schedule_native_target_group(
+                        "GE_Player_Akane_Melee1_Damage",
+                        target,
+                        ctx.hit_time_us,
+                    )?;
+                } else if reverb_active {
+                    if ctx.targets.len() > 1 {
+                        ctx.record_hypothesis(ALL_IN_RANGE_HYPOTHESIS_ID)?;
+                    }
+                    ctx.scope_primary_aoe_group("GE_Player_Akane_Melee1_Damage")?;
+                    ctx.schedule_native_aoe_group(
+                        "GE_Player_Akane_Melee1_Damage",
+                        ctx.hit_time_us,
+                    )?;
+                } else {
+                    ctx.scope_primary_target_group("GE_Player_Akane_Melee1_Damage")?;
+                    ctx.schedule_native_target_group(
+                        "GE_Player_Akane_Melee1_Damage",
+                        ctx.target_index,
+                        ctx.hit_time_us,
+                    )?;
                 }
-                ctx.schedule_native_target_group(
-                    "GE_Player_Akane_Melee1_Damage",
-                    target,
-                    ctx.hit_time_us,
-                )?;
             }
             1 => {
                 if ctx.targets.len() > 1 {

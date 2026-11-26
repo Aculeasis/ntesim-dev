@@ -114,7 +114,7 @@ pub(crate) fn on_remora_applied(
             .insert(target, next_icd);
 
         let whole_secs = (rem_us / 1_000_000).min(8);
-        let coef_add = ExactFraction::new(u128::from(whole_secs), 5)?;
+        let final_bonus = ExactFraction::new(u128::from(whole_secs), 5)?;
         let command = crate::simulation::reactions::remora_command(ctx.state, target)
             .or_else(|| {
                 ctx.state.actors[owner]
@@ -124,7 +124,7 @@ pub(crate) fn on_remora_applied(
                     .and_then(|s| s.mode_command_index())
             })
             .unwrap_or(0);
-        emit_proc(ctx, owner, target, command, coef_add)?;
+        emit_proc(ctx, owner, target, command, final_bonus)?;
     }
     Ok(())
 }
@@ -189,7 +189,7 @@ fn emit_proc(
     owner: usize,
     target: usize,
     command: usize,
-    coef_add: ExactFraction,
+    final_bonus: ExactFraction,
 ) -> Result<(), String> {
     let provenance = MetadataProvenance::AcceptedModelHypothesis {
         id: MODEL.into(),
@@ -255,8 +255,8 @@ fn emit_proc(
     ctx.state.actors[owner]
         .character
         .akane_mut()?
-        .perfect_pitch_coef_adds
-        .insert(key, coef_add);
+        .perfect_pitch_final_bonuses
+        .insert(key, final_bonus);
     crate::runtime_api::increment_sequence(ctx.sequence)?;
     ctx.queue.push(ScheduledGameEvent {
         time_us: now,
@@ -293,8 +293,8 @@ pub(crate) fn damage_bonus(
         return Ok(modifiers);
     }
     let state = ctx.actor.character.akane()?;
-    if let Some(&add) = state.perfect_pitch_coef_adds.get(&ctx.command_index) {
-        modifiers.add_ratio(add)
+    if let Some(&add) = state.perfect_pitch_final_bonuses.get(&ctx.command_index) {
+        modifiers.add_final(add)
     } else {
         Ok(modifiers)
     }
@@ -308,7 +308,7 @@ pub(crate) fn cleanup(
     state.actors[owner]
         .character
         .akane_mut()?
-        .perfect_pitch_coef_adds
+        .perfect_pitch_final_bonuses
         .remove(&key);
     Ok(())
 }

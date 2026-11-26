@@ -384,3 +384,162 @@ fn akane_perfect_pitch_remora_icd_hathor_chaos_and_two_cycle_oracle() {
     );
     assert!(ojson["total_damage"].as_u64().unwrap_or(1) > 0);
 }
+
+#[test]
+fn akane_packet_cycle_accrual_and_multi_target_reverb_melee1() {
+    // Single-target Overtone: Skill (6.000) + N1..N4 (23.999) = 29.999 -> 29 whole Cycle (999/1000 carry).
+    let overtone = run_script(
+        "options duration=10 iteration=1 crit=random;\n\
+         akane char lvl=80/80 awakening=0 talent=10,10,10 qte=10 start_cycle=0;\n\
+         target hp=100000000 def=0 resist=0;\n\
+         active akane;\n\
+         akane skill;\n\
+         akane attack:4;\n",
+    );
+    assert!(
+        overtone.report.execution_completed,
+        "{:?}",
+        overtone.diagnostic
+    );
+    let ojson = serde_json::to_value(&overtone.report).unwrap();
+    assert_eq!(ojson["final_actor_states"][0]["cycle"]["current"], 29);
+    assert!(
+        ojson["trace"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .any(|e| e["event_kind"] == "packet_cycle_grant")
+    );
+
+    // Multi-target Reverb Field: N1 (Melee1) relays to every living dummy (2 hits x 2 targets = 4),
+    // while Cycle accrual deduplicates AoE packets: Skill Hold (4.100 x 2 = 8.200) + N1..N4 (23.999) = 32.199 -> 32.
+    let reverb = run_script(
+        "options duration=12 iteration=1 crit=random;\n\
+         akane char lvl=80/80 awakening=0 talent=10,10,10 qte=10 start_cycle=0;\n\
+         target hp=100000000 def=0 resist=0;\n\
+         target hp=100000000 def=0 resist=0;\n\
+         active akane;\n\
+         akane skill[hold=0.3s];\n\
+         akane attack:4;\n",
+    );
+    assert!(reverb.report.execution_completed, "{:?}", reverb.diagnostic);
+    let rjson = serde_json::to_value(&reverb.report).unwrap();
+    let r_hits = hits(&rjson);
+    assert_eq!(
+        r_hits
+            .iter()
+            .filter(|h| h["target_index"] == 0
+                && h["damage_effect_id"] == "GE_Player_Akane_Melee1_Damage")
+            .count(),
+        2
+    );
+    assert_eq!(
+        r_hits
+            .iter()
+            .filter(|h| h["target_index"] == 1
+                && h["damage_effect_id"] == "GE_Player_Akane_Melee1_Damage")
+            .count(),
+        2
+    );
+    assert_eq!(rjson["final_actor_states"][0]["cycle"]["current"], 32);
+}
+
+#[test]
+fn akane_reverb_scope_a1_self_heal_and_perfect_pitch_final_damage() {
+    use crate::simulation::ExactFraction;
+
+    // Reverb Field +60% / A5 +90% DMG bonus applies to relayed Melee/Riposte hits, NOT Skill2 or UpgradeSkill.
+    let a0 = run_script(
+        "options duration=12 iteration=1 crit=random;\n\
+         akane char lvl=80/80 awakening=0 talent=10,10,10 qte=10 start_string_energy=30;\n\
+         target hp=100000000 def=0 resist=0;\n\
+         active akane;\n\
+         akane skill[hold=0.3s];\n\
+         akane attack;\n\
+         akane skill;\n",
+    );
+    let a5 = run_script(
+        "options duration=12 iteration=1 crit=random;\n\
+         akane char lvl=80/80 awakening=[5] talent=10,10,10 qte=10 start_string_energy=30;\n\
+         target hp=100000000 def=0 resist=0;\n\
+         active akane;\n\
+         akane skill[hold=0.3s];\n\
+         akane attack;\n\
+         akane skill;\n",
+    );
+    assert!(a0.report.execution_completed, "{:?}", a0.diagnostic);
+    assert!(a5.report.execution_completed, "{:?}", a5.diagnostic);
+    let a0_json = serde_json::to_value(&a0.report).unwrap();
+    let a5_json = serde_json::to_value(&a5.report).unwrap();
+    let find_non_crit = |report: &Value, effect: &str| -> ExactFraction {
+        serde_json::from_value(
+            hits(report)
+                .iter()
+                .find(|h| h["damage_effect_id"] == effect)
+                .unwrap()["non_crit_damage"]
+                .clone(),
+        )
+        .unwrap()
+    };
+    let a0_skill2 = find_non_crit(&a0_json, "GE_Player_Akane_Skill2_Damage");
+    let a5_skill2 = find_non_crit(&a5_json, "GE_Player_Akane_Skill2_Damage");
+    assert_eq!(a0_skill2, a5_skill2);
+    // 636 base ATK * 3.238 (Skill2 Lv10) = 2059.368 = 257421/125, with zero Reverb DMG bonus.
+    assert_eq!(a0_skill2, ExactFraction::new(257_421, 125).unwrap());
+
+    let a0_upskill = find_non_crit(&a0_json, "GE_Player_Akane_UpgradeSkill_Damage");
+    let a5_upskill = find_non_crit(&a5_json, "GE_Player_Akane_UpgradeSkill_Damage");
+    assert_eq!(a0_upskill, a5_upskill);
+    // 636 base ATK * 20.240 (UpgradeSkill Lv10) = 12872.64 = 321816/25, with zero Reverb DMG bonus.
+    assert_eq!(a0_upskill, ExactFraction::new(321_816, 25).unwrap());
+
+    let a0_melee1 = find_non_crit(&a0_json, "GE_Player_Akane_Melee1_Damage");
+    let a5_melee1 = find_non_crit(&a5_json, "GE_Player_Akane_Melee1_Damage");
+    assert_ne!(a0_melee1, a5_melee1);
+
+    // A1 heals only Akane Rin herself (not teammates).
+    let a1_heal = run_script(
+        "options duration=10 iteration=1 crit=random;\n\
+         akane char lvl=80/80 awakening=1 talent=10,10,10 qte=10 start_hp%=0.1 start_string_energy=30;\n\
+         zero char lvl=80/80 awakening=0 talent=10,10,10 qte=10 start_hp%=0.1;\n\
+         target hp=100000000 def=0 resist=0;\n\
+         active akane;\n\
+         akane skill;\n\
+         akane skill;\n",
+    );
+    assert!(
+        a1_heal.report.execution_completed,
+        "{:?}",
+        a1_heal.diagnostic
+    );
+    let hjson = serde_json::to_value(&a1_heal.report).unwrap();
+    let heals: Vec<&Value> = hjson["trace"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .filter(|e| e["event_kind"] == "akane_a1_heal")
+        .collect();
+    assert_eq!(heals.len(), 1);
+    assert_eq!(heals[0]["to_actor"], 0);
+    assert!(hjson["final_actor_states"][0]["hp"].as_u64().unwrap() > 1599);
+    assert_eq!(hjson["final_actor_states"][1]["hp"].as_u64().unwrap(), 1515);
+
+    // Perfect Pitch uses FinalDamageUp (+160% at >= 8s remaining Remora): 636 * 1.50 * (1 + 1.60) = 2480.4 = 12402/5.
+    let pp = run_script(
+        "options duration=15 iteration=1 crit=random;\n\
+         akane char lvl=80/80 awakening=0 talent=10,10,10 qte=10;\n\
+         hathor char lvl=80/80 awakening=0 talent=10,10,10 qte=10 start_cycle=100;\n\
+         zero char lvl=80/80 awakening=0 talent=10,10,10 qte=10 start_cycle=100;\n\
+         target hp=100000000 def=0 resist=0;\n\
+         active akane;\n\
+         akane skill[hold=0.3s];\n\
+         hathor swap;\n\
+         wait(1);\n\
+         zero swap;\n\
+         wait(1);\n",
+    );
+    assert!(pp.report.execution_completed, "{:?}", pp.diagnostic);
+    let pjson = serde_json::to_value(&pp.report).unwrap();
+    let pp_dmg = find_non_crit(&pjson, "GE_Reaction_3_new_1057_Damage");
+    assert_eq!(pp_dmg, ExactFraction::new(12_402, 5).unwrap());
+}

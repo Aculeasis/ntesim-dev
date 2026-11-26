@@ -74,9 +74,7 @@ pub(crate) fn damage_bonus(
     if state.reverb_active(now)
         && matches!(
             effect,
-            "GE_Player_Akane_Skill2_Damage"
-                | "GE_Player_Akane_UpgradeSkill_Damage"
-                | "GE_Player_Akane_Melee1_Damage"
+            "GE_Player_Akane_Melee1_Damage"
                 | "GE_Player_Akane_Melee2_Damage"
                 | "GE_Player_Akane_Melee3_Damage"
                 | "GE_Player_Akane_Melee3_1_Damage"
@@ -219,36 +217,29 @@ pub(crate) fn apply_synced_buffs(
         )?;
         let base_atk = ExactFraction::new(u128::from(base_atk_raw), 1)?;
         let raw_heal = base_atk.mul(PARAMETERS.a1_heal_base_atk_ratio)?;
-        let mut recipients: Vec<usize> = (0..ctx.request.actors.len()).collect();
-        recipients.sort_by_key(|&idx| (ctx.request.actors[idx].slot, idx));
-        for recipient in recipients {
-            if ctx.state.actors[recipient].hp == 0 {
-                continue;
-            }
-            let settlement = ctx.settle_healing(owner, recipient, raw_heal)?;
-            ctx.trace.push(GameEventReceipt {
-                time_us: now,
-                phase: "ProcCallback".into(),
-                event_kind: "akane_a1_heal".into(),
-                active_actor: ctx.state.active_actor_index,
-                hit_index: None,
-                from_actor: Some(owner),
-                to_actor: Some(recipient),
-                energy_change: None,
-                energy_fanout: None,
-                data: Some(GameEventPayload {
-                    input: Some("skill".into()),
-                    exact_raw: Some(base_atk),
-                    atk_ratio: Some(PARAMETERS.a1_heal_base_atk_ratio),
-                    gross: Some(settlement.gross),
-                    applied: Some(settlement.applied),
-                    overflow: Some(settlement.excess),
-                    hp_before: Some(settlement.before_hp),
-                    hp_after: Some(settlement.after_hp),
-                    ..Default::default()
-                }),
-            });
-        }
+        let settlement = ctx.settle_healing(owner, owner, raw_heal)?;
+        ctx.trace.push(GameEventReceipt {
+            time_us: now,
+            phase: "ProcCallback".into(),
+            event_kind: "akane_a1_heal".into(),
+            active_actor: ctx.state.active_actor_index,
+            hit_index: None,
+            from_actor: Some(owner),
+            to_actor: Some(owner),
+            energy_change: None,
+            energy_fanout: None,
+            data: Some(GameEventPayload {
+                input: Some("skill".into()),
+                exact_raw: Some(base_atk),
+                atk_ratio: Some(PARAMETERS.a1_heal_base_atk_ratio),
+                gross: Some(settlement.gross),
+                applied: Some(settlement.applied),
+                overflow: Some(settlement.excess),
+                hp_before: Some(settlement.before_hp),
+                hp_after: Some(settlement.after_hp),
+                ..Default::default()
+            }),
+        });
         ctx.state.apply_buff(
             owner,
             TimedBuffDeclaration::reset(

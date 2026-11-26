@@ -2743,7 +2743,7 @@ static HYPOTHESES: [Hypothesis; 466] = [
     },
     Hypothesis {
         id: "akane.rhythm_wave_v1",
-        description: "Rhythm Wave shares a 16.0s cooldown between Press (Overtone 25.0s single-target mark, +40% or A5 +64% CoefAdd on N1-N4 and Critical Riposte against the marked dummy while N2-N4 AoE hitboxes strike all living dummies) and Hold (hold >= 0.2s, Reverb Field 25.0s AoE aura, +60% or A5 +90% Skill/Hold DMG bonus) with mutual removal; at String Energy == 30 with an active mode, Press redirects to Press-only Synced Resonance (0.0s independent cooldown preserving Rhythm Wave cooldown and mode timer, emitting UpgradeSkill_Damage without UI-only UpgradeSkill_DisplayGE).",
+        description: "Rhythm Wave shares a 16.0s cooldown between Press (Overtone 25.0s single-target mark, +40% or A5 +64% CoefAdd on N1-N4 and Critical Riposte against the marked dummy while N2-N4 AoE hitboxes strike all living dummies) and Hold (hold >= 0.2s, Reverb Field 25.0s AoE aura, +60% or A5 +90% relayed Basic Attack & Critical Riposte DMG bonus, relaying N1-N4 across all living dummies) with mutual removal; at String Energy == 30 with an active mode, Press redirects to Press-only Synced Resonance (0.0s independent cooldown preserving Rhythm Wave cooldown and mode timer, emitting UpgradeSkill_Damage without UI-only UpgradeSkill_DisplayGE).",
     },
     Hypothesis {
         id: "akane.sonic_boom_v1",
@@ -2751,15 +2751,15 @@ static HYPOTHESES: [Hypothesis; 466] = [
     },
     Hypothesis {
         id: "akane.perfect_pitch_v1",
-        description: "Perfect Pitch unlocks permanently for the combat on the first team Remora reaction; while Akane Rin is alive (on or off field) with Overtone or Reverb Field active, the active mode applies Remora every 3.0s to its marked or AoE targets honoring team enhancements without incrementing Esper Cycle reaction counters. Any team or periodic Remora reapplication onto an active-Remora target outside a 1.0s per-target ICD emits Category E GE_Reaction_3_new_1057_Damage (150% ATK, bound under GA_Akane_Skill) with discrete floor(existing_remaining_seconds) * 0.20 CoefAdd capped at +160% sampled before timer refresh.",
+        description: "Perfect Pitch unlocks permanently for the combat on the first team Remora reaction; while Akane Rin is alive (on or off field) with Overtone or Reverb Field active, the active mode applies Remora every 3.0s to its marked or AoE targets honoring team enhancements without incrementing Esper Cycle reaction counters. Any team or periodic Remora reapplication onto an active-Remora target outside a 1.0s per-target ICD emits Category E GE_Reaction_3_new_1057_Damage (150% ATK, bound under GA_Akane_Skill) with discrete floor(existing_remaining_seconds) * 0.20 additive FinalDamageUp capped at +160% sampled before timer refresh.",
     },
     Hypothesis {
         id: "akane.awakenings_v1",
-        description: "Akane Rin A1-A6 identity-gated awakenings and R3/R6 count-gated resonance tiers apply verified modifiers: A1 10.0*BaseATK team heal plus +50% DEF and 60% Poise for 15.0s, A2 -12% Lakshana RES on marked/field targets, A3 +10.0 Skill_Damage ratio and 8.0s pull field, A4 +30% CritDMG for 15.0s, A5 +64%/+90% mode upgrades, A6 16% DefIgnore during Starlit Anthem, R3 battle-entry 30 String Energy plus +8.0 UpgradeSkill/+10.0 UltraSkill2 and skill level boosts, and R6 post-spend +10 refund plus +64% CritDMG for 25.0s stacking independently with A4.",
+        description: "Akane Rin A1-A6 identity-gated awakenings and R3/R6 count-gated resonance tiers apply verified modifiers: A1 10.0*BaseATK self heal plus +50% DEF and 60% Poise for 15.0s, A2 -12% Lakshana RES on marked/field targets, A3 +10.0 Skill_Damage ratio and 8.0s pull field, A4 +30% CritDMG for 15.0s, A5 +64%/+90% mode upgrades, A6 16% DefIgnore during Starlit Anthem, R3 battle-entry 30 String Energy plus +8.0 UpgradeSkill/+10.0 UltraSkill2 and skill level boosts, and R6 post-spend +10 refund plus +64% CritDMG for 25.0s stacking independently with A4.",
     },
     Hypothesis {
         id: "akane.aoe_all_in_range_dummy_v1",
-        description: "Akane Rin AoE abilities (N2-N4, Rhythm Wave Hold, Synced Resonance under Reverb Field, Sonic Boom Stage 1/2, Stage Dive, Altered Chord, and Critical Riposte) strike all living scenario-declared dummies in ascending target_index under the all-in-range contract, while Overtone CoefAdd applies exclusively to the marked dummy.",
+        description: "Akane Rin AoE abilities (N1 under Reverb Field, N2-N4, Rhythm Wave Hold, Synced Resonance under Reverb Field, Sonic Boom Stage 1/2, Stage Dive, Altered Chord, and Critical Riposte) strike all living scenario-declared dummies in ascending target_index under the all-in-range contract, while Overtone CoefAdd applies exclusively to the marked dummy.",
     },
     Hypothesis {
         id: "akane.secondary_actions_v1",
