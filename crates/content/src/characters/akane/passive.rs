@@ -2,7 +2,7 @@ use super::parameters::PARAMETERS;
 use crate::runtime_api::{CallbackContext, DamageContext, HitModifiers};
 use crate::simulation::events::{GameEventData, ScheduledGameEvent};
 use crate::simulation::metadata::{
-    ActionCategory, ActionMetadata, InputActionRole, MetadataProvenance,
+    ActionCategory, ActionMetadata, InputActionRole, MetadataProvenance, PrimaryActionSlot,
 };
 use crate::simulation::{ExactFraction, GameScenarioRequest, state::GameSimulatorState};
 use std::collections::BTreeSet;
@@ -202,7 +202,7 @@ fn emit_proc(
         native_ability_index: None,
         input_role: Some(InputActionRole::RedirectSkill),
         input_role_provenance: Some(provenance.clone()),
-        primary_slot: None,
+        primary_slot: Some(PrimaryActionSlot::Skill),
         source_evidence: None,
         identity_evidence: None,
         provenance,
@@ -219,17 +219,23 @@ fn emit_proc(
     let (rate, scaling_stat) =
         crate::simulation::inputs::coefficient(ctx.request, config, "GA_Akane_Skill", PACKET, 0)?;
     let now = ctx.state.current_time_us;
-    let trigger = if matches!(
-        ctx.request.actions.get(command),
-        Some(crate::simulation::GameActionCommand::SwitchActor { .. })
-    ) {
-        crate::simulation::GameCausalTrigger::FieldEntry {
-            command_index: command,
+    let trigger = match ctx.state.origins.identify(ctx.request, command)? {
+        (None, Some(autonomous_event_index)) => {
+            crate::simulation::GameCausalTrigger::OwnerDeadline {
+                autonomous_event_index,
+            }
         }
-    } else {
-        crate::simulation::GameCausalTrigger::Action {
-            command_index: command,
+        (Some(cmd), None) => {
+            if matches!(
+                ctx.request.actions.get(cmd),
+                Some(crate::simulation::GameActionCommand::SwitchActor { .. })
+            ) {
+                crate::simulation::GameCausalTrigger::FieldEntry { command_index: cmd }
+            } else {
+                crate::simulation::GameCausalTrigger::Action { command_index: cmd }
+            }
         }
+        _ => return Err("unexpected causal identity for Akane Perfect Pitch".into()),
     };
     let key = ctx.state.origins.register(
         ctx.request,

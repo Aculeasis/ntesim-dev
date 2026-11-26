@@ -11,7 +11,7 @@ bundling artifact; edit the `.nte` files and catalog rather than its contents.
 The editor, language reference, default draft and Worker tests use this bundle.
 Saved user drafts remain their own source artifacts.
 
-Team list contains twenty complete four-character compositions and the unchanged
+Team list contains twenty-two complete four-character compositions and the unchanged
 S5 historical control, which remains the default. Older partial S1/S2/S3 and
 Baicang examples remain non-selectable regression sources. The language reference
 is also outside the menu. Native request fixtures in `examples/*game-scenario.json`

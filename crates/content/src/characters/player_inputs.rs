@@ -8,6 +8,7 @@ pub(crate) fn aim_packet(character: &str) -> Option<&'static str> {
         "character:1033" => Some("GE_Player_Adler_Aim_Damage"),
         "character:1010" => Some("GE_Player_Nanally_BranchPraojectile_Damage"),
         "character:1055" => Some("GE_Player_Kuhara_AimAttack_Damage"),
+        "character:1090" => Some("GE_Player_Elyms_Aim_Damage"),
         _ => None,
     }
 }
@@ -30,6 +31,7 @@ pub(crate) fn validate(character: &str, input: PlayerInput) -> Result<(), String
                 | "character:1073"
                 | "character:1010"
                 | "character:1075"
+                | "character:1090"
         ) {
             Ok(())
         } else {

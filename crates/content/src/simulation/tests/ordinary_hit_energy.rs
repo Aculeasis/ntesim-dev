@@ -287,6 +287,20 @@ const CASES: &[Case] = &[
         ),
         skill: Some(("GA_Akane_Skill", "GE_Player_Akane_Skill_Damage", &[4200])),
     },
+    Case {
+        owner: "character:1090",
+        source: "elyms_hit",
+        melee: (
+            "GA_Elyms_Melee",
+            "GE_Player_Elyms_Melee1_Damage",
+            &[704, 704],
+        ),
+        skill: Some((
+            "GA_Elyms_Skill",
+            "GE_Player_Elyms_Skill1_Damage",
+            &[808, 707, 707, 707, 707, 1464],
+        )),
+    },
 ];
 
 fn action(ability: &str, effect: &str, delay: u64) -> GameActionCommand {
@@ -392,6 +406,11 @@ fn request(case: &Case, skill: bool) -> GameScenarioRequest {
     }
     if case.owner == "character:1057" {
         for (k, v) in crate::characters::akane::source_assumptions() {
+            req.model_assumptions.insert(k, v);
+        }
+    }
+    if case.owner == "character:1090" {
+        for (k, v) in crate::characters::elyms::source_assumptions() {
             req.model_assumptions.insert(k, v);
         }
     }
@@ -846,7 +865,7 @@ fn ordinary_delayed_grants_keep_source_after_switch_and_include_fatal_damage() {
         req.targets[0].hp_current = 1;
         if matches!(
             case.owner,
-            "character:1010" | "character:1036" | "character:1057"
+            "character:1010" | "character:1036" | "character:1057" | "character:1090"
         ) {
             // These finite Normals cannot switch before their owner recovery gate.
             let report = run_game_scenario(&req, &ExecutionLimits::default()).unwrap();

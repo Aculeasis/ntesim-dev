@@ -77,6 +77,8 @@ impl RuntimeState {
             Self::Adler(s) => ordinary!(s),
             Self::Akane(s) if s.entry_normal_ready || s.melee_pre_ready => 0,
             Self::Akane(s) => ordinary!(s),
+            Self::Elyms(s) if s.entry_normal_ready => 0,
+            Self::Elyms(s) => ordinary!(s),
         };
         Ok(stage as u64 + 1)
     }

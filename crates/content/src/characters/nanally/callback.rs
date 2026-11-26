@@ -50,6 +50,11 @@ pub(crate) fn apply_a1_energy(
         energy_fanout: None,
         data: None,
     });
+    crate::simulation::energy::notify_active_actor_energy_gain(
+        ctx,
+        actor_index,
+        !charge_basis.is_zero(),
+    )?;
     Ok(())
 }
 

@@ -346,6 +346,7 @@ pub(crate) fn event(ctx: &mut CallbackContext<'_>, event: Event) -> Result<(), S
                     ..Default::default()
                 }),
             });
+            crate::simulation::energy::notify_active_actor_energy_gain(ctx, owner, raw > 0)?;
             Ok(())
         }
         Event::Action {

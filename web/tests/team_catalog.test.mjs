@@ -60,7 +60,7 @@ assert.ok(
   engine.inspectScript(control.source).party.actors.every((a) => a.purchased_qte_level === 8),
 );
 const curated = presets.scripts.filter((s) => s.selectable && s.id !== 's5');
-assert.equal(curated.length, 21);
+assert.equal(curated.length, 22);
 assert.ok(catalog.entries.every((entry) => entry.dps.status === 'ready'));
 const rosters = new Set();
 const standard = new Set(['baicang', 'daffodil', 'jiuyuan', 'sakiri', 'fadia', 'hathor']);
@@ -121,8 +121,7 @@ for (const script of curated) {
   }
   for (const a of party.actors) {
     const character = CATALOG.characters.find((c) => c.id === a.character_id);
-    assert.ok(character && !['elyms', 'akane-rin'].includes(character.slug));
-    assert.notEqual(a.weapon?.id, 'weapon:fork_prism');
+    assert.ok(character);
     assert.equal(a.level, 80);
     assert.deepEqual(a.talent_levels, [8, 8, 8]);
     assert.equal(a.purchased_qte_level, 8);
@@ -156,6 +155,7 @@ const names = (id) =>
     .sort();
 assert.deepEqual(names('nanally-blossom'), ['hotori', 'jiuyuan', 'nanally', 'zero']);
 assert.deepEqual(names('zankou-insight'), ['daffodil', 'iroi', 'sakiri', 'zankou']);
+assert.deepEqual(names('shinku-elyms'), ['akane', 'elyms', 'iroi', 'shinku']);
 const source =
   'options duration=120 iteration=2 seed=42 crit=random; mint char lvl=80/80 awakening=0 talent=1,1,1 qte=1; target hp=100000000 def=0 resist=0; active mint; wait(0.1);';
 const zero = calculateTeam(engine, { id: 'zero', label: 'Zero activity', source });

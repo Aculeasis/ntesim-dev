@@ -83,6 +83,7 @@ static CHAOS_KIT: ChaosKit = ChaosKit;
 static CHIZ_KIT: ChizKit = ChizKit;
 static DAFFODIL_KIT: DaffodilKit = DaffodilKit;
 static EDGAR_KIT: EdgarKit = EdgarKit;
+static ELYMS_KIT: ElymsKit = ElymsKit;
 static FADIA_KIT: FadiaKit = FadiaKit;
 static HANIEL_KIT: HanielKit = HanielKit;
 static HATHOR_KIT: HathorKit = HathorKit;
@@ -110,6 +111,7 @@ pub(crate) fn lookup_kit(character_id: &str) -> Option<&'static dyn CharacterKit
         "character:1073" => Some(&CHIZ_KIT),
         "character:1054" => Some(&DAFFODIL_KIT),
         "character:1021" => Some(&EDGAR_KIT),
+        "character:1090" => Some(&ELYMS_KIT),
         "character:1039" => Some(&FADIA_KIT),
         "character:1020" => Some(&HANIEL_KIT),
         "character:1025" => Some(&HATHOR_KIT),
@@ -169,6 +171,8 @@ pub(crate) fn cooldown_override(
 ) -> Option<u64> {
     if config.character_id == "character:1057" {
         crate::characters::akane::skill::cooldown_override(actor, ability_id, damage_effect_id)
+    } else if config.character_id == "character:1090" {
+        crate::characters::elyms::skill::cooldown_override(actor, ability_id, damage_effect_id)
     } else {
         None
     }
@@ -179,8 +183,10 @@ pub(crate) fn preserves_cooldown(
     ability_id: &str,
     damage_effect_id: &str,
 ) -> bool {
-    config.character_id == "character:1057"
-        && crate::characters::akane::skill::preserves_cooldown(ability_id, damage_effect_id)
+    (config.character_id == "character:1057"
+        && crate::characters::akane::skill::preserves_cooldown(ability_id, damage_effect_id))
+        || (config.character_id == "character:1090"
+            && crate::characters::elyms::skill::preserves_cooldown(ability_id, damage_effect_id))
 }
 
 pub(crate) fn utility_invocation(
@@ -272,6 +278,9 @@ pub(crate) fn held_normal_override(
             }
             crate::characters::RuntimeState::Chaos(_) => {
                 crate::characters::chaos::verdict::replacement(request, actor, *input, time_us)
+            }
+            crate::characters::RuntimeState::Elyms(_) => {
+                crate::characters::elyms::secondary::held_replacement(request, actor, *input)
             }
             _ => crate::characters::baicang::hold::replacement(actor, *input, time_us),
         })
@@ -392,6 +401,10 @@ pub(crate) fn validate_back_dash_binding(
             request,
             crate::simulation::PlayerInput::Dash,
         )?,
+        "character:1090" => crate::characters::elyms::secondary::validate_input(
+            request,
+            crate::simulation::PlayerInput::Dash,
+        )?,
         _ => return Err("no owner Back Dodge binding".into()),
     };
     model.ok_or("Back Dodge requires the owner's accepted secondary model")?;
@@ -465,6 +478,12 @@ pub(crate) fn on_committed_player_input(
         crate::characters::RuntimeState::Akane(_)
     ) {
         crate::characters::akane::secondary::committed_input(ctx, actor, command_index, input)?;
+    }
+    if matches!(
+        &ctx.state.actors[actor].character,
+        crate::characters::RuntimeState::Elyms(_)
+    ) {
+        crate::characters::elyms::secondary::committed_input(ctx, actor, command_index, input)?;
     }
     Ok(())
 }
@@ -925,6 +944,7 @@ pub(crate) fn validate_action_inputs(
     crate::characters::chaos::remora::validate_inputs(request)?;
     crate::characters::akane::passive::validate_inputs(request)?;
     crate::characters::akane::secondary::validate(request)?;
+    crate::characters::elyms::secondary::validate(request)?;
     crate::characters::chaos::warrant::validate(request)?;
     crate::characters::chaos::verdict::validate(request, packets)?;
     crate::characters::baicang::cancel::validate(request)?;
@@ -1076,6 +1096,16 @@ pub(crate) fn cancel_owned_packet_after_defeat(config: &GameActorConfig, effect_
     {
         return true;
     }
+    if config.character_id == "character:1090"
+        && matches!(
+            effect_id,
+            crate::characters::elyms::secondary::RIPOSTE
+                | crate::characters::elyms::on_the_line::XIETONG_A
+                | crate::characters::elyms::on_the_line::XIETONG_B
+        )
+    {
+        return true;
+    }
     (config.character_id == "character:1042"
         && crate::characters::blackbird::secondary::cancel_after_defeat(effect_id))
         || (config.character_id == "character:1036"
@@ -1156,6 +1186,13 @@ pub(crate) fn on_charge_grant(
     crate::characters::zero::callback::on_charge_grant(ctx, recipient)
 }
 
+pub(crate) fn on_active_actor_energy_gain(
+    ctx: &mut crate::runtime_api::CallbackContext<'_>,
+    recipient: usize,
+) -> Result<(), String> {
+    crate::characters::elyms::passive::on_active_actor_energy_gain(ctx, recipient)
+}
+
 pub(crate) fn validate_discord_extensions(
     request: &GameScenarioRequest,
     state: &crate::simulation::state::GameSimulatorState,
@@ -1209,6 +1246,13 @@ pub(crate) fn validate_remora_extensions(
                 crate::characters::akane::passive::MODEL,
             )?;
         }
+        if config.character_id == "character:1090" && state.actors[owner].hp > 0 {
+            crate::runtime_api::record_hypothesis_id(
+                request,
+                assumptions,
+                crate::characters::elyms::passive::MODEL,
+            )?;
+        }
     }
     Ok(())
 }
@@ -1218,6 +1262,7 @@ pub(crate) fn on_remora_created(
     target: usize,
     generation: u64,
     existing_remaining_us: Option<u64>,
+    allow_elyms_retrigger: bool,
 ) -> Result<bool, String> {
     let armed = crate::characters::chaos::remora::created(
         ctx,
@@ -1231,6 +1276,12 @@ pub(crate) fn on_remora_created(
         owner_index,
         target,
         existing_remaining_us,
+    )?;
+    crate::characters::elyms::passive::on_remora_created(
+        ctx,
+        owner_index,
+        target,
+        allow_elyms_retrigger,
     )?;
     Ok(armed)
 }
@@ -1459,6 +1510,7 @@ pub(crate) fn initialize_team_effect(
         request,
         assumptions,
     )?;
+    crate::characters::elyms::awakenings::record_initial_hypotheses(config, request, assumptions)?;
     crate::characters::iroi::awakenings::initialize_team_effect(config, actor_index, buffs)
 }
 pub(crate) fn observe_team_direct_hit(
@@ -1868,6 +1920,8 @@ pub(crate) fn initialize_combat(
     for owner in 0..ctx.request.actors.len() {
         if ctx.request.actors[owner].character_id == "character:1073" {
             crate::characters::chiz::pressed::initialize_combat(ctx, owner)?;
+        } else if ctx.request.actors[owner].character_id == "character:1090" {
+            crate::characters::elyms::skill::initialize_combat(ctx, owner)?;
         }
     }
     Ok(())

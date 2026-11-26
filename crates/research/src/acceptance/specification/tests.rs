@@ -34,7 +34,7 @@ fn acceptance_deliverables_match_reviewed_csv_fingerprints() {
     let (deliverables, all_comp_csv, _published_csv, _arch_csv, manifest) =
         compile_acceptance_deliverables(&coverage, &conditions, &variants_csv).unwrap();
 
-    assert_eq!(deliverables.total_compositions, 10626);
+    assert_eq!(deliverables.total_compositions, 12650);
     assert_eq!(deliverables.total_variants, 1);
     assert_eq!(deliverables.total_archetypes, 1);
     assert_eq!(deliverables.scenarios.len(), 5);
@@ -42,15 +42,15 @@ fn acceptance_deliverables_match_reviewed_csv_fingerprints() {
     assert!(!deliverables.game_dps_computed);
     assert!(!deliverables.acceptance_ready);
 
-    assert_eq!(deliverables.all_compositions_csv_lines, 10627);
+    assert_eq!(deliverables.all_compositions_csv_lines, 12651);
     assert_eq!(deliverables.published_variants_csv_lines, 2);
     assert_eq!(deliverables.archetypes_csv_lines, 2);
 
-    assert_eq!(all_comp_csv.lines().count(), 10627);
+    assert_eq!(all_comp_csv.lines().count(), 12651);
     let manifest: Value = serde_json::from_str(&manifest).unwrap();
     assert_eq!(manifest["status"], "INCOMPLETE");
     assert_eq!(manifest["composition_enumeration_complete"], true);
-    assert_eq!(manifest["compositions"], 10626);
+    assert_eq!(manifest["compositions"], 12650);
     assert_eq!(
         manifest["published_archetypes"],
         deliverables.total_archetypes

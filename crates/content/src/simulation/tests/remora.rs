@@ -283,3 +283,35 @@ fn hathor_enhanced_remora_extends_charge_eligibility_without_extra_emissions() {
     );
     assert_eq!(report["hits_settled"], 8);
 }
+
+#[test]
+fn apply_remora_from_owner_with_retrigger_control_applies_remora_status() {
+    let req = request(0);
+    let limits = ExecutionLimits::default();
+    let _ = crate::simulation::validation::validate_and_resolve(&req, &limits).unwrap();
+    let (mut exec, _) = PreparedExecution::new(&req, req.seed, &[], &[]).unwrap();
+    let mut trace = Vec::new();
+    let mut cb = crate::runtime_api::CallbackContext {
+        state: &mut exec.state,
+        request: &req,
+        queue: &mut exec.queue,
+        sequence: &mut exec.seq,
+        trace: &mut trace,
+    };
+    crate::simulation::reactions::apply_remora_from_owner_with_retrigger_control(
+        &mut cb, 0, 0, 0, false,
+    )
+    .unwrap();
+    assert_eq!(
+        crate::simulation::state::target_tagged_status_stacks(
+            &exec.state.buffs,
+            0,
+            crate::simulation::reactions::REMORA_STATUS_TAG,
+            0,
+        )
+        .unwrap(),
+        1
+    );
+    assert_eq!(trace.len(), 1);
+    assert_eq!(trace[0].event_kind, "reaction_remora_applied");
+}

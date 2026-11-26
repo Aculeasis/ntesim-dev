@@ -151,6 +151,22 @@ pub const TITLES: &[AbilityTitle] = &[
         title: "Finnegan's Wake",
     },
     AbilityTitle {
+        ability_id: "GA_Elyms_Melee",
+        title: "Instant Glitch",
+    },
+    AbilityTitle {
+        ability_id: "GA_Elyms_QTE",
+        title: "I'm Here",
+    },
+    AbilityTitle {
+        ability_id: "GA_Elyms_Skill",
+        title: "Counting Electric Sheep",
+    },
+    AbilityTitle {
+        ability_id: "GA_Elyms_UltraSkill",
+        title: "Do You Get Deja Vu",
+    },
+    AbilityTitle {
         ability_id: "GA_Fadia_Melee",
         title: "Wordless Rejection",
     },
@@ -424,7 +440,7 @@ mod tests {
             .map(|row| row.ability_id)
             .collect::<BTreeSet<_>>();
         assert_eq!(ids.len(), TITLES.len());
-        assert_eq!(ids.len(), 100);
+        assert_eq!(ids.len(), 104);
         assert!(
             TITLES
                 .iter()

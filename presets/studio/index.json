@@ -146,6 +146,12 @@
       "selectable": true
     },
     {
+      "id": "shinku-elyms",
+      "label": "Shinku · Charge / Akane / Elyms",
+      "file": "shinku-elyms.nte",
+      "selectable": true
+    },
+    {
       "id": "chiz-charge",
       "label": "Chiz A6 · Charge",
       "file": "chiz-charge.nte",

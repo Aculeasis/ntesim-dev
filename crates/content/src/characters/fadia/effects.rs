@@ -117,6 +117,7 @@ pub(crate) fn changed(
                     ..Default::default()
                 }),
             });
+            crate::simulation::energy::notify_active_actor_energy_gain(ctx, owner, fill > 0)?;
         }
         let ratio = if ctx.request.actors[owner].awakening.has_effect(2) {
             6

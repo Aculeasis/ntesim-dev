@@ -37,7 +37,9 @@ fn source_clock_relative_horizon_observes_twenty_seconds_of_actual_pause_without
         &mut execution.seq,
         0,
         0,
-        Some("GA_Zero_UltraSkill"),
+        Some(crate::simulation::metadata::PrimaryActionSlot::Ultimate),
+        "GA_Zero_UltraSkill",
+        "",
     )
     .unwrap();
     execution

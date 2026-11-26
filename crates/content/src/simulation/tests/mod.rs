@@ -123,6 +123,7 @@ mod edgar_adler;
 mod edgar_events;
 mod edgar_full;
 mod edgar_multi_target;
+mod elyms_actions;
 mod equipment_cases;
 mod eternal_waltz;
 mod eternal_waltz_cycles;

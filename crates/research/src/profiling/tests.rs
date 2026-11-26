@@ -48,10 +48,10 @@ fn default_pilot_runs_and_measures_profiling_and_workload_projection() {
     assert!(report.profiling.throughput_runs_per_second > 0.0);
     assert!(report.profiling.peak_memory_estimate_bytes > 0);
 
-    assert_eq!(report.projection.total_four_character_combinations, 10626);
-    assert_eq!(report.projection.projected_screening_runs, 531_300);
+    assert_eq!(report.projection.total_four_character_combinations, 12650);
+    assert_eq!(report.projection.projected_screening_runs, 632_500);
     assert_eq!(report.projection.projected_finalist_runs, 750_000);
-    assert_eq!(report.projection.total_projected_runs, 1_281_300);
+    assert_eq!(report.projection.total_projected_runs, 1_382_500);
     assert!(report.projection.projected_total_cpu_hours >= 0.0);
     assert_eq!(report.projection.uncertainty_range_pct, None);
 }

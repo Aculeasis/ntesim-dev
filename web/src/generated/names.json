@@ -23,7 +23,8 @@
     "character:1073": "Chiz",
     "character:1075": "Iroi",
     "character:1076": "Shinku",
-    "character:1057": "Akane Rin"
+    "character:1057": "Akane Rin",
+    "character:1090": "Elyms"
   },
   "aliases": {
     "sakiri": "character:1003",
@@ -49,7 +50,8 @@
     "chiz": "character:1073",
     "iroi": "character:1075",
     "shinku": "character:1076",
-    "akane": "character:1057"
+    "akane": "character:1057",
+    "elyms": "character:1090"
   },
   "abilities": {
     "GA_Adler_Melee": "Deliverance",
@@ -87,6 +89,10 @@
     "GA_Edgar_QTE": "Weight of Knowledge",
     "GA_Edgar_Skill": "Wild Current",
     "GA_Edgar_UltraSkill": "Finnegan's Wake",
+    "GA_Elyms_Melee": "Instant Glitch",
+    "GA_Elyms_QTE": "I'm Here",
+    "GA_Elyms_Skill": "Counting Electric Sheep",
+    "GA_Elyms_UltraSkill": "Do You Get Deja Vu",
     "GA_Fadia_Melee": "Wordless Rejection",
     "GA_Fadia_QTE": "Outsider",
     "GA_Fadia_Skill": "Existence",

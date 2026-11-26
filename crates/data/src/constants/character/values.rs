@@ -110,6 +110,7 @@ mod tests {
             ("1073", Primary::new(15514, 660, 909)),
             ("1075", Primary::new(17210, 596, 909)),
             ("1076", Primary::new(16120, 636, 897)),
+            ("1090", Primary::new(15392, 660, 909)),
         ] {
             assert_eq!(
                 super::super::definition(&format!("character:{id}"))
@@ -123,6 +124,15 @@ mod tests {
             );
         }
         assert!(super::super::definition("character:1051").is_err());
+        assert_eq!(
+            super::super::definition("character:1090")
+                .unwrap()
+                .base
+                .compile(1, 0)
+                .unwrap()
+                .total,
+            Primary::new(1270, 83, 75),
+        );
     }
     #[test]
     fn independent_half_terms_round_before_accumulation_and_caps_gate_growth() {

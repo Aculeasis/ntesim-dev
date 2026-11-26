@@ -409,6 +409,7 @@ pub(crate) fn consume_bud(
             energy_fanout: None,
             data: None,
         });
+        crate::simulation::energy::notify_active_actor_energy_gain(ctx, actor_index, true)?;
 
         if ctx.request.actors[actor_index].awakening.has_effect(2) && accumulated_hp > 0 {
             let base_heal =

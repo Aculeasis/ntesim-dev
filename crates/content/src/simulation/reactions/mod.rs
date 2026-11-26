@@ -100,6 +100,7 @@ pub(super) use hexed::on_hp_damage as hexed_on_hp_damage;
 pub(super) use nova::{apply as apply_nova, end as end_nova, settle as settle_nova};
 pub(crate) use remora::STATUS_TAG as REMORA_STATUS_TAG;
 pub(crate) use remora::apply_from_owner as apply_remora_from_owner;
+pub(crate) use remora::apply_from_owner_with_retrigger_control as apply_remora_from_owner_with_retrigger_control;
 pub(crate) use remora::cancel_target as cancel_target_remora;
 pub(crate) use remora::command_for_target as remora_command;
 pub(crate) use remora::crit_rate_bonus as remora_crit_rate_bonus;

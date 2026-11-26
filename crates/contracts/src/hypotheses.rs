@@ -913,6 +913,26 @@ pub enum HypothesisId {
     AkaneAoeAllInRangeDummyV1 = 454,
     /// `akane.secondary_actions_v1`
     AkaneSecondaryActionsV1 = 455,
+    /// `owner.action_role.character_1090_qte_v1`
+    OwnerActionRoleCharacter1090QteV1 = 456,
+    /// `elyms.ordinary_clock_v1`
+    ElymsOrdinaryClockV1 = 457,
+    /// `elyms.normal_chain_v1`
+    ElymsNormalChainV1 = 458,
+    /// `elyms.ordinary_hit_energy_v1`
+    ElymsOrdinaryHitEnergyV1 = 459,
+    /// `elyms.skill_redirect_v1`
+    ElymsSkillRedirectV1 = 460,
+    /// `elyms.ultra_and_on_the_line_v1`
+    ElymsUltraAndOnTheLineV1 = 461,
+    /// `elyms.relay_node_v1`
+    ElymsRelayNodeV1 = 462,
+    /// `elyms.awakenings_v1`
+    ElymsAwakeningsV1 = 463,
+    /// `elyms.aoe_all_in_range_dummy_v1`
+    ElymsAoeAllInRangeDummyV1 = 464,
+    /// `elyms.secondary_and_aim_v1`
+    ElymsSecondaryAndAimV1 = 465,
 }
 
 struct Hypothesis {
@@ -920,7 +940,7 @@ struct Hypothesis {
     description: &'static str,
 }
 
-static HYPOTHESES: [Hypothesis; 456] = [
+static HYPOTHESES: [Hypothesis; 466] = [
     Hypothesis {
         id: "ability_index.primary_action_role_v1",
         description: "Interpret DT_CharacterAbilityConfig.CharacterAbilityList[].Value.AbilityIndex values 1, 2, 3, and 4 as Normal, RedirectSkill, Ultimate, and Qte action roles. This is an explicit model mapping kept separate from AbilityGameplayTag and does not establish native timing, reachability, cost, or weapon trigger semantics.",
@@ -2745,9 +2765,49 @@ static HYPOTHESES: [Hypothesis; 456] = [
         id: "akane.secondary_actions_v1",
         description: "Akane Rin secondary actions execute Stage Dive plunge (Airattack_Damage with 1 + height_bonus in 0..=1), Evade (15.0 stamina), Critical Riposte (PerfectEvadeAttack_Damage), and Altered Chord QTE (QTE_Damage).",
     },
+    Hypothesis {
+        id: "owner.action_role.character_1090_qte_v1",
+        description: "Classify this exact frozen character action as QTE because its DT_CharacterAbilityConfig identity names the owner action as QTE while DT_CharacterAbilityEffectConfig has no row; this role is an owner-reviewed model hypothesis for this ability only.",
+    },
+    Hypothesis {
+        id: "elyms.ordinary_clock_v1",
+        description: "Elyms Instant Glitch, Crosstalk, Interference, Memory Anchor (Aim), Falling Dream, Critical Riposte, I'm Here (QTE), Counting Electric Sheep (Skill1/Skill2/Skill3), and Do You Get Deja Vu (UltraSkill/UltraSkillB) execute on rate-one montage clocks rounded to microseconds with explicit Branch3 (19.8ms), Melee5 (29.7ms), and QTE (18.0ms) HitPause slowdowns, zero-flight Melee1 and Aim projectile delivery, 1719655us Skill2/Skill3 ModePauseKind::Cinematic pause (while Skill1 incurs no pause), 5499266us UltraSkill/UltraSkillB pause, and explicit cancel, jump, and switch-lock windows.",
+    },
+    Hypothesis {
+        id: "elyms.normal_chain_v1",
+        description: "Instant Glitch executes five ground stages (N1 x2, N2 x2, N3 x2 + N3_1 x1, N4 x3 + N4_1 x2, N5 x1) at Weak Connection Strength and switches to three-stage Crosstalk (B1+B1_1, B2 x2 + B2_1 x2, B3 x3 + B3_1 x1) at Medium or Strong Connection Strength, with AppearMelee/AppearMeleeB and MeleePre/MeleeBPre entry timings and Melee5/MeleeB3 AddE windows.",
+    },
+    Hypothesis {
+        id: "elyms.ordinary_hit_energy_v1",
+        description: "For Elyms character:1090 only, modeled Normal, Skill, Hold, Aim, Plunge, Riposte, QTE, and Remembrance native packets grant their nonnegative DT_SkillDamageData.ChargeAdd once per positive actual HP loss against target zero and distribute 0.6x team energy via DT_SkillTeamChargeRelationData Cosmos rows, plus HeterochromeAdd Cycle accrual.",
+    },
+    Hypothesis {
+        id: "elyms.skill_redirect_v1",
+        description: "Battle begins at Weak Connection with 12.0s PowerE1Dur active; GA_Elyms_Skill redirects to Intermittent Existence (Skill2) when PowerE1Dur is active at Weak (bypassing and preserving the 16.0s cooldown, advancing Weak->Medium and granting 15.0s Optical Illusion), Goodbye to You (Skill3) when PowerE2Dur (6.0s from Crosstalk B3 AddE or R3) is active at >= Medium (bypassing and preserving cooldown, consuming all Optical Illusion stacks for +100% CoefModify per stack and adding to TotalPowerE2ConsumedStack capped at 4, advancing Medium->Strong), or The Ones Who Left (Skill1, 16.0s cooldown, +100 Cycle refill via Buff_Elyms_QRecoverEnergy, and 12.0s PowerE1Dur at 0.818769s only if Weak).",
+    },
+    Hypothesis {
+        id: "elyms.ultra_and_on_the_line_v1",
+        description: "Do You Get Deja Vu (100 Energy, 20.0s cooldown) snapshots pre-cast Connection Strength (+0% Weak, +50% Medium, +100% Strong CoefModify), dispatches ST UltraSkillB when living targets == 1 and Connection >= Medium or AoE UltraSkill otherwise, resets Connection to Weak, grants all living allies +20% of Elyms AtkBase (character + weapon base ATK) plus +10% Follow-up Attack DMG for 20.0s, and arms On the Line (6 Remembrance triggers at 3.0s off-field intervals starting immediately upon switching off-field and pausing while on-field; each trigger emits 4x XieTongSkillA1 or B1 hits tagged State.Damage.Followup).",
+    },
+    Hypothesis {
+        id: "elyms.relay_node_v1",
+        description: "While Elyms is alive on the team, Passive 1 Charge Enhancement grants all living allies +3.75% Cosmos DMG for 30.0s (max 8 stacks, refreshing duration) whenever the active actor receives a positive combat Ultimate Energy grant (excluding t = 0 start energy), and Remora Enhancement schedules a non-retriggering Remora reapplication to the same target 7.5s later on ClockDomain::World subject to a 7.0s global ICD across targets, skipping if Elyms or the target dies.",
+    },
+    Hypothesis {
+        id: "elyms.awakenings_v1",
+        description: "Elyms Passive 2 (+10% Crit DMG), A1-A6 identity-gated awakenings (A1 +10%*consumed team Crit DMG for 20s on Q; A2 +30% Q CoefModify and 5%*consumed Skill3 DEF Ignore; A3 +3 Optical Illusion on Medium->Strong and cap 4; A4 +20% team Crit DMG while alive; A5 +100% Skill1 CoefModify and +100 combat-start Cycle once per battle; A6 +25%*consumed Elyms Follow-up DMG for 20s on Q), R3 (+1 levels and Weak->Strong jump on QTE/Skill2 with immediate PowerE2Dur unlock), and R6 (12% team All-RES Ignore while alive and Skill3Extra hit scaled by consumed stacks) apply strictly under their native gates.",
+    },
+    Hypothesis {
+        id: "elyms.aoe_all_in_range_dummy_v1",
+        description: "Elyms AoE actions (Instant Glitch N2-N5, Crosstalk B2-B3, Interference, Falling Dream, Riposte, I'm Here, Skill1, Skill2, Skill3, Do You Get Deja Vu AoE, and Remembrance AoE) strike all living scenario-declared dummies in ascending target_index under the all-in-range contract, while ST UltraSkillB and ST Remembrance strike the selected primary target.",
+    },
+    Hypothesis {
+        id: "elyms.secondary_and_aim_v1",
+        description: "Elyms secondary actions execute Interference held attack (Branch1 x2 + Branch2 + Branch3), Memory Anchor Aim mode repeating on the 146353us AnySkill/Jump cancel cadence (Branch.7 at 48313us), Falling Dream plunge (AirAttack_Damage with 1 + height_bonus in 0..=1), Evade (15.0 stamina), Critical Riposte (PerfectEvadeAttack_Damage), and I'm Here QTE (QTE_Damage).",
+    },
 ];
 
-static PARSE_TABLE: [(&str, HypothesisId); 456] = [
+static PARSE_TABLE: [(&str, HypothesisId); 466] = [
     (
         "ability_index.primary_action_role_v1",
         HypothesisId::AbilityIndexPrimaryActionRoleV1,
@@ -3329,6 +3389,33 @@ static PARSE_TABLE: [(&str, HypothesisId); 456] = [
         HypothesisId::EdgarUltimatePeriodicHealingV1,
     ),
     (
+        "elyms.aoe_all_in_range_dummy_v1",
+        HypothesisId::ElymsAoeAllInRangeDummyV1,
+    ),
+    ("elyms.awakenings_v1", HypothesisId::ElymsAwakeningsV1),
+    ("elyms.normal_chain_v1", HypothesisId::ElymsNormalChainV1),
+    (
+        "elyms.ordinary_clock_v1",
+        HypothesisId::ElymsOrdinaryClockV1,
+    ),
+    (
+        "elyms.ordinary_hit_energy_v1",
+        HypothesisId::ElymsOrdinaryHitEnergyV1,
+    ),
+    ("elyms.relay_node_v1", HypothesisId::ElymsRelayNodeV1),
+    (
+        "elyms.secondary_and_aim_v1",
+        HypothesisId::ElymsSecondaryAndAimV1,
+    ),
+    (
+        "elyms.skill_redirect_v1",
+        HypothesisId::ElymsSkillRedirectV1,
+    ),
+    (
+        "elyms.ultra_and_on_the_line_v1",
+        HypothesisId::ElymsUltraAndOnTheLineV1,
+    ),
+    (
         "energy.efficiency_carry_v1",
         HypothesisId::EnergyEfficiencyCarryV1,
     ),
@@ -3839,6 +3926,10 @@ static PARSE_TABLE: [(&str, HypothesisId); 456] = [
     (
         "owner.action_role.character_1076_qte_v1",
         HypothesisId::OwnerActionRoleCharacter1076QteV1,
+    ),
+    (
+        "owner.action_role.character_1090_qte_v1",
+        HypothesisId::OwnerActionRoleCharacter1090QteV1,
     ),
     (
         "owner.packet_binding.character_1010_skill_lv3_v1",

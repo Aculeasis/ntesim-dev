@@ -25,6 +25,7 @@ pub(crate) enum RuntimeState {
     Linko(super::linko::awakenings::State),
     Adler(super::adler::awakenings::State),
     Akane(Box<super::akane::skill::State>),
+    Elyms(Box<super::elyms::skill::State>),
 }
 impl RuntimeState {
     pub(crate) fn new(character_id: &str) -> Self {
@@ -53,6 +54,7 @@ impl RuntimeState {
             "character:1072" => Self::Linko(Default::default()),
             "character:1033" => Self::Adler(Default::default()),
             "character:1057" => Self::Akane(Default::default()),
+            "character:1090" => Self::Elyms(Default::default()),
             _ => Self::Generic,
         }
     }
@@ -85,6 +87,7 @@ impl RuntimeState {
             Self::Linko(state) => Some((&mut state.normal_stage, &mut state.normal_started_us)),
             Self::Adler(state) => Some((&mut state.normal_stage, &mut state.normal_started_us)),
             Self::Akane(state) => Some((&mut state.normal_stage, &mut state.normal_started_us)),
+            Self::Elyms(state) => Some((&mut state.normal_stage, &mut state.normal_started_us)),
         }
     }
     pub(crate) fn reset_normal_chain(&mut self) {
@@ -200,6 +203,12 @@ impl RuntimeState {
             Self::Akane(s) => {
                 s.riposte_ready = false;
                 s.melee_pre_ready = false;
+                s.entry_normal_ready = false;
+                s.normal_stage = 0;
+                s.normal_started_us = None;
+            }
+            Self::Elyms(s) => {
+                s.riposte_ready = false;
                 s.entry_normal_ready = false;
                 s.normal_stage = 0;
                 s.normal_started_us = None;
@@ -413,6 +422,18 @@ impl RuntimeState {
         match self {
             Self::Akane(state) => Ok(state),
             _ => Err("Akane runtime extension unavailable".into()),
+        }
+    }
+    pub(crate) fn elyms(&self) -> Result<&super::elyms::skill::State, String> {
+        match self {
+            Self::Elyms(state) => Ok(state),
+            _ => Err("Elyms runtime extension unavailable".into()),
+        }
+    }
+    pub(crate) fn elyms_mut(&mut self) -> Result<&mut super::elyms::skill::State, String> {
+        match self {
+            Self::Elyms(state) => Ok(state),
+            _ => Err("Elyms runtime extension unavailable".into()),
         }
     }
 }

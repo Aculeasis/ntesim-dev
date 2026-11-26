@@ -82,13 +82,12 @@ shows the scenario label, four ordered compact slots (including empty slots for
 short rosters), awakening, Arc/refinement and cartridge/count icons, and native
 mean scenario DPS. Keyboard-focusable equipment inspection exposes names and
 equipment levels. Rows have no Details expander or calculation report. The
-selectable collection contains twenty complete four-character teams plus the
+selectable collection contains twenty-two complete four-character teams plus the
 unchanged default S5 control. Partial S1/S2/S3/Baicang examples remain outside
 selection. The [curation reference](../../../presets/studio/teams.md) owns dated
 sources, the shared 1,000-iteration/120-second profile, exact fifteen-line console
-allocations, investments, rotations and model limits. Elyms, Akane Rin and their
-signature Arcs are excluded. Required rosters include Nanally/Hotori/Zero/Jiuyuan
-and Zankou/Iroi/Sakiri/Daffodill with Daffodill nodes `[3,4,5]`.
+allocations, investments, rotations and model limits. Required rosters include Nanally/Hotori/Zero/Jiuyuan,
+Zankou/Iroi/Sakiri/Daffodill with Daffodill nodes `[3,4,5]`, and Shinku/Akane Rin/Elyms/Iroi.
 Failed or incomplete calculations show unavailable DPS with a
 reason after the ranked numeric entries; valid zero stays numeric zero.
 

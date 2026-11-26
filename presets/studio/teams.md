@@ -111,10 +111,7 @@ the generated catalog and the owning [mechanics references](../../docs/mechanics
   distinguish form windows, Nova/Stain support and follow-up ownership from
   the main damage dealer's field time.
 
-Excluded throughout: Elyms and Akane Rin; Elyms's Echoes On Hold is absent from the catalog.
-Akane Rin's Far Side of the Moon is canonical `weapon:fork_prism` and is excluded even though
-the engine has an implementation. Alternative Arcs recommended on their pages are not
-automatically excluded if they belong to another available character.
+Excluded from standalone slot-table proof: Elyms's `DT_CharacterEquipmentSlotsData` row is absent from `cache/`, so `shinku-elyms` applies the standard Lv80 offensive specialization (`+40%` ATK). Akane Rin's cached `EquipmentSlots_akane` / `SlotsEffect_akane` confirms Type III `+40%` ATK specialization, paired with canonical `weapon:fork_prism`. Alternative Arcs recommended on owner pages are not automatically excluded if they belong to another available character.
 
 Raw source acquisitions, exact-source trial outputs and before/after
 comparisons stay in `cache/team-curation/`. Final Team list values are
@@ -148,6 +145,7 @@ use a shorter Normal-attack tail and wait to the exact 120-second horizon.
 | [Blackbird Hathor](blackbird-hathor.nte): Blackbird / Sakiri / Lacrimosa / Hathor | Blackbird → Hathor enables Stain, followed by Lacrimosa's persistent Chaos damage and Sakiri/Hedgehog. Hathor uses a supported five-second held Skill; never switch out of Blackbird's form prematurely. |
 | [Chaos Remora](chaos-remora.nte): Chaos / Zero / Hathor / Haniel | Chaos → Haniel enables Stain; Zero Skill → Hathor supplies Remora, then return to Chaos for actual Crime/held-attack conversions. Zero carries CI/Hedgehog; Haniel Shadow Creed. |
 | [Shinku Charge](shinku-charge.nte): Shinku / Zero / Hathor / Iroi | Zero → Hathor creates Remora, a second paid Zero Skill → Iroi creates Buds while Remora lives, enabling Charge directly to Shinku. Lost Radiance Shinku drives damage with full Surging Crimson alignment; Zero owns Hedgehog and Iroi Shadow Creed. |
+| [Shinku · Charge / Akane / Elyms](shinku-elyms.nte): Shinku / Akane Rin / Elyms / Iroi | Elyms Skill2 → Skill1 fills Cycle into Akane Rin to unlock Perfect Pitch and Elyms Remora Enhancement (`Echoes on Hold`), then subsequent Elyms Skill1 (+100 Cycle) hands off to Hedgehog Iroi (`Blossom → Charge`) and `On the Line` + `Do You Get Deja Vu` (`+20%` AtkBase / `+10%` Follow-up DMG) into Lost Radiance Shinku's Surging Crimson window. |
 | [Chiz Charge](chiz-charge.nte): Chiz / Zero / Jiuyuan / Hathor | The same two-Skill chain with Jiuyuan's Bud support and A6 Chiz on field. Contemplative Cat's dependency is funded by explicit shared starting Fons; Zero owns Hedgehog. |
 | [Aurelia Charge](aurelia-charge.nte): Aurelia / Hathor / Jiuyuan / Zero | CI Zero → Jiuyuan, then Zero → Hathor enables Charge for Aurelia's Devil's Blood Curse damage window. Jiuyuan keeps personal Fireflies; no duplicate Hedgehog. |
 | [Skia Charge](skia-charge.nte): Skia / Zero / Haniel / Jiuyuan | Haniel buffs, Zero → Jiuyuan makes Buds, second Zero → Skia creates Remora/Charge. Street Boxer Skia takes the long field window; Zero CI/Hedgehog, Haniel Shadow Creed. |

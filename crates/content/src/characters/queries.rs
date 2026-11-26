@@ -94,7 +94,10 @@ impl crate::simulation::state::ActorRuntime {
         if name == "aiming"
             && matches!(
                 self.character,
-                RuntimeState::Adler(_) | RuntimeState::Nanally(_) | RuntimeState::Jiuyuan(_)
+                RuntimeState::Adler(_)
+                    | RuntimeState::Nanally(_)
+                    | RuntimeState::Jiuyuan(_)
+                    | RuntimeState::Elyms(_)
             )
         {
             return Ok(self.aiming);
@@ -237,6 +240,29 @@ impl RuntimeState {
             Self::Akane(state) if name == "string" => wide_fraction(
                 crate::simulation::ExactFraction::new(u128::from(state.string_energy), 1)?,
             ),
+            Self::Elyms(state) if name == "connection" => wide_fraction(
+                crate::simulation::ExactFraction::new(u128::from(state.connection.as_u64()), 1)?,
+            ),
+            Self::Elyms(state) if name == "optical_illusion" => wide_fraction(
+                crate::simulation::ExactFraction::new(u128::from(state.optical_illusion), 1)?,
+            ),
+            Self::Elyms(state) if matches!(name, "consumed_stacks" | "total_consumed_stacks") => {
+                wide_fraction(crate::simulation::ExactFraction::new(
+                    u128::from(state.total_consumed_stacks),
+                    1,
+                )?)
+            }
+            Self::Elyms(state) if name == "on_the_line" => {
+                wide_fraction(crate::simulation::ExactFraction::new(
+                    u128::from(
+                        state
+                            .on_the_line
+                            .as_ref()
+                            .map_or(0, |otl| otl.remaining_triggers),
+                    ),
+                    1,
+                )?)
+            }
             _ => Err(format!(
                 "Unknown resource '{name}' for this character model."
             )),
@@ -479,6 +505,8 @@ impl RuntimeState {
             Self::Chiz(state) if name == "hoarding" => Ok(state.hoarding_active),
             Self::Chiz(state) if name == "out_of_combat" => Ok(state.out_of_combat),
             Self::Akane(state) if name == "perfect_pitch" => Ok(state.perfect_pitch_unlocked),
+            Self::Elyms(state) if name == "power_e1" => Ok(state.can_skill2()),
+            Self::Elyms(state) if name == "power_e2" => Ok(state.can_skill3()),
             _ => Err(format!("Unknown state '{name}' for this character model.")),
         }
     }

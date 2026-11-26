@@ -275,10 +275,25 @@ pub(crate) const ORDINARY_HIT_ENERGY_OWNERS: &[OrdinaryHitEnergyOwner] = &[
         source: GameEnergySource::AkaneHit,
         event_kind: "akane_ordinary_hit_energy_grant",
     },
+    OrdinaryHitEnergyOwner {
+        character_id: "character:1090",
+        display_name: "Elyms",
+        abilities: &[
+            "GA_Elyms_Melee",
+            "GA_Elyms_Skill",
+            "GA_Elyms_UltraSkill",
+            "GA_Elyms_UltraSkillB",
+        ],
+        hypothesis_id: ELYMS_HIT_ENERGY_HYPOTHESIS_ID,
+        source: GameEnergySource::ElymsHit,
+        event_kind: "elyms_ordinary_hit_energy_grant",
+    },
 ];
 
 pub(crate) const AKANE_HIT_ENERGY_HYPOTHESIS_ID: HypothesisId =
     HypothesisId::AkaneOrdinaryHitEnergyV1;
+pub(crate) const ELYMS_HIT_ENERGY_HYPOTHESIS_ID: HypothesisId =
+    HypothesisId::ElymsOrdinaryHitEnergyV1;
 
 pub(crate) const SHINKU_HIT_ENERGY_HYPOTHESIS_ID: HypothesisId =
     HypothesisId::ShinkuOrdinaryHitEnergyV1;
@@ -337,6 +352,27 @@ pub(crate) const AURELIA_HIT_ENERGY_HYPOTHESIS_ID: HypothesisId =
 pub(crate) const HANIEL_HIT_ENERGY_HYPOTHESIS_ID: HypothesisId =
     HypothesisId::HanielOrdinaryHitEnergyV1;
 
+pub(crate) fn notify_active_actor_energy_gain(
+    ctx: &mut crate::runtime_api::CallbackContext<'_>,
+    recipient: usize,
+    positive_grant: bool,
+) -> Result<(), String> {
+    if positive_grant
+        && recipient == ctx.state.active_actor_index
+        && ctx.state.actors[recipient].hp > 0
+    {
+        #[cfg(test)]
+        {
+            ctx.state.active_actor_energy_gain_observations = ctx
+                .state
+                .active_actor_energy_gain_observations
+                .saturating_add(1);
+        }
+        crate::registry::on_active_actor_energy_gain(ctx, recipient)?;
+    }
+    Ok(())
+}
+
 #[allow(clippy::too_many_arguments)]
 pub(crate) fn ordinary_hit_grants(
     request: &GameScenarioRequest,
@@ -352,13 +388,13 @@ pub(crate) fn ordinary_hit_grants(
     hit_assumptions: &mut std::collections::BTreeMap<String, String>,
     trace: &mut Vec<GameEventReceipt>,
     time_us: u64,
-) -> Result<(), String> {
+) -> Result<bool, String> {
     let owner = match ORDINARY_HIT_ENERGY_OWNERS
         .iter()
         .find(|owner| actor_configs[actor_index].character_id == owner.character_id)
     {
         Some(owner) => owner,
-        None => return Ok(()),
+        None => return Ok(false),
     };
     let direct_packet_policy = direct_packet_energy_policy(
         request,
@@ -388,7 +424,7 @@ pub(crate) fn ordinary_hit_grants(
                 | super::metadata::ActionPacketBindingKind::OwnerChild
         )
     {
-        return Ok(());
+        return Ok(false);
     }
     let hypothesis_id = direct_packet_policy
         .map(|policy| policy.hypothesis_id)
@@ -413,7 +449,7 @@ pub(crate) fn ordinary_hit_grants(
     let native_charge = ntesim_data::native::parse_native_scalar(charge_value)?;
     let base = ExactFraction::new(native_charge.numerator(), native_charge.denominator())?;
     if base.is_zero() {
-        return Ok(());
+        return Ok(false);
     }
 
     let source_element = actor_element(&actor_configs[actor_index].character_id)?;
@@ -422,6 +458,7 @@ pub(crate) fn ordinary_hit_grants(
     } else {
         owner.event_kind
     };
+    let mut active_gained = false;
     let mut grants = Vec::new();
     for recipient_index in 0..actors.len() {
         if actors[recipient_index].hp == 0 {
@@ -434,6 +471,9 @@ pub(crate) fn ordinary_hit_grants(
             relations::peer(source_element, recipient_element)
         };
         let gross = base.mul(coefficient)?;
+        if recipient_index == active_actor_index && !gross.is_zero() {
+            active_gained = true;
+        }
         let snapshot = EnergySnapshot::capture(&actors[recipient_index]);
         actors[recipient_index].grant_fractional_energy(gross)?;
         let receipt = snapshot.receipt(
@@ -504,7 +544,7 @@ pub(crate) fn ordinary_hit_grants(
             .packet_energy_groups
             .insert(group.to_owned());
     }
-    Ok(())
+    Ok(active_gained)
 }
 
 fn direct_packet_energy_policy(

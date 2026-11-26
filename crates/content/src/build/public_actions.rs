@@ -31,6 +31,7 @@ pub(super) fn initial_assumptions(character: &str) -> BTreeMap<String, String> {
         "character:1003" => crate::characters::sakiri::source_assumptions(),
         "character:1020" => crate::characters::haniel::source_assumptions(),
         "character:1057" => crate::characters::akane::source_assumptions(),
+        "character:1090" => crate::characters::elyms::source_assumptions(),
         "character:1071" => crate::characters::chaos::source_assumptions(),
         "character:1075" => crate::characters::iroi::source_assumptions(),
         _ => BTreeMap::new(),
@@ -338,6 +339,27 @@ pub(super) fn project(
                 _ => {}
             }
         }
+        if character == "character:1090" {
+            match kind {
+                "attack" => {
+                    recovery_us = crate::characters::elyms::clock::profile::NORMAL_RECOVERY[0];
+                    hit_delay_us = crate::characters::elyms::clock::profile::MELEE1_HITS[0].1;
+                }
+                "skill" => {
+                    cooldown_us =
+                        crate::characters::elyms::parameters::PARAMETERS.skill_cooldown_us;
+                    recovery_us = crate::characters::elyms::clock::profile::SKILL1_RECOVERY;
+                    hit_delay_us = crate::characters::elyms::clock::profile::SKILL1_HITS[0].1;
+                }
+                "burst" => {
+                    cooldown_us =
+                        crate::characters::elyms::parameters::PARAMETERS.burst_cooldown_us;
+                    recovery_us = crate::characters::elyms::clock::profile::BURSTA_RECOVERY;
+                    hit_delay_us = crate::characters::elyms::clock::profile::BURSTA_HITS[0].1;
+                }
+                _ => {}
+            }
+        }
         actions.insert(
             kind.into(),
             PublicAction {
@@ -369,6 +391,12 @@ pub(super) fn project(
         actions.insert(
             "plunge".into(),
             crate::characters::akane::secondary::public_plunge(),
+        );
+    }
+    if character == "character:1090" {
+        actions.insert(
+            "plunge".into(),
+            crate::characters::elyms::secondary::public_plunge(),
         );
     }
     if character == "character:1071" {
@@ -532,6 +560,7 @@ mod tests {
             ("character:1073", 100), // Chiz
             ("character:1075", 100), // Iroi
             ("character:1076", 100), // Shinku
+            ("character:1090", 100), // Elyms
         ] {
             let request = serde_json::from_value(json!({
                 "content_id":"ntesim-current","character_id":id,

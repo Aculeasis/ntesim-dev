@@ -107,6 +107,8 @@ mod tests {
             ("akanerin", "character:1057"),
             ("Akane", "character:1057"),
             ("Akane Rin", "character:1057"),
+            ("elyms", "character:1090"),
+            ("Elyms", "character:1090"),
             ("zankou", "character:1036"),
         ] {
             assert_eq!(catalog.resolve("character", name).unwrap(), id);

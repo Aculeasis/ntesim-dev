@@ -103,6 +103,7 @@ pub(crate) fn resolve(character_id: &str, ability_id: &str) -> Option<OwnerActio
         ("character:1073", "GA_Chiichan073_QTE") => qte("owner.action_role.character_1073_qte_v1"),
         ("character:1075", "GA_Oneiroi_QTE") => qte("owner.action_role.character_1075_qte_v1"),
         ("character:1076", "GA_Shinku_QTE") => qte("owner.action_role.character_1076_qte_v1"),
+        ("character:1090", "GA_Elyms_QTE") => qte("owner.action_role.character_1090_qte_v1"),
         _ => return None,
     };
     Some(role)
@@ -145,6 +146,7 @@ pub(crate) fn known_hypotheses() -> std::collections::BTreeMap<&'static str, &'s
         ("character:1073", "GA_Chiichan073_QTE"),
         ("character:1075", "GA_Oneiroi_QTE"),
         ("character:1076", "GA_Shinku_QTE"),
+        ("character:1090", "GA_Elyms_QTE"),
     ];
     actions
         .into_iter()

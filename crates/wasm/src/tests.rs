@@ -852,14 +852,14 @@ fn tabular_verification_dispatch_passes_all_cases() {
 }
 
 #[test]
-fn composition_enumeration_dispatch_matches_exact_10626() {
+fn composition_enumeration_dispatch_matches_exact_12650() {
     let req = WasmCompositionRequest { variants_csv: None };
     let input = serde_json::to_vec(&req).unwrap();
     let report = dispatch_enumerate_compositions(&input).unwrap();
-    assert_eq!(report.total_characters, 24);
-    assert_eq!(report.total_compositions, 10626);
+    assert_eq!(report.total_characters, 25);
+    assert_eq!(report.total_compositions, 12650);
     assert_eq!(report.published_variants_count, 45);
-    assert_eq!(report.unconventional_compositions, 10581);
+    assert_eq!(report.unconventional_compositions, 12605);
 }
 
 #[test]

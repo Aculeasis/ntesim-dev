@@ -13,6 +13,7 @@ mod chaos071;
 mod chiichan073;
 mod daffodill;
 mod edgar;
+mod elyms;
 mod fadia;
 mod female046;
 mod haniel;
@@ -43,6 +44,7 @@ const PACKET_GROUPS: &[&[Packet]] = &[
     chiichan073::PACKETS,
     daffodill::PACKETS,
     edgar::PACKETS,
+    elyms::PACKETS,
     fadia::PACKETS,
     female046::PACKETS,
     haniel::PACKETS,
@@ -73,6 +75,7 @@ fn cycle_milli(id: &str) -> Option<u64> {
         .or_else(|| chiichan073::cycle_milli(id))
         .or_else(|| daffodill::cycle_milli(id))
         .or_else(|| edgar::cycle_milli(id))
+        .or_else(|| elyms::cycle_milli(id))
         .or_else(|| fadia::cycle_milli(id))
         .or_else(|| haniel::cycle_milli(id))
         .or_else(|| hathor::cycle_milli(id))
@@ -235,7 +238,7 @@ mod tests {
     #[test]
     fn only_consumed_packet_fields_and_exact_coordinates_are_retained() {
         let rows = transport()["rows"].as_object().unwrap();
-        assert_eq!(rows.len(), 625);
+        assert_eq!(rows.len(), 660);
         for (id, row) in rows {
             let expected = if id.starts_with("GE_Player_Cang_")
                 || id.starts_with("GE_Player_BlackBird_")
@@ -244,6 +247,7 @@ mod tests {
                 || chiichan073::cycle_milli(id).is_some()
                 || daffodill::cycle_milli(id).is_some()
                 || edgar::cycle_milli(id).is_some()
+                || elyms::cycle_milli(id).is_some()
                 || fadia::cycle_milli(id).is_some()
                 || haniel::cycle_milli(id).is_some()
                 || hathor::cycle_milli(id).is_some()

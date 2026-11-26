@@ -28,6 +28,14 @@ pub(crate) fn binding(character: &str, ability: &str) -> Result<Release, String>
         "character:1073" => super::chiz::CINEMATIC_RELEASE,
         "character:1054" => super::daffodil::CINEMATIC_RELEASE,
         "character:1021" => super::edgar::CINEMATIC_RELEASE,
+        "character:1090" if ability == "GA_Elyms_UltraSkillB" => Release::Notify {
+            progress_us: 5_499_266,
+            montage: "Elyms_UltraSkill2",
+        },
+        "character:1090" => Release::Notify {
+            progress_us: 5_499_266,
+            montage: "Elyms_UltraSkill",
+        },
         "character:1039" => super::fadia::CINEMATIC_RELEASE,
         "character:1020" => super::haniel::CINEMATIC_RELEASE,
         "character:1025" => super::hathor::CINEMATIC_RELEASE,
@@ -53,4 +61,49 @@ pub(crate) fn binding(character: &str, ability: &str) -> Result<Release, String>
             ));
         }
     })
+}
+
+pub(crate) fn action_binding(
+    character: &str,
+    primary_slot: Option<crate::simulation::metadata::PrimaryActionSlot>,
+    ability: &str,
+    damage_effect_id: &str,
+) -> Result<Option<Release>, String> {
+    if character == "character:1090" {
+        return Ok(match damage_effect_id {
+            "GE_Player_Elyms_Skill2_Damage" => Some(Release::Notify {
+                progress_us: 1_719_655,
+                montage: "Elyms_Skill2",
+            }),
+            "GE_Player_Elyms_Skill3_Damage" => Some(Release::Notify {
+                progress_us: 1_719_655,
+                montage: "Elyms_Skill3",
+            }),
+            _ if primary_slot == Some(crate::simulation::metadata::PrimaryActionSlot::Ultimate) => {
+                if ability == "GA_Elyms_UltraSkillB"
+                    || damage_effect_id.starts_with("GE_Player_Elyms_UltraSkillB")
+                {
+                    Some(Release::Notify {
+                        progress_us: 5_499_266,
+                        montage: "Elyms_UltraSkill2",
+                    })
+                } else {
+                    Some(Release::Notify {
+                        progress_us: 5_499_266,
+                        montage: "Elyms_UltraSkill",
+                    })
+                }
+            }
+            _ => None,
+        });
+    }
+    let is_ultimate_cinematic = primary_slot
+        == Some(crate::simulation::metadata::PrimaryActionSlot::Ultimate)
+        && damage_effect_id != "GE_Player_Shinku_UltraSkillPre_Rage_Damage"
+        && damage_effect_id != "GE_Player_Akane_UltraSkill2_Damage";
+    if is_ultimate_cinematic {
+        binding(character, ability).map(Some)
+    } else {
+        Ok(None)
+    }
 }

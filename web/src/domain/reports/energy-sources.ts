@@ -104,6 +104,10 @@ const sources: Record<EnergyGrant['source'], EnergySourceDetails> = {
     kind: 'akane_hit_energy',
     label: 'Akane ordinary hit',
   },
+  elyms_hit: {
+    kind: 'elyms_hit_energy',
+    label: 'Elyms ordinary hit',
+  },
   adler_hit: {
     kind: 'adler_hit_energy',
     label: 'Adler ordinary hit',

@@ -171,7 +171,12 @@ impl Observation<'_> {
             "energymax" => actor.energy.capacity(),
             "onfield" => u64::from(index == self.state.active_actor_index),
             "normal" => actor.character.next_normal(self.state.current_time_us)?,
-            "string" => return self.owner_field(name, "resources", "string"),
+            "string"
+            | "connection"
+            | "optical_illusion"
+            | "on_the_line"
+            | "consumed_stacks"
+            | "total_consumed_stacks" => return self.owner_field(name, "resources", field),
             "mode" => {
                 if self.state.live_owner_state_active(index, "overtone")? {
                     1

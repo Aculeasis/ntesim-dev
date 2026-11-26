@@ -476,10 +476,6 @@ fn finish_admission(
 ) -> Result<Option<super::rejection::AdmissionFailure>, String> {
     let request = ctx.request;
     let state = &mut *ctx.state;
-    let is_ultimate_cinematic = metadata.action.primary_slot
-        == Some(super::metadata::PrimaryActionSlot::Ultimate)
-        && cmd.damage_effect_id != "GE_Player_Shinku_UltraSkillPre_Rage_Damage"
-        && cmd.damage_effect_id != "GE_Player_Akane_UltraSkill2_Damage";
     super::pause::committed(
         state,
         request,
@@ -487,7 +483,9 @@ fn finish_admission(
         ctx.sequence,
         cmd.actor_idx,
         command_index,
-        is_ultimate_cinematic.then_some(cmd.ability_id.as_str()),
+        metadata.action.primary_slot,
+        &cmd.ability_id,
+        &cmd.damage_effect_id,
     )?;
     if cmd.utility.is_none() {
         crate::characters::team::observe_admission(

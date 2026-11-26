@@ -21,6 +21,9 @@ pub use source::{
     run_compiled_source, run_source,
 };
 
+#[cfg(test)]
+pub(crate) use execution::PreparedExecution;
+#[cfg(not(test))]
 use execution::PreparedExecution;
 use program::validate_live_program;
 pub use report::BorrowedGameScenarioReport;

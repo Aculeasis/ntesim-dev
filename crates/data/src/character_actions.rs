@@ -1,5 +1,5 @@
 //! Consumed baseline action identity, input coordinates and talent prerequisites.
-//! Global 2026-10-04: 24 supported owners, four proactive actions each. Native
+//! Global 2026-10-04: 25 supported owners, four proactive actions each. Native
 //! list positions and AbilityIndex are distinct fields, equal to 0..3 and 1..4
 //! respectively in this baseline. Currency/item costs and noncombat groups are
 //! cache-only; level interpretation remains owned by skill_levels.
@@ -235,6 +235,15 @@ pub const CHARACTERS: &[CharacterActions] = &[
             "GA_Shinku_QTE",
         ],
     },
+    CharacterActions {
+        native_id: "1090",
+        abilities: [
+            "GA_Elyms_Melee",
+            "GA_Elyms_Skill",
+            "GA_Elyms_UltraSkill",
+            "GA_Elyms_QTE",
+        ],
+    },
 ];
 
 /// Compact transport for existing metadata, purchase and catalog consumers.
@@ -313,7 +322,7 @@ mod tests {
             .map(|owner| owner.native_id)
             .collect::<BTreeSet<_>>();
         assert_eq!(actual, expected);
-        assert_eq!(actual.len(), 24);
+        assert_eq!(actual.len(), 25);
         let rows = transport()["rows"].as_object().unwrap();
         for row in rows.values() {
             assert_eq!(row.as_object().unwrap().len(), 1);

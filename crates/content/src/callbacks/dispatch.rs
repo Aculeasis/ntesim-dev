@@ -171,6 +171,7 @@ pub(crate) fn apply(event: ContentEvent, ctx: &mut CallbackContext<'_>) -> Resul
         }
         ContentEvent::Blackbird(event) => crate::characters::blackbird::events::apply(ctx, event),
         ContentEvent::Akane(event) => crate::characters::akane::events::apply(ctx, event),
+        ContentEvent::Elyms(event) => crate::characters::elyms::events::apply(ctx, event),
         ContentEvent::Chaos(event) => crate::characters::chaos::events::apply(ctx, event),
         ContentEvent::Chiz(event) => crate::characters::chiz::events::apply(ctx, event),
         ContentEvent::Daffodil(event) => crate::characters::daffodil::clock::event(ctx, event),

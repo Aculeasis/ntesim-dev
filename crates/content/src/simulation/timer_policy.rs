@@ -39,6 +39,16 @@ pub(crate) fn immediate_callback(event: &GameEventData) -> bool {
                 )
                 | ZankouCombat(_)
                 | Akane(crate::characters::akane::events::Event::PerfectPitchTick { .. })
+                | Elyms(
+                    crate::characters::elyms::events::Event::ActionAddE { .. }
+                        | crate::characters::elyms::events::Event::ActionManage { .. }
+                        | crate::characters::elyms::events::Event::SkillFinish { .. }
+                        | crate::characters::elyms::events::Event::ExpirePowerE1 { .. }
+                        | crate::characters::elyms::events::Event::ExpirePowerE2 { .. }
+                        | crate::characters::elyms::events::Event::ExpireOpticalIllusion { .. }
+                        | crate::characters::elyms::events::Event::ExpireQAtkBuff { .. }
+                        | crate::characters::elyms::events::Event::RemoraEnhancement { .. }
+                )
                 | IroiClock(crate::characters::iroi::clock::Event::LambAi { .. })
                 | Edgar(crate::characters::edgar::clock::Event::FieldTick { .. })
         ),
@@ -135,6 +145,11 @@ fn content_domain(event: &crate::callbacks::ContentEvent) -> ClockDomain {
             | crate::characters::akane::events::Event::ModeReverb { owner, command, .. }
             | crate::characters::akane::events::Event::SyncedBuffs { owner, command, .. }
             | crate::characters::akane::events::Event::SkillFinish { owner, command, .. },
+        )
+        | Elyms(
+            crate::characters::elyms::events::Event::ActionAddE { owner, command, .. }
+            | crate::characters::elyms::events::Event::ActionManage { owner, command, .. }
+            | crate::characters::elyms::events::Event::SkillFinish { owner, command, .. },
         )
         | Chiz(
             crate::characters::chiz::events::Event::HeldPhase { owner, command, .. }

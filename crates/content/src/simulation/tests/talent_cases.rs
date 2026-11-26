@@ -221,5 +221,5 @@ fn frozen_talent_inputs_cover_every_released_character() {
         super::super::talents::project(&request).unwrap_or_else(|error| panic!("{id}: {error}"));
         count += 1;
     }
-    assert_eq!(count, 24);
+    assert_eq!(count, 25);
 }

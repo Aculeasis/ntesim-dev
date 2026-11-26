@@ -78,6 +78,7 @@ pub fn get_character_profile(slug: &str) -> Result<PreviewCharacterProfile, Stri
         "chiz" => Ok(crate::characters::chiz::preview::profile()),
         "daffodil" => Ok(crate::characters::daffodil::preview::profile()),
         "edgar" => Ok(crate::characters::edgar::preview::profile()),
+        "elyms" => Ok(crate::characters::elyms::preview::profile()),
         "fadia" => Ok(crate::characters::fadia::preview::profile()),
         "haniel" => Ok(crate::characters::haniel::preview::profile()),
         "hathor" => Ok(crate::characters::hathor::preview::profile()),
@@ -128,6 +129,7 @@ pub fn validate_awakening_selection(
                 | "character:1073"
                 | "character:1075"
                 | "character:1076"
+                | "character:1090"
         )
     {
         return Err(format!(

@@ -27,6 +27,7 @@ pub(crate) enum ContentEvent {
     Chiz(crate::characters::chiz::events::Event),
     Chaos(crate::characters::chaos::events::Event),
     Akane(crate::characters::akane::events::Event),
+    Elyms(crate::characters::elyms::events::Event),
     Blackbird(crate::characters::blackbird::events::Event),
     BaicangFadiaCheck {
         actor_index: usize,

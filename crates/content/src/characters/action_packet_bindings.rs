@@ -153,6 +153,12 @@ fn legacy(
                 hypothesis_id: super::akane::secondary::MODEL,
             })
         }
+        ("character:1090", "GA_Elyms_Melee", super::elyms::secondary::RIPOSTE) => {
+            Some(OwnerChildPacketBinding {
+                packet_ga_name: "GA_Elyms_PerfectEvade",
+                hypothesis_id: super::elyms::secondary::MODEL,
+            })
+        }
         ("character:1057", "GA_Akane_Passive_1", super::akane::passive::PACKET) => {
             Some(OwnerChildPacketBinding {
                 packet_ga_name: "GA_Akane_Skill",

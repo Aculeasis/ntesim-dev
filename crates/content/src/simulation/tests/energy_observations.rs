@@ -452,3 +452,92 @@ fn mind_royale_living_off_field_recipient_keeps_efficiency_carry_and_overflow() 
     assert_eq!(state.actors[0].charge_remainder, frozen.charge_remainder);
     assert_eq!(trace.len(), 1);
 }
+
+#[test]
+fn active_actor_energy_gain_observer_tracks_combat_grants_and_ignores_start_and_offfield() {
+    let mut request = sample_s1_request();
+    request.actors[0].initial_energy = 80;
+    let mut teammate = request.actors[0].clone();
+    teammate.slot = 1;
+    teammate.initial_energy = 50;
+    request.actors.push(teammate);
+    let mut state = super::super::state::GameSimulatorState::new(&request);
+    assert_eq!(
+        state.active_actor_energy_gain_observations, 0,
+        "initial t=0 start energy must not trigger active-actor observer"
+    );
+    let mut queue = crate::simulation::timer_queue::EventQueue::new();
+    let mut seq = 0;
+    let mut trace = Vec::new();
+    // Off-field weapon grant to actor 1 while actor 0 is active does not increment.
+    crate::callbacks::apply(
+        crate::callbacks::ContentEvent::MindRoyaleEnergyGrant {
+            actor_index: 1,
+            amount: 10,
+        },
+        &mut crate::runtime_api::CallbackContext {
+            state: &mut state,
+            request: &request,
+            queue: &mut queue,
+            sequence: &mut seq,
+            trace: &mut trace,
+        },
+    )
+    .unwrap();
+    assert_eq!(state.active_actor_energy_gain_observations, 0);
+
+    // Active-actor weapon grant to actor 0 increments once.
+    crate::callbacks::apply(
+        crate::callbacks::ContentEvent::MindRoyaleEnergyGrant {
+            actor_index: 0,
+            amount: 10,
+        },
+        &mut crate::runtime_api::CallbackContext {
+            state: &mut state,
+            request: &request,
+            queue: &mut queue,
+            sequence: &mut seq,
+            trace: &mut trace,
+        },
+    )
+    .unwrap();
+    assert_eq!(state.active_actor_energy_gain_observations, 1);
+
+    // Zero-amount grant does not increment.
+    crate::simulation::energy::notify_active_actor_energy_gain(
+        &mut crate::runtime_api::CallbackContext {
+            state: &mut state,
+            request: &request,
+            queue: &mut queue,
+            sequence: &mut seq,
+            trace: &mut trace,
+        },
+        0,
+        false,
+    )
+    .unwrap();
+    assert_eq!(state.active_actor_energy_gain_observations, 1);
+
+    // Hit energy + Charge reaction during full execution trigger the observer.
+    let limits = ExecutionLimits::default();
+    let hit_req = crate::dsl::compiler::compile_scenario(
+        "options duration=10; mint char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_cycle=100; \
+         elyms char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_cycle=100 start_energy=0; \
+         target hp=100000000 def=0 resist=0; active mint; mint attack; wait(1); elyms swap; wait(8);",
+        Default::default(),
+    )
+    .unwrap()
+    .request;
+    let packets = crate::simulation::validation::validate_and_resolve(&hit_req, &limits).unwrap();
+    let (mut exec, _) =
+        crate::simulation::runtime::PreparedExecution::new(&hit_req, hit_req.seed, &[], &[])
+            .unwrap();
+    assert_eq!(exec.state.active_actor_energy_gain_observations, 0);
+    exec.process_events(&hit_req, &limits, &packets, &[], &[])
+        .unwrap();
+    assert!(
+        exec.state.active_actor_energy_gain_observations >= 2,
+        "expected both hit ChargeAdd and Blossom/Charge energy grants to notify observer"
+    );
+    let _ = hit_req.actors.len();
+}

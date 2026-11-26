@@ -10,6 +10,7 @@ pub(crate) mod chiz;
 pub(crate) mod cinematics;
 pub(crate) mod daffodil;
 pub(crate) mod edgar;
+pub(crate) mod elyms;
 pub(crate) mod fadia;
 pub(crate) mod haniel;
 pub(crate) mod hathor;
@@ -54,6 +55,8 @@ pub(crate) fn on_field_exit(
         state.emergency_delivery_until_us = 0;
     } else if char_id == "character:1019" {
         mint::skill::on_field_exit(ctx, actor_index)?;
+    } else if char_id == "character:1090" {
+        elyms::skill::on_field_exit(ctx, actor_index)?;
     } else if char_id == "character:1075" {
         let now = ctx.state.current_time_us;
         let is_living = ctx.state.actors[actor_index].hp > 0;
@@ -76,6 +79,8 @@ pub(crate) fn on_field_entry(
     let char_id = &ctx.request.actors[actor_index].character_id;
     if char_id == "character:1019" {
         mint::skill::on_field_entry(ctx, actor_index)?;
+    } else if char_id == "character:1090" {
+        elyms::skill::on_field_entry(ctx, actor_index)?;
     } else if char_id == "character:1075" {
         let now = ctx.state.current_time_us;
         let is_living = ctx.state.actors[actor_index].hp > 0;

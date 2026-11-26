@@ -168,5 +168,6 @@ pub(crate) fn apply(
         energy_fanout: None,
         data: None,
     });
+    crate::simulation::energy::notify_active_actor_energy_gain(ctx, actor_index, amount > 0)?;
     Ok(())
 }

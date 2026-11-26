@@ -1,6 +1,6 @@
 //! Only character identity/aliases, damage element, weapon group consumed by the simulator. No item, audio, world or UI asset dump.
 //! Global DT_Character metadata was checked against the cached source for all
-//! 24 released identities. Preserve Daffodill/Crimson/Akane Rin as distinct script aliases;
+//! 25 released identities. Preserve Daffodill/Crimson/Akane Rin/Elyms as distinct script aliases;
 //! every other native name duplicates the registry slug or is blank (Zankou).
 use super::values::Base;
 use serde_json::{Value, json};
@@ -103,7 +103,7 @@ impl Definition {
             "weapon_group":self.weapon_group.native_key(), "availability":if self.released {"released"} else {"unreleased"}})
     }
 }
-static DEFINITIONS: [Definition; 24] = [
+static DEFINITIONS: [Definition; 25] = [
     Definition::new(
         "1003",
         "sakiri",
@@ -320,6 +320,15 @@ static DEFINITIONS: [Definition; 24] = [
         Some("Crimson"),
         Base::new(1330, 80, 74, 100),
     ),
+    Definition::new(
+        "1090",
+        "elyms",
+        true,
+        Element::Cosmos,
+        WeaponGroup::One,
+        Some("Elyms"),
+        Base::new(1270, 83, 75, 100),
+    ),
 ];
 pub fn definitions() -> &'static [Definition] {
     &DEFINITIONS
@@ -385,8 +394,12 @@ mod tests {
             definition("character:1057").unwrap().script_alias,
             Some("Akane Rin")
         );
+        assert_eq!(
+            definition("character:1090").unwrap().script_alias,
+            Some("Elyms")
+        );
         assert_eq!(definition("character:1036").unwrap().script_alias, None);
-        assert_eq!(definitions().len(), 24);
+        assert_eq!(definitions().len(), 25);
         assert!(definition("character:1051").is_err());
         assert!(definition("1003").is_err());
         assert!(WeaponGroup::from_native("ECharacterGroupType::CHARACTER_GROUP_TYPE_SIX").is_err());

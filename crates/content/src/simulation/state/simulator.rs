@@ -64,6 +64,8 @@ pub(crate) struct GameSimulatorState {
     pub(crate) max_proc_depth_reached: usize,
     pub(crate) buffs: ntesim_core::buffs::dispatch::BuffManager,
     pub(crate) reactions: crate::simulation::reactions::ReactionRuntime,
+    #[cfg(test)]
+    pub(crate) active_actor_energy_gain_observations: usize,
 }
 
 impl GameSimulatorState {
@@ -603,6 +605,8 @@ impl GameSimulatorState {
             max_proc_depth_reached: 0,
             buffs: ntesim_core::buffs::dispatch::BuffManager::default(),
             reactions: crate::simulation::reactions::ReactionRuntime::new(seed),
+            #[cfg(test)]
+            active_actor_energy_gain_observations: 0,
         }
     }
 

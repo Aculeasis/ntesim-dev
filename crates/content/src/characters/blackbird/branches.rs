@@ -83,6 +83,7 @@ pub(crate) fn validate_inputs(
                 | "character:1025"
                 | "character:1019"
                 | "character:1075"
+                | "character:1090"
         ) {
             continue;
         }

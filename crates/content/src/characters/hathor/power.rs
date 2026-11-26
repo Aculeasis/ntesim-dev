@@ -193,6 +193,7 @@ pub(super) fn grant(
             ..Default::default()
         }),
     });
+    crate::simulation::energy::notify_active_actor_energy_gain(ctx, owner, delta > 0)?;
     Ok(())
 }
 pub(crate) fn on_target_defeated(

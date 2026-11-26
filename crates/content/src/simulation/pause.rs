@@ -37,18 +37,21 @@ pub(crate) fn committed(
     sequence: &mut u64,
     actor: usize,
     command: usize,
-    ultimate: Option<&str>,
+    primary_slot: Option<super::metadata::PrimaryActionSlot>,
+    ability: &str,
+    damage_effect_id: &str,
 ) -> Result<(), String> {
     // A new legal input may cancel its own old finite cinematic. Buffs and
     // independent producers never inherit the old cast's exemption.
     cancel_cinematic(state, queue, actor, None)?;
+    let is_ultimate = primary_slot == Some(super::metadata::PrimaryActionSlot::Ultimate);
     let context = PauseOwner {
         owner: actor,
         generation: command as u64,
     };
     let active_stop = match &state.actors[actor].character {
         crate::characters::RuntimeState::Hotori(owner) => {
-            ultimate.is_some()
+            is_ultimate
                 || owner.timepiece.mode_active(state.current_time_us)
                 || owner.timepiece.rewinding(state.current_time_us)
         }
@@ -62,7 +65,7 @@ pub(crate) fn committed(
     if active_stop {
         queue.allow_active_stop(context);
     }
-    if ultimate.is_some()
+    if is_ultimate
         && let crate::characters::RuntimeState::Hotori(owner) = &state.actors[actor].character
     {
         queue.bind_mode(owner.timepiece.mode_generation, context);
@@ -72,11 +75,15 @@ pub(crate) fn committed(
         context,
         advance_during_active_stop: active_stop,
     });
-    let Some(ability) = ultimate else {
+    let Some(binding) = crate::characters::cinematics::action_binding(
+        &request.actors[actor].character_id,
+        primary_slot,
+        ability,
+        damage_effect_id,
+    )?
+    else {
         return queue.sync(&state.mode_clock);
     };
-    let binding =
-        crate::characters::cinematics::binding(&request.actors[actor].character_id, ability)?;
     let context = PauseOwner {
         owner: actor,
         generation: command as u64,

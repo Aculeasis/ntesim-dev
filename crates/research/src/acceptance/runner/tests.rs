@@ -37,7 +37,7 @@ fn acceptance_runner_executes_screening_and_refinement_with_deliverables() {
     assert_eq!(report.status, "INCOMPLETE");
     assert!(!report.game_dps_computed);
     assert!(!report.acceptance_ready);
-    assert_eq!(report.compositions_enumerated, 10626);
+    assert_eq!(report.compositions_enumerated, 12650);
     assert_eq!(report.compositions_processed, 8);
     assert!(report.compositions_screened > 0);
     assert!(report.compositions_screened <= report.compositions_processed);
@@ -84,7 +84,7 @@ fn acceptance_runner_executes_screening_and_refinement_with_deliverables() {
     assert!(report.deliverables.is_some());
     assert_eq!(
         report.deliverables.as_ref().unwrap().total_compositions,
-        10626
+        12650
     );
     assert_eq!(report.deliverables.as_ref().unwrap().total_variants, 7);
     assert_eq!(report.deliverables.as_ref().unwrap().total_archetypes, 5);

@@ -114,7 +114,7 @@ fn source_rechecks_admission_after_an_implicit_support_and_incoming_event() {
 #[test]
 fn source_initial_readiness_agrees_with_native_admission_for_all_released_owners() {
     let owners = crate::registry::character_descriptors().unwrap();
-    assert_eq!(owners.len(), 24);
+    assert_eq!(owners.len(), 25);
     let mut mismatches = Vec::new();
     for owner in owners {
         for action in ["skill", "burst"] {

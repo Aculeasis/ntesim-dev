@@ -31,6 +31,7 @@ pub(super) fn apply(ctx: &mut EventContext<'_>, snapshot: ReactionSnapshot) -> R
         snapshot.owner_index,
         target,
         snapshot.command_index,
+        true,
     )
 }
 
@@ -40,7 +41,23 @@ pub(crate) fn apply_from_owner(
     target: usize,
     command_index: usize,
 ) -> Result<(), String> {
-    apply_to_target(ctx, owner_index, target, command_index)
+    apply_from_owner_with_retrigger_control(ctx, owner_index, target, command_index, true)
+}
+
+pub(crate) fn apply_from_owner_with_retrigger_control(
+    ctx: &mut crate::runtime_api::CallbackContext<'_>,
+    owner_index: usize,
+    target: usize,
+    command_index: usize,
+    allow_elyms_retrigger: bool,
+) -> Result<(), String> {
+    apply_to_target(
+        ctx,
+        owner_index,
+        target,
+        command_index,
+        allow_elyms_retrigger,
+    )
 }
 
 fn apply_to_target(
@@ -48,6 +65,7 @@ fn apply_to_target(
     owner_index: usize,
     target: usize,
     command_index: usize,
+    allow_elyms_retrigger: bool,
 ) -> Result<(), String> {
     let mut assumptions = Default::default();
     let policy = crate::registry::remora_enhancement(ctx.request, ctx.state, &mut assumptions)?;
@@ -117,6 +135,7 @@ fn apply_to_target(
         target,
         generation,
         existing_remaining_us,
+        allow_elyms_retrigger,
     )?;
     // Refresh retires the old callback even when the new duration is shorter.
     ctx.queue.retain(|event| {
@@ -325,5 +344,6 @@ pub(super) fn charge(
         trace: ctx.trace,
     };
     crate::registry::on_charge_grant(&mut cb, recipient)?;
+    crate::simulation::energy::notify_active_actor_energy_gain(&mut cb, recipient, gross > 0)?;
     Ok(())
 }

@@ -191,6 +191,14 @@
       "element": "Lakshana",
       "rarity": "S",
       "group": "CHARACTER_GROUP_TYPE_TWO"
+    },
+    {
+      "slug": "elyms",
+      "id": "character:1090",
+      "name": "Elyms",
+      "element": "Cosmos",
+      "rarity": "S",
+      "group": "CHARACTER_GROUP_TYPE_ONE"
     }
   ],
   "weapons": {

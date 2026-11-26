@@ -9,7 +9,7 @@ export async function verifyResonanceParity({ engine, simulate, input, cli }) {
   const characters = JSON.parse(
     readFileSync(new URL('../../src/generated/catalog.json', import.meta.url), 'utf8'),
   ).characters;
-  assert.equal(characters.length, 24);
+  assert.equal(characters.length, 25);
   for (const { slug } of characters) {
     for (const awakening of [0, 3]) {
       const { request } = engine.compileScript(`options iteration=1 duration=4 crit=fixed;

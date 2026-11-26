@@ -81,7 +81,7 @@ fn test_search_and_refine_archetypes() {
 #[test]
 fn character_registry_drives_elements_and_unknown_elements_fail() {
     let registered = ntesim_content::registry::character_descriptors().unwrap();
-    assert_eq!(registered.len(), 24);
+    assert_eq!(registered.len(), 25);
     for descriptor in registered {
         assert_eq!(
             get_character_element(descriptor.slug)

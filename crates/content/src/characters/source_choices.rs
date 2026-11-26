@@ -109,6 +109,12 @@ pub(crate) fn assumptions(character: &str, action: &str, held: bool) -> BTreeMap
         ("character:1057", "dash" | "plunge" | "jump", _) => {
             &[super::akane::clock::MODEL, super::akane::secondary::MODEL]
         }
+        ("character:1090", "dash" | "plunge" | "jump" | "special", _) => {
+            &[super::elyms::clock::MODEL, super::elyms::secondary::MODEL]
+        }
+        ("character:1090", "attack", true) => {
+            &[super::elyms::clock::MODEL, super::elyms::secondary::MODEL]
+        }
         _ => &[],
     };
     models
@@ -189,6 +195,7 @@ pub(crate) fn plunge(
         "character:1039" => fadia::secondary::PLUNGE,
         "character:1020" => haniel::secondary::PLUNGE,
         "character:1025" => hathor::air::PACKET,
+        "character:1090" => super::elyms::secondary::PLUNGE,
         _ => return Ok(None),
     };
     let mut action = normal.clone();

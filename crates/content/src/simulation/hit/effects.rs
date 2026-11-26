@@ -188,7 +188,7 @@ pub(super) fn after_damage(
     let seq = &mut *ctx.sequence;
     let trace = &mut *ctx.trace;
     if !separate_parry_packet && !arc_packet {
-        crate::simulation::energy::ordinary_hit_grants(
+        let active_gained = crate::simulation::energy::ordinary_hit_grants(
             request,
             &request.actors,
             &mut state.actors,
@@ -203,10 +203,23 @@ pub(super) fn after_damage(
             trace,
             state.current_time_us,
         )?;
+        let active_actor = state.active_actor_index;
+        crate::simulation::energy::notify_active_actor_energy_gain(
+            &mut crate::runtime_api::CallbackContext {
+                state,
+                request,
+                queue,
+                sequence: seq,
+                trace,
+            },
+            active_actor,
+            active_gained,
+        )?;
     }
     let mut control_applications = Vec::new();
     let (authored_command_index, autonomous_event_index) =
         state.origins.identify(request, command_index)?;
+    let active_granted_before = state.actors[state.active_actor_index].granted_energy;
     if connected_hit && !separate_parry_packet && !arc_packet {
         crate::registry::on_hit(&mut crate::runtime_api::ActorHitContext {
             hit_index: outcome.hit_index,
@@ -240,6 +253,19 @@ pub(super) fn after_damage(
             .get_mut(outcome.hit_index)
             .ok_or("control callback has no parent hit receipt")?
             .control_applications = control_applications.clone();
+        let active_actor = ctx.state.active_actor_index;
+        let active_gained = ctx.state.actors[active_actor].granted_energy > active_granted_before;
+        crate::simulation::energy::notify_active_actor_energy_gain(
+            &mut crate::runtime_api::CallbackContext {
+                state: ctx.state,
+                request: ctx.request,
+                queue: ctx.queue,
+                sequence: ctx.sequence,
+                trace: ctx.trace,
+            },
+            active_actor,
+            active_gained,
+        )?;
     }
     if connected_hit && !separate_parry_packet {
         trigger_equipment_hit(

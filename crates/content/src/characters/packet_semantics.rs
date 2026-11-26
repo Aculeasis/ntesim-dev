@@ -109,6 +109,11 @@ pub(crate) fn resolve(effect_id: &str) -> Option<PacketSemantics> {
             &["State.Damage", FOLLOW_UP_DAMAGE_TAG][..],
             crate::characters::haniel::hootie::HYPOTHESIS,
         ),
+        crate::characters::elyms::on_the_line::XIETONG_A
+        | crate::characters::elyms::on_the_line::XIETONG_B => (
+            &["State.Damage", FOLLOW_UP_DAMAGE_TAG][..],
+            crate::characters::elyms::on_the_line::MODEL,
+        ),
         _ => return None,
     };
     Some(PacketSemantics {

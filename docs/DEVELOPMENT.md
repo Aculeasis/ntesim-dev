@@ -159,7 +159,7 @@ reuses matching results in `cache/studio-teams/`. Add `--fresh` to the `teams`
 command to calculate every entry without reading that cache. Raw calculation
 outcomes remain in `cache/`; only deterministic display fields are bundled.
 The mean comes directly from Rust, with the script's authored iterations, seed
-sequence, crit mode, targets and stop/duration conditions. Twenty complete curated
+sequence, crit mode, targets and stop/duration conditions. Twenty-two complete curated
 teams share 1,000 iterations, 120 relative seconds and the documented
 [comparison profile](../presets/studio/teams.md), including fifteen useful console
 substat lines per character. S5 remains the unchanged default control under its

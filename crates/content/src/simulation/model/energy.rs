@@ -33,6 +33,7 @@ pub enum GameEnergySource {
     LacrimosaHit,
     ShinkuHit,
     AkaneHit,
+    ElymsHit,
     ZeroA2,
     NanallyA1,
     SakiriA5,

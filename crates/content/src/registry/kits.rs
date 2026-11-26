@@ -208,6 +208,166 @@ impl CharacterKit for AkaneKit {
     }
 }
 
+pub(super) struct ElymsKit;
+impl CharacterKit for ElymsKit {
+    fn skill_gear_trigger_on_finish(&self, request: &GameScenarioRequest) -> bool {
+        crate::characters::elyms::clock::accepted(request)
+    }
+    fn single_packet_support(&self) -> Option<&'static crate::runtime_api::SinglePacketSupport> {
+        Some(&crate::characters::elyms::SUPPORT)
+    }
+    fn select_source_command(
+        &self,
+        actor: &ActorRuntime,
+        command: &mut crate::simulation::GameActionCommand,
+    ) -> Result<(), String> {
+        crate::characters::elyms::skill::select_source_command(actor, command)
+    }
+    fn resource_admission_failure(
+        &self,
+        request: &GameScenarioRequest,
+        command: usize,
+        actor: &ActorRuntime,
+        ability: &str,
+        now: u64,
+    ) -> Option<crate::simulation::rejection::AdmissionFailure> {
+        crate::characters::elyms::skill::resource_admission_failure(
+            request, command, actor, ability, now,
+        )
+    }
+    fn initialize(
+        &self,
+        request: &GameScenarioRequest,
+        config: &GameActorConfig,
+        actor: &mut ActorRuntime,
+    ) -> Result<(), String> {
+        crate::characters::elyms::skill::initialize_actor(request, config, actor)
+    }
+    fn on_defeat(&self, actor: &mut ActorRuntime) {
+        crate::characters::elyms::skill::on_defeat(actor);
+    }
+    fn normal_action_override(
+        &self,
+        actor: &ActorRuntime,
+    ) -> Option<crate::runtime_api::NormalActionOverride> {
+        crate::characters::elyms::secondary::replacement(actor)
+    }
+    fn critical_dodge_model(&self, request: &GameScenarioRequest) -> Option<crate::HypothesisId> {
+        crate::characters::elyms::secondary::accepted(request)
+            .then_some(crate::characters::elyms::secondary::MODEL)
+    }
+    fn on_critical_dodge(&self, ctx: &mut CastContext<'_>) -> Result<(), String> {
+        crate::characters::elyms::secondary::critical_dodge(ctx)
+    }
+    fn on_player_input(
+        &self,
+        request: &GameScenarioRequest,
+        actor: &mut ActorRuntime,
+        input: crate::simulation::PlayerInput,
+    ) -> Result<(), String> {
+        crate::characters::elyms::secondary::on_input(request, actor, input)
+    }
+    fn validate_player_input(
+        &self,
+        request: &GameScenarioRequest,
+        input: crate::simulation::PlayerInput,
+    ) -> Result<Option<crate::HypothesisId>, String> {
+        if input == crate::simulation::PlayerInput::Jump
+            && crate::characters::elyms::clock::accepted(request)
+        {
+            return Ok(Some(crate::characters::elyms::clock::MODEL));
+        }
+        crate::characters::elyms::secondary::validate_input(request, input)
+    }
+    fn validate_plunge(
+        &self,
+        ctx: &crate::runtime_api::PlungeInputContext<'_>,
+    ) -> Result<(), String> {
+        crate::characters::elyms::secondary::validate_plunge(ctx)
+    }
+    fn validate_packet_admission(
+        &self,
+        _config: &GameActorConfig,
+        actor: &ActorRuntime,
+        ability: &str,
+        packet: &str,
+        _now: u64,
+    ) -> Result<(), String> {
+        crate::characters::elyms::secondary::validate_packet(actor, ability, packet)
+    }
+    fn direct_packet_energy(
+        &self,
+        ability: &str,
+        packet: &str,
+    ) -> Option<crate::runtime_api::DirectPacketEnergyPolicy> {
+        crate::characters::elyms::secondary::energy(ability, packet)
+    }
+    fn packet_cycle_grant(
+        &self,
+        _request: &GameScenarioRequest,
+        effect: &str,
+    ) -> Result<Option<crate::runtime_api::PacketCycleGrant>, String> {
+        ntesim_data::native_damage::cycle_add(ntesim_data::skill_levels::frozen::tables(), effect)?
+            .map(|raw| {
+                Ok(crate::runtime_api::PacketCycleGrant {
+                    raw: ExactFraction::new(raw.numerator(), raw.denominator())?,
+                    hypothesis: crate::HypothesisId::CombatPacketCycleAccrualV1,
+                })
+            })
+            .transpose()
+    }
+    fn primary_packet(&self, ability: &str) -> Option<&'static str> {
+        crate::characters::elyms::primary_packet(ability)
+    }
+    fn on_cast(&self, ctx: &mut CastContext<'_>) -> Result<(), String> {
+        crate::characters::elyms::skill::on_cast(ctx)
+    }
+    fn on_hit(&self, ctx: &mut ActorHitContext<'_>) -> Result<(), String> {
+        crate::characters::elyms::skill::on_hit(ctx)
+    }
+    fn on_field_exit(
+        &self,
+        ctx: &mut crate::runtime_api::CallbackContext<'_>,
+        actor: usize,
+    ) -> Result<(), String> {
+        crate::characters::elyms::clock::exit(ctx, actor)
+    }
+    fn damage_bonus(
+        &self,
+        ctx: &DamageContext<'_>,
+        bonus: HitModifiers,
+    ) -> Result<HitModifiers, String> {
+        crate::characters::elyms::awakenings::damage_bonus(ctx, bonus)
+    }
+    fn crit_bonus(&self, ctx: &DamageContext<'_>) -> Result<ExactFraction, String> {
+        crate::characters::elyms::awakenings::crit_bonus(ctx)
+    }
+    fn defense_ignore(&self, ctx: &DamageContext<'_>) -> Result<ExactFraction, String> {
+        crate::characters::elyms::awakenings::defense_ignore(ctx)
+    }
+    fn recipient_modifiers(
+        &self,
+        ctx: &RecipientContext<'_>,
+        value: HitModifiers,
+    ) -> Result<HitModifiers, String> {
+        crate::characters::elyms::awakenings::recipient_modifiers(ctx, value)
+    }
+    fn cast_buff_duration(&self, _config: &GameActorConfig, ability: &str) -> Option<u64> {
+        crate::characters::elyms::buff_duration(ability)
+    }
+    fn recovery_lock_override(
+        &self,
+        request: &GameScenarioRequest,
+        actor: &ActorRuntime,
+        ability: &str,
+        now: u64,
+    ) -> Option<(u64, crate::HypothesisId)> {
+        crate::characters::elyms::clock::cancel::recovery(request, actor, ability, now)
+            .ok()
+            .flatten()
+    }
+}
+
 pub(super) struct AureliaKit;
 impl CharacterKit for AureliaKit {
     fn single_packet_support(&self) -> Option<&'static crate::runtime_api::SinglePacketSupport> {
