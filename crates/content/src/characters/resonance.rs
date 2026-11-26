@@ -12,11 +12,10 @@ pub(crate) fn bonus(
     ability: &str,
     awakening: &ntesim_data::AwakeningSelection,
 ) -> Result<(u32, Value), String> {
-    let awakening_count = awakening.count();
     if character_id == "character:1019" {
-        return crate::characters::mint::levels::bonus(tables, ability, awakening_count);
+        return crate::characters::mint::levels::bonus(tables, ability, awakening);
     }
-    if awakening_count > 6 {
+    if awakening.count() > 6 {
         return Err("skill-level projection supports awakening 0..=6".into());
     }
     let native_id = character_id

@@ -49,7 +49,7 @@ pub(crate) fn damage_bonus(
     }
 
     // per 1003AwakenEffect.json / DT_SagiriEffectFigure.json Sagiri_lvExtra_Damup (0.03), Sagiri_lvExtra_DamupMax (0.12)
-    if actor_config.awakening.count() >= 6 && ctx.debuff_count > 0 {
+    if actor_config.awakening.has_resonance_6() && ctx.debuff_count > 0 {
         let count = ctx.debuff_count.min(PARAMETERS.debuff_limit) as u128;
         let fog_bonus = PARAMETERS
             .damage_per_debuff

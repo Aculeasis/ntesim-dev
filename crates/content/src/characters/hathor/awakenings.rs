@@ -109,7 +109,7 @@ pub(crate) fn defense_ignore(ctx: &DamageContext<'_>) -> Result<ExactFraction, S
 
     let is_emergency_delivery = super::burst::active(ctx.actor, ctx.time_us);
 
-    if ctx.config.awakening.count() >= 6 && is_emergency_delivery {
+    if ctx.config.awakening.has_resonance_6() && is_emergency_delivery {
         Ok(PARAMETERS.resonance_defense_ignore)
     } else {
         ExactFraction::new(0, 1)

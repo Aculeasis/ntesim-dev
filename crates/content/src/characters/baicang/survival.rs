@@ -24,7 +24,7 @@ pub(crate) fn execute_owner(
             && field.domain_start_us <= state.current_time_us
             && field.domain_until_us > state.current_time_us
             && ((index == parent_actor && state.active_actor_index == index)
-                || request.actors[index].awakening.count() >= 6)
+                || request.actors[index].awakening.has_resonance_6())
             && request
                 .model_assumptions
                 .get(super::skill::EXECUTE_HYPOTHESIS_ID.as_str())

@@ -351,7 +351,7 @@ pub(crate) fn on_hit(ctx: &mut crate::runtime_api::ActorHitContext<'_>) -> Resul
             super::sleep_in::reduce_cooldown(ctx, 2_000_000)?;
         }
 
-        if ctx.config.awakening.count() >= 3 {
+        if ctx.config.awakening.has_resonance_3() {
             let state = ctx.actor.character.lacrimosa_mut()?;
             state.a3_def_ignore_stacks = (state.a3_def_ignore_stacks + 1).min(3);
         }

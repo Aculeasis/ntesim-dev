@@ -38,7 +38,12 @@ fn skill_purchase_validation_checks_unused_selections_and_progression() {
             valid
         );
     }
-    let (bonus, _) = crate::characters::mint::levels::bonus(&tables, "GA_Mint019_QTE", 6).unwrap();
+    let (bonus, _) = crate::characters::mint::levels::bonus(
+        &tables,
+        "GA_Mint019_QTE",
+        &ntesim_data::AwakeningSelection::prefix(6),
+    )
+    .unwrap();
     assert_eq!(bonus, 0);
     let mut duplicate = request.clone();
     duplicate.builds[0]

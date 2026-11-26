@@ -140,8 +140,6 @@ pub(crate) fn on_cast(ctx: &mut CastContext<'_>) -> Result<(), String> {
         state.normal_started_us = None;
     }
 
-    let awakening_count = actor_config.awakening.count();
-
     if ability_id == "GA_Radio072_Skill" {
         let packet_id = ctx
             .packet_metadata
@@ -187,7 +185,7 @@ pub(crate) fn on_cast(ctx: &mut CastContext<'_>) -> Result<(), String> {
             state.pulse_array_index = array_index;
             state.pulse_command_index = Some(ctx.command_index);
             let generation = state.pulse_generation;
-            let interval_us = if awakening_count >= 1 {
+            let interval_us = if actor_config.awakening.has_effect(1) {
                 6_000_000
             } else {
                 8_000_000
@@ -320,7 +318,7 @@ pub(crate) fn on_hit(ctx: &mut ActorHitContext<'_>) -> Result<(), String> {
         .model_assumptions
         .contains_key("linko.precision_tuning_v1")
     {
-        let targets: Vec<usize> = if ctx.config.awakening.count() >= 4 {
+        let targets: Vec<usize> = if ctx.config.awakening.has_effect(4) {
             (0..ctx.request.targets.len()).collect()
         } else {
             vec![ctx.target_index]
@@ -458,7 +456,7 @@ pub(crate) fn on_pulse(
         return Ok(());
     }
     let config = &ctx.request.actors[actor_index];
-    let awakening_count = config.awakening.count();
+    let has_a1 = config.awakening.has_effect(1);
     let state = ctx.state.actors[actor_index].character.linko_mut()?;
     if !state.pet_active || state.pulse_generation != generation {
         return Ok(());
@@ -483,11 +481,7 @@ pub(crate) fn on_pulse(
         }
     }
 
-    let interval_us = if awakening_count >= 1 {
-        6_000_000
-    } else {
-        8_000_000
-    };
+    let interval_us = if has_a1 { 6_000_000 } else { 8_000_000 };
     let next_pulse_us = now.checked_add(interval_us).ok_or("pulse timer overflow")?;
     state.next_pulse_us = Some(next_pulse_us);
 

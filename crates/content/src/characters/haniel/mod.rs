@@ -25,7 +25,10 @@ pub(crate) fn source_assumptions() -> std::collections::BTreeMap<String, String>
     .collect()
 }
 
-pub(crate) fn buff_duration(_awakening: u32, ability: &str) -> Option<u64> {
+pub(crate) fn buff_duration(
+    _awakening: &ntesim_data::AwakeningSelection,
+    ability: &str,
+) -> Option<u64> {
     if ability == "GA_Haniel_UltraSkill" {
         Some(10_000_000)
     } else {

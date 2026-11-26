@@ -127,7 +127,7 @@ pub(crate) fn on_hit(ctx: &mut crate::runtime_api::ActorHitContext<'_>) -> Resul
         )?;
         super::finance::after_hit(ctx)?;
     }
-    if ctx.config.awakening.count() >= 6 && !super::pressed::accepted(ctx.request) {
+    if ctx.config.awakening.has_resonance_6() && !super::pressed::accepted(ctx.request) {
         let reductions = std::collections::BTreeMap::from([(
             "ECharacterElementType::CHARACTER_ELEMENT_TYPE_COSMOS".into(),
             super::parameters::PARAMETERS.homecoming_resistance_reduction,
@@ -139,7 +139,7 @@ pub(crate) fn on_hit(ctx: &mut crate::runtime_api::ActorHitContext<'_>) -> Resul
 }
 
 pub(crate) fn before_hit(ctx: &mut crate::runtime_api::HitContext<'_>) -> Result<(), String> {
-    if super::pressed::accepted(ctx.request) && ctx.config.awakening.count() >= 6 {
+    if super::pressed::accepted(ctx.request) && ctx.config.awakening.has_resonance_6() {
         ctx.refresh_status(
             "chiz.homecoming",
             super::parameters::PARAMETERS.homecoming_duration_us,

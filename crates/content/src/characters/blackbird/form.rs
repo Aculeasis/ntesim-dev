@@ -122,7 +122,7 @@ pub(crate) fn on_cast(ctx: &mut CastContext<'_>) -> Result<(), String> {
             remaining_us: FORM_US,
             field_started_us: Some(ctx.time_us),
         });
-        if ctx.config.awakening.count() >= 3 {
+        if ctx.config.awakening.has_resonance_3() {
             state
                 .malice
                 .as_mut()

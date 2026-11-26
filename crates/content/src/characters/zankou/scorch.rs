@@ -17,7 +17,7 @@ pub(crate) fn policy(
         return Ok(None);
     };
     crate::runtime_api::record_hypothesis_id(request, assumptions, HYPOTHESIS_ID)?;
-    let set_max_stacks = if config.awakening.count() >= 6 {
+    let set_max_stacks = if config.awakening.has_resonance_6() {
         state.actors[owner_actor_index]
             .character
             .zankou()

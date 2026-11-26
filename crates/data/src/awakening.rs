@@ -47,13 +47,21 @@ impl AwakeningSelection {
     /// Checks if a specific individual awakening node (1..=6) is selected.
     ///
     /// This is identity-gated: `has_effect(3)` only returns true if node 3 was explicitly chosen.
+    #[inline]
     pub fn has_effect(&self, effect: u8) -> bool {
         self.0.binary_search(&effect).is_ok()
     }
 
     /// Total count of selected awakening effects (0..=6).
+    #[inline]
     pub fn count(&self) -> u32 {
         self.0.len() as u32
+    }
+
+    /// Returns true if no awakening effects are selected.
+    #[inline]
+    pub fn is_empty(&self) -> bool {
+        self.0.is_empty()
     }
 
     /// Returns true if the `resonance_3` milestone bonus is active (at least 3 effects selected).
@@ -74,6 +82,7 @@ impl AwakeningSelection {
         self.count() >= 6
     }
 
+    #[inline]
     pub fn is_prefix(&self) -> bool {
         self.0.iter().copied().eq(1..=self.count() as u8)
     }
@@ -137,6 +146,8 @@ mod tests {
 
         let rank0: AwakeningSelection = serde_json::from_str("0").unwrap();
         assert_eq!(rank0.count(), 0);
+        assert!(rank0.is_empty());
+        assert!(!rank3.is_empty());
 
         for invalid in [
             "[1,1]",

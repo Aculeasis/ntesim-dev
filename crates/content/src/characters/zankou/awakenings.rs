@@ -60,7 +60,7 @@ pub(crate) fn damage_bonus(
     }
 
     // DT_ZankouEffectFigure.json ZankouExtraCoefLv3 = 0.20
-    if actor_config.awakening.count() >= 3 && (is_ultra || is_magic_ultra) {
+    if actor_config.awakening.has_resonance_3() && (is_ultra || is_magic_ultra) {
         dmg_bonus = dmg_bonus.add_ratio(PARAMETERS.resonance_burst_ratio_add)?;
     }
 

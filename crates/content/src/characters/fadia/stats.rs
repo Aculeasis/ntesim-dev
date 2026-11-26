@@ -184,7 +184,7 @@ pub(crate) fn enter(ctx: &mut CallbackContext<'_>, owner: usize) -> Result<(), S
             percent(ctx, owner, actor, false)?;
         }
     }
-    if ctx.request.actors[owner].awakening.count() >= 6 {
+    if ctx.request.actors[owner].awakening.has_resonance_6() {
         use ntesim_core::buffs::dispatch::*;
         ctx.state
             .buffs

@@ -34,7 +34,7 @@ pub(crate) fn damage_bonus(
     }
 
     // per 1076AwakenEffect.json / DT_ShinkuEffectFigure.json Shinku_Rage_DmgUpEx_L3 = 0.30
-    if actor_config.awakening.count() >= 3 && is_surging_crimson {
+    if actor_config.awakening.has_resonance_3() && is_surging_crimson {
         dmg_bonus = dmg_bonus.add_damage(PARAMETERS.resonance_rage_damage_bonus)?;
     }
 
@@ -67,7 +67,7 @@ pub(crate) fn crit_rate_bonus(ctx: &DamageContext<'_>) -> Result<ExactFraction, 
         return ExactFraction::new(0, 1);
     }
 
-    if ctx.config.awakening.count() >= 6 {
+    if ctx.config.awakening.has_resonance_6() {
         Ok(PARAMETERS.resonance_crit_rate)
     } else {
         ExactFraction::new(0, 1)
@@ -85,7 +85,7 @@ pub(crate) fn defense_ignore(ctx: &DamageContext<'_>) -> Result<ExactFraction, S
     } else {
         ExactFraction::new(0, 1)?
     };
-    let resonance_bonus = if ctx.config.awakening.count() >= 6 {
+    let resonance_bonus = if ctx.config.awakening.has_resonance_6() {
         PARAMETERS.resonance_defense_ignore
     } else {
         ExactFraction::new(0, 1)?

@@ -44,7 +44,7 @@ pub(crate) fn damage_bonus(
     }
 
     // per 1010AwakenEffect.json / DT_NanallyEffectFigure.json Nanally_LvExtraFarTarget = 0.15
-    if actor_config.awakening.count() >= 6 {
+    if actor_config.awakening.has_resonance_6() {
         dmg_bonus = dmg_bonus.add_damage(PARAMETERS.resonance_damage_bonus)?;
     }
 

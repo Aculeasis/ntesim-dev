@@ -59,7 +59,7 @@ pub(crate) fn validate_admission(
                     "Fadia initial Burst requires native UltraSkill1 as its primary packet".into(),
                 );
             }
-            if config.awakening.count() != 0 {
+            if !config.awakening.is_empty() {
                 return Err("Fadia initial Burst model supports awakening 0 only".into());
             }
             if actor.hp != actor.hp_max {
@@ -144,7 +144,7 @@ pub(crate) fn on_cast(ctx: &mut CastContext<'_>) -> Result<(), String> {
                 "Fadia initial Burst requires native UltraSkill1 as its primary packet".into(),
             );
         }
-        if ctx.config.awakening.count() != 0 {
+        if !ctx.config.awakening.is_empty() {
             return Err("Fadia initial Burst model supports awakening 0 only".into());
         }
         if ctx.actor.hp != ctx.actor.hp_max {

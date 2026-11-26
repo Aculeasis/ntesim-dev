@@ -4,9 +4,9 @@ use std::collections::{BTreeMap, BTreeSet};
 pub(crate) fn bonus(
     tables: &BTreeMap<String, Value>,
     ability: &str,
-    awakening: u32,
+    awakening: &ntesim_data::AwakeningSelection,
 ) -> Result<(u32, Value), String> {
-    if awakening > 6 {
+    if awakening.count() > 6 {
         return Err("Mint skill-level projection supports awakening 0..=6".into());
     }
     let (table_name, table) = ntesim_data::resonance_levels::table(tables, "1019");
@@ -51,10 +51,11 @@ pub(crate) fn bonus(
     if found.len() != 3 {
         return Err("Mint resonance skill dependencies missing".into());
     }
-    let bonus = u32::from(awakening >= 3 && found.contains(ability));
+    let active = awakening.has_resonance_3();
+    let bonus = u32::from(active && found.contains(ability));
     Ok((
         bonus,
-        json!({"effect_id":"resonance_3", "active":awakening>=3, "applied_bonus":bonus, "modifications":modifications,
+        json!({"effect_id":"resonance_3", "active":active, "applied_bonus":bonus, "modifications":modifications,
         "evidence":{"source_id":format!("table:{table_name}"), "pointer":format!("/rows/1019/AwakenEffectStructList/{index}")},
         "model_assumption":"Mint resonance_3 activates at awakening 3 and remains active at higher awakenings."}),
     ))

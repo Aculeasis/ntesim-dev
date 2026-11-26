@@ -93,7 +93,7 @@ pub(crate) fn damage_bonus(
         modifiers = modifiers.add_ratio(PARAMETERS.a3_press_fixed_ratio)?;
     }
 
-    if ctx.config.awakening.count() >= 3 {
+    if ctx.config.awakening.has_resonance_3() {
         if effect == "GE_Player_Akane_UpgradeSkill_Damage" {
             modifiers = modifiers.add_ratio(PARAMETERS.r3_upskill_fixed_ratio)?;
         } else if effect == "GE_Player_Akane_UltraSkill2_Damage" {
@@ -205,7 +205,7 @@ pub(crate) fn apply_synced_buffs(
     let config = &ctx.request.actors[owner];
     let a1 = config.awakening.has_effect(1);
     let a4 = config.awakening.has_effect(4);
-    let r6 = config.awakening.count() >= 6;
+    let r6 = config.awakening.has_resonance_6();
     let base_atk_raw = config.static_stats.base_atk;
     let char_id = config.character_id.clone();
 

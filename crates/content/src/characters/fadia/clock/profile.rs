@@ -282,8 +282,9 @@ pub(super) fn select(
             .talent_levels
             .map(|levels| levels[2])
             .unwrap_or(ctx.config.purchased_skill_level);
-        ctx.native_array_index =
-            Some((purchased + u32::from(ctx.config.awakening.count() >= 3) - 1).min(12) as usize);
+        ctx.native_array_index = Some(
+            (purchased + u32::from(ctx.config.awakening.has_resonance_3()) - 1).min(12) as usize,
+        );
     }
     Ok(Plan {
         hits,

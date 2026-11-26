@@ -345,7 +345,7 @@ pub(crate) fn on_vitals(
             ctx.state.current_time_us,
         );
     }
-    if ctx.request.actors[owner].awakening.count() < 6 {
+    if !ctx.request.actors[owner].awakening.has_resonance_6() {
         return Ok(());
     }
     let pending = ctx.state.actors[owner]
@@ -365,7 +365,7 @@ pub(crate) fn on_vitals(
     Ok(())
 }
 pub(super) fn burst_refund(ctx: &mut CastContext<'_>) -> Result<(), String> {
-    if ctx.config.awakening.count() < 6 {
+    if !ctx.config.awakening.has_resonance_6() {
         return Ok(());
     }
     let pending = ctx

@@ -124,7 +124,7 @@ pub(crate) fn on_hit(ctx: &mut crate::runtime_api::ActorHitContext<'_>) -> Resul
     if super::vile_ash::is_vile_ash_packet(ctx.damage_effect_id) {
         super::vile_ash::continue_dot_train(ctx)?;
     }
-    if ctx.config.awakening.count() >= 6 {
+    if ctx.config.awakening.has_resonance_6() {
         crate::simulation::state::apply_timed_buff(
             ctx.buffs,
             crate::simulation::state::TimedBuffDeclaration::reset(
@@ -177,7 +177,7 @@ pub(crate) fn on_scorch_target_defeated(
         if ctx.state.actors[actor_idx].hp == 0 {
             continue;
         }
-        if actor_config.awakening.count() >= 6 {
+        if actor_config.awakening.has_resonance_6() {
             let kindling_stacks = {
                 let zankou = ctx.state.actors[actor_idx].character.zankou_mut()?;
                 zankou.r6_enhancement_until_us = now_us

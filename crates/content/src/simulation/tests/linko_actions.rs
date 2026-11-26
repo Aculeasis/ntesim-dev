@@ -1,7 +1,7 @@
 use super::*;
 use serde_json::json;
 
-fn make_action(
+pub(super) fn make_action(
     timestamp_us: u64,
     actor_index: usize,
     ability_id: &str,

@@ -97,7 +97,7 @@ pub(crate) fn record_initial_hypotheses(
     }
     if config.awakening.has_effect(4)
         || config.awakening.has_effect(5)
-        || config.awakening.count() >= 6
+        || config.awakening.has_resonance_6()
     {
         crate::runtime_api::record_hypothesis_id(request, assumptions, MODEL)?;
     }
@@ -241,7 +241,7 @@ pub(crate) fn recipient_modifiers(
         value.record_hypothesis(ctx.request, MODEL)?;
         value = value.add_crit_damage(PARAMETERS.a4_team_crit_dmg_bonus)?;
     }
-    if ctx.source_config.awakening.count() >= 6 {
+    if ctx.source_config.awakening.has_resonance_6() {
         value.record_hypothesis(ctx.request, MODEL)?;
         value = value.add_resistance_reduction(PARAMETERS.r6_all_res_ignore)?;
     }

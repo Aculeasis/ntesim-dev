@@ -702,7 +702,7 @@ pub(super) fn admit_on_switch(
         if actor_idx < request.actors.len() {
             let config = &request.actors[actor_idx];
             if config.character_id == "character:1019"
-                && config.awakening.count() >= 3
+                && config.awakening.has_resonance_3()
                 && ctx.state.actors[actor_idx].hp > 0
                 && matches!(
                     result,

@@ -47,8 +47,8 @@ pub(crate) fn record_initial_hypotheses(
         return Ok(());
     }
     for (enabled, id) in [
-        config.awakening.count() >= 6,
-        config.awakening.count() >= 3,
+        config.awakening.has_resonance_6(),
+        config.awakening.has_resonance_3(),
         config.awakening.has_effect(3),
     ]
     .into_iter()
@@ -100,7 +100,7 @@ pub(crate) fn initialize_team_effect(
             )
             .map_err(|error| format!("Iroi team effect initialization failed: {error:?}"))
     };
-    if config.awakening.count() >= 6 {
+    if config.awakening.has_resonance_6() {
         grant(
             buffs,
             "Buff_Oneiroi075_Level6_extra",
@@ -114,7 +114,7 @@ pub(crate) fn initialize_team_effect(
             ),
         )?;
     }
-    if config.awakening.count() >= 3 {
+    if config.awakening.has_resonance_3() {
         grant(
             buffs,
             "Buff_Oneiroi075_Level2_Def",
@@ -171,7 +171,7 @@ pub(crate) fn damage_bonus(
                 dmg_bonus = dmg_bonus.add_damage(lamb_bonus)?;
             }
         }
-        if ctx.config.awakening.count() >= 6
+        if ctx.config.awakening.has_resonance_6()
             && let Ok(state) = ctx.actor.character.iroi()
         {
             let count = state.regressed_allies.len().min(3) as u128;
@@ -186,7 +186,7 @@ pub(crate) fn damage_bonus(
 
 pub(crate) fn crit_rate_bonus(ctx: &DamageContext<'_>) -> Result<ExactFraction, String> {
     if ctx.config.character_id == "character:1075"
-        && ctx.config.awakening.count() >= 6
+        && ctx.config.awakening.has_resonance_6()
         && let Ok(state) = ctx.actor.character.iroi()
     {
         let count = state.regressed_allies.len().min(3) as u128;

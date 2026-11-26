@@ -219,6 +219,17 @@ fn selected_owner_buff_durations_follow_effect_identity_not_selection_count() {
         crate::characters::lacrimosa::buff_duration(&select(&[1, 3]), "GA_Lacrimosa_QTE"),
         None
     );
+    assert_eq!(
+        crate::characters::linko::buff_duration(&select(&[6]), "GA_Radio072_UltraSkill"),
+        Some(8_000_000)
+    );
+    assert_eq!(
+        crate::characters::linko::buff_duration(
+            &select(&[1, 2, 3, 4, 5, 6]),
+            "GA_Radio072_UltraSkill"
+        ),
+        Some(13_000_000)
+    );
 }
 
 #[test]
@@ -401,5 +412,75 @@ fn haniel_selected_a2_extends_live_hootie_without_unselected_effects() {
             report["hit_receipts"][2]["non_crit_damage"],
             serde_json::json!(format!("{}/{}", num, den))
         );
+    }
+}
+
+#[test]
+fn linko_selected_a1_and_a4_follow_effect_identity_not_selection_count() {
+    for (effects, expected_pulses) in [(vec![1], 1), (vec![2], 0)] {
+        let mut req = super::linko_actions::request();
+        req.relative_duration_us = 7_000_000;
+        req.actors[0].awakening = ntesim_data::AwakeningSelection::selected(effects).unwrap();
+        req.model_assumptions.insert(
+            crate::characters::linko::skill::PET_HYPOTHESIS_ID.into(),
+            crate::characters::linko::skill::PET_HYPOTHESIS_ID
+                .description()
+                .into(),
+        );
+        req.actions = vec![super::linko_actions::make_action(
+            0,
+            0,
+            "GA_Radio072_Skill",
+            "GE_Player_Radio072_Skill1_Damage",
+            0,
+            12_000_000,
+        )];
+        let report = run_game_scenario(&req, &ExecutionLimits::default()).unwrap();
+        assert_eq!(
+            report["execution_completed"], true,
+            "{} {}",
+            report["halt_diagnostic"], report["rejected_action"]
+        );
+        let pulses = report["hit_receipts"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .filter(|hit| hit["damage_effect_id"] == "GE_Xiaozhen_Skill1_Damage")
+            .count();
+        assert_eq!(pulses, expected_pulses);
+    }
+
+    for (effects, target1_shredded) in [(vec![4], true), (vec![1, 2, 3, 5], false)] {
+        let mut req = super::linko_actions::request();
+        req.relative_duration_us = 1_000_000;
+        req.actors[0].awakening = ntesim_data::AwakeningSelection::selected(effects).unwrap();
+        let mut target1 = req.targets[0].clone();
+        target1.target_index = 1;
+        req.targets.push(target1);
+        req.model_assumptions.insert(
+            "linko.precision_tuning_v1".into(),
+            "Modeled Linko Precision Tuning elemental RES reduction.".into(),
+        );
+        req.actions = vec![super::linko_actions::make_action(
+            0,
+            0,
+            "GA_Radio072_Melee",
+            "GE_Player_Radio072_Melee1_Damage",
+            0,
+            0,
+        )];
+        let report = run_game_scenario(&req, &ExecutionLimits::default()).unwrap();
+        assert_eq!(
+            report["execution_completed"], true,
+            "{} {}",
+            report["halt_diagnostic"], report["rejected_action"]
+        );
+        let has_shred = |target_idx: usize, expected_id: &str| {
+            report["final_target_states"][target_idx]["statuses"]
+                .as_array()
+                .is_some_and(|statuses| statuses.iter().any(|status| status["id"] == expected_id))
+        };
+        assert!(has_shred(0, "linko.precision_tuning:0"));
+        assert_eq!(has_shred(1, "linko.precision_tuning:1"), target1_shredded);
     }
 }

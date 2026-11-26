@@ -238,7 +238,7 @@ pub(crate) fn before_hit(ctx: &mut crate::runtime_api::HitContext<'_>) -> Result
         ctx.ability_id,
         "GA_Chaos071_Skill" | "GA_Chaos071_UltraSkill"
     ) {
-        let reductions = if ctx.config.awakening.count() >= 6 {
+        let reductions = if ctx.config.awakening.has_resonance_6() {
             // Source: DT_ChaosEffectFigure.json Chaos_StarExtra2ResDown = 0.10.
             std::collections::BTreeMap::from([(
                 "ECharacterElementType::CHARACTER_ELEMENT_TYPE_LAKSHANA".into(),

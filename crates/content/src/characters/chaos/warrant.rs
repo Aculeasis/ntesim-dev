@@ -92,7 +92,7 @@ fn apply_one(
     target_index: usize,
 ) -> Result<(), String> {
     let config = &ctx.request.actors[owner];
-    let reductions = if config.awakening.count() >= 6 {
+    let reductions = if config.awakening.has_resonance_6() {
         std::collections::BTreeMap::from([(
             "ECharacterElementType::CHARACTER_ELEMENT_TYPE_LAKSHANA".into(),
             super::parameters::PARAMETERS.resonance_resistance_reduction,

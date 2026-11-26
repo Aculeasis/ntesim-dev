@@ -1794,7 +1794,7 @@ impl CharacterKit for EdgarKit {
         crate::characters::edgar::awakenings::damage_bonus(ctx, bonus)
     }
     fn cast_buff_duration(&self, config: &GameActorConfig, ability: &str) -> Option<u64> {
-        crate::characters::edgar::buff_duration(config.awakening.count(), ability)
+        crate::characters::edgar::buff_duration(&config.awakening, ability)
     }
     fn primary_packet(&self, ability: &str) -> Option<&'static str> {
         crate::characters::edgar::primary_packet(ability)
@@ -2215,7 +2215,7 @@ impl CharacterKit for HanielKit {
         crate::characters::haniel::skill::on_cast(ctx)
     }
     fn cast_buff_duration(&self, config: &GameActorConfig, ability: &str) -> Option<u64> {
-        crate::characters::haniel::buff_duration(config.awakening.count(), ability)
+        crate::characters::haniel::buff_duration(&config.awakening, ability)
     }
     fn primary_packet(&self, ability: &str) -> Option<&'static str> {
         crate::characters::haniel::primary_packet(ability)
@@ -2967,7 +2967,7 @@ impl CharacterKit for LinkoKit {
         crate::characters::linko::awakenings::defense_ignore(ctx)
     }
     fn cast_buff_duration(&self, config: &GameActorConfig, ability: &str) -> Option<u64> {
-        crate::characters::linko::buff_duration(config.awakening.count(), ability)
+        crate::characters::linko::buff_duration(&config.awakening, ability)
     }
     fn primary_packet(&self, ability: &str) -> Option<&'static str> {
         crate::characters::linko::primary_packet(ability)

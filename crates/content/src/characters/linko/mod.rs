@@ -26,9 +26,12 @@ pub(crate) fn primary_packet(ability: &str) -> Option<&'static str> {
     }
 }
 
-pub(crate) fn buff_duration(awakening: u32, ability: &str) -> Option<u64> {
+pub(crate) fn buff_duration(
+    awakening: &ntesim_data::AwakeningSelection,
+    ability: &str,
+) -> Option<u64> {
     if ability == "GA_Radio072_UltraSkill" {
-        if awakening >= 6 {
+        if awakening.has_resonance_6() {
             Some(parameters::PARAMETERS.resonance_field_duration_us)
         } else {
             Some(parameters::PARAMETERS.field_duration_us)

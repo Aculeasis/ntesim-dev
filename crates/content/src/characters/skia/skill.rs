@@ -124,7 +124,7 @@ pub(crate) fn on_cast(ctx: &mut CastContext<'_>) -> Result<(), String> {
 
 pub(crate) fn before_hit(ctx: &mut crate::runtime_api::HitContext<'_>) -> Result<(), String> {
     if ctx.ability_id == "GA_Skia_Skill" {
-        let reductions = if ctx.config.awakening.count() >= 6 {
+        let reductions = if ctx.config.awakening.has_resonance_6() {
             std::collections::BTreeMap::from([(
                 "ECharacterElementType::CHARACTER_ELEMENT_TYPE_LAKSHANA".into(),
                 PARAMETERS.resonance_resistance_reduction,

@@ -71,7 +71,7 @@ impl State {
         } else {
             ExactFraction::new(1, 1)?
         };
-        if self.in_debt() && config.awakening.count() >= 3 {
+        if self.in_debt() && config.awakening.has_resonance_3() {
             multiplier =
                 multiplier.add(super::super::parameters::PARAMETERS.debt_acquisition_bonus)?;
         }

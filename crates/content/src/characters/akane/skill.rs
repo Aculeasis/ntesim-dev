@@ -132,7 +132,7 @@ pub(crate) fn initialize(
         .map(parse_initial_string_energy)
         .transpose()?
         .unwrap_or(0);
-    let initial = if config.awakening.count() >= 3 {
+    let initial = if config.awakening.has_resonance_3() {
         start_configured.max(PARAMETERS.max_string_energy)
     } else {
         start_configured
@@ -734,7 +734,7 @@ pub(crate) fn on_hit(ctx: &mut ActorHitContext<'_>) -> Result<(), String> {
             let config = ctx.config;
             let req = ctx.request;
             let cmd = ctx.command_index;
-            let r6 = config.awakening.count() >= 6;
+            let r6 = config.awakening.has_resonance_6();
             let state = ctx.actor.character.akane_mut()?;
             if state.synced_settled_commands.insert(cmd) {
                 state.string_energy = state

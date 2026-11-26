@@ -219,7 +219,7 @@ pub(super) fn activate_ace(ctx: &mut CastContext<'_>) -> Result<(), String> {
             self_stats,
         )?;
     }
-    if ctx.config.awakening.count() >= 6 {
+    if ctx.config.awakening.has_resonance_6() {
         ctx.refresh_buff(
             "haniel.paranormal_ace_team",
             ntesim_core::buffs::dispatch::BuffRecipient::TeamAll,

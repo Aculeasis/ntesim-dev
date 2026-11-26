@@ -282,7 +282,7 @@ pub(crate) fn recipient_modifiers(
     ctx: &crate::runtime_api::RecipientContext<'_>,
     mut value: crate::runtime_api::HitModifiers,
 ) -> Result<crate::runtime_api::HitModifiers, String> {
-    if ctx.source_config.awakening.count() >= 6
+    if ctx.source_config.awakening.has_resonance_6()
         && ctx.source_actor.hp > 0
         && ctx.packet.is_some_and(|p| {
             p.element == Some(crate::simulation::metadata::DamageElement::Incantation)
@@ -317,7 +317,7 @@ pub(crate) fn r6_incantation_bonus_active(
     }
     for (granter_index, granter) in request.actors.iter().enumerate() {
         if granter.character_id != "character:1033"
-            || granter.awakening.count() < 6
+            || !granter.awakening.has_resonance_6()
             || state
                 .actors
                 .get(granter_index)

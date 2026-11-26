@@ -375,7 +375,7 @@ fn advance_connection(
     owner: usize,
     abs_now: u64,
 ) -> Result<(), String> {
-    let r3 = config.awakening.count() >= 3;
+    let r3 = config.awakening.has_resonance_3();
     match elyms.connection {
         Connection::Weak => {
             clear_power_e1(elyms, queue, owner);
@@ -799,7 +799,7 @@ pub(crate) fn on_cast(ctx: &mut CastContext<'_>) -> Result<(), String> {
         } else if packet == "GE_Player_Elyms_Skill3_Damage" {
             let owner = ctx.actor_index;
             let queue = &mut *ctx.queue;
-            let r6 = ctx.config.awakening.count() >= 6;
+            let r6 = ctx.config.awakening.has_resonance_6();
             let consumed = {
                 let state = ctx.actor.character.elyms_mut()?;
                 if !state.can_skill3() {

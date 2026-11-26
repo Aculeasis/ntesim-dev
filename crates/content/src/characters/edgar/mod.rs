@@ -6,7 +6,10 @@ pub(crate) mod preview;
 pub(crate) mod secondary;
 pub(crate) mod skill;
 
-pub(crate) fn buff_duration(_awakening: u32, ability: &str) -> Option<u64> {
+pub(crate) fn buff_duration(
+    _awakening: &ntesim_data::AwakeningSelection,
+    ability: &str,
+) -> Option<u64> {
     if ability == "GA_Edgar_UltraSkill" {
         Some(13_000_000)
     } else {

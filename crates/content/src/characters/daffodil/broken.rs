@@ -83,7 +83,7 @@ pub(crate) fn start(
     let end = deadline(state, target)?;
     for (owner, config) in request.actors.iter().enumerate() {
         if config.character_id != "character:1054"
-            || config.awakening.count() < 6
+            || !config.awakening.has_resonance_6()
             || state.actors[owner].hp == 0
         {
             continue;

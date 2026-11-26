@@ -46,10 +46,10 @@ pub(crate) fn defense_ignore(ctx: &DamageContext<'_>) -> Result<ExactFraction, S
         return ExactFraction::new(0, 1);
     }
     let mut total = ExactFraction::new(0, 1)?;
-    if ctx.config.awakening.count() >= 6 {
+    if ctx.config.awakening.has_resonance_6() {
         total = total.add(PARAMETERS.resonance_defense_ignore)?;
     }
-    if ctx.config.awakening.count() >= 3
+    if ctx.config.awakening.has_resonance_3()
         && let crate::characters::RuntimeState::Lacrimosa(state) = &ctx.actor.character
         && state.a3_def_ignore_stacks > 0
     {
