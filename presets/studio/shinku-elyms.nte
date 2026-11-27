@@ -28,27 +28,21 @@ iroi add stats hp=5600 atk=420 atk%=1.1250 cr=0.28 dmg%=0.1;
 # Common stationary, control-susceptible Boss dummy; no incoming attacks or assumed parries.
 target lvl=80 hp=1000000000 max_hp=1000000000 def=1080 resist=0.2 boss=true control_immune=false original_atk=1000 break_gauge=30 max_break_gauge=30 broken_duration=10 discord_fraction=0.1;
 active elyms;
-# Opener uses Elyms Skill2 -> Skill1 (+100 Cycle) into Akane swap to trigger Remora (unlocking Perfect Pitch + Elyms Remora Enhancement for combat), then cycles Akane -> Elyms (Skill1 -> Iroi Blossom/Charge) -> Shinku.
-if .elyms.skill.ready && .elyms.power_e1.active { elyms skill; }
-if .elyms.skill.ready && .elyms.connection == 1 { elyms skill; }
-elyms attack:3;
-if .elyms.burst.ready { elyms burst; }
+# Elyms opens with S1, whose AddE unlocks S2. On later entries, Akane can trigger
+# Elyms's QTE via Esper Cycle. S1 fills Cycle for the handoff to Iroi.
 while 1 {
-  akane swap;
-  if .akane.skill.ready { akane skill; }
-  if .akane.burst.ready { akane burst; }
-
-  elyms swap;
   if .elyms.skill.ready && .elyms.power_e1.active { elyms skill; }
-  if .elyms.skill.ready { elyms skill; }
-  if .elyms.connection >= 1 {
-    elyms attack:3;
-  } else {
-    elyms attack:5;
+  if !.elyms.power_e2.active && .elyms.skill.ready { elyms skill; }
+  if .elyms.connection == 0 {
+    if !.elyms.power_e1.active { elyms attack:5; }
+    elyms skill;
   }
-  if .elyms.power_e2.active && .elyms.skill.ready { elyms skill; }
-  if .elyms.burst.ready { elyms burst; }
+  if !.elyms.power_e2.active {
+    elyms attack:3;
+  }
+  elyms skill;
   if .elyms.resources.cycle < 100 && .elyms.skill.ready { elyms skill; }
+  if .elyms.burst.ready { elyms burst; }
 
   iroi swap;
   if .iroi.burst.ready { iroi burst; }
@@ -69,4 +63,12 @@ while 1 {
       shinku attack;
     }
   }
+
+  akane swap;
+  if .akane.skill.ready { akane skill; }
+  if .akane.burst.ready { akane burst; }
+  while !.elyms.support.ready && !.elyms.burst.ready {
+    akane attack;
+  }
+  elyms swap;
 }

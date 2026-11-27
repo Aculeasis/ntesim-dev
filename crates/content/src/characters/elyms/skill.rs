@@ -46,6 +46,7 @@ pub(crate) struct State {
     pub(crate) total_consumed_stacks: u8,
     pub(crate) skill3_consumed_by_cmd: BTreeMap<usize, u8>,
     pub(crate) burst_snap_connection: BTreeMap<usize, Connection>,
+    pub(crate) burst_single_target: bool,
     pub(crate) q_atk_buff_active: bool,
     pub(crate) q_atk_buff_generation: u64,
     pub(crate) a6_stacks: u8,
@@ -93,18 +94,6 @@ pub(crate) fn initialize_actor(
     state.passive2_unlocked = breakthrough >= 4;
     state.connection = Connection::Weak;
     super::clock::initialize(request, actor)?;
-    Ok(())
-}
-
-pub(crate) fn initialize_combat(ctx: &mut CallbackContext<'_>, owner: usize) -> Result<(), String> {
-    grant_power_e1(
-        ctx.state,
-        ctx.queue,
-        ctx.sequence,
-        owner,
-        ctx.state.current_time_us,
-    )?;
-    ctx.queue.sync(&ctx.state.mode_clock)?;
     Ok(())
 }
 
@@ -364,7 +353,7 @@ fn promote_medium_to_strong(
             abs_now,
         )?;
     }
-    grant_power_e2_on(elyms, queue, sequence, owner, abs_now)
+    Ok(())
 }
 
 fn advance_connection(
@@ -375,20 +364,14 @@ fn advance_connection(
     owner: usize,
     abs_now: u64,
 ) -> Result<(), String> {
-    let r3 = config.awakening.has_resonance_3();
-    match elyms.connection {
-        Connection::Weak => {
-            clear_power_e1(elyms, queue, owner);
-            elyms.connection = Connection::Medium;
-            grant_optical_illusion(config, elyms, queue, sequence, owner, 1, abs_now)?;
-            if r3 {
-                promote_medium_to_strong(config, elyms, queue, sequence, owner, abs_now)?;
-            }
-        }
-        Connection::Medium if r3 => {
-            promote_medium_to_strong(config, elyms, queue, sequence, owner, abs_now)?;
-        }
-        Connection::Medium | Connection::Strong => {}
+    if elyms.connection == Connection::Weak {
+        clear_power_e1(elyms, queue, owner);
+        elyms.connection = Connection::Medium;
+        grant_optical_illusion(config, elyms, queue, sequence, owner, 1, abs_now)?;
+    }
+    if elyms.connection == Connection::Medium && config.awakening.has_resonance_3() {
+        promote_medium_to_strong(config, elyms, queue, sequence, owner, abs_now)?;
+        grant_power_e2_on(elyms, queue, sequence, owner, abs_now)?;
     }
     Ok(())
 }
@@ -400,7 +383,9 @@ pub(crate) fn on_skill2_manage_notify(
     if ctx.state.actors[owner].hp == 0 {
         return Ok(());
     }
+    let single_target = scans_single_target(&ctx.state.targets);
     let elyms = ctx.state.actors[owner].character.elyms_mut()?;
+    elyms.burst_single_target = single_target;
     advance_connection(
         &ctx.request.actors[owner],
         elyms,
@@ -409,6 +394,14 @@ pub(crate) fn on_skill2_manage_notify(
         owner,
         ctx.state.current_time_us,
     )
+}
+
+fn scans_single_target(targets: &[crate::simulation::state::TargetRuntime]) -> bool {
+    targets
+        .iter()
+        .filter(|target| target.hp_current > 0)
+        .count()
+        == 1
 }
 
 pub(crate) fn on_add_e_notify(
@@ -577,6 +570,7 @@ pub(crate) fn on_cast(ctx: &mut CastContext<'_>) -> Result<(), String> {
         }
         // Apply Weak -> Medium (and -> Strong with R3), or Medium -> Strong with R3 for QTE.
         let elyms = ctx.actor.character.elyms_mut()?;
+        elyms.burst_single_target = scans_single_target(ctx.targets);
         advance_connection(
             ctx.config,
             elyms,
@@ -819,7 +813,17 @@ pub(crate) fn on_cast(ctx: &mut CastContext<'_>) -> Result<(), String> {
                         .skill3_consumed_by_cmd
                         .insert(ctx.command_index, consumed);
                 }
-                state.connection = Connection::Strong;
+                if state.connection == Connection::Medium {
+                    promote_medium_to_strong(
+                        ctx.config,
+                        state,
+                        queue,
+                        ctx.sequence,
+                        owner,
+                        ctx.time_us,
+                    )?;
+                }
+                state.burst_single_target = scans_single_target(ctx.targets);
                 consumed
             };
             ctx.scope_primary_aoe_group("GE_Player_Elyms_Skill3_Damage")?;
@@ -873,22 +877,21 @@ pub(crate) fn on_cast(ctx: &mut CastContext<'_>) -> Result<(), String> {
 
     if ability_id == "GA_Elyms_UltraSkill" {
         ctx.record_hypothesis(super::on_the_line::MODEL)?;
-        let living_targets = ctx.targets.iter().filter(|t| t.hp_current > 0).count();
-        let (snap_conn, consumed_before_q) = {
+        let (snap_conn, consumed_before_q, is_st) = {
             let owner = ctx.actor_index;
             let queue = &mut *ctx.queue;
             let state = ctx.actor.character.elyms_mut()?;
             let snap = state.connection;
             let consumed = state.total_consumed_stacks;
+            let single_target = snap >= Connection::Medium && state.burst_single_target;
             state.riposte_ready = false;
             state.entry_normal_ready = false;
             state.reset_normal();
             clear_power_e1(state, queue, owner);
             clear_power_e2(state, queue, owner);
             state.connection = Connection::Weak;
-            (snap, consumed)
+            (snap, consumed, single_target)
         };
-        let is_st = living_targets == 1 && snap_conn >= Connection::Medium;
         let kind = if is_st {
             if packet != "GE_Player_Elyms_UltraSkillB1_Damage" {
                 ctx.replace_native_primary_packet("GE_Player_Elyms_UltraSkillB1_Damage")?;

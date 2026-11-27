@@ -1932,8 +1932,6 @@ pub(crate) fn initialize_combat(
     for owner in 0..ctx.request.actors.len() {
         if ctx.request.actors[owner].character_id == "character:1073" {
             crate::characters::chiz::pressed::initialize_combat(ctx, owner)?;
-        } else if ctx.request.actors[owner].character_id == "character:1090" {
-            crate::characters::elyms::skill::initialize_combat(ctx, owner)?;
         } else if ctx.request.actors[owner].character_id == "character:1076" {
             crate::characters::shinku::passive::initialize_combat(ctx, owner)?;
         }

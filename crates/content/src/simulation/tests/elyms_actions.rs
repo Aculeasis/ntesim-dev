@@ -13,40 +13,39 @@ fn hits(report: &Value) -> &Vec<Value> {
 }
 
 #[test]
-fn elyms_combat_start_power_e1_redirect_and_selective_cooldown_bypass() {
+fn elyms_combat_start_skill1_then_power_e1_redirect_and_selective_cooldown_bypass() {
     let res = run_script(
         "options duration=25 iteration=1 crit=fixed;\n\
          elyms char lvl=80/80 awakening=0 talent=10,10,10 qte=10 start_cycle=0 start_energy=100;\n\
          target hp=100000000 def=0 resist=0;\n\
          active elyms;\n\
-         if .elyms.connection != 0 || .elyms.power_e1.active != 1 || .elyms.power_e2.active != 0 { let fail = 1 / 0; }\n\
+         if .elyms.connection != 0 || .elyms.power_e1.active != 0 || .elyms.power_e2.active != 0 { let fail = 1 / 0; }\n\
          elyms skill;\n\
-         if .elyms.connection != 1 || .elyms.optical_illusion != 1 || .elyms.power_e1.active != 0 { let fail = 1 / 0; }\n\
-         if .elyms.skill.ready != 1 || .elyms.skill.cd != 0 { let fail = 1 / 0; }\n\
+         if .elyms.connection != 0 || .elyms.power_e1.active != 1 || .elyms.power_e2.active != 0 || .elyms.skill.ready != 1 { let fail = 1 / 0; }\n\
          elyms skill;\n\
-         if .elyms.skill.ready != 0 || .elyms.resources.cycle != 100 || .elyms.power_e1.active != 0 { let fail = 1 / 0; }\n\
+         if .elyms.connection != 1 || .elyms.optical_illusion != 1 || .elyms.power_e1.active != 0 || .elyms.skill.ready != 0 { let fail = 1 / 0; }\n\
          elyms attack:3;\n\
          if .elyms.power_e2.active != 1 { let fail = 1 / 0; }\n\
          elyms skill;\n\
-         if .elyms.connection != 2 || .elyms.optical_illusion != 0 || .elyms.consumed_stacks != 1 || .elyms.power_e2.active != 0 { let fail = 1 / 0; }\n",
+         if .elyms.connection != 2 || .elyms.optical_illusion != 0 || .elyms.consumed_stacks != 1 || .elyms.power_e2.active != 0 || .elyms.skill.ready != 0 { let fail = 1 / 0; }\n",
     );
     assert!(res.report.execution_completed, "{:?}", res.diagnostic);
     let json = serde_json::to_value(&res.report).unwrap();
     let hit_list = hits(&json);
 
-    // Skill2 (6 hits) -> Skill1 (6 hits) -> Crosstalk B1(2)+B2(4)+B3(4) = 10 -> Skill3 (6 hits) = 28 hits.
+    // Skill1 (6 hits) -> Skill2 (6 hits) -> Crosstalk B1(2)+B2(4)+B3(4) = 10 -> Skill3 (6 hits) = 28 hits.
     assert_eq!(hit_list.len(), 28);
     assert_eq!(
         hit_list[0]["damage_effect_id"],
-        "GE_Player_Elyms_Skill2_Damage"
+        "GE_Player_Elyms_Skill1_Damage"
     );
     assert_eq!(
         hit_list[5]["damage_effect_id"],
-        "GE_Player_Elyms_Skill2_1_Damage"
+        "GE_Player_Elyms_Skill1_2_Damage"
     );
     assert_eq!(
         hit_list[6]["damage_effect_id"],
-        "GE_Player_Elyms_Skill1_Damage"
+        "GE_Player_Elyms_Skill2_Damage"
     );
     assert_eq!(
         hit_list[12]["damage_effect_id"],
@@ -69,7 +68,7 @@ fn elyms_combat_start_power_e1_redirect_and_selective_cooldown_bypass() {
         "GE_Player_Elyms_Skill3_1_Damage"
     );
 
-    // Non-Ultimate Cinematic pause: Skill2 ends at SKILL2_RECOVERY (1_669_059) when Skill1 starts; Skill3 runs full 1_719_655 -> 3_388_714 us.
+    // Non-Ultimate Cinematic pause: Skill2 ends at SKILL2_RECOVERY (1_669_059) when Crosstalk starts; Skill3 runs full 1_719_655 -> 3_388_714 us.
     let pauses = json["timer_pauses"].as_array().unwrap();
     assert_eq!(
         pauses.len(),
@@ -105,6 +104,7 @@ fn elyms_combat_start_power_e1_redirect_and_selective_cooldown_bypass() {
          elyms char lvl=80/80 awakening=0 talent=10,10,10 qte=10;\n\
          target hp=100000000 def=0 resist=0;\n\
          active elyms;\n\
+         elyms skill;\n\
          elyms skill;\n\
          wait(16);\n\
          elyms attack:3;\n\
@@ -203,6 +203,7 @@ fn elyms_ultra_aoe_vs_st_atkbase_followup_and_on_the_line_pause_resume() {
          target hp=100000000 def=0 resist=0;\n\
          active elyms;\n\
          elyms skill;\n\
+         elyms skill;\n\
          elyms burst;\n\
          haniel swap;\n\
          wait(1.0);\n\
@@ -267,32 +268,32 @@ fn elyms_ultra_aoe_vs_st_atkbase_followup_and_on_the_line_pause_resume() {
         "XieTongSkillB1 must satisfy State.Damage.Followup on weapon:fork_elyms"
     );
 
-    // Check Energy & Cycle ledgers on ST run: Remembrance granted 24 * 0.425 = 10.2 Charge and 24 * 0.7 = 16.8 Cycle.
-    assert!(st.report.final_actor_states[0].granted_energy >= 18); // Skill2 (8.3) + 24*0.425 (10.2) = 18.5
+    // Opening Skill1 grants 100 direct Cycle plus 9 packet Cycle; Remembrance adds 16, capped at 100 with 199/1000 carry.
+    assert!(st.report.final_actor_states[0].granted_energy >= 23); // Skill1 (5.1) + Skill2 (8.3) + 24*0.425 (10.2) = 23.6
     let cycle_ledger = st.report.final_actor_states[0]
         .cycle
         .as_ref()
         .expect("expected Elyms cycle ledger on ST run");
-    assert_eq!(cycle_ledger.granted, 16); // floor(24 * 0.7 = 16.8)
-    assert_eq!(cycle_ledger.current, 16);
+    assert_eq!(cycle_ledger.granted, 125);
+    assert_eq!(cycle_ledger.current, 100);
     assert_eq!(
         (cycle_ledger.carry.numerator, cycle_ledger.carry.denominator),
-        (4, 5)
+        (199, 1000)
     );
 
     // 2 living targets -> AoE UltraSkillA1/A2 and XieTongSkillA1
-    let aoe = run_script(
-        "options duration=25 iteration=1 crit=fixed;\n\
+    let aoe_source = "options duration=25 iteration=1 crit=fixed;\n\
          elyms char lvl=80/80 awakening=0 talent=10,10,10 qte=10 start_energy=100;\n\
          haniel char lvl=80/80 awakening=0 talent=10,10,10 qte=10 start_cycle=0;\n\
          target hp=100000000 def=0 resist=0;\n\
-         target hp=100000000 def=0 resist=0;\n\
+         target hp=90000000 def=0 resist=0;\n\
          active elyms;\n\
+         elyms skill;\n\
          elyms skill;\n\
          elyms burst;\n\
          haniel swap;\n\
-         wait(18);\n",
-    );
+         wait(18);\n";
+    let aoe = run_script(aoe_source);
     assert!(aoe.report.execution_completed, "{:?}", aoe.diagnostic);
     let aoe_json = serde_json::to_value(&aoe.report).unwrap();
     let aoe_hits = hits(&aoe_json);
@@ -312,6 +313,28 @@ fn elyms_ultra_aoe_vs_st_atkbase_followup_and_on_the_line_pause_resume() {
         .filter(|h| h["damage_effect_id"] == "GE_Player_Elyms_XieTongSkillA1_Damage")
         .collect();
     assert_eq!(xietong_aoe.len(), 48);
+
+    // Skill2 defeats t1 after the scan; the Ultimate keeps its AoE variant.
+    let after_scan = run_script(&aoe_source.replace("hp=90000000", "hp=3200"));
+    assert!(
+        after_scan.report.execution_completed,
+        "{:?}",
+        after_scan.diagnostic
+    );
+    let hits = &after_scan.report.hit_receipts;
+    assert!(hits.iter().any(
+        |hit| hit.target_index == 1 && hit.damage_effect_id == "GE_Player_Elyms_Skill2_Damage"
+    ));
+    assert!(
+        hits.iter()
+            .any(|hit| hit.damage_effect_id == "GE_Player_Elyms_UltraSkillA1_Damage")
+    );
+    assert_eq!(
+        hits.iter()
+            .filter(|hit| hit.damage_effect_id == "GE_Player_Elyms_XieTongSkillA1_Damage")
+            .count(),
+        24
+    );
 }
 
 #[test]
@@ -403,7 +426,7 @@ fn elyms_relay_node_charge_enhancement_and_remora_cooperation() {
 
 #[test]
 fn elyms_passive2_awakenings_and_resonances_r3_r6() {
-    // Compare A0 vs C6 R6 (`Skill2 -> Skill3 (4 stacks + Skill3Extra) -> Q -> Remembrance`), checking A3/R3/A1/A2/A4/A5/A6/R6!
+    // Compare A0 vs C6 R6 (`Skill1 -> Skill2 -> Skill3 (4 stacks + Skill3Extra) -> Q -> Remembrance`), checking A3/R3/A1/A2/A4/A5/A6/R6!
     let c6 = run_script(
         "options duration=30 iteration=1 crit=fixed;\n\
          elyms char lvl=80/80 awakening=6 talent=10,10,10 qte=10 start_cycle=0 start_energy=100;\n\
@@ -411,6 +434,8 @@ fn elyms_passive2_awakenings_and_resonances_r3_r6() {
          target hp=100000000 def=1000 resist=0.2;\n\
          active elyms;\n\
          if .elyms.resources.cycle != 100 { let fail = 1 / 0; }\n\
+         elyms skill;\n\
+         if .elyms.connection != 0 || .elyms.power_e1.active != 1 { let fail = 1 / 0; }\n\
          elyms skill;\n\
          if .elyms.connection != 2 || .elyms.optical_illusion != 4 || .elyms.power_e2.active != 1 { let fail = 1 / 0; }\n\
          elyms skill;\n\
@@ -453,6 +478,27 @@ fn elyms_passive2_awakenings_and_resonances_r3_r6() {
 }
 
 #[test]
+fn elyms_a3_grants_stacks_on_skill3_without_resonance() {
+    let result = run_script(
+        "options duration=25 iteration=1 crit=fixed;\n\
+         elyms char lvl=80/80 awakening=[3] talent=10,10,10 qte=10;\n\
+         target hp=100000000 def=0 resist=0;\n\
+         active elyms;\n\
+         elyms skill;\n\
+         if .elyms.connection != 0 || .elyms.power_e1.active != 1 { let fail = 1 / 0; }\n\
+         elyms skill;\n\
+         if .elyms.connection != 1 || .elyms.power_e2.active { let fail = 1 / 0; }\n\
+         elyms attack:3;\n\
+         elyms skill;\n\
+         if .elyms.connection != 2 || .elyms.optical_illusion != 3 || .elyms.consumed_stacks != 1 || .elyms.power_e2.active { let fail = 1 / 0; }\n\
+         elyms attack:3;\n\
+         elyms skill;\n\
+         if .elyms.optical_illusion != 0 || .elyms.consumed_stacks != 4 { let fail = 1 / 0; }\n",
+    );
+    assert!(result.report.execution_completed, "{:?}", result.diagnostic);
+}
+
+#[test]
 fn elyms_two_cycle_manual_oracle_and_dsl_queries() {
     // 2 complete A0 cycles verifying Weak/Med/Strong transitions, Skill1 Cycle refill, QTE, Skill3, Burst, and 2x On the Line!
     // Use cross-element Akane (`LAKSHANA` -> `COSMOS` Remora) so `swap` admits Support QTE on both transitions.
@@ -462,7 +508,9 @@ fn elyms_two_cycle_manual_oracle_and_dsl_queries() {
          akane char lvl=80/80 awakening=0 talent=10,10,10 qte=10 start_cycle=100;\n\
          target hp=100000000 def=0 resist=0;\n\
          active elyms;\n\
-         // Cycle 1: Weak -> Skill2 (Medium, 1 Optical Illusion) -> Attack x3 (PowerE2) -> Skill3 (Strong, consumes 1) -> Burst -> Swap out -> Swap in (QTE advances Weak -> Medium, +1 stack).\n\
+         // Cycle 1: Weak -> Skill1 (PowerE1) -> Skill2 (Medium, 1 Optical Illusion) -> Attack x3 (PowerE2) -> Skill3 (Strong, consumes 1) -> Burst -> Swap out -> Swap in (QTE advances Weak -> Medium, +1 stack).\n\
+         elyms skill;\n\
+         if .elyms.connection != 0 || .elyms.power_e1.active != 1 { let fail = 1 / 0; }\n\
          elyms skill;\n\
          if .elyms.connection != 1 || .elyms.optical_illusion != 1 { let fail = 1 / 0; }\n\
          elyms attack:3;\n\

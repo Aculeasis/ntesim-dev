@@ -2791,7 +2791,7 @@ static HYPOTHESES: [Hypothesis; 468] = [
     },
     Hypothesis {
         id: "elyms.ultra_and_on_the_line_v1",
-        description: "Do You Get Deja Vu (100 Energy, 20.0s cooldown) snapshots pre-cast Connection Strength (+0% Weak, +50% Medium, +100% Strong CoefModify), dispatches ST UltraSkillB when living targets == 1 and Connection >= Medium or AoE UltraSkill otherwise, resets Connection to Weak, grants all living allies +20% of Elyms AtkBase (character + weapon base ATK) plus +10% Follow-up Attack DMG for 20.0s, and arms On the Line (6 Remembrance triggers at 3.0s off-field intervals starting immediately upon switching off-field and pausing while on-field; each trigger emits 4x XieTongSkillA1 or B1 hits tagged State.Damage.Followup).",
+        description: "Do You Get Deja Vu (100 Energy, 20.0s cooldown) snapshots pre-cast Connection Strength (+0% Weak, +50% Medium, +100% Strong CoefModify) and the mode from the last Skill2, Skill3, or QTE scan, choosing ST UltraSkillB for one scanned living target at Medium or Strong and AoE otherwise. It resets Connection to Weak, grants all living allies +20% of Elyms AtkBase (character + weapon base ATK) plus +10% Follow-up Attack DMG for 20.0s, and arms On the Line (6 Remembrance triggers at 3.0s off-field intervals starting immediately upon switching off-field and pausing while on-field; each trigger emits 4x XieTongSkillA1 or B1 hits tagged State.Damage.Followup).",
     },
     Hypothesis {
         id: "elyms.relay_node_v1",

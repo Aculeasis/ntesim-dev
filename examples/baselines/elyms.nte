@@ -15,6 +15,7 @@ active elyms;
 repeat 2 {
     let period = .time;
     if .elyms.skill.ready { elyms skill; }
+    if .elyms.power_e1.active { elyms skill; }
     elyms attack:3;
     if .elyms.skill.ready && .elyms.power_e2.active { elyms skill; }
     while !.elyms.burst.ready {
