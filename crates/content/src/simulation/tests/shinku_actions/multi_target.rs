@@ -3,6 +3,7 @@ use super::*;
 #[test]
 fn shinku_multi_target_skill_and_burst_delivery() {
     let mut req = request();
+    req.actors[0].initial_energy = 60;
     let mut target2 = req.targets[0].clone();
     target2.target_index = 1;
     req.targets.push(target2);

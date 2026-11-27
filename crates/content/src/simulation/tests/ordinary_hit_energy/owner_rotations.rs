@@ -31,8 +31,8 @@ fn continuing_request(case: &Case, owner: &str) -> GameScenarioRequest {
             30,
             [24_000_000, 30_000_000],
             31_200_000,
-            39_200_000,
-            44_000_000,
+            44_450_242,
+            49_250_242,
             "GA_Shinku_UltraSkill",
             "GE_Player_Shinku_UltraSkill1_Damage",
         ),
@@ -87,8 +87,12 @@ fn continuing_request(case: &Case, owner: &str) -> GameScenarioRequest {
         burst_time,
         burst,
         burst_effect,
-        100,
-        2_000_000,
+        if owner == "shinku" { 60 } else { 100 },
+        if owner == "shinku" {
+            7_253_918
+        } else {
+            2_000_000
+        },
         20_000_000,
     ));
     for input in 0..5 {
@@ -433,6 +437,20 @@ fn shinku_empty_energy_rotation_spends_burst_and_continues() {
         ("GE_Player_Shinku_Melee1_4_1_Damage", 853),
         ("GE_Player_Shinku_Melee1_5_Damage", 1935),
     ];
+    const TIDAL_ASSAULT: [(&str, u64); 12] = [
+        ("GE_Player_Shinku_Melee1_Rage_Damage", 600),
+        ("GE_Player_Shinku_Melee1_1_Rage_Damage", 473),
+        ("GE_Player_Shinku_Melee2_Rage_Damage", 699),
+        ("GE_Player_Shinku_Melee3_Rage_Damage", 435),
+        ("GE_Player_Shinku_Melee3_1_Rage_Damage", 134),
+        ("GE_Player_Shinku_Melee3_1_Rage_Damage", 134),
+        ("GE_Player_Shinku_Melee3_1_Rage_Damage", 134),
+        ("GE_Player_Shinku_Melee3_1_Rage_Damage", 134),
+        ("GE_Player_Shinku_Melee3_1_Rage_Damage", 134),
+        ("GE_Player_Shinku_Melee4_Rage_Damage", 919),
+        ("GE_Player_Shinku_Melee4_1_Rage_Damage", 1177),
+        ("GE_Player_Shinku_Melee5_Rage_Damage", 797),
+    ];
     const SKILL: [(&str, u64); 3] = [
         ("GE_Player_Shinku_Skill1_1_Damage", 296),
         ("GE_Player_Shinku_Skill1_2_Damage", 396),
@@ -450,12 +468,13 @@ fn shinku_empty_energy_rotation_spends_burst_and_continues() {
         ("GE_Player_Shinku_UltraSkill5_Damage", 728),
     ];
     const NORMAL_CHARGE: [u64; 10] = [760, 1285, 853, 1225, 724, 820, 1753, 3399, 2075, 4706];
+    const TIDAL_CHARGE: [u64; 12] = [
+        1349, 1066, 1573, 981, 302, 302, 302, 302, 302, 2069, 2654, 1796,
+    ];
     const SKILL_CHARGE: [u64; 3] = [750, 1000, 3450];
-    let case = CASES
-        .iter()
-        .find(|case| case.owner == "character:1076")
-        .unwrap();
-    let req = continuing_request(case, "shinku");
+    let case = &SHINKU_CASE;
+    let mut req = continuing_request(case, "shinku");
+    req.actors[0].energy_capacity = 60;
     let mut expected_hits = Vec::new();
     for _ in 0..6 {
         for (effect, rate_milli) in NORMAL {
@@ -466,28 +485,49 @@ fn shinku_empty_energy_rotation_spends_burst_and_continues() {
             );
         }
     }
-    for _ in 0..2 {
-        for (effect, rate_milli) in SKILL {
-            push_packets(
-                &mut expected_hits,
-                "GA_Shinku_Skill",
-                &[(effect, rate_milli, 2)],
-            );
-        }
+    // Skill 1 at 24s
+    for (effect, rate_milli) in SKILL {
+        push_packets(
+            &mut expected_hits,
+            "GA_Shinku_Skill",
+            &[(effect, rate_milli, 2)],
+        );
+    }
+    // Skill 2 at 30s (after 6s idle -> 3 Menacing Gaze Watch ticks [27,28,29s] fire as FollowupHit)
+    for (effect, rate_milli) in SKILL {
+        push_packets(
+            &mut expected_hits,
+            "GA_Shinku_Skill",
+            &[(effect, rate_milli, 2)],
+        );
     }
     push_packets(
         &mut expected_hits,
-        "GA_Shinku_UltraSkill",
-        &BURST.map(|(effect, rate_milli)| (effect, rate_milli * 13, 20)),
+        "GA_Shinku_Skill",
+        &[("GE_Player_Shinku_Watch_Damage", 1714 * 3, 2)],
     );
-    for (effect, rate_milli) in NORMAL {
+    // Burst at 31.2s (+30% Surging Crimson + +50% Passive 2 non-boss = 9/5, over 1/2 DEF = 18/20)
+    push_packets(
+        &mut expected_hits,
+        "GA_Shinku_UltraSkill",
+        &BURST.map(|(effect, rate_milli)| (effect, rate_milli * 18, 20)),
+    );
+    // Post-burst Tidal Assault at 39.2s (8s elapsed minus 2s Burst pause = 6s world idle -> 3 Watch ticks)
+    for (idx, (effect, rate_milli)) in TIDAL_ASSAULT.into_iter().enumerate() {
         push_packets(
             &mut expected_hits,
             "GA_Shinku_Melee",
             &[(effect, rate_milli * 13, 20)],
         );
+        if idx == 1 {
+            push_packets(
+                &mut expected_hits,
+                "GA_Shinku_Melee",
+                &[("GE_Player_Shinku_Watch_Damage", 1714 * 3, 2)],
+            );
+        }
     }
-    assert_eq!(expected_hits.len(), 85);
+    assert_eq!(expected_hits.len(), 89);
 
     let mut charge = Vec::new();
     for _ in 0..6 {
@@ -495,24 +535,62 @@ fn shinku_empty_energy_rotation_spends_burst_and_continues() {
     }
     charge.extend(SKILL_CHARGE);
     charge.extend(SKILL_CHARGE);
-    charge.extend(NORMAL_CHARGE);
-    assert_eq!(charge.len(), 76);
-    let report = check_flow_with_spend(case, &req, &charge, &[(1, 1); 3], Some((66, 100, 100)));
-    assert_hit_oracle(&report, &expected_hits, (703_199, 20));
-    assert_one_burst_spend(&report, 31_200_000, 100);
-    assert_eq!(report["final_actor_states"][0]["energy"], 17);
-    assert_eq!(report["final_actor_states"][0]["granted_energy"], 133);
-    assert_eq!(report["final_actor_states"][0]["overflow_energy"], 16);
-    assert_eq!(report["final_actor_states"][0]["spent_energy"], 100);
+    charge.push(3750);
+    for (idx, val) in TIDAL_CHARGE.into_iter().enumerate() {
+        charge.push(val);
+        if idx == 1 {
+            charge.push(3750);
+        }
+    }
+    assert_eq!(charge.len(), 80);
+    let report = run_game_scenario(&req, &ExecutionLimits::default()).unwrap();
+    assert_eq!(
+        report["execution_completed"], true,
+        "{} {}",
+        report["halt_diagnostic"], report["rejected_action"]
+    );
+    let fanout_events: Vec<&Value> = report["trace"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .filter(|event| event["energy_fanout"]["source"] == case.source)
+        .collect();
+    assert_eq!(fanout_events.len(), charge.len());
+    for (packet, base) in charge.iter().enumerate() {
+        let fanout = &fanout_events[packet]["energy_fanout"];
+        let recipients = fanout["recipients"].as_array().unwrap();
+        assert_eq!(recipients.len(), 2);
+        assert_eq!(fanout["base"], fraction(*base, 1000));
+    }
+    let shinku_grants: Vec<&Value> = report["trace"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .filter(|event| {
+            event["event_kind"] == "shinku_ordinary_hit_energy_grant"
+                && event["energy_change"].is_object()
+        })
+        .collect();
+    assert_eq!(shinku_grants.len(), 67);
+    // Total non-crit damage (/20):
+    //   Pre-burst Normal (6*7238*10) + Skill (2*2056*10) + Watch#1 (5142*10)
+    //   + Burst (10285*18) + Tidal (5770*13) + Watch#2 (5142*10)
+    // = 434280 + 41120 + 51420 + 185130 + 75010 + 51420 = 838380 / 20 = 41919/1
+    assert_hit_oracle(&report, &expected_hits, (41_919, 1));
+    // Crimson Fury spends 60 Defiant Spirit directly from Shinku's 60-capacity Ultimate Energy bar.
+    assert_eq!(report["final_actor_states"][0]["energy"], 0);
+    assert_eq!(report["final_actor_states"][0]["granted_energy"], 121);
+    assert_eq!(report["final_actor_states"][0]["overflow_energy"], 61);
+    assert_eq!(report["final_actor_states"][0]["spent_energy"], 60);
     assert_eq!(
         report["final_actor_states"][0]["charge_remainder"],
-        fraction(3, 5)
+        fraction(3, 4)
     );
     for recipient in 1..3 {
-        assert_eq!(report["final_actor_states"][recipient]["energy"], 80);
+        assert_eq!(report["final_actor_states"][recipient]["energy"], 81);
         assert_eq!(
             report["final_actor_states"][recipient]["charge_remainder"],
-            fraction(4, 25)
+            fraction(2247, 2500)
         );
     }
 }

@@ -263,6 +263,18 @@ impl RuntimeState {
                     1,
                 )?)
             }
+            Self::Shinku(state) if name == "fading_reason" => {
+                wide_fraction(state.fading_reason_amount())
+            }
+            Self::Shinku(state) if name == "crimson_judgment" => {
+                wide_fraction(crate::simulation::ExactFraction::new(
+                    u128::from(state.crimson_judgment_stacks),
+                    1,
+                )?)
+            }
+            Self::Shinku(state) if name == "watch" => wide_fraction(
+                crate::simulation::ExactFraction::new(u128::from(state.watch_stacks), 1)?,
+            ),
             _ => Err(format!(
                 "Unknown resource '{name}' for this character model."
             )),
@@ -507,6 +519,7 @@ impl RuntimeState {
             Self::Akane(state) if name == "perfect_pitch" => Ok(state.perfect_pitch_unlocked),
             Self::Elyms(state) if name == "power_e1" => Ok(state.can_skill2()),
             Self::Elyms(state) if name == "power_e2" => Ok(state.can_skill3()),
+            Self::Shinku(state) if name == "menacing_gaze" => Ok(state.menacing_gaze_active),
             _ => Err(format!("Unknown state '{name}' for this character model.")),
         }
     }

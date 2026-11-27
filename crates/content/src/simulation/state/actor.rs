@@ -190,6 +190,23 @@ impl ActorRuntime {
         self.grant_fractional_energy(ExactFraction::new(amount.into(), 1)?)
     }
 
+    /// Adds exact fractional energy without multiplying by Charge Efficiency.
+    pub(crate) fn grant_unscaled_fractional_energy(
+        &mut self,
+        amount: ExactFraction,
+    ) -> Result<u64, String> {
+        let generated = amount.add(self.charge_remainder)?;
+        let whole = u64::try_from(generated.numerator / generated.denominator)
+            .map_err(|_| "scaled energy exceeds u64")?;
+        let remainder = ExactFraction::new(
+            generated.numerator % generated.denominator,
+            generated.denominator,
+        )?;
+        self.restore_energy(whole)?;
+        self.charge_remainder = remainder;
+        Ok(whole)
+    }
+
     pub(crate) fn grant_fractional_energy(&mut self, amount: ExactFraction) -> Result<u64, String> {
         let generated = amount
             .mul(ExactFraction::from_ratio(self.charge_multiplier)?)?

@@ -208,6 +208,7 @@ impl Trial<'_> {
         let mut candidate = descriptor.command.clone();
         candidate.set_timestamp_us(self.execution.state.current_time_us);
         let mut command = crate::registry::source_command(
+            &self.request,
             &self.request.actors[actor],
             &self.execution.state.actors[actor],
             &candidate,

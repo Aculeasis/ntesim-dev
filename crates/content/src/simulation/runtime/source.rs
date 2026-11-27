@@ -189,6 +189,7 @@ impl PreparedSourceScenario {
                 #[cfg(feature = "performance-diagnostics")]
                 let _span = crate::performance::Span::new("source.eager_descriptor");
                 let mut command = match crate::registry::source_command(
+                    &request,
                     &request.actors[actor_index],
                     &initial_state
                         .as_ref()

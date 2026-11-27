@@ -461,7 +461,9 @@ pub(crate) fn ordinary_hit_grants(
     let mut active_gained = false;
     let mut grants = Vec::new();
     for recipient_index in 0..actors.len() {
-        if actors[recipient_index].hp == 0 {
+        if actors[recipient_index].hp == 0
+            || actor_configs[recipient_index].character_id == "character:1076"
+        {
             continue;
         }
         let coefficient = if recipient_index == actor_index {

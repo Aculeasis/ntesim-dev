@@ -46,18 +46,24 @@ fn lunarphase_native_shinku_cycles_separate_base_atk_cosmos_and_defense_zones() 
                 serde_json::from_value(hit["non_crit_damage"].clone()).unwrap();
             let base: ExactFraction =
                 serde_json::from_value(reference["non_crit_damage"].clone()).unwrap();
-            if hit["actor_index"] != 0 {
+            if hit["actor_index"] != 0 || hit["ability_id"] == "ntesim.reaction" {
                 assert_eq!(actual, base);
                 continue;
             }
             let time = hit["time_us"].as_u64().unwrap();
-            let active = grants
-                .iter()
-                .any(|start| *start <= time && time < *start + 20_000_000);
-            let surging = grants
-                .iter()
-                .any(|start| *start <= time && time < *start + 13_000_000);
-            let damage_zone = if surging { 1550 } else { 1250 };
+            let active = grants.iter().any(|start| {
+                *start <= time
+                    && time
+                        < *start
+                            + 20_000_000
+                            + crate::characters::shinku::parameters::PARAMETERS
+                                .burst_default_cinematic_us
+            });
+            // mint swap immediately after Burst ends Surging Crimson (CHANGE_ROLE_OUT), so only
+            // the Burst hits themselves (time == *start) receive Surging Crimson.
+            let surging = grants.contains(&time);
+            let is_ultra = hit["ability_id"] == "GA_Shinku_UltraSkill";
+            let damage_zone = if surging { 1550 } else { 1250 } + if is_ultra { 500 } else { 0 };
             // The unconditional ATK is base1000*p, not static1500*p.
             let mut expected = base
                 .mul(ExactFraction::new(1500 + atk_up, 1500).unwrap())
@@ -76,7 +82,7 @@ fn lunarphase_native_shinku_cycles_separate_base_atk_cosmos_and_defense_zones() 
                 assert_eq!(
                     actual,
                     ExactFraction::new(
-                        185 * (1500 + atk_up) * (1550 + cosmos) * 10_000,
+                        185 * (1500 + atk_up) * (2050 + cosmos) * 10_000,
                         1000 * 1000 * (20_000 - ignore),
                     )
                     .unwrap()
@@ -84,7 +90,7 @@ fn lunarphase_native_shinku_cycles_separate_base_atk_cosmos_and_defense_zones() 
             }
         }
         assert_eq!(initial_bursts, 2);
-        assert_eq!(report["final_actor_states"][0]["spent_energy"], 200);
+        assert_eq!(report["final_actor_states"][0]["spent_energy"], 120);
         assert!(
             !crate::simulation::tests::support::final_buffs(&report)
                 .iter()

@@ -75,11 +75,16 @@ pub(crate) fn committed(
         context,
         advance_during_active_stop: active_stop,
     });
+    let is_boss = request
+        .targets
+        .get(request.aim_target(command))
+        .is_some_and(|target| target.is_boss);
     let Some(binding) = crate::characters::cinematics::action_binding(
         &request.actors[actor].character_id,
         primary_slot,
         ability,
         damage_effect_id,
+        is_boss,
     )?
     else {
         return queue.sync(&state.mode_clock);

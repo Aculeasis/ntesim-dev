@@ -318,7 +318,7 @@ static DEFINITIONS: [Definition; 25] = [
         Element::Cosmos,
         WeaponGroup::Five,
         Some("Crimson"),
-        Base::new(1330, 80, 74, 100),
+        Base::new(1330, 80, 74, 60),
     ),
     Definition::new(
         "1090",

@@ -8,6 +8,8 @@ fn shinku_surging_crimson_a1_a2_a6_and_resonance_6() {
 
     req.actors[0].character_id = "character:1076".into();
     req.actors[0].awakening = ntesim_data::AwakeningSelection::prefix(6);
+    req.actors[0].energy_capacity = 60;
+    req.actors[0].initial_energy = 60;
     req.actors[0].static_stats.base_atk = 1000;
     req.actors[0].static_stats.atk = Ratio {
         numerator: 1000,
@@ -60,13 +62,13 @@ fn shinku_surging_crimson_a1_a2_a6_and_resonance_6() {
             array_index: 0,
             atk_rate: Ratio::one(),
             scaling_stat: crate::simulation::NativeScalingStat::Atk,
-            energy_cost: 100,
+            energy_cost: 0,
             recovery_us: 500_000,
             cooldown_us: 20_000_000,
             hit_delay_us: 100_000,
         },
         GameActionCommand::InvokeAbility {
-            timestamp_us: 16_000_000,
+            timestamp_us: 23_250_242,
             actor_index: 0,
             ability_id: "GA_Shinku_Melee".into(),
             damage_effect_id: "GE_Player_Shinku_Melee1_1_Damage".into(),
@@ -79,7 +81,7 @@ fn shinku_surging_crimson_a1_a2_a6_and_resonance_6() {
             hit_delay_us: 100_000,
         },
     ];
-    req.relative_duration_us = 20_000_000;
+    req.relative_duration_us = 25_000_000;
     let report_a6 = run_game_scenario(&req, &limits).unwrap();
     assert_eq!(report_a6["success"], true);
     assert_eq!(report_a6["invariants_passed"], true);
@@ -91,10 +93,13 @@ fn shinku_surging_crimson_a1_a2_a6_and_resonance_6() {
         .iter()
         .map(|h| h["rounded_damage"].as_u64().unwrap())
         .collect();
+    // Passive 2 Wrathscale (BT >= 4) adds +50% DMG on UltraSkill1..5 vs non-boss dummy;
+    // at 23.250242s (14s world idle after 2s Burst + 7.250242s Time Stop, after 13s Surging Crimson ends),
+    // Menacing Gaze (A4 cap 16 -> 12 stacks accumulated) fires Watch_Damage on the Melee hit.
     assert_eq!(
         damages_a6,
         vec![
-            462, 462, 107, 368, 962, 1249, 708, 708, 708, 708, 708, 1448, 603, 520
+            462, 462, 107, 368, 971, 1311, 601, 601, 601, 601, 601, 1573, 464, 520, 10592
         ]
     );
     let packet_ids: Vec<&str> = report_a6["hit_receipts"]
@@ -120,6 +125,7 @@ fn shinku_surging_crimson_a1_a2_a6_and_resonance_6() {
             "GE_Player_Shinku_UltraSkill4_Damage",
             "GE_Player_Shinku_UltraSkill5_Damage",
             "GE_Player_Shinku_Melee1_1_Damage",
+            "GE_Player_Shinku_Watch_Damage",
         ]
     );
     let hit0 = &report_a6["hit_receipts"][0];
@@ -133,7 +139,7 @@ fn shinku_surging_crimson_a1_a2_a6_and_resonance_6() {
         .iter()
         .map(|h| h["rounded_damage"].as_u64().unwrap())
         .collect();
-    assert_eq!(damages_a0.len(), 14);
+    assert_eq!(damages_a0.len(), 15);
     let packet_ids_a0: Vec<&str> = report_a0["hit_receipts"]
         .as_array()
         .unwrap()

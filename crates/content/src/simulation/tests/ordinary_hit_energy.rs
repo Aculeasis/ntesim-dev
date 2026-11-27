@@ -1,7 +1,7 @@
 use super::*;
 use serde_json::{Value, json};
 
-struct Case {
+pub(super) struct Case {
     owner: &'static str,
     source: &'static str,
     melee: (&'static str, &'static str, &'static [u64]),
@@ -22,21 +22,22 @@ fn with_efficiencies(mut req: GameScenarioRequest) -> GameScenarioRequest {
     req
 }
 
+pub(super) const SHINKU_CASE: Case = Case {
+    owner: "character:1076",
+    source: "shinku_hit",
+    melee: (
+        "GA_Shinku_Melee",
+        "GE_Player_Shinku_Melee1_1_Damage",
+        &[760],
+    ),
+    skill: Some((
+        "GA_Shinku_Skill",
+        "GE_Player_Shinku_Skill1_1_Damage",
+        &[750, 1000, 3450],
+    )),
+};
+
 const CASES: &[Case] = &[
-    Case {
-        owner: "character:1076",
-        source: "shinku_hit",
-        melee: (
-            "GA_Shinku_Melee",
-            "GE_Player_Shinku_Melee1_1_Damage",
-            &[760],
-        ),
-        skill: Some((
-            "GA_Shinku_Skill",
-            "GE_Player_Shinku_Skill1_1_Damage",
-            &[750, 1000, 3450],
-        )),
-    },
     Case {
         owner: "character:1004",
         source: "lacrimosa_hit",

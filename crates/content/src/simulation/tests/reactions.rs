@@ -860,14 +860,14 @@ fn character_reaction_passives_audit_and_dispatch() {
         &sakiri_state
     ));
 
-    let mut shinku_req = request(&[(0, "character:1076", 100, 0)]);
-    let shinku_state = crate::simulation::state::GameSimulatorState::new(&shinku_req);
-    assert!(!crate::registry::shinku_reaction_aoe_eligible(
+    let shinku_req = request(&[(0, "character:1076", 100, 0)]);
+    let mut shinku_state = crate::simulation::state::GameSimulatorState::new(&shinku_req);
+    assert!(crate::registry::shinku_reaction_aoe_eligible(
         &shinku_req,
         &shinku_state
     ));
-    shinku_req.actors[0].awakening = ntesim_data::AwakeningSelection::selected([2]).unwrap();
-    assert!(crate::registry::shinku_reaction_aoe_eligible(
+    shinku_state.actors[0].hp = 0;
+    assert!(!crate::registry::shinku_reaction_aoe_eligible(
         &shinku_req,
         &shinku_state
     ));

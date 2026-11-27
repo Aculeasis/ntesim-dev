@@ -208,6 +208,10 @@ pub(crate) fn owner_timers(
         RuntimeState::Shinku(state) => {
             if world {
                 future(&mut state.surging_crimson_until_us, from, delta)?;
+                future(&mut state.paid_burst_until_us, from, delta)?;
+                future(&mut state.skill_rage_ready_us, from, delta)?;
+                future(&mut state.passive1_aoe_icd_until_us, from, delta)?;
+                future(&mut state.watch_next_tick_us, from, delta)?;
             }
         }
         RuntimeState::Baicang(state) => {

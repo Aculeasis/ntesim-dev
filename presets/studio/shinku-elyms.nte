@@ -55,20 +55,18 @@ while 1 {
   if .iroi.skill.ready { iroi skill; }
 
   shinku swap;
-  if !.shinku.burst.ready {
+  while !.shinku.burst.ready {
     if .shinku.skill.ready { shinku skill; }
-    shinku attack:5;
+    shinku attack;
   }
-  if .shinku.burst.ready {
-    shinku burst;
-    while .shinku.surging_crimson.active {
-      if .shinku.burst.ready {
-        shinku burst;
-      } else if .shinku.skill.ready {
-        shinku skill;
-      } else {
-        shinku attack;
-      }
+  shinku burst;
+  while .shinku.surging_crimson.active {
+    if .shinku.burst.ready && (.shinku.resources.crimson_judgment == 3 || .shinku.mods.surging_crimson <= 2.0) {
+      shinku burst;
+    } else if .shinku.skill.ready {
+      shinku skill;
+    } else {
+      shinku attack;
     }
   }
 }

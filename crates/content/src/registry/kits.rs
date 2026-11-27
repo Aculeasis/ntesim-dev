@@ -88,6 +88,7 @@ impl CharacterKit for AkaneKit {
     }
     fn select_source_command(
         &self,
+        _request: &GameScenarioRequest,
         actor: &ActorRuntime,
         command: &mut crate::simulation::GameActionCommand,
     ) -> Result<(), String> {
@@ -232,6 +233,7 @@ impl CharacterKit for ElymsKit {
     }
     fn select_source_command(
         &self,
+        _request: &GameScenarioRequest,
         actor: &ActorRuntime,
         command: &mut crate::simulation::GameActionCommand,
     ) -> Result<(), String> {
@@ -752,6 +754,7 @@ impl CharacterKit for BlackbirdKit {
     }
     fn select_source_command(
         &self,
+        _request: &GameScenarioRequest,
         actor: &ActorRuntime,
         command: &mut crate::simulation::GameActionCommand,
     ) -> Result<(), String> {
@@ -2978,6 +2981,7 @@ pub(super) struct MintKit;
 impl CharacterKit for MintKit {
     fn select_source_command(
         &self,
+        _request: &GameScenarioRequest,
         _actor: &ActorRuntime,
         command: &mut crate::simulation::GameActionCommand,
     ) -> Result<(), String> {
@@ -3479,6 +3483,7 @@ impl CharacterKit for ShinkuKit {
     }
     fn select_source_command(
         &self,
+        request: &GameScenarioRequest,
         actor: &ActorRuntime,
         command: &mut crate::simulation::GameActionCommand,
     ) -> Result<(), String> {
@@ -3492,28 +3497,59 @@ impl CharacterKit for ShinkuKit {
             ..
         } = command
             && let Ok(state) = actor.character.shinku()
-            && state.surging_crimson_until_us > *timestamp_us
         {
-            if ability_id == "GA_Shinku_Skill" {
-                if state.fading_reason >= 12 && state.scarlet_descent_casts < 5 {
+            let in_rage = state.surging_crimson_until_us > *timestamp_us;
+            if ability_id == "GA_Shinku_Melee" {
+                let stage = crate::characters::normal::after_gap(
+                    state.normal_stage,
+                    state.normal_started_us,
+                    *timestamp_us,
+                );
+                let recoveries = if in_rage {
+                    crate::characters::shinku::parameters::PARAMETERS.rage_normal_recoveries_us
+                } else {
+                    crate::characters::shinku::parameters::PARAMETERS.normal_recoveries_us
+                };
+                *recovery_us = recoveries[stage % 5];
+            } else if ability_id == "GA_Shinku_UltraSkill" && !in_rage {
+                let is_boss = request.targets.first().is_some_and(|target| target.is_boss);
+                *recovery_us = if is_boss {
+                    crate::characters::shinku::parameters::PARAMETERS.burst_boss_recovery_us
+                } else {
+                    crate::characters::shinku::parameters::PARAMETERS.burst_default_recovery_us
+                };
+            } else if in_rage {
+                if ability_id == "GA_Shinku_Skill"
+                    && state.has_full_fading_reason()
+                    && state.scarlet_descent_casts < 5
+                    && state.skill_rage_ready_us <= *timestamp_us
+                {
                     *damage_effect_id = "GE_Player_Shinku_Skill1_Rage_Damage".into();
                     *cooldown_us = 0;
                     *energy_cost = 0;
-                    *recovery_us = 800_000;
-                }
-            } else if ability_id == "GA_Shinku_UltraSkill"
-                && state.surging_crimson_until_us.saturating_sub(*timestamp_us) <= 4_000_000
-            {
-                if state.crimson_judgment_stacks > 0 {
-                    *damage_effect_id = "GE_Player_Shinku_UltraSkillPre_Rage_Damage".into();
-                    *cooldown_us = 0;
-                    *energy_cost = 0;
-                    *recovery_us = 400_000;
-                } else {
-                    *damage_effect_id = "GE_Player_Shinku_UltraSkill_Rage_Damage".into();
-                    *cooldown_us = state.paid_burst_until_us.saturating_sub(*timestamp_us);
-                    *energy_cost = 0;
-                    *recovery_us = 1_200_000;
+                    *recovery_us =
+                        crate::characters::shinku::parameters::PARAMETERS.skill_rage_recovery_us;
+                } else if ability_id == "GA_Shinku_UltraSkill"
+                    && state.surging_crimson_until_us.saturating_sub(*timestamp_us) <= 4_000_000
+                {
+                    if state.crimson_judgment_stacks > 0 {
+                        *damage_effect_id = "GE_Player_Shinku_UltraSkillPre_Rage_Damage".into();
+                        *cooldown_us = 0;
+                        *energy_cost = 0;
+                        *recovery_us = if state.crimson_judgment_combo {
+                            crate::characters::shinku::parameters::PARAMETERS
+                                .judgment_combo_recovery_us
+                        } else {
+                            crate::characters::shinku::parameters::PARAMETERS
+                                .judgment_first_recovery_us
+                        };
+                    } else {
+                        *damage_effect_id = "GE_Player_Shinku_UltraSkill_Rage_Damage".into();
+                        *cooldown_us = state.paid_burst_until_us.saturating_sub(*timestamp_us);
+                        *energy_cost = 0;
+                        *recovery_us =
+                            crate::characters::shinku::parameters::PARAMETERS.verdict_recovery_us;
+                    }
                 }
             }
         }
@@ -3529,20 +3565,28 @@ impl CharacterKit for ShinkuKit {
     ) -> Option<crate::simulation::rejection::AdmissionFailure> {
         let state = actor.character.shinku().ok()?;
         let in_rage = state.surging_crimson_until_us > now;
+        if let Some(crate::simulation::GameActionCommand::InvokeAbility {
+            damage_effect_id, ..
+        }) = request.actions.get(command)
+            && (damage_effect_id == "GE_Player_Shinku_UltraSkillPre_Rage_Damage"
+                || damage_effect_id == "GE_Player_Shinku_UltraSkill_Rage_Damage")
+        {
+            return None;
+        }
         if in_rage {
-            if let Some(crate::simulation::GameActionCommand::InvokeAbility {
-                damage_effect_id,
-                ..
-            }) = request.actions.get(command)
-                && (damage_effect_id == "GE_Player_Shinku_Skill1_1_Damage"
-                    || damage_effect_id == "GE_Player_Shinku_UltraSkill1_Damage"
-                    || damage_effect_id == "GE_Player_Shinku_UltraSkillPre_Rage_Damage"
-                    || damage_effect_id == "GE_Player_Shinku_UltraSkill_Rage_Damage")
-            {
-                return None;
-            }
             if ability == "GA_Shinku_Skill" {
-                if state.fading_reason < 12 {
+                if state.skill_rage_ready_us > now {
+                    return Some(crate::simulation::rejection::AdmissionFailure {
+                        reason: crate::simulation::GameAdmissionReason::Cooldown {
+                            until_us: state.skill_rage_ready_us,
+                        },
+                        message: format!(
+                            "Shinku Scarlet Descent is on cooldown until {}us",
+                            state.skill_rage_ready_us
+                        ),
+                    });
+                }
+                if !state.has_full_fading_reason() {
                     return Some(crate::simulation::rejection::AdmissionFailure {
                         reason: crate::simulation::GameAdmissionReason::Other {
                             message: "Shinku Scarlet Descent requires 12 Fading Reason".into(),
@@ -3574,6 +3618,22 @@ impl CharacterKit for ShinkuKit {
         }
         None
     }
+    fn critical_dodge_model(
+        &self,
+        _request: &crate::simulation::GameScenarioRequest,
+    ) -> Option<crate::HypothesisId> {
+        Some(crate::characters::shinku::passive::MODEL)
+    }
+    fn on_critical_dodge(&self, ctx: &mut CastContext<'_>) -> Result<(), String> {
+        crate::characters::shinku::passive::on_critical_dodge(ctx)
+    }
+    fn on_field_exit(
+        &self,
+        ctx: &mut crate::runtime_api::CallbackContext<'_>,
+        actor: usize,
+    ) -> Result<(), String> {
+        crate::characters::shinku::passive::on_field_exit(ctx, actor)
+    }
     fn on_cast(&self, ctx: &mut CastContext<'_>) -> Result<(), String> {
         crate::characters::shinku::skill::on_cast(ctx)
     }
@@ -3602,14 +3662,42 @@ impl CharacterKit for ShinkuKit {
     fn primary_packet(&self, ability: &str) -> Option<&'static str> {
         crate::characters::shinku::primary_packet(ability)
     }
+    fn packet_cycle_grant(
+        &self,
+        _request: &GameScenarioRequest,
+        effect: &str,
+    ) -> Result<Option<crate::runtime_api::PacketCycleGrant>, String> {
+        ntesim_data::native_damage::cycle_add(ntesim_data::skill_levels::frozen::tables(), effect)?
+            .map(|raw| {
+                Ok(crate::runtime_api::PacketCycleGrant {
+                    raw: ExactFraction::new(raw.numerator(), raw.denominator())?,
+                    hypothesis: crate::HypothesisId::CombatPacketCycleAccrualV1,
+                })
+            })
+            .transpose()
+    }
     fn on_defeat(&self, actor: &mut ActorRuntime) {
         if let Ok(state) = actor.character.shinku_mut() {
             state.surging_crimson_until_us = 0;
+            state.skill_rage_ready_us = 0;
             state.normal_stage = 0;
             state.normal_started_us = None;
-            state.fading_reason = 0;
             state.scarlet_descent_casts = 0;
             state.crimson_judgment_stacks = 0;
+            state.menacing_gaze_active = false;
+            state.watch_stacks = 0;
+            state.watch_next_tick_us = 0;
+            state.watch_generation = state.watch_generation.wrapping_add(1);
+            if let Some(pool) = &mut state.fading_reason
+                && let Ok(max) = ExactFraction::new(
+                    crate::characters::shinku::parameters::PARAMETERS
+                        .fading_reason_max
+                        .into(),
+                    1,
+                )
+            {
+                let _ = pool.spend_up_to(max);
+            }
         }
     }
 }
@@ -3791,6 +3879,7 @@ impl CharacterKit for ZankouKit {
     }
     fn select_source_command(
         &self,
+        _request: &GameScenarioRequest,
         actor: &ActorRuntime,
         command: &mut crate::simulation::GameActionCommand,
     ) -> Result<(), String> {

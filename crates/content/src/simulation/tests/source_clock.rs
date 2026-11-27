@@ -241,10 +241,10 @@ fn supported_ultimate_routes_consume_a_positive_owned_cinematic_binding() {
         "zankou",
         "zero",
     ] {
-        let resource = if owner == "hotori" {
-            "start_timepiece=120"
-        } else {
-            ""
+        let resource = match owner {
+            "hotori" => "start_timepiece=120",
+            "shinku" => "start_energy=60",
+            _ => "",
         };
         let source = format!(
             "options duration=1 crit=fixed; {owner} char lvl=80/80 awakening=0 talent=1,1,1 qte=1 {resource}; target hp=1000000000 def=0 resist=0; active {owner}; {owner} burst;"

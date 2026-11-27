@@ -933,6 +933,10 @@ pub enum HypothesisId {
     ElymsAoeAllInRangeDummyV1 = 464,
     /// `elyms.secondary_and_aim_v1`
     ElymsSecondaryAndAimV1 = 465,
+    /// `shinku.defiant_spirit_and_rage_v1`
+    ShinkuDefiantSpiritAndRageV1 = 466,
+    /// `shinku.passives_and_awakenings_v1`
+    ShinkuPassivesAndAwakeningsV1 = 467,
 }
 
 struct Hypothesis {
@@ -940,7 +944,7 @@ struct Hypothesis {
     description: &'static str,
 }
 
-static HYPOTHESES: [Hypothesis; 466] = [
+static HYPOTHESES: [Hypothesis; 468] = [
     Hypothesis {
         id: "ability_index.primary_action_role_v1",
         description: "Interpret DT_CharacterAbilityConfig.CharacterAbilityList[].Value.AbilityIndex values 1, 2, 3, and 4 as Normal, RedirectSkill, Ultimate, and Qte action roles. This is an explicit model mapping kept separate from AbilityGameplayTag and does not establish native timing, reachability, cost, or weapon trigger semantics.",
@@ -2805,9 +2809,17 @@ static HYPOTHESES: [Hypothesis; 466] = [
         id: "elyms.secondary_and_aim_v1",
         description: "Elyms secondary actions execute Interference held attack (Branch1 x2 + Branch2 + Branch3), Memory Anchor Aim mode repeating on the 146353us AnySkill/Jump cancel cadence (Branch.7 at 48313us), Falling Dream plunge (AirAttack_Damage with 1 + height_bonus in 0..=1), Evade (15.0 stamina), Critical Riposte (PerfectEvadeAttack_Damage), and I'm Here QTE (QTE_Damage).",
     },
+    Hypothesis {
+        id: "shinku.defiant_spirit_and_rage_v1",
+        description: "Shinku Defiant Spirit (ShinkuQEnergy) uses her 60-capacity Ultimate Energy bar (default train start 60), earned unscaled by Charge Efficiency only on Shinku's own connected hits (18 for the Normal chain scaled by ChargeAdd/17.6, 5 for Skill scaled by ChargeAdd/5.2, 5.3 for QTE, 3.75 for Watch; unaffected by Charge reaction or off-field ally hits) and recorded in Energy Per Source. Surging Crimson lasts 13s, clears on field exit, shifts Normal to five-stage Tidal Assault (2,1,6,2,1 hits) granting Fading Reason (13*ChargeAdd/12.998, cap 12), gates Scarlet Descent (3.0s CD, consumes 12 Fading Reason, up to 5 casts, +1 Crimson Judgment stack max 3), and clears Surging Crimson after Dragonflame Verdict's hits settle.",
+    },
+    Hypothesis {
+        id: "shinku.passives_and_awakenings_v1",
+        description: "Shinku Passive 1 Lone Stride (Breakthrough >= 2) applies BackChargeMul = 1.0 during Charge for living off-field teammates and, when Shinku is the active Charge recipient with 1.0s ICD, emits GE_Player_Shinku_ReactionAOE_Damage across all living dummies at Basic Attack talent + R3 plus a 30s +5% ATK buff stacking up to 10 times; Passive 2 Wrathscale (Breakthrough >= 4) grants +50% UltraSkill DMG vs non-boss targets; Passive 3 Menacing Gaze starts after 2.0s without Shinku attacks, ticks +1 stack/s up to 8 (16 with A4), adds +1 stack on critical dodge, clears off-field unless A3, and fires Watch_Damage (plus A4 WatchEx_Damage at 16 stacks) on the next connected Shinku hit; A5 grants +50% DEF during Surging Crimson and heals 3.0 * BaseATK on Scarlet Descent.",
+    },
 ];
 
-static PARSE_TABLE: [(&str, HypothesisId); 466] = [
+static PARSE_TABLE: [(&str, HypothesisId); 468] = [
     (
         "ability_index.primary_action_role_v1",
         HypothesisId::AbilityIndexPrimaryActionRoleV1,
@@ -3990,6 +4002,10 @@ static PARSE_TABLE: [(&str, HypothesisId); 466] = [
         HypothesisId::ShinkuBurstPacketsV1,
     ),
     (
+        "shinku.defiant_spirit_and_rage_v1",
+        HypothesisId::ShinkuDefiantSpiritAndRageV1,
+    ),
+    (
         "shinku.direct_ultimate_followups_v1",
         HypothesisId::ShinkuDirectUltimateFollowupsV1,
     ),
@@ -3997,6 +4013,10 @@ static PARSE_TABLE: [(&str, HypothesisId); 466] = [
     (
         "shinku.ordinary_hit_energy_v1",
         HypothesisId::ShinkuOrdinaryHitEnergyV1,
+    ),
+    (
+        "shinku.passives_and_awakenings_v1",
+        HypothesisId::ShinkuPassivesAndAwakeningsV1,
     ),
     (
         "shinku.pre_dawn_refresh_v1",

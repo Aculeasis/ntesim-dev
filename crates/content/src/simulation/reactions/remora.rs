@@ -307,35 +307,41 @@ pub(super) fn charge(
     let bonus = crate::registry::charge_reaction_bonus(ctx.request, ctx.state, &mut assumptions)?;
     let raw = crate::registry::charge_reaction_override(ctx.request, ctx.state, &mut assumptions)?
         .unwrap_or(10 + bonus);
-    let actor = &mut ctx.state.actors[recipient];
-    let before = crate::simulation::energy::EnergySnapshot::capture(actor);
-    let gross = actor.grant_energy(raw)?;
+    let is_shinku = ctx.request.actors[recipient].character_id == "character:1076";
     ctx.state
         .reactions
         .record_reaction(super::ReactionKind::Charge);
     ctx.state.execution_model_assumptions.extend(assumptions);
-    ctx.trace.push(GameEventReceipt {
-        time_us: ctx.state.current_time_us,
-        phase: "ReactionOrBreak".into(),
-        event_kind: "reaction_charge_energy".into(),
-        active_actor: recipient,
-        hit_index: None,
-        from_actor: Some(snapshot.owner_index),
-        to_actor: Some(recipient),
-        energy_change: Some(before.receipt(
-            actor,
-            GameEnergySource::ReactionCharge,
-            snapshot.owner_index,
-            recipient,
-            Some(ExactFraction::new(raw.into(), 1)?),
-        )?),
-        energy_fanout: None,
-        data: Some(GameEventPayload {
-            bud_id: Some(bud_id),
-            gross: Some(gross),
-            ..Default::default()
-        }),
-    });
+    let gross = if is_shinku {
+        0
+    } else {
+        let actor = &mut ctx.state.actors[recipient];
+        let before = crate::simulation::energy::EnergySnapshot::capture(actor);
+        let gross = actor.grant_energy(raw)?;
+        ctx.trace.push(GameEventReceipt {
+            time_us: ctx.state.current_time_us,
+            phase: "ReactionOrBreak".into(),
+            event_kind: "reaction_charge_energy".into(),
+            active_actor: recipient,
+            hit_index: None,
+            from_actor: Some(snapshot.owner_index),
+            to_actor: Some(recipient),
+            energy_change: Some(before.receipt(
+                actor,
+                GameEnergySource::ReactionCharge,
+                snapshot.owner_index,
+                recipient,
+                Some(ExactFraction::new(raw.into(), 1)?),
+            )?),
+            energy_fanout: None,
+            data: Some(GameEventPayload {
+                bud_id: Some(bud_id),
+                gross: Some(gross),
+                ..Default::default()
+            }),
+        });
+        gross
+    };
     let mut cb = crate::runtime_api::CallbackContext {
         request: ctx.request,
         state: ctx.state,
@@ -344,6 +350,7 @@ pub(super) fn charge(
         trace: ctx.trace,
     };
     crate::registry::on_charge_grant(&mut cb, recipient)?;
+    crate::registry::on_charge_reaction(&mut cb, recipient, snapshot.command_index, raw)?;
     crate::simulation::energy::notify_active_actor_energy_gain(&mut cb, recipient, gross > 0)?;
     Ok(())
 }

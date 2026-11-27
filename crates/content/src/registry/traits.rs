@@ -14,6 +14,7 @@ pub(crate) trait CharacterKit: Sync {
 
     fn select_source_command(
         &self,
+        _request: &GameScenarioRequest,
         _actor: &ActorRuntime,
         _command: &mut crate::simulation::GameActionCommand,
     ) -> Result<(), String> {

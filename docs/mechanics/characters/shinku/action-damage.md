@@ -16,100 +16,89 @@ Native identity: `character:1076`.
 
 | Suffix after `GE_Player_Shinku_` | Action multiplicity and category | Coefficient 1 / 8 / 9 | Raw energy / Cycle / Break per packet |
 | --- | --- | --- | --- |
-| `Melee1_1_Damage` | 1 stage 1 slash / A | .182 / .312 / .337 | 1.150 / 1.900 / .230 |
-| `Melee1_2_Damage` | 1 stage 2 first slash / A | .308 / .528 / .570 | 1.920 / 3.200 / .380 |
-| `Melee1_2_1_Damage` | 1 stage 2 follow-up slash / A | .205 / .351 / .379 | 1.280 / 2.140 / .256 |
-| `Melee1_3_Damage` | 1 stage 3 flurry 1 / A | .294 / .504 / .544 | 1.840 / 3.070 / .368 |
-| `Melee1_3_1_Damage` | 1 stage 3 flurry 2 / A | .174 / .298 / .322 | 1.090 / 1.820 / .218 |
-| `Melee1_3_2_Damage` | 1 stage 3 flurry 3 / A | .197 / .338 / .365 | 1.230 / 2.060 / .246 |
-| `Melee1_3_3_Damage` | 1 stage 3 flurry 4 / A | .421 / .722 / .779 | 2.630 / 4.400 / .526 |
-| `Melee1_4_Damage` | 1 stage 4 dual strike 1 / A | .815 / 1.397 / 1.509 | 5.090 / 8.520 / 1.020 |
-| `Melee1_4_1_Damage` | 1 stage 4 dual strike 2 / A | .498 / .853 / .922 | 3.110 / 5.200 / .622 |
-| `Melee1_5_Damage` | 1 stage 5 heavy finish / A | 1.129 / 1.935 / 2.090 | 7.050 / 11.800 / 1.410 |
-| `Melee1_1_Rage_Damage` | 1 Rage stage 1 strike / A | .276 / .473 / .511 | 1.700 / 2.800 / .340 |
-| `Melee2_Rage_Damage` | 1 Rage stage 2 strike / A | .408 / .699 / .755 | 2.500 / 4.200 / .500 |
-| `Melee3_Rage_Damage` | 1 Rage stage 3 sweep / A | .254 / .435 / .470 | 1.600 / 2.700 / .320 |
-| `Melee3_1_Rage_Damage` | 1 Rage stage 3 slice / A | .078 / .134 / .144 | .500 / .800 / .100 |
-| `Melee4_Rage_Damage` | 1 Rage stage 4 burst 1 / A | .536 / .919 / .992 | 3.300 / 5.600 / .670 |
-| `Melee4_1_Rage_Damage` | 1 Rage stage 4 burst 2 / A | .687 / 1.177 / 1.272 | 4.300 / 7.200 / .860 |
-| `Melee5_Rage_Damage` | 1 Rage stage 5 finisher / A | .465 / .797 / .861 | 2.900 / 4.800 / .580 |
-| `Skill1_1_Damage` | 1 ordinary Skill opening / E | .173 / .296 / .320 | 1.500 / 2.500 / .300 |
-| `Skill1_2_Damage` | 1 ordinary Skill mid slash / E | .231 / .396 / .428 | 2.000 / 3.300 / .400 |
-| `Skill1_3_Damage` | 1 ordinary Skill finisher / E | .796 / 1.364 / 1.473 | 4.900 / 8.300 / 1.000 |
-| `Skill1_Rage_Damage` | 1 Rage Skill strike 1 / E | .224 / .384 / .415 | 2.000 / 3.300 / .400 |
-| `Skill2_Rage_Damage` | 1 Rage Skill strike 2 / E | 2.176 / 3.729 / 4.028 | 8.000 / 13.400 / 1.600 |
-| `UltraSkill1_Damage` | 1 Burst initial slash / Q | .185 / .317 / .342 | 0.000 / 0.000 / .200 |
-| `UltraSkill2_Damage` | 1 Burst second cut / Q | 1.200 / 2.057 / 2.221 | 0.000 / 0.000 / 1.200 |
-| `UltraSkill3_Damage` | 5 Burst rapid slashes / Q | .550 / .943 / 1.018 each | 0.000 / 0.000 / .550 each |
-| `UltraSkill4_Damage` | 1 Burst heavy cleave / Q | 1.440 / 2.468 / 2.665 | 0.000 / 0.000 / 1.500 |
-| `UltraSkill5_Damage` | 1 Burst ground slam / Q | .425 / .728 / .787 | 0.000 / 0.000 / .450 |
-| `UltraSkillPre_Rage_Damage` | 1 Rage Burst setup / Q | .600 / 1.028 / 1.111 | 0.000 / 0.000 / .600 |
-| `UltraSkill_Rage_Damage` | 1 Rage Burst flurry / Q | .200 / .343 / .370 | 0.000 / 0.000 / .200 |
-| `UltraSkill2_Rage_Damage` | 1 Rage Burst detonation / Q | 4.000 / 6.855 / 7.404 | 0.000 / 0.000 / 4.000 |
-| `QTE_Damage` | 1 Support QTE strike / H | 2.000 / 3.428 / 3.702 | 7.500 / 0.000 / 2.400 |
-| `PerfectEvadeAttack_Damage` | 1 Critical Riposte slash / Z | 1.425 / 2.442 / 2.638 | 5.500 / 9.200 / 1.100 |
-| `PerfectEvadeAttack_Rage_Damage` | 1 Rage Critical Riposte / Z | 1.675 / 2.871 / 3.100 | 6.500 / 10.800 / 1.300 |
-| `AirAttack1_Damage` | 1 air plunge landing / X | .770 / 1.320 / 1.425 | 3.500 / 5.800 / .700 |
-| `AirAttack_Rage_Damage` | 1 Rage air plunge / X | .600 / 1.028 / 1.111 | 3.000 / 5.000 / .600 |
+| `Melee1_1_Damage` | 1 stage 1 slash / A | .182 / .312 / .337 | 0.760 / 1.266 / 0.151 |
+| `Melee1_2_Damage` | 1 stage 2 first slash / A | .308 / .528 / .570 | 1.285 / 2.140 / 0.256 |
+| `Melee1_2_1_Damage` | 1 stage 2 follow-up slash / A | .205 / .351 / .379 | 0.853 / 1.419 / 0.170 |
+| `Melee1_3_Damage` | 1 stage 3 flurry 1 / A | .294 / .504 / .544 | 1.225 / 2.039 / 0.244 |
+| `Melee1_3_1_Damage` | 1 stage 3 flurry 2 / A | .174 / .298 / .322 | 0.724 / 1.206 / 0.144 |
+| `Melee1_3_2_Damage` | 1 stage 3 flurry 3 / A | .197 / .338 / .365 | 0.820 / 1.365 / 0.163 |
+| `Melee1_3_3_Damage` | 1 stage 3 flurry 4 / A | .421 / .722 / .779 | 1.753 / 2.918 / 0.349 |
+| `Melee1_4_Damage` | 1 stage 4 dual strike 1 / A | .815 / 1.397 / 1.509 | 3.399 / 5.658 / 0.676 |
+| `Melee1_4_1_Damage` | 1 stage 4 dual strike 2 / A | .498 / .853 / .922 | 2.075 / 3.454 / 0.413 |
+| `Melee1_5_Damage` | 1 stage 5 heavy finish / A | 1.129 / 1.935 / 2.090 | 4.706 / 7.834 / 0.936 |
+| `Melee1_1_Rage_Damage` | 1 Rage stage 1 strike / A | .276 / .473 / .511 | 1.066 / 1.771 / 0.213 |
+| `Melee2_Rage_Damage` | 1 Rage stage 2 strike / A | .408 / .699 / .755 | 1.573 / 2.614 / 0.315 |
+| `Melee3_Rage_Damage` | 1 Rage stage 3 sweep / A | .254 / .435 / .470 | 0.981 / 1.629 / 0.196 |
+| `Melee3_1_Rage_Damage` | 1 Rage stage 3 slice / A | .078 / .134 / .144 | 0.302 / 0.502 / 0.060 |
+| `Melee4_Rage_Damage` | 1 Rage stage 4 burst 1 / A | .536 / .919 / .992 | 2.069 / 3.438 / 0.414 |
+| `Melee4_1_Rage_Damage` | 1 Rage stage 4 burst 2 / A | .687 / 1.177 / 1.272 | 2.654 / 4.410 / 0.531 |
+| `Melee5_Rage_Damage` | 1 Rage stage 5 finisher / A | .465 / .797 / .861 | 1.796 / 2.984 / 0.359 |
+| `Watch_Damage` | 1 Menacing Gaze Instant Strike (scaled by stacks) / A | 1.000 / 1.714 / 1.851 | 3.750 / 6.250 / 0.500 |
+| `WatchEx_Damage` | 1 A4 16-stack Instant Strike bonus (scaled by 16) / A | .200 / .343 / .370 | 0.000 / 0.000 / 0.000 |
+| `ReactionAOE_Damage` | 1 Passive 1 Lone Stride Cosmos AoE / A | 4.000 / 6.855 / 7.404 | 10.000 / 0.000 / 0.000 |
+| `Skill1_1_Damage` | 1 ordinary Skill opening / E | .173 / .296 / .320 | 0.750 / 1.255 / 0.144 |
+| `Skill1_2_Damage` | 1 ordinary Skill mid slash / E | .231 / .396 / .428 | 1.000 / 1.673 / 0.192 |
+| `Skill1_3_Damage` | 1 ordinary Skill finisher / E | .796 / 1.364 / 1.473 | 3.450 / 5.772 / 0.663 |
+| `Skill1_Rage_Damage` | 1 Rage Skill strike 1 / E | .224 / .384 / .415 | 0.000 / 0.832 / 0.103 |
+| `Skill2_Rage_Damage` | 1 Rage Skill strike 2 / E | 2.176 / 3.729 / 4.028 | 0.000 / 8.068 / 0.997 |
+| `UltraSkill1_Damage` | 1 Burst initial slash / Q | .185 / .317 / .342 | 0.000 / 0.000 / 0.046 |
+| `UltraSkill2_Damage` | 1 Burst second cut / Q | 1.200 / 2.057 / 2.221 | 0.000 / 0.000 / 0.300 |
+| `UltraSkill3_Damage` | 5 Burst rapid slashes / Q | .550 / .943 / 1.018 each | 0.000 / 0.000 / 0.138 each |
+| `UltraSkill4_Damage` | 1 Burst heavy cleave / Q | 1.440 / 2.468 / 2.665 | 0.000 / 0.000 / 0.360 |
+| `UltraSkill5_Damage` | 1 Burst ground slam / Q | .425 / .728 / .787 | 0.000 / 0.000 / 0.106 |
+| `UltraSkillPre_Rage_Damage` | 1 Rage Burst setup / Q | .600 / 1.028 / 1.111 | 0.000 / 3.333 / 0.125 |
+| `UltraSkill_Rage_Damage` | 1 Rage Burst flurry / Q | .200 / .343 / .370 | 0.000 / 0.000 / 0.050 |
+| `UltraSkill2_Rage_Damage` | 1 Rage Burst detonation / Q | 4.000 / 6.855 / 7.404 | 0.000 / 0.000 / 1.000 |
+| `QTE_Damage` | 1 Support QTE strike / H | 2.000 / 3.428 / 3.702 | 5.300 / 0.000 / 2.500 |
+| `PerfectEvadeAttack_Damage` | 1 Critical Riposte slash / Z | 1.425 / 2.442 / 2.638 | 2.900 / 4.800 / 2.500 |
+| `PerfectEvadeAttack_Rage_Damage` | 1 Rage Critical Riposte / Z | 1.675 / 2.871 / 3.100 | 3.400 / 5.600 / 2.500 |
+| `AirAttack1_Damage` | 1 air plunge landing / X | .770 / 1.320 / 1.425 | 1.560 / 2.560 / 0.800 |
+| `AirAttack_Rage_Damage` | 1 Rage air plunge / X | .600 / 1.028 / 1.111 | 1.200 / 2.000 / 0.600 |
 
-**Action packet totals:** Normal 5-input chain (10 packets: 1 + 2 + 4 + 2 + 1) delivers **7.238 ATK / ~26.490 raw energy / 44.110 Cycle / 5.276 Break** at Level 8. Modeled ordinary Skill (3 packets: Skill1_1 + Skill1_2 + Skill1_3) delivers **2.056 ATK / ~8.400 raw energy / 14.100 Cycle / 1.700 Break**. Modeled direct Burst (9 packets: 1x 1, 1x 2, 5x 3, 1x 4, 1x 5) delivers **6.513 ATK / 0 raw energy / 0 Cycle / 6.100 Break**. Rage Skill delivers **4.113 ATK**. Critical Riposte delivers **2.442 ATK / 5.500 raw energy**. Support QTE delivers **3.428 ATK / 7.500 raw energy**.
+**Action packet totals:** Normal 5-input chain (10 packets: 1 + 2 + 4 + 2 + 1) delivers **7.238 ATK / 17.600 ChargeAdd / 29.299 Cycle / 3.502 Break** at Level 8. Modeled ordinary Skill (3 packets: Skill1_1 + Skill1_2 + Skill1_3) delivers **2.056 ATK / 5.200 ChargeAdd / 8.700 Cycle / 0.999 Break**. Modeled direct Burst (9 packets: 1x 1, 1x 2, 5x 3, 1x 4, 1x 5) delivers **10.285 ATK / 0 ChargeAdd / 0 Cycle / 1.502 Break**. Scarlet Descent (`Skill1_Rage` + `Skill2_Rage`) delivers **4.113 ATK / 0 ChargeAdd / 8.900 Cycle / 1.100 Break**. Critical Riposte delivers **2.442 ATK / 2.900 ChargeAdd / 4.800 Cycle / 2.500 Break**. Support QTE delivers **3.428 ATK / 5.300 ChargeAdd / 0.000 Cycle / 2.500 Break**.
 
 ## Selected complete timing specification
 
 **Mixed native coordinates and real-clock execution:** All action and buff timings progress along one continuous real combat time axis. Source montages advance at 1.0 source units per second, modified by hitstop and pause intervals on positive contact. Overlapping pauses on the same caster take the minimum progress rate rather than serially stacking. Cooldowns and the DPS denominator continue uninterrupted during pauses.
 
-- **Ordinary Skill (`GA_Shinku_Skill`):** Cooldown notify starts at **0.120s** (`AnimNotify_TriggerCooldown`); 3 hits land at **0.120s** (`Skill1_1`), **0.350s** (`Skill1_2`), and **0.650s** (`Skill1_3`). Cancel window activates at **0.800s** (`BreakSkill_AnySkill`); recovery is **0.800s**; total montage duration is **1.100s**. Real cooldown is **12.0s** (tooltip 6.0s nominal in fast rotation scenarios), continuing off field. Interruption before notify uses cancel cooldown 2.0s; completed casts maintain full 12.0s cooldown without surcharge.
-- **Burst (`GA_Shinku_UltraSkill`):** Cooldown **20.0s** (tooltip 15.0s nominal) starts at commitment. Direct gameplay events land across 9 hits from **0.200s** (`UltraSkill1`) to **1.800s** (`UltraSkill5`); cancel window activates at **2.100s** (`BreakSkill_AnySkill`); recovery is **1.200s**; total duration is **2.600s**. Commit costs **100 energy**. Direct hits do not generate ordinary energy.
-- **Normal Attack chain (`GA_Shinku_Melee`):** Five input stages progress with hits at 0.140s (stage 1: Melee1_1), 0.120s / 0.240s (stage 2: Melee1_2, Melee1_2_1), 0.100s / 0.200s / 0.300s / 0.400s (stage 3: Melee1_3..Melee1_3_3), 0.120s / 0.280s (stage 4: Melee1_4, Melee1_4_1), and 0.220s (stage 5: Melee1_5). Queued full chain completes in **3.200s** (effective total ~4.000s with recovery). An input gap >2.0s resets the chain; legal queued transitions continue.
-- **QTE (`GA_Shinku_QTE`):** The selected bounded Support model uses a 0.100-second impact and 0.600-second recovery. The native packet grants 5.300 raw energy and 2.500 Break under their respective delivery rules. A qualified reaction switch admits this Support with no independent cooldown.
-- **Critical Riposte (`GA_Shinku_Dodge` / `PerfectEvadeAttack`):** Counter slash at **0.160s**, cancel window **0.600s**, total duration **0.750s**.
+- **Ordinary Skill (`GA_Shinku_Skill`):** Client `CoolDwonCurveTable` cooldown is **3.0s** (`GA_Shinku_Skill: 3.0`, `GA_Shinku_Skill_Rage: 3.0`). Montage asset notifies start hit 1 (`Skill1_1`) at **0.150s**, hit 2 (`Skill1_2`) at **0.350s**, hit 3 (`Skill1_3`) at **0.742s**, and cancel windows from **0.850s–1.234s** (`shinku.skill_animation_profile_v1`). Does **not** enter Surging Crimson. In Surging Crimson, Skill redirects to **Scarlet Descent (`GA_Shinku_Skill_Rage`)** on its own **3.0s** cooldown, spending **12 Fading Reason**, granting +1 **Crimson Judgment** stack (cap 3, up to 5 casts per stance), and at A5 healing `3.0 * BaseATK`.
+- **Burst (`GA_Shinku_UltraSkill`):** Client `CoolDwonCurveTable` cooldown is **20.0s** (`GA_Shinku_UltraSkill_Rage: 15.0`). `GA_Shinku_UltraSkill` has **`GACost = 0.0`** ordinary `Ultimate Energy` and requires **60.0 `Defiant Spirit`** (`ShinkuQEnergy`, `ShinkuUltraEnergyMax = 60.0`), earned only on Shinku's own connected hits (`18.0` Normal chain, `5.0` Skill, `5.3` QTE, `3.75` Watch — unaffected by `Charge Efficiency`, `Charge` reaction, or off-field ally hits). Nine direct hits span **3.283s–6.433s** (`shinku.burst_animation_profile_v1`) under Boss / default selection (`UltraSkill7` single-hit variant is unmodeled).
+- **Normal Attack chain (`GA_Shinku_Melee`):** Five ordinary stages progress with 10 hits (`Melee1_1..1_5`). During **Surging Crimson**, Normal attacks execute 5-stage **Tidal Assault** (`Melee1_Rage..Melee5_Rage`, 2 + 1 + 6 + 2 + 1 = 12 hits), building **Fading Reason** (`13 * ChargeAdd / 12.998`, capped at `12`). Branch attacks (`Branch1_1..1_4`, `Branch1..5_Rage`) and plunge attacks are not yet routed.
+- **QTE (`GA_Shinku_QTE`):** The selected bounded Support model uses a 0.100-second impact and 0.600-second recovery. The native packet grants 5.300 `ChargeAdd`, 0.000 Cycle, and 2.500 `UnbalValue` under their respective delivery rules. A qualified reaction switch admits this Support with no independent cooldown.
+- **Critical Riposte (`GA_Shinku_Dodge` / `PerfectEvadeAttack`):** Client packet data gives 2.900 `ChargeAdd` / 4.800 Cycle / 2.500 Break (3.400 / 5.600 / 2.500 in Rage); unmodeled in `ntesim`.
 
 ## Selected complete state and effect specification
 
 ### Live Surging Crimson binding
 
-Source `.shinku.mods.surging_crimson` reads the existing native damage modifier's remaining World seconds; `.shinku.surging_crimson.active` reads whether that deadline is strictly after the settled combat time. The native Burst callback (`GA_Shinku_UltraSkill`) sets the deadline to commitment plus 13s. Ordinary Skill (`High-Speed Breach`) delivers 3 hits, generates Defiant Spirit/energy, and does not activate Surging Crimson. Switching does not refresh or remove it. An absent or exactly expired modifier returns zero; unknown names diagnose. The query does not select an enhanced packet branch, reset a Normal chain or consume RNG. [Rust source checks](../../../../crates/content/src/simulation/tests/source_forms.rs) independently check a Burst interval, continuing paid cycles, off-field persistence, one microsecond before expiry and the exact deadline, native replay and unchanged seeded hit outcomes.
+Source `.shinku.mods.surging_crimson` reads the native damage modifier's remaining World seconds; `.shinku.surging_crimson.active` reads whether that deadline is strictly after the settled combat time. `.shinku.energy`, `.shinku.resources.fading_reason`, `.shinku.resources.crimson_judgment`, `.shinku.resources.watch`, and `.shinku.menacing_gaze.active` expose Shinku's exact gauges and stacks. The native Burst callback (`GA_Shinku_UltraSkill`) spends **60 Defiant Spirit** (via `.energy`, default `start_energy=60`), enters Surging Crimson for 13s, and clears Surging Crimson immediately on field exit (`CHANGE_ROLE_OUT`) or after **Dragonflame Verdict**'s hits settle. [Rust source checks](../../../../crates/content/src/simulation/tests/source_forms.rs) check continuing Burst cycles, field-exit expiry, one microsecond before expiry, exact expiry, native replay, and unknown-name diagnostics.
 
 **Mixed source facts and checked gameplay rules:** Resources, status effects, passives, and forms are modeled as an integrated state machine:
 
-- **Energy and gauges:** Ultimate energy cap is 100; UltraSkill commits 100 energy. Ordinary energy awards follow per-packet ChargeAdd upon positive target HP loss: 1/1 to active Shinku, 3/5 to living off-field allies, with individual Charge Efficiency, integer capacity, fractional carry, and overflow tracking. Cycle gauge has capacity 100, earned on hits; qualifying switch consumes 100.
-- **Surging Crimson / Rage State (`Shinku_Rage_Duration` = 13.0s):** Activated by committing Ultimate (`GA_Shinku_UltraSkill`). Grants base +30% DMG bonus (`Shinku_Rage_DmgUp` = 0.30). At A3, grants an additional +30% DMG bonus (`Shinku_Rage_DmgUpEx_L3` = 0.30) for +60% total DMG bonus. In Rage state, Normal attacks become Tidal Assault, Skill becomes Scarlet Descent, and near the end of stance the Ultimate input becomes Crimson Judgment dashes followed by the Dragonflame Verdict finisher.
-- **A1 (Defense Penetration):** Grants 12% DEF ignore (`Shinku_DefIgnore_L1` = 0.12) to all Shinku's attacks.
-- **A2 (Burst Amplification):** Follow-up hits of UltraSkill deal 12/11 (~9.09%) amplified damage.
-- **A3 (Resonance 3 & Surging Crimson Boost):** Grants +1 talent level to Skill, UltraSkill, QTE; enhances Surging Crimson DMG bonus from +30% to +60%.
-- **A4 (Cosmo Resistance Shred):** Reduces target Cosmos RES by -10% (`Shinku_DmgResistDownCosmo` = -0.10) for 20.0s (`Shinku_DmgResistDownCosmo_Dur` = 20.0).
-- **A5 (Rage Cycle Optimization):** Reduces Rage skill cooldown and provides additional energy refund in Rage mode.
-- **A6 / R6 (Ultimate Execution):** Grants +15% additional DEF ignore (`Shinku_DefIgnore_L6Extra` = 0.15, total 27% DEF ignore), +10% Crit Rate (`Shinku_CritUp_L6Ex` = 0.10), and +30% Skill DMG in Rage mode (`Shinku_RageSkillDmgCoefL6` = 0.30).
+- **Energy and gauges:** Burst (`GA_Shinku_UltraSkill`, `GACost = 0.0`) consumes **60.0 Defiant Spirit** (`ShinkuQEnergy`, `ShinkuUltraEnergyMax = 60.0`, `ShinkuUltraEnergyMaxL1 = 60.0`), earned only on Shinku's own connected hits (`18.0` scaled across Normal `Melee1_1..1_5`, `5.0` scaled across `Skill1_1..1_3`, `5.3` on `QTE`, `3.75` on `Watch` outside Rage; unaffected by Charge Efficiency, `Charge` reaction, or off-field ally hits). Shinku's ordinary `ChargeAdd` values still distribute `0.6x` `Ultimate Energy` to living off-field allies (`Energy.rs`). Inside Surging Crimson, `Tidal Assault` (`Melee1_Rage..Melee5_Rage`, `13 * ChargeAdd / 12.998`) and `Watch` (`3.75`) fill **Fading Reason** (`ShinkuSkillEnergyMax = 12.0`). Esper Cycle (`HeterochromeAdd`) has capacity `100` and is granted by Normal, Tidal Assault, Skill, Scarlet Descent, Crimson Judgment, and Watch packets (`0` on QTE, Burst, Dragonflame Verdict, ReactionAOE, and WatchEx).
+- **Surging Crimson / Rage State (`Shinku_Rage_Duration` = 13.0s):** Activated by committing Ultimate (`GA_Shinku_UltraSkill`); cleared on field exit (`CHANGE_ROLE_OUT`) or after `Dragonflame Verdict`'s hits settle (`GA_Shinku_UltraSkill_Rage.EndAbilityRemoveGEs`). Grants base +30% DMG (`Shinku_Rage_DmgUp = 0.30`) and +30% additional DMG at R3 (`Shinku_Rage_DmgUpEx_L3 = 0.30`); `Watch`, `WatchEx`, and `ReactionAOE` receive `+0%` base Rage DMG and `+30%` at R3 (`Calc_Shinku_RageDmgUp`).
+- **A1:** Ignores 12% of the target's DEF (`Shinku_DefIgnore_L1` = 0.12). Modeled.
+- **A2:** Reduces the target's Cosmos RES by 10% (`Shinku_DmgResistDownCosmo` = -0.10) for 20.0s (`Shinku_DmgResistDownCosmo_Dur`) after Ultimate hits. Modeled.
+- **A3:** Retains Menacing Gaze stacks and continues ticking off-field across actor switches (`Con_Shinku_NoLevel3` bypassed). Modeled.
+- **A4:** Increases Menacing Gaze max stacks to 16 (`Shinku_WatchExStackL4 = 16.0`) and triggers `GE_Player_Shinku_WatchEx_Damage` (`0.2 * Watch`, `0` Charge/Cycle/Break) when Instant Strike fires at 16 stacks. Modeled.
+- **A5:** Increases Shinku's DEF by +50% (`Shinku_RageDefUpL5 = 0.5`) during Surging Crimson and heals `3.0 * BaseATK` (`Shinku_DmgRecoverHpL5`) after Scarlet Descent. Modeled.
+- **A6:** Increases skill damage ratio by +30% (`Shinku_RageSkillDmgCoefL6` = 0.30) for Scarlet Descent, Crimson Judgment, and Dragonflame Verdict packets only (with vacuum pull). Modeled.
+- **Resonance 3 / 6:** Resonance 3 grants +1 talent level to Melee/Skill/Burst and +30% DMG bonus in Surging Crimson; Resonance 6 grants +15% DEF ignore (`Shinku_DefIgnore_L6Extra` = 0.15, total 27%) and +10% Crit Rate (`Shinku_CritUp_L6Ex` = 0.10). Modeled.
+- **Passives 1 / 2 / 3 (`Lone Stride` BT2 / `Wrathscale` BT4 / `Menacing Gaze`):**
+  - **Passive 1 (`Lone Stride`, BT >= 2):** `BackChargeMul = 1.0` grants living off-field teammates equal Charge reaction energy (`10 * their_CE`). When Shinku is the active Charge recipient (`1.0s` ICD), emits `GE_Player_Shinku_ReactionAOE_Damage` across all living targets (Basic talent + R3; `10.0` `ChargeAdd` to teammates) and applies `shinku.lone_stride_atk` (`+5% ATK` per stack, `30.0s`, max 10 stacks). Modeled.
+  - **Passive 2 (`Wrathscale`, BT >= 4):** Grants `+50%` DMG (`Shinku_DmgUp_Pas2 = 0.50`) on `UltraSkill` packets against non-boss targets (`!is_boss`). Modeled.
+  - **Passive 3 (`Menacing Gaze`):** After `2.0s` without active Shinku attacks (`UnAttackDuration = 2.0`), enters Menacing Gaze and gains `+1` stack/s (cap 8, 16 at A4) and `+1` on Critical Dodge; cleared off-field unless A3. Next connected active hit consumes all stacks and emits `Watch_Damage` (`rate * stacks`, granting `3.75` Defiant Spirit / Fading Reason, `6.25` Cycle, `0.5` Break, `3.75` `ChargeAdd` fanout). Modeled.
 
 ## Selected complete recipient specification
 
 **All-in-range dummy contract and single-target rules:**
 - **Burst AoE (`GA_Shinku_UltraSkill`):** Under the all-in-range dummy contract, all declared scenario dummies receive the 9 Burst hits in ascending target_index order at each hit's scheduled timestamp.
 - **Normal attacks and Skill slashes:** Single-target cleaves focused on the primary target (dummy index 0). Defeated dummies do not absorb hits.
-- **A4 Resistance Shred:** Applied to the target struck; persists for 20.0s.
+- **A2 Resistance Shred:** Applied to the target struck by Burst; persists for 20.0s.
 
-## Complete implementation handoff and two continuing cycles
+## Model implementation boundaries (current adapter vs client)
 
-**Complete build and verification reference:** Built under frozen package `global-2026-10-04` using Lunar Phase (`weapon:fork_LunarPhase`, T1, base ATK 570), Cosmos set (`set:Suit6`), `AtkUp` cartridge, and standard console. Verified static stats: Base ATK 1086, compiled ATK 2078.25 (rounds to 2078), HP 17540, DEF 790, CR 0.05 (0.15 at A6), CD 0.50, CE 1.0.
-
-**Two continuing cycles walkthrough (60.0s period, 120.0s total):**
-
-- **Cycle 1 (0.0s - 60.0s):**
-  - **0.000s:** Enters field via QTE (`GA_Shinku_QTE`), dealing 3.428 ATK (7.500 raw energy).
-  - **1.000s - 4.200s:** Normal Chain Loop 1 (5 inputs, 10 packets: Melee1_1..Melee1_5). Delivers 7.238 total ATK, generating ~26.490 raw energy. Accumulated energy: ~33.990.
-  - **5.000s - 6.100s:** Skill cast (`GA_Shinku_Skill`). 3 packets deliver 2.056 total ATK (boosted by +30% / +60% Surging Crimson DMG bonus). Triggers Surging Crimson state for 13.0s (until 18.0s). Generates ~8.400 raw energy. Nominal cooldown 12.0s triggers. Accumulated energy: ~42.390.
-  - **7.000s - 16.600s:** Normal Chain Loops 2, 3, 4 (15 inputs, 30 packets). Generates ~79.470 raw energy. Energy pool reaches 100.0 cap at ~15.0s (overflow safely tracked).
-  - **17.000s - 18.100s:** Second Skill cast (`GA_Shinku_Skill`, off CD). Delivers 2.056 ATK, refreshing Surging Crimson for 13.0s (until 30.0s).
-  - **19.000s - 21.600s:** Burst cast (`GA_Shinku_UltraSkill`). Commits 100.0 energy (pool resets to 0.0). Delivers 9 packets for 6.513 total ATK (with 12/11 amplification on hits 2..9 at A2). Re-arms Surging Crimson until 32.0s.
-  - **22.000s - 60.000s:** Post-burst continuation: 8 Normal chain loops and 3 Skill casts on cooldown. Generates >100 raw energy, refilling energy pool to 100.0 cap by ~45.0s. All cooldowns expire before cycle end.
-
-- **Cycle 2 (60.0s - 120.0s):**
-  - **60.000s:** Commences second cycle from live state with 100.0 energy, ready Skill and Burst.
-  - **60.000s - 62.600s:** Immediate Burst cast (`GA_Shinku_UltraSkill`). Commits 100.0 energy, re-establishes Surging Crimson for 13.0s.
-  - **63.000s - 64.100s:** Skill cast (`GA_Shinku_Skill`), generating ~8.400 energy.
-  - **65.000s - 78.000s:** 4 Normal Chain Loops (40 packets), generating >100 raw energy, refilling pool to 100.0 cap.
-  - **80.000s:** Second Skill cast.
-  - **81.000s - 120.000s:** Sustained Normal and Skill rotation maintains uptime and energy readiness, completing 120.0s simulation without resource leakage, state desync, or reset.
+Under the `ntesim` adapter (`character:1076`), Shinku executes Normal chain (`Melee1_1..1_5`), Tidal Assault (`Melee1_Rage..Melee5_Rage`), Ordinary Skill (`Skill1_1..1_3`, 3.0s CD), Scarlet Descent (`Skill1_Rage`/`Skill2_Rage`, 3.0s CD, 12 Fading Reason), QTE (`QTE_Damage`), Crimson Fury Burst (`60` `Defiant Spirit` / `ShinkuQEnergy`, `0` ordinary `Ultimate Energy`), Crimson Judgment (`UltraSkillPre_Rage`), Dragonflame Verdict (`UltraSkill_Rage`/`UltraSkill2_Rage`, clearing `Surging Crimson` after hits settle), Passive 1 (`Lone Stride`: `BackChargeMul = 1.0`, `1.0s` ICD `ReactionAOE_Damage`, `30s` `+5% ATK` max 10 stacks), Passive 2 (`Wrathscale`: `+50%` `UltraSkill` DMG vs non-boss), Passive 3 (`Menacing Gaze`: `Watch_Damage`, `+1` stack/s after `2.0s`, Critical Dodge `+1`, off-field clear unless A3), and Awakenings A1–A6 / R3 / R6 (`WatchEx_Damage` at A4 16 stacks, `+50% DEF` + `3.0 * BaseATK` Scarlet Descent heal at A5). Remaining unmodeled client actions: `Branch` attacks, `AirAttack`, `PerfectEvadeAttack`, and Boss single-hit `UltraSkill7`.
 
 ## Source facts and executable model
 Frozen table rows and published descriptions establish native IDs, coefficient strings, categories, and stated awakening effects. The rules below separate those inputs from the current executable model; reset and delivery timing marked as a hypothesis are tested implementation policies, not native gameplay evidence. Verification receipts establish only their named scenarios.
@@ -129,8 +118,8 @@ Following client asset extraction and bounded modeling:
 
 
 - GA_Shinku_Melee public primary packet is GE_Player_Shinku_Melee1_1_Damage. Native coefficients at Normal levels 1/8/9 are 0.182/0.312/0.337; category A/COSMOS metadata stays source-bound.  Does not activate Surging Crimson; DEF ignore applies at awakening >= 1 (12%) and awakening >= 6 (27%).
-- GA_Shinku_Skill public primary packet is GE_Player_Shinku_Skill1_1_Damage. Native coefficients at Skill levels 1/8/9 are 0.173/0.296/0.320; category E/COSMOS metadata stays source-bound. on_cast activates Surging Crimson (13s duration) granting +30% DMG bonus (+60% at three-selection resonance_3) and +30% ratio at A6.
-- GA_Shinku_UltraSkill public primary packet is GE_Player_Shinku_UltraSkill1_Damage. Native coefficients at Burst levels 1/8/9 are 0.185/0.317/0.342; category Q/COSMOS metadata stays source-bound. on_cast activates Surging Crimson (13s duration) granting +30% DMG bonus (+60% at three-selection resonance_3) and +30% ratio at A6.
+- GA_Shinku_Skill public primary packet is GE_Player_Shinku_Skill1_1_Damage. Native coefficients at Skill levels 1/8/9 are 0.173/0.296/0.320; category E/COSMOS metadata stays source-bound. Does not activate Surging Crimson; Rage Skill packets (`Skill1_Rage`, `Skill2_Rage`) are separate.
+- GA_Shinku_UltraSkill public primary packet is GE_Player_Shinku_UltraSkill1_Damage. Native coefficients at Burst levels 1/8/9 are 0.185/0.317/0.342; category Q/COSMOS metadata stays source-bound. on_cast activates Surging Crimson (13s duration) granting +30% DMG bonus (+60% at three-selection resonance_3), and +30% ratio at A6 applies to Scarlet Descent / Crimson Judgment / Dragonflame Verdict packets only.
 - Ordinary GA_Shinku_Skill delivers Skill1_1, Skill1_2, Skill1_3 once each in listed order; native coefficients at Skill levels 1/8/9 are 0.173/0.231/0.796, 0.296/0.396/1.364, and 0.320/0.428/1.473. Child packets use the cast's effective talent coordinate and primary impact time as a tested timing hypothesis; animation intervals and travel are unresolved. Rage Skill packets remain separate.
 - Initial Crimson Fury GA_Shinku_UltraSkill delivers UltraSkill1 once, UltraSkill2 once, UltraSkill3 five times, UltraSkill4 once, and UltraSkill5 once in listed coefficient order, totaling 6.000/10.285/11.105 ratio at levels 1/8/9. Native GA_Shinku_UltraSkill.GALevelUpArray[0].LevelUpData.DamageGEList lists those five IDs in order, and its coefficient string gives the third term *5. Children use the cast's effective talent coordinate and primary impact time as a tested timing hypothesis. In the same frozen ability row, GA_Shinku_UltraSkill2_des maps to GE_Player_Shinku_UltraSkillPre_Rage_Damage and requires repeated Ultimate presses for Crimson Judgment dashes, with Scarlet Descent granting up to three uses; GA_Shinku_UltraSkill3_des maps to GE_Player_Shinku_UltraSkill_Rage_Damage and explicitly requires another press after Judgment uses are consumed or Surging Crimson ends. These later phases are explicit inputs, not automatic children of the initial cast; their resource, timing, and AoE rules remain unmodeled.
 - The separate Crimson Judgment and Dragonflame Verdict descriptions map to `GE_Player_Shinku_UltraSkillPre_Rage_Damage` and `GE_Player_Shinku_UltraSkill_Rage_Damage`, with UltraSkill coefficients 0.600/1.028/1.111 and 0.200/0.343/0.370 at levels 1/8/9. Both damage rows retain native `GAName=GA_Shinku_UltraSkill`; the configured character action list exposes only this base Ultimate input, while `GA_Shinku_UltraSkill2_des` and `GA_Shinku_UltraSkill3_des` are description keys. An explicit base-Ultimate command can select either effect as one direct packet under `shinku.direct_ultimate_followups_v1`. It does not emit the initial Burst train or activate/refresh Surging Crimson; an existing Surging Crimson state and its live modifiers still apply. Phase prerequisites, use limits, costs, cooldowns, timing, travel, target selection, AoE, callbacks, and other Rage packets remain unresolved.
@@ -197,7 +186,7 @@ The existing `DT_SkillDamageData` rows establish native coefficients at talent l
 | Burst Rage Finisher `UltraSkill2_Rage_Damage` | Q | 4.000 / 6.855 / 7.404 | 0.000 / 0.000 / 1.000 |
 | Reaction AoE `ReactionAOE_Damage` | A | 4.000 / 6.855 / 7.404 | 10.000 / 0.000 / 0.000 |
 
-Critical Riposte uses GAName `GA_Shinku_Skill` (Normal) or `GA_Shinku_Melee` (Rage), Support QTE uses `GA_Shinku_QTE`. All damage rows deal COSMOS damage. Skill and Burst on_cast enter Surging Crimson (13s duration) granting +30% DMG bonus (+60% at three-selection resonance_3) and +30% ratio at A6.
+Critical Riposte uses GAName `GA_Shinku_Skill` (Normal) or `GA_Shinku_Melee` (Rage), Support QTE uses `GA_Shinku_QTE`. All damage rows deal COSMOS damage. Ordinary Burst `GA_Shinku_UltraSkill` enters Surging Crimson (13s duration) granting +30% DMG bonus (+60% at three-selection resonance_3); ordinary `GA_Shinku_Skill` does not enter Surging Crimson. A6 adds +30% ratio to Scarlet Descent, Crimson Judgment, and Dragonflame Verdict packets during Surging Crimson.
 
 ### Passives and reaction enhancements
 

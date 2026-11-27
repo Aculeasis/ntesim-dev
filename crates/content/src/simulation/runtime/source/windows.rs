@@ -60,8 +60,12 @@ impl Trial<'_> {
             })?;
         let mut candidate = descriptor.command.clone();
         candidate.set_timestamp_us(self.execution.state.current_time_us);
-        let command =
-            crate::registry::source_command(&self.request.actors[actor], runtime, &candidate)?;
+        let command = crate::registry::source_command(
+            &self.request,
+            &self.request.actors[actor],
+            runtime,
+            &candidate,
+        )?;
         let ability = match &command {
             GameActionCommand::InvokeAbility { ability_id, .. } => ability_id.as_str(),
             GameActionCommand::PlayerInput {

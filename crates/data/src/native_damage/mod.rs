@@ -83,6 +83,7 @@ fn cycle_milli(id: &str) -> Option<u64> {
         .or_else(|| kuhara::cycle_milli(id))
         .or_else(|| lacrimosa::cycle_milli(id))
         .or_else(|| nanally::cycle_milli(id))
+        .or_else(|| shinku::cycle_milli(id))
         .or_else(|| zankou::cycle_milli(id))
 }
 
@@ -238,7 +239,7 @@ mod tests {
     #[test]
     fn only_consumed_packet_fields_and_exact_coordinates_are_retained() {
         let rows = transport()["rows"].as_object().unwrap();
-        assert_eq!(rows.len(), 660);
+        assert_eq!(rows.len(), 671);
         for (id, row) in rows {
             let expected = if id.starts_with("GE_Player_Cang_")
                 || id.starts_with("GE_Player_BlackBird_")
@@ -255,6 +256,7 @@ mod tests {
                 || kuhara::cycle_milli(id).is_some()
                 || lacrimosa::cycle_milli(id).is_some()
                 || nanally::cycle_milli(id).is_some()
+                || shinku::cycle_milli(id).is_some()
                 || zankou::cycle_milli(id).is_some()
             {
                 10

@@ -128,6 +128,7 @@ impl Observation<'_> {
         let mut candidate = descriptor.command.clone();
         candidate.set_timestamp_us(self.state.current_time_us);
         let command = crate::registry::source_command(
+            self.request,
             &self.request.actors[index],
             &self.state.actors[index],
             &candidate,

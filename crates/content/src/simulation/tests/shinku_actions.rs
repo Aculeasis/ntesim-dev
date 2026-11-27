@@ -33,6 +33,8 @@ pub(super) fn request() -> GameScenarioRequest {
     req.actors[0].talent_levels = Some([1; 3]);
     req.actors[0].character_max_level = Some(80);
     req.actors[0].character_level = 80;
+    req.actors[0].energy_capacity = 60;
+    req.actors[0].initial_energy = 60;
     req.actors[0].static_stats.base_atk = 1000;
     req.actors[0].static_stats.atk = Ratio {
         numerator: 1000,
@@ -69,6 +71,19 @@ fn shinku_rage_packet_damage(rate_milli: u128, awakening: u32) -> serde_json::Va
         (13, 10, 25, 47)
     } else {
         (13, 10, 1, 2)
+    };
+    fraction_json(rate_milli * bonus_num * def_num, bonus_den * def_den)
+}
+
+fn shinku_ultra_rage_packet_damage(rate_milli: u128, awakening: u32) -> serde_json::Value {
+    // At lvl 80/80 (Breakthrough >= 4), Passive 2 Wrathscale adds +50% UltraSkill DMG vs non-boss:
+    // +30% Surging Crimson + +50% Wrathscale = +80% (9/5), or +60% + +50% = +110% (21/10) at A3+.
+    let (bonus_num, bonus_den, def_num, def_den) = if awakening >= 3 {
+        (21, 10, 25, 47)
+    } else if awakening >= 1 {
+        (9, 5, 25, 47)
+    } else {
+        (9, 5, 1, 2)
     };
     fraction_json(rate_milli * bonus_num * def_num, bonus_den * def_den)
 }
@@ -173,14 +188,14 @@ fn shinku_normal_skill_and_burst_use_native_talent_coefficients_and_resonance_bo
 
     // Burst (GA_Shinku_UltraSkill / GE_Player_Shinku_UltraSkill1_Damage)
     // Coeffs: Lv1 = 0.185, Lv8 = 0.317, Lv9 (A3 resonance) = 0.342
-    // on_cast activates Surging Crimson (13s):
-    //   Base: +30% DMG bonus (13/10)
-    //   At A3: +30% additional DMG bonus -> +60% total (8/5)
-    // Lv1, A0: 1000 * 0.185 * (13/10) * (1/2) = 185 * 13 / 20 = 481 / 4
-    // Lv8, A0: 1000 * 0.317 * (13/10) * (1/2) = 317 * 13 / 20 = 4121 / 20
-    // Lv8, A3: 1000 * 0.342 * (8/5) * (25/47) = 342 * (8/5) * (25/47) = 342 * 40 / 47 = 13680 / 47
+    // on_cast consumes 60 Defiant Spirit and activates Surging Crimson (13s):
+    //   Base + Passive 2 (BT >= 4 non-boss): +30% + +50% = +80% DMG bonus (9/5)
+    //   At A3 + Passive 2: +60% + +50% = +110% DMG bonus (21/10)
+    // Lv1, A0: 1000 * 0.185 * (9/5) * (1/2) = 333 / 2
+    // Lv8, A0: 1000 * 0.317 * (9/5) * (1/2) = 2853 / 10
+    // Lv8, A3: 1000 * 0.342 * (21/10) * (25/47) = 17955 / 47
     for (level, awakening, expected_num, expected_den) in
-        [(1, 0, 481, 4), (8, 0, 4121, 20), (8, 3, 13680, 47)]
+        [(1, 0, 333, 2), (8, 0, 2853, 10), (8, 3, 17955, 47)]
     {
         let mut req = request();
         req.actors[0].talent_levels = Some([1, 1, level]);
@@ -190,7 +205,7 @@ fn shinku_normal_skill_and_burst_use_native_talent_coefficients_and_resonance_bo
             0,
             "GA_Shinku_UltraSkill",
             "GE_Player_Shinku_UltraSkill1_Damage",
-            100,
+            60,
             20_000_000,
         )];
         let report = run_game_scenario(&req, &ExecutionLimits::default()).unwrap();
@@ -222,7 +237,7 @@ fn shinku_normal_skill_and_burst_use_native_talent_coefficients_and_resonance_bo
                 receipt_index += 1;
                 assert_eq!(receipt["damage_effect_id"], packet_id);
                 assert_eq!(receipt["actor_index"], 0);
-                let base_damage = shinku_rage_packet_damage(rate, awakening);
+                let base_damage = shinku_ultra_rage_packet_damage(rate, awakening);
                 let expected_damage = if awakening >= 2 && receipt_index > 1 {
                     let base: ExactFraction = serde_json::from_value(base_damage).unwrap();
                     fraction_json(base.numerator * 12, base.denominator * 11)
@@ -293,7 +308,7 @@ fn shinku_burst_applies_a2_resistance_reduction_after_its_first_same_time_hit() 
         0,
         "GA_Shinku_UltraSkill",
         "GE_Player_Shinku_UltraSkill1_Damage",
-        100,
+        60,
         20_000_000,
     )];
     let report = run_game_scenario(&req, &ExecutionLimits::default()).unwrap();
@@ -315,7 +330,7 @@ fn shinku_burst_applies_a2_resistance_reduction_after_its_first_same_time_hit() 
     for (packet_id, rate_milli, multiplicity) in packet_schedule {
         for _ in 0..multiplicity {
             let receipt = &receipts[index];
-            let base_damage = shinku_rage_packet_damage(rate_milli, 2);
+            let base_damage = shinku_ultra_rage_packet_damage(rate_milli, 2);
             let expected = if index == 0 {
                 base_damage
             } else {
@@ -375,7 +390,7 @@ fn shinku_off_field_delivery_and_target_boundary_checks() {
         0,
         "GA_Shinku_UltraSkill",
         "GE_Player_Shinku_UltraSkill1_Damage",
-        100,
+        0,
         20_000_000,
     )];
     dead_target_req.relative_duration_us = 100;
@@ -383,7 +398,7 @@ fn shinku_off_field_delivery_and_target_boundary_checks() {
     let dead_report = run_game_scenario(&dead_target_req, &ExecutionLimits::default()).unwrap();
     assert_eq!(dead_report["execution_completed"], true);
     assert_eq!(dead_report["hits_settled"], 0);
-    assert_eq!(dead_report["pending_events"], 0);
+    assert!(dead_report["hit_receipts"].as_array().unwrap().is_empty());
 
     let mut pending_req = request();
     pending_req.actions = vec![make_action(
@@ -398,11 +413,15 @@ fn shinku_off_field_delivery_and_target_boundary_checks() {
     let pending = run_game_scenario(&pending_req, &ExecutionLimits::default()).unwrap();
     assert_eq!(pending["execution_completed"], true);
     assert_eq!(pending["hits_settled"], 0);
-    assert_eq!(pending["pending_events"], 3);
+    assert!(pending["pending_events"].as_u64().unwrap() >= 3);
     pending_req.relative_duration_us = 100;
     let settled = run_game_scenario(&pending_req, &ExecutionLimits::default()).unwrap();
     assert_eq!(settled["execution_completed"], true);
     assert_eq!(settled["hits_settled"], 3);
+    assert_eq!(
+        pending["pending_events"].as_u64().unwrap() - settled["pending_events"].as_u64().unwrap(),
+        3
+    );
 }
 
 #[test]
@@ -831,6 +850,14 @@ fn shinku_skill_and_burst_packet_hypotheses_are_required_and_strictly_validated(
         let mut req = request();
         req.actors[0].talent_levels = None;
         req.actors[0].purchased_skill_level = 8;
+        if ability == "GA_Shinku_UltraSkill" {
+            req.model_assumptions.insert(
+                crate::characters::shinku::skill::DEFIANT_SPIRIT_AND_RAGE_HYPOTHESIS_ID.into(),
+                crate::characters::shinku::skill::DEFIANT_SPIRIT_AND_RAGE_HYPOTHESIS_ID
+                    .description()
+                    .into(),
+            );
+        }
         req.actions = vec![make_action(0, 0, ability, primary, 0, 0)];
         req.model_assumptions
             .insert(role_mapping().0, role_mapping().1);
@@ -892,9 +919,10 @@ fn shinku_crimson_judgment_and_dragonflame_inputs_deliver_one_talent_scaled_pack
                 "GA_Shinku_UltraSkill"
             );
             assert_eq!(report["hit_receipts"][0]["damage_effect_id"], packet_id);
+            // Passive 2 Wrathscale (BT >= 4 non-boss): +50% DMG on UltraSkill packets -> (3/2) * (1/2) DEF = 3/4
             assert_eq!(
                 report["hit_receipts"][0]["non_crit_damage"],
-                fraction_json(u128::from(rate), 2)
+                fraction_json(u128::from(rate) * 3, 4)
             );
             assert_eq!(
                 super::support::hit_metadata(&report, &report["hit_receipts"][0])["packet"]["native_damage_source_category"],
@@ -912,14 +940,13 @@ fn shinku_crimson_judgment_and_dragonflame_inputs_deliver_one_talent_scaled_pack
     }
 
     let mut sequence = request();
-    sequence.actors[0].initial_energy = 100;
     sequence.actions = vec![
         make_action(
             0,
             0,
             "GA_Shinku_UltraSkill",
             "GE_Player_Shinku_UltraSkill1_Damage",
-            100,
+            60,
             0,
         ),
         make_action(
@@ -950,9 +977,10 @@ fn shinku_crimson_judgment_and_dragonflame_inputs_deliver_one_talent_scaled_pack
         report["hit_receipts"][9]["damage_effect_id"],
         "GE_Player_Shinku_UltraSkillPre_Rage_Damage"
     );
+    // Surging Crimson (+30%) + Passive 2 non-boss (+50%) = +80% (9/5), over 1/2 DEF = 9/10.
     assert_eq!(
         report["hit_receipts"][9]["non_crit_damage"],
-        fraction_json(600 * 13, 20)
+        fraction_json(600 * 9, 10)
     );
     assert_eq!(
         report["hit_receipts"][10]["damage_effect_id"],
@@ -960,9 +988,10 @@ fn shinku_crimson_judgment_and_dragonflame_inputs_deliver_one_talent_scaled_pack
     );
     assert_eq!(
         report["hit_receipts"][10]["non_crit_damage"],
-        fraction_json(200 * 13, 20)
+        fraction_json(200 * 9, 10)
     );
     assert_eq!(report["final_actor_states"][0]["energy"], 0);
+    assert_eq!(report["final_actor_states"][0]["spent_energy"], 60);
 }
 
 #[test]
@@ -1005,18 +1034,29 @@ fn shinku_two_continuing_cycles_preserve_resources_and_state() {
     req.relative_duration_us = 130_000_000;
     req.actors[0].talent_levels = Some([8, 8, 8]);
     req.actors[0].awakening = ntesim_data::AwakeningSelection::prefix(6);
-    req.actors[0].initial_energy = 100;
-    req.actors[0].energy_capacity = 100;
 
     // Add teammate Actor 1 to participate in rotations
     let mut ally = req.actors[0].clone();
     ally.slot = 1;
     ally.character_id = "character:1019".into();
+    ally.initial_resources = Default::default();
     req.actors.push(ally);
 
     req.model_assumptions.insert(
         crate::simulation::energy::SHINKU_HIT_ENERGY_HYPOTHESIS_ID.into(),
         crate::simulation::energy::SHINKU_HIT_ENERGY_HYPOTHESIS_ID
+            .description()
+            .into(),
+    );
+    req.model_assumptions.insert(
+        crate::characters::shinku::skill::DEFIANT_SPIRIT_AND_RAGE_HYPOTHESIS_ID.into(),
+        crate::characters::shinku::skill::DEFIANT_SPIRIT_AND_RAGE_HYPOTHESIS_ID
+            .description()
+            .into(),
+    );
+    req.model_assumptions.insert(
+        crate::characters::shinku::passive::MODEL.into(),
+        crate::characters::shinku::passive::MODEL
             .description()
             .into(),
     );
@@ -1071,13 +1111,13 @@ fn shinku_two_continuing_cycles_preserve_resources_and_state() {
             12_000_000,
         ));
 
-        // 2. Burst cast at base_t + 2s (100 energy, 9 hits, re-arms Surging Crimson, cooldown 20s)
+        // 2. Burst cast at base_t + 2s (consumes 60 Defiant Spirit, 0 Ultimate Energy, 9 hits, enters Surging Crimson, cooldown 20s)
         actions.push(make_action(
             base_t + 2_000_000,
             0,
             "GA_Shinku_UltraSkill",
             "GE_Player_Shinku_UltraSkill1_Damage",
-            100,
+            0,
             20_000_000,
         ));
 
@@ -1166,7 +1206,6 @@ fn shinku_two_continuing_cycles_preserve_resources_and_state() {
 fn shinku_surging_crimson_full_rotation_loop() {
     let mut req = request();
     req.actors[0].talent_levels = Some([8, 8, 8]);
-    req.actors[0].initial_energy = 100;
     req.model_assumptions.insert(
         crate::characters::shinku::skill::CHAIN_HYPOTHESIS_ID.into(),
         crate::characters::shinku::skill::CHAIN_HYPOTHESIS_ID
@@ -1191,6 +1230,12 @@ fn shinku_surging_crimson_full_rotation_loop() {
             .description()
             .into(),
     );
+    req.model_assumptions.insert(
+        crate::characters::shinku::skill::DEFIANT_SPIRIT_AND_RAGE_HYPOTHESIS_ID.into(),
+        crate::characters::shinku::skill::DEFIANT_SPIRIT_AND_RAGE_HYPOTHESIS_ID
+            .description()
+            .into(),
+    );
 
     let mut actions = Vec::new();
 
@@ -1200,16 +1245,16 @@ fn shinku_surging_crimson_full_rotation_loop() {
         0,
         "GA_Shinku_UltraSkill",
         "GE_Player_Shinku_UltraSkill1_Damage",
-        100,
+        0,
         0,
     ));
 
-    // 2. 3 rounds of (4 basic attacks -> build 12 Fading Reason -> Scarlet Descent)
+    // 2. 3 rounds of (5 Tidal Assault stages -> build >=12 Fading Reason -> Scarlet Descent, >=3.0s CD apart)
     for round in 0..3 {
-        let base_us = 1_000_000 + round * 2_500_000;
-        for stage in 0..4 {
+        let base_us = 1_000_000 + round * 3_500_000;
+        for stage in 0..5 {
             actions.push(make_action(
-                base_us + stage * 500_000,
+                base_us + stage * 400_000,
                 0,
                 "GA_Shinku_Melee",
                 "GE_Player_Shinku_Melee1_1_Damage",
@@ -1228,12 +1273,11 @@ fn shinku_surging_crimson_full_rotation_loop() {
         ));
     }
 
-    // After 3 rounds: crimson_judgment_stacks = 3. Current time reaches ~8.5s.
-    // 3. At t >= 10.0s (stance started at 1.0s after initial cinematic, expires at 14.0s, remaining <= 4.0s):
-    // 3 Crimson Judgment dashes
+    // After 3 rounds: crimson_judgment_stacks = 3. Last Scarlet Descent at 10.0s.
+    // 3. Remaining Surging Crimson <= 4.0s (expires at 13s/14s): 3 Crimson Judgment dashes
     for dash in 0..3 {
         actions.push(make_action(
-            10_000_000 + dash * 500_000,
+            10_500_000 + dash * 500_000,
             0,
             "GA_Shinku_UltraSkill",
             "GE_Player_Shinku_UltraSkillPre_Rage_Damage",
@@ -1242,9 +1286,9 @@ fn shinku_surging_crimson_full_rotation_loop() {
         ));
     }
 
-    // 4. Stacks exhausted: Dragonflame Verdict finisher at 11.5s (10 rapid flurry + 1 finisher nuke = 11 hits)
+    // 4. Stacks exhausted: Dragonflame Verdict finisher at 12.0s (10 rapid flurry + 1 finisher nuke = 11 hits)
     actions.push(make_action(
-        11_500_000,
+        12_000_000,
         0,
         "GA_Shinku_UltraSkill",
         "GE_Player_Shinku_UltraSkill_Rage_Damage",
@@ -1264,16 +1308,11 @@ fn shinku_surging_crimson_full_rotation_loop() {
 
     // Hit breakdown:
     // Crimson Fury initial burst: 9 hits
-    // Round 0 attacks: stage 0 (1), stage 1 (2), stage 2 (4), stage 3 (2) = 9 hits
-    // Round 0 Scarlet Descent: 2 hits
-    // Round 1 attacks: normal stage reset by skill -> stage 0 (1), stage 1 (2), stage 2 (4), stage 3 (2) = 9 hits
-    // Round 1 Scarlet Descent: 2 hits
-    // Round 2 attacks: normal stage reset by skill -> stage 0 (1), stage 1 (2), stage 2 (4), stage 3 (2) = 9 hits
-    // Round 2 Scarlet Descent: 2 hits
+    // 3 rounds * (Tidal Assault 5 stages [2+1+6+2+1=12 hits] + Scarlet Descent [2 hits]) = 42 hits
     // 3 Crimson Judgment dashes: 3 * 4 = 12 hits
     // Dragonflame Verdict finisher: 10 + 1 = 11 hits
-    // Total = 9 + 9 + 2 + 9 + 2 + 9 + 2 + 12 + 11 = 65 hits!
-    assert_eq!(report["hits_settled"], 65);
+    // Total = 9 + 42 + 12 + 11 = 74 hits!
+    assert_eq!(report["hits_settled"], 74);
 
     // Verify finisher nuke is present and has 685.5% scaling rate at Lv8
     let receipts = report["hit_receipts"].as_array().unwrap();
@@ -1284,5 +1323,307 @@ fn shinku_surging_crimson_full_rotation_loop() {
     assert_eq!(finisher["scaling_rate"], "1371/200");
 }
 
+#[test]
+fn shinku_a6_boosts_only_rage_skill_and_rage_burst_packets_and_skill_uses_3s_cd() {
+    assert!(crate::characters::shinku::buff_duration("GA_Shinku_Skill").is_none());
+    assert_eq!(
+        crate::characters::shinku::buff_duration("GA_Shinku_UltraSkill"),
+        Some(13_000_000)
+    );
+    let studio_req = serde_json::from_value(json!({
+        "content_id": "ntesim-current",
+        "character_id": "character:1076",
+        "level": 80,
+        "max_level": 80,
+        "refinement": 1,
+        "set_count": 0
+    }))
+    .unwrap();
+    let projection = crate::build::studio_projection::project(
+        ntesim_data::stat_projection::frozen_tables(),
+        &studio_req,
+    )
+    .unwrap();
+    let GameActionCommand::InvokeAbility { cooldown_us, .. } =
+        &projection.public_actions["skill"].command
+    else {
+        panic!("expected ability command for shinku skill");
+    };
+    assert_eq!(*cooldown_us, 3_000_000);
+
+    let mut req = request();
+    req.actors[0].awakening = ntesim_data::AwakeningSelection::selected([6]).unwrap();
+    for id in [
+        crate::characters::shinku::skill::CHAIN_HYPOTHESIS_ID,
+        crate::characters::shinku::skill::SKILL_PACKETS_HYPOTHESIS_ID,
+        crate::characters::shinku::skill::BURST_PACKETS_HYPOTHESIS_ID,
+        crate::characters::shinku::skill::DIRECT_FOLLOWUP_INPUTS_HYPOTHESIS_ID,
+        crate::characters::shinku::skill::DEFIANT_SPIRIT_AND_RAGE_HYPOTHESIS_ID,
+    ] {
+        req.model_assumptions
+            .insert(id.into(), id.description().into());
+    }
+
+    // 1. Ordinary Skill before Burst: does not enter Surging Crimson, 3s CD allows recast after Burst.
+    // 2. Initial Burst at 1s: enters Surging Crimson (+30% DMG); UltraSkill1..5 get Passive 2 (+50% non-boss), NOT A6 +30% ratio.
+    // 3. Ordinary Skill at 4.5s (inside Surging Crimson): gets +30% DMG, NOT A6 +30% ratio.
+    // 4. 5 Tidal Assault stages build >=12 Fading Reason -> Scarlet Descent -> Crimson Judgment -> Dragonflame Verdict (all get A6 +30% ratio; Verdict settles BEFORE EndVerdictRage clears Surging Crimson).
+    req.actions = vec![
+        make_action(
+            0,
+            0,
+            "GA_Shinku_Skill",
+            "GE_Player_Shinku_Skill1_1_Damage",
+            0,
+            3_000_000,
+        ),
+        make_action(
+            1_000_000,
+            0,
+            "GA_Shinku_UltraSkill",
+            "GE_Player_Shinku_UltraSkill1_Damage",
+            0,
+            20_000_000,
+        ),
+        make_action(
+            8_500_000,
+            0,
+            "GA_Shinku_Melee",
+            "GE_Player_Shinku_Melee1_1_Damage",
+            0,
+            0,
+        ),
+        make_action(
+            9_000_000,
+            0,
+            "GA_Shinku_Melee",
+            "GE_Player_Shinku_Melee1_1_Damage",
+            0,
+            0,
+        ),
+        make_action(
+            9_400_000,
+            0,
+            "GA_Shinku_Melee",
+            "GE_Player_Shinku_Melee1_1_Damage",
+            0,
+            0,
+        ),
+        make_action(
+            9_800_000,
+            0,
+            "GA_Shinku_Melee",
+            "GE_Player_Shinku_Melee1_1_Damage",
+            0,
+            0,
+        ),
+        make_action(
+            10_200_000,
+            0,
+            "GA_Shinku_Melee",
+            "GE_Player_Shinku_Melee1_1_Damage",
+            0,
+            0,
+        ),
+        make_action(
+            10_800_000,
+            0,
+            "GA_Shinku_Skill",
+            "GE_Player_Shinku_Skill1_Rage_Damage",
+            0,
+            0,
+        ),
+        make_action(
+            18_000_000,
+            0,
+            "GA_Shinku_UltraSkill",
+            "GE_Player_Shinku_UltraSkillPre_Rage_Damage",
+            0,
+            0,
+        ),
+        make_action(
+            19_000_000,
+            0,
+            "GA_Shinku_UltraSkill",
+            "GE_Player_Shinku_UltraSkill_Rage_Damage",
+            0,
+            0,
+        ),
+    ];
+
+    let report = run_game_scenario(&req, &ExecutionLimits::default()).unwrap();
+    assert_eq!(
+        report["execution_completed"], true,
+        "{} {}",
+        report["halt_diagnostic"], report["rejected_action"]
+    );
+    let receipts = report["hit_receipts"].as_array().unwrap();
+    let find_first = |effect_id: &str, min_time: u64| {
+        receipts
+            .iter()
+            .find(|h| {
+                h["damage_effect_id"] == effect_id && h["time_us"].as_u64().unwrap() >= min_time
+            })
+            .expect(effect_id)["non_crit_damage"]
+            .clone()
+    };
+
+    // Pre-Burst Skill: no Surging Crimson, no A6 ratio.
+    assert_eq!(
+        find_first("GE_Player_Shinku_Skill1_1_Damage", 0),
+        fraction_json(173, 2)
+    );
+    // Initial Burst inside Surging Crimson: +30% Rage + +50% Passive 2 (non-boss) = +80% (9/5), no A6 ratio.
+    assert_eq!(
+        find_first("GE_Player_Shinku_UltraSkill1_Damage", 1_000_000),
+        fraction_json(185 * 9, 10)
+    );
+    assert_eq!(
+        find_first("GE_Player_Shinku_UltraSkill5_Damage", 1_000_000),
+        fraction_json(425 * 9, 10)
+    );
+    // Scarlet Descent: A6 +0.30 ratio + Surging +30% DMG (not UltraSkill -> no Passive 2).
+    assert_eq!(
+        find_first("GE_Player_Shinku_Skill1_Rage_Damage", 7_500_000),
+        fraction_json((224 + 300) * 13, 20)
+    );
+    assert_eq!(
+        find_first("GE_Player_Shinku_Skill2_Rage_Damage", 7_500_000),
+        fraction_json((2176 + 300) * 13, 20)
+    );
+    // Crimson Judgment & Dragonflame Verdict: A6 +0.30 ratio + Surging +30% DMG + Passive 2 +50% DMG = +80% (9/5).
+    assert_eq!(
+        find_first("GE_Player_Shinku_UltraSkillPre_Rage_Damage", 18_000_000),
+        fraction_json((600 + 300) * 9, 10)
+    );
+    assert_eq!(
+        find_first("GE_Player_Shinku_UltraSkill_Rage_Damage", 19_000_000),
+        fraction_json((200 + 300) * 9, 10)
+    );
+    assert_eq!(
+        find_first("GE_Player_Shinku_UltraSkill2_Rage_Damage", 19_000_000),
+        fraction_json((4000 + 300) * 9, 10)
+    );
+}
+
+#[test]
+fn shinku_cycle_accrual_and_zero_cycle_packets_match_client_heterochrome() {
+    let mut req = request();
+    for id in [
+        crate::characters::shinku::skill::CHAIN_HYPOTHESIS_ID,
+        crate::characters::shinku::skill::SKILL_PACKETS_HYPOTHESIS_ID,
+        crate::characters::shinku::skill::BURST_PACKETS_HYPOTHESIS_ID,
+        crate::characters::shinku::skill::DIRECT_FOLLOWUP_INPUTS_HYPOTHESIS_ID,
+        crate::characters::shinku::skill::DEFIANT_SPIRIT_AND_RAGE_HYPOTHESIS_ID,
+    ] {
+        req.model_assumptions
+            .insert(id.into(), id.description().into());
+    }
+
+    // Burst (0, 7.25s pause -> expires 20.250242s) -> 5-stage Tidal Assault at 7.5..9.5s (21.598)
+    // -> Scarlet Descent at 12.6s (8.900 + Watch #1 6.250 from 3.1s gap)
+    // -> Crimson Judgment x4 at 17.0s (13.332 + Watch #2 6.250 from 4.4s gap; inside final 4s)
+    // -> Dragonflame Verdict at 18.0s (0, 5.3s pause -> ends Surging Crimson)
+    // -> Ordinary Skill at 23.5s (8.700) -> QTE at 24.5s (0).
+    // Total Cycle raw = 21.598 + 8.700 + 8.900 + 13.332 + 2*6.250 = 65.030 -> 65 whole, 3/100 carry.
+    req.relative_duration_us = 25_000_000;
+    let mut actions = vec![make_action(
+        0,
+        0,
+        "GA_Shinku_UltraSkill",
+        "GE_Player_Shinku_UltraSkill1_Damage",
+        60,
+        0,
+    )];
+    for stage in 0..5 {
+        actions.push(make_action(
+            7_500_000 + stage * 500_000,
+            0,
+            "GA_Shinku_Melee",
+            "GE_Player_Shinku_Melee1_1_Damage",
+            0,
+            0,
+        ));
+    }
+    actions.push(make_action(
+        12_600_000,
+        0,
+        "GA_Shinku_Skill",
+        "GE_Player_Shinku_Skill1_Rage_Damage",
+        0,
+        0,
+    ));
+    actions.push(make_action(
+        17_000_000,
+        0,
+        "GA_Shinku_UltraSkill",
+        "GE_Player_Shinku_UltraSkillPre_Rage_Damage",
+        0,
+        0,
+    ));
+    actions.push(make_action(
+        18_000_000,
+        0,
+        "GA_Shinku_UltraSkill",
+        "GE_Player_Shinku_UltraSkill_Rage_Damage",
+        0,
+        0,
+    ));
+    actions.push(make_action(
+        23_500_000,
+        0,
+        "GA_Shinku_Skill",
+        "GE_Player_Shinku_Skill1_1_Damage",
+        0,
+        3_000_000,
+    ));
+    actions.push(make_action(
+        24_500_000,
+        0,
+        "GA_Shinku_QTE",
+        "GE_Player_Shinku_QTE_Damage",
+        0,
+        0,
+    ));
+    req.actions = actions;
+
+    let report = run_game_scenario(&req, &ExecutionLimits::default()).unwrap();
+    assert_eq!(
+        report["execution_completed"], true,
+        "{} {}",
+        report["halt_diagnostic"], report["rejected_action"]
+    );
+    assert_eq!(report["final_actor_states"][0]["cycle"]["current"], 65);
+
+    let cycle_events: Vec<&serde_json::Value> = report["trace"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .filter(|e| e["event_kind"] == "packet_cycle_grant")
+        .collect();
+    // 12 Tidal Assault + 3 Skill + 2 Scarlet Descent + 4 Crimson Judgment + 2 Watch = 23 Cycle-granting hits.
+    assert_eq!(cycle_events.len(), 23);
+    for zero_id in [
+        "GE_Player_Shinku_UltraSkill1_Damage",
+        "GE_Player_Shinku_UltraSkill2_Damage",
+        "GE_Player_Shinku_UltraSkill3_Damage",
+        "GE_Player_Shinku_UltraSkill4_Damage",
+        "GE_Player_Shinku_UltraSkill5_Damage",
+        "GE_Player_Shinku_UltraSkill_Rage_Damage",
+        "GE_Player_Shinku_UltraSkill2_Rage_Damage",
+        "GE_Player_Shinku_QTE_Damage",
+    ] {
+        assert!(
+            !cycle_events
+                .iter()
+                .any(|e| e["data"]["damage_effect_id"] == zero_id),
+            "{zero_id} must not grant cycle"
+        );
+    }
+    let last_event = cycle_events.last().unwrap();
+    assert_eq!(last_event["data"]["exact_carry"], "3/100");
+}
+
+mod full_kit;
 mod multi_target;
 mod pre_dawn;

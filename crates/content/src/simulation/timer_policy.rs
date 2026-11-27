@@ -49,6 +49,12 @@ pub(crate) fn immediate_callback(event: &GameEventData) -> bool {
                         | crate::characters::elyms::events::Event::ExpireQAtkBuff { .. }
                         | crate::characters::elyms::events::Event::RemoraEnhancement { .. }
                 )
+                | Shinku(
+                    crate::characters::shinku::events::Event::WatchStart { .. }
+                        | crate::characters::shinku::events::Event::WatchTick { .. }
+                        | crate::characters::shinku::events::Event::EndVerdictRage { .. }
+                        | crate::characters::shinku::events::Event::ScarletDescentHeal { .. }
+                )
                 | IroiClock(crate::characters::iroi::clock::Event::LambAi { .. })
                 | Edgar(crate::characters::edgar::clock::Event::FieldTick { .. })
         ),
@@ -150,6 +156,10 @@ fn content_domain(event: &crate::callbacks::ContentEvent) -> ClockDomain {
             crate::characters::elyms::events::Event::ActionAddE { owner, command, .. }
             | crate::characters::elyms::events::Event::ActionManage { owner, command, .. }
             | crate::characters::elyms::events::Event::SkillFinish { owner, command, .. },
+        )
+        | Shinku(
+            crate::characters::shinku::events::Event::EndVerdictRage { owner, command }
+            | crate::characters::shinku::events::Event::ScarletDescentHeal { owner, command },
         )
         | Chiz(
             crate::characters::chiz::events::Event::HeldPhase { owner, command, .. }

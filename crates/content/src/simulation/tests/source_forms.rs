@@ -208,38 +208,37 @@ fn source_blackbird_selects_transformed_plunge_skill_and_finisher_over_two_cycle
 #[test]
 fn source_shinku_crimson_refreshes_and_expires_across_two_continuing_cycles() {
     let result = run("options duration=100 crit=random;
-        shinku char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_energy=100;
-        shinku add stats ce=1;
+        shinku char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_energy=60;
         mint char lvl=80/80 awakening=0 talent=1,1,1 qte=1;
         target hp=100000000 def=0 resist=0; active shinku;
         if .shinku.surging_crimson.active || .shinku.mods.surging_crimson {let assertion_failure=1/0;}
-        repeat 2 {
-            let burst_start=.time;
-            shinku burst;
-            if !.shinku.surging_crimson.active || .shinku.mods.surging_crimson!=burst_start+13-.time {let assertion_failure=1/0;}
-            mint swap;
-            if .shinku.onfield || !.shinku.surging_crimson.active {let assertion_failure=1/0;}
-            wait(.shinku.mods.surging_crimson-0.000001);
-            if .shinku.mods.surging_crimson!=0.000001 {let assertion_failure=1/0;}
-            wait(0.000001);
-            if .shinku.surging_crimson.active || .shinku.mods.surging_crimson {let assertion_failure=1/0;}
-            shinku swap;
-            repeat 4 {shinku attack:5;}
-        }");
+        let burst_start=.time;
+        shinku burst;
+        if !.shinku.surging_crimson.active || .shinku.mods.surging_crimson!=burst_start+13-.time {let assertion_failure=1/0;}
+        wait(.shinku.mods.surging_crimson-0.000001);
+        if .shinku.mods.surging_crimson!=0.000001 {let assertion_failure=1/0;}
+        wait(0.000001);
+        if .shinku.surging_crimson.active || .shinku.mods.surging_crimson {let assertion_failure=1/0;}
+        repeat 4 {shinku attack:5;}
+        if .shinku.energy!=60 {let assertion_failure=1/0;}
+        shinku burst;
+        if !.shinku.surging_crimson.active {let assertion_failure=1/0;}
+        mint swap;
+        if .shinku.onfield || .shinku.surging_crimson.active || .shinku.mods.surging_crimson {let assertion_failure=1/0;}");
     assert!(
         result.report.success && result.report.execution_completed,
         "{:?}; {:?}",
         result.diagnostic,
         result.report.halt_diagnostic
     );
-    assert_eq!(result.report.final_actor_states[0].spent_energy, 200);
+    assert_eq!(result.report.final_actor_states[0].spent_energy, 120);
     super::assert_native_replay(&result);
 }
 
 #[test]
 fn source_shinku_queries_preserve_rng_and_unknown_names_diagnose_at_the_source() {
     let prefix = "options duration=15 crit=random;
-        shinku char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_energy=100;
+        shinku char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_energy=60;
         target hp=100000000 def=0 resist=0; active shinku;";
     let baseline = run(&format!("{prefix} shinku burst; shinku attack:5;"));
     let observed = run(&format!(
@@ -390,19 +389,25 @@ fn source_skia_natural_gnaw_expiry_uses_the_actual_grant_deadline() {
 
 #[test]
 fn source_owner_defeat_clears_shinku_and_skia_timed_states_immediately() {
-    for (owner, state, action) in [
-        ("shinku", "surging_crimson", "shinku burst;"),
-        ("skia", "gnaw", "skia skill;"),
+    for (owner, start_param, state, action, check_at) in [
+        (
+            "shinku",
+            "start_energy=60",
+            "surging_crimson",
+            "shinku burst;",
+            13,
+        ),
+        ("skia", "start_energy=100", "gnaw", "skia skill;", 6),
     ] {
         let result = run(&format!(
             "options duration=20 crit=random;
-            {owner} char lvl=80/80 awakening=0 talent=1,1,1 qte=1 start_energy=100;
+            {owner} char lvl=80/80 awakening=0 talent=1,1,1 qte=1 {start_param};
             mint char lvl=80/80 awakening=0 talent=1,1,1 qte=1;
             target hp=100000000 def=0 resist=0; active {owner};
             incoming {owner} at=4 damage=100000000;
             {action}
             if !.{owner}.{state}.active {{let assertion_failure=1/0;}}
-            wait_until(6);
+            wait_until({check_at});
             if .{owner}.hp || .{owner}.{state}.active || .{owner}.mods.{state} {{let assertion_failure=1/0;}}"
         ));
         assert!(

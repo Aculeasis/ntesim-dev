@@ -199,13 +199,14 @@ pub(crate) fn utility_invocation(
 }
 
 pub(crate) fn source_command(
+    request: &GameScenarioRequest,
     config: &GameActorConfig,
     actor: &ActorRuntime,
     template: &crate::simulation::GameActionCommand,
 ) -> Result<crate::simulation::GameActionCommand, String> {
     let mut command = template.clone();
     if let Some(kit) = lookup_kit(&config.character_id) {
-        kit.select_source_command(actor, &mut command)?;
+        kit.select_source_command(request, actor, &mut command)?;
     }
     Ok(command)
 }
@@ -1186,6 +1187,15 @@ pub(crate) fn on_charge_grant(
     crate::characters::zero::callback::on_charge_grant(ctx, recipient)
 }
 
+pub(crate) fn on_charge_reaction(
+    ctx: &mut crate::runtime_api::CallbackContext<'_>,
+    recipient: usize,
+    snapshot_command: usize,
+    raw: u64,
+) -> Result<(), String> {
+    crate::characters::shinku::passive::on_charge_reaction(ctx, recipient, snapshot_command, raw)
+}
+
 pub(crate) fn on_active_actor_energy_gain(
     ctx: &mut crate::runtime_api::CallbackContext<'_>,
     recipient: usize,
@@ -1454,6 +1464,9 @@ pub(crate) fn initialize_actor(
         crate::characters::RuntimeState::Iroi(_) => {
             crate::characters::iroi::resource::initialize(config, actor)
         }
+        crate::characters::RuntimeState::Shinku(_) => {
+            crate::characters::shinku::initialize(config, actor)
+        }
         _ => Ok(()),
     }
 }
@@ -1602,7 +1615,7 @@ pub(crate) fn sakiri_scorch_extension_eligible(
     })
 }
 
-/// Audit helper for Shinku Reaction AoE (DT_ReactionExtendDataTable row 1076, Buff_Shinku_ReactionAOE).
+/// Audit helper for Shinku Reaction AoE (DT_ReactionExtendDataTable row 1076, Buff_Shinku076_Passive1).
 #[allow(dead_code)]
 pub(crate) fn shinku_reaction_aoe_eligible(
     request: &GameScenarioRequest,
@@ -1611,7 +1624,7 @@ pub(crate) fn shinku_reaction_aoe_eligible(
     request.actors.iter().enumerate().any(|(i, actor)| {
         actor.character_id == "character:1076"
             && state.actors[i].hp > 0
-            && actor.awakening.has_effect(2)
+            && crate::characters::shinku::passive::passive1_unlocked(actor).unwrap_or(false)
     })
 }
 
@@ -1814,6 +1827,9 @@ pub(crate) fn fractional_resource_summaries(
         crate::characters::RuntimeState::Chaos(state) => {
             crate::characters::chaos::resources::summary(state)
         }
+        crate::characters::RuntimeState::Shinku(state) => {
+            crate::characters::shinku::resource_summaries(state)
+        }
         _ => Ok(Default::default()),
     }?;
     Ok(summaries
@@ -1922,6 +1938,8 @@ pub(crate) fn initialize_combat(
             crate::characters::chiz::pressed::initialize_combat(ctx, owner)?;
         } else if ctx.request.actors[owner].character_id == "character:1090" {
             crate::characters::elyms::skill::initialize_combat(ctx, owner)?;
+        } else if ctx.request.actors[owner].character_id == "character:1076" {
+            crate::characters::shinku::passive::initialize_combat(ctx, owner)?;
         }
     }
     Ok(())

@@ -322,6 +322,25 @@ pub(super) fn project(
                 _ => {}
             }
         }
+        if character == "character:1076" {
+            match kind {
+                "attack" => {
+                    recovery_us =
+                        crate::characters::shinku::parameters::PARAMETERS.normal_recoveries_us[0];
+                }
+                "skill" => {
+                    recovery_us =
+                        crate::characters::shinku::parameters::PARAMETERS.skill_recovery_us;
+                    cooldown_us =
+                        crate::characters::shinku::parameters::PARAMETERS.skill_cooldown_us;
+                }
+                "burst" => {
+                    recovery_us =
+                        crate::characters::shinku::parameters::PARAMETERS.burst_default_recovery_us;
+                }
+                _ => {}
+            }
+        }
         if character == "character:1057" {
             match kind {
                 "skill" => {
@@ -559,7 +578,7 @@ mod tests {
             ("character:1072", 100), // Linko
             ("character:1073", 100), // Chiz
             ("character:1075", 100), // Iroi
-            ("character:1076", 100), // Shinku
+            ("character:1076", 60),  // Shinku (Defiant Spirit capacity 60)
             ("character:1090", 100), // Elyms
         ] {
             let request = serde_json::from_value(json!({

@@ -81,6 +81,8 @@ pub(crate) fn on_field_entry(
         mint::skill::on_field_entry(ctx, actor_index)?;
     } else if char_id == "character:1090" {
         elyms::skill::on_field_entry(ctx, actor_index)?;
+    } else if char_id == "character:1076" {
+        shinku::passive::on_field_entry(ctx, actor_index)?;
     } else if char_id == "character:1075" {
         let now = ctx.state.current_time_us;
         let is_living = ctx.state.actors[actor_index].hp > 0;

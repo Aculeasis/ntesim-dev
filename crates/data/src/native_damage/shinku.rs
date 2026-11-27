@@ -1,6 +1,47 @@
 //! Consumed packet coefficients and metadata; native values in millionths.
 use super::{DamageType, Packet, SourceCategory};
 
+pub(super) fn cycle_milli(id: &str) -> Option<u64> {
+    Some(match id {
+        "GE_Player_Shinku_Melee1_1_Damage" => 1266,
+        "GE_Player_Shinku_Melee1_1_Rage_Damage" => 1771,
+        "GE_Player_Shinku_Melee1_2_1_Damage" => 1419,
+        "GE_Player_Shinku_Melee1_2_Damage" => 2140,
+        "GE_Player_Shinku_Melee1_3_1_Damage" => 1206,
+        "GE_Player_Shinku_Melee1_3_2_Damage" => 1365,
+        "GE_Player_Shinku_Melee1_3_3_Damage" => 2918,
+        "GE_Player_Shinku_Melee1_3_Damage" => 2039,
+        "GE_Player_Shinku_Melee1_4_1_Damage" => 3454,
+        "GE_Player_Shinku_Melee1_4_Damage" => 5658,
+        "GE_Player_Shinku_Melee1_5_Damage" => 7834,
+        "GE_Player_Shinku_Melee1_Rage_Damage" => 2242,
+        "GE_Player_Shinku_Melee2_Rage_Damage" => 2614,
+        "GE_Player_Shinku_Melee3_1_Rage_Damage" => 502,
+        "GE_Player_Shinku_Melee3_Rage_Damage" => 1629,
+        "GE_Player_Shinku_Melee4_1_Rage_Damage" => 4410,
+        "GE_Player_Shinku_Melee4_Rage_Damage" => 3438,
+        "GE_Player_Shinku_Melee5_Rage_Damage" => 2984,
+        "GE_Player_Shinku_Skill1_1_Damage" => 1255,
+        "GE_Player_Shinku_Skill1_2_Damage" => 1673,
+        "GE_Player_Shinku_Skill1_3_Damage" => 5772,
+        "GE_Player_Shinku_Skill1_Rage_Damage" => 832,
+        "GE_Player_Shinku_Skill2_Rage_Damage" => 8068,
+        "GE_Player_Shinku_UltraSkillPre_Rage_Damage" => 3333,
+        "GE_Player_Shinku_Watch_Damage" => 6250,
+        "GE_Player_Shinku_QTE_Damage"
+        | "GE_Player_Shinku_ReactionAOE_Damage"
+        | "GE_Player_Shinku_UltraSkill1_Damage"
+        | "GE_Player_Shinku_UltraSkill2_Damage"
+        | "GE_Player_Shinku_UltraSkill2_Rage_Damage"
+        | "GE_Player_Shinku_UltraSkill3_Damage"
+        | "GE_Player_Shinku_UltraSkill4_Damage"
+        | "GE_Player_Shinku_UltraSkill5_Damage"
+        | "GE_Player_Shinku_UltraSkill_Rage_Damage"
+        | "GE_Player_Shinku_WatchEx_Damage" => 0,
+        _ => return None,
+    })
+}
+
 pub(super) const PACKETS: &[Packet] = &[
     Packet {
         native_id: "GE_Player_Shinku_Melee1_1_Damage",
@@ -360,6 +401,171 @@ pub(super) const PACKETS: &[Packet] = &[
         hp: &[],
         charge: 0,
         unbalance: 50000,
+        fixed_crit: 0,
+    },
+    Packet {
+        native_id: "GE_Player_Shinku_Melee1_Rage_Damage",
+        ability_id: "GA_Shinku_Melee",
+        damage_type: DamageType::Cosmos,
+        source_category: SourceCategory::A,
+        atk: &[
+            350000, 378000, 408000, 441000, 476000, 514000, 555000, 600000, 648000, 700000, 756000,
+            816000, 881000,
+        ],
+        def: &[],
+        hp: &[],
+        charge: 1349000,
+        unbalance: 270000,
+        fixed_crit: 0,
+    },
+    Packet {
+        native_id: "GE_Player_Shinku_Melee1_1_Rage_Damage",
+        ability_id: "GA_Shinku_Melee",
+        damage_type: DamageType::Cosmos,
+        source_category: SourceCategory::A,
+        atk: &[
+            276000, 298000, 322000, 348000, 375000, 406000, 438000, 473000, 511000, 552000, 596000,
+            644000, 695000,
+        ],
+        def: &[],
+        hp: &[],
+        charge: 1066000,
+        unbalance: 213000,
+        fixed_crit: 0,
+    },
+    Packet {
+        native_id: "GE_Player_Shinku_Melee2_Rage_Damage",
+        ability_id: "GA_Shinku_Melee",
+        damage_type: DamageType::Cosmos,
+        source_category: SourceCategory::A,
+        atk: &[
+            408000, 441000, 476000, 514000, 555000, 599000, 647000, 699000, 755000, 816000, 881000,
+            951000, 1027000,
+        ],
+        def: &[],
+        hp: &[],
+        charge: 1573000,
+        unbalance: 315000,
+        fixed_crit: 0,
+    },
+    Packet {
+        native_id: "GE_Player_Shinku_Melee3_Rage_Damage",
+        ability_id: "GA_Shinku_Melee",
+        damage_type: DamageType::Cosmos,
+        source_category: SourceCategory::A,
+        atk: &[
+            254000, 274000, 296000, 320000, 346000, 373000, 403000, 435000, 470000, 508000, 548000,
+            592000, 640000,
+        ],
+        def: &[],
+        hp: &[],
+        charge: 981000,
+        unbalance: 196000,
+        fixed_crit: 0,
+    },
+    Packet {
+        native_id: "GE_Player_Shinku_Melee3_1_Rage_Damage",
+        ability_id: "GA_Shinku_Melee",
+        damage_type: DamageType::Cosmos,
+        source_category: SourceCategory::A,
+        atk: &[
+            78000, 84000, 91000, 98000, 106000, 115000, 124000, 134000, 144000, 156000, 168000,
+            182000, 196000,
+        ],
+        def: &[],
+        hp: &[],
+        charge: 302000,
+        unbalance: 60000,
+        fixed_crit: 0,
+    },
+    Packet {
+        native_id: "GE_Player_Shinku_Melee4_Rage_Damage",
+        ability_id: "GA_Shinku_Melee",
+        damage_type: DamageType::Cosmos,
+        source_category: SourceCategory::A,
+        atk: &[
+            536000, 579000, 625000, 675000, 729000, 788000, 851000, 919000, 992000, 1071000,
+            1157000, 1250000, 1350000,
+        ],
+        def: &[],
+        hp: &[],
+        charge: 2069000,
+        unbalance: 414000,
+        fixed_crit: 0,
+    },
+    Packet {
+        native_id: "GE_Player_Shinku_Melee4_1_Rage_Damage",
+        ability_id: "GA_Shinku_Melee",
+        damage_type: DamageType::Cosmos,
+        source_category: SourceCategory::A,
+        atk: &[
+            687000, 742000, 801000, 865000, 935000, 1009000, 1090000, 1177000, 1272000, 1373000,
+            1483000, 1602000, 1730000,
+        ],
+        def: &[],
+        hp: &[],
+        charge: 2654000,
+        unbalance: 531000,
+        fixed_crit: 0,
+    },
+    Packet {
+        native_id: "GE_Player_Shinku_Melee5_Rage_Damage",
+        ability_id: "GA_Shinku_Melee",
+        damage_type: DamageType::Cosmos,
+        source_category: SourceCategory::A,
+        atk: &[
+            465000, 502000, 542000, 586000, 633000, 683000, 738000, 797000, 861000, 930000,
+            1004000, 1084000, 1171000,
+        ],
+        def: &[],
+        hp: &[],
+        charge: 1796000,
+        unbalance: 359000,
+        fixed_crit: 0,
+    },
+    Packet {
+        native_id: "GE_Player_Shinku_Watch_Damage",
+        ability_id: "GA_Shinku_Melee",
+        damage_type: DamageType::Cosmos,
+        source_category: SourceCategory::A,
+        atk: &[
+            1000000, 1080000, 1166000, 1260000, 1360000, 1469000, 1587000, 1714000, 1851000,
+            1999000, 2159000, 2332000, 2518000,
+        ],
+        def: &[],
+        hp: &[],
+        charge: 3750000,
+        unbalance: 500000,
+        fixed_crit: 0,
+    },
+    Packet {
+        native_id: "GE_Player_Shinku_WatchEx_Damage",
+        ability_id: "GA_Shinku_Melee",
+        damage_type: DamageType::Cosmos,
+        source_category: SourceCategory::A,
+        atk: &[
+            200000, 216000, 233000, 252000, 272000, 294000, 317000, 343000, 370000, 400000, 432000,
+            466000, 504000,
+        ],
+        def: &[],
+        hp: &[],
+        charge: 0,
+        unbalance: 0,
+        fixed_crit: 0,
+    },
+    Packet {
+        native_id: "GE_Player_Shinku_ReactionAOE_Damage",
+        ability_id: "GA_Shinku_Melee",
+        damage_type: DamageType::Cosmos,
+        source_category: SourceCategory::A,
+        atk: &[
+            4000000, 4320000, 4666000, 5039000, 5442000, 5877000, 6347000, 6855000, 7404000,
+            7996000, 8636000, 9327000, 10073000,
+        ],
+        def: &[],
+        hp: &[],
+        charge: 10000000,
+        unbalance: 0,
         fixed_crit: 0,
     },
 ];
