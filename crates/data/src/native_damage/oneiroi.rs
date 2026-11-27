@@ -497,3 +497,42 @@ pub(super) const PACKETS: &[Packet] = &[
         fixed_crit: 0,
     },
 ];
+
+pub(super) fn cycle_milli(id: &str) -> Option<u64> {
+    Some(match id {
+        "GE_Player_Oneiroi_Melee1_Damage" => 4048,
+        "GE_Player_Oneiroi_Melee2_Damage" => 1659,
+        "GE_Player_Oneiroi_Melee3_Damage" => 1069,
+        "GE_Player_Oneiroi_Melee4_Damage" => 9200,
+        "GE_Player_Oneiroi_Melee5_Damage" => 3312,
+        "GE_Player_Oneiroi_Branch1_Damage" => 900,
+        "GE_Player_Oneiroi_Branch2_Damage" => 2700,
+        "GE_Player_Oneiroi_Branch3_Damage" => 1100,
+        "GE_Player_Oneiroi_Branch5_Damage" => 200,
+        "GE_Player_Oneiroi_AirAttack_Damage" => 3800,
+        "GE_Player_Oneiroi_PerfectEvadeAttack_Damage" => 5600,
+        "GE_Player_Oneiroi_Skill_Gun_Damage" => 500,
+        "GE_Player_Oneiroi_Skill_Syringe_Damage" => 1014,
+        "GE_Player_Oneiroi_Skill_Trumpet_Damage" => 400,
+        "GE_Damage_sheep_gun_awaken2"
+        | "GE_Damage_sheep_syringe_awaken2"
+        | "GE_Damage_sheep_trumpet_awaken2"
+        | "GE_Player_Oneiroi_GunAI_QTE_Guang_Damage"
+        | "GE_Player_Oneiroi_GunAI_QTE_Zhou_Damage"
+        | "GE_Player_Oneiroi_GunAI_Skill1_Damage"
+        | "GE_Player_Oneiroi_GunAI_Skill2_Damage"
+        | "GE_Player_Oneiroi_QTE_Damage"
+        | "GE_Player_Oneiroi_Skill_Damage"
+        | "GE_Player_Oneiroi_SyringeAI_QTE_Guang_Damage"
+        | "GE_Player_Oneiroi_SyringeAI_QTE_Zhou_Damage"
+        | "GE_Player_Oneiroi_SyringeAI_Skill1_Damage"
+        | "GE_Player_Oneiroi_SyringeAI_Skill2_Damage"
+        | "GE_Player_Oneiroi_TrumpetAI_QTE_Guang_Damage"
+        | "GE_Player_Oneiroi_TrumpetAI_QTE_Zhou_Damage"
+        | "GE_Player_Oneiroi_TrumpetAI_Skill1_Damage"
+        | "GE_Player_Oneiroi_TrumpetAI_Skill2_Damage"
+        | "GE_Player_Oneiroi_UltraSkill1_Damage"
+        | "GE_Player_Oneiroi_UltraSkill_Damage" => 0,
+        _ => return None,
+    })
+}

@@ -95,14 +95,14 @@ fn iroi_normal_skill_and_burst_use_native_talent_coefficients_and_resonance_bonu
     // Lv1: 1000 * 1.5 * (20 / 39) = 10000 / 13
     // Lv8: 1000 * 2.571 * (20 / 39) = 17140 / 13
     // Lv9: 1000 * 2.776 * (20 / 39) = 55520 / 39
-    // Lv8 + A4 (+30% DMG): 1000 * 2.571 * (20 / 39) * 1.3 = 1714 / 1
+    // Lv8 + A4 (boosts Regression lamb AI Skill1/2 ratios only, not tap Skill): stays 55520 / 39
     for (level, awakening, expected_hits, expected_num, expected_den) in [
         (1, 0, 9, 10000, 13),
         (8, 0, 9, 17140, 13),
         (8, 1, 9, 17140, 13),
         (8, 2, 10, 17140, 13),
         (8, 3, 10, 55520, 39),
-        (8, 4, 10, 5552, 3),
+        (8, 4, 10, 55520, 39),
     ] {
         let mut req = request();
         req.actors[0].talent_levels = Some([1, level, 1]);
@@ -1250,4 +1250,154 @@ fn iroi_two_continuing_cycles_preserve_resources_and_state() {
     let final_state = &report["final_actor_states"][0];
     assert_eq!(final_state["character_id"], "character:1075");
     assert_eq!(final_state["spent_energy"], 200); // 2 Bursts paid at 100 energy each
+}
+
+#[test]
+fn iroi_packet_cycle_accrual_matches_client_heterochrome_values() {
+    let mut req = request();
+    req.actors[0].talent_levels = Some([8, 8, 8]);
+    req.actors[0].awakening = ntesim_data::AwakeningSelection::prefix(0);
+    req.actors[0].initial_energy = 100;
+    req.relative_duration_us = 35_000_000;
+    let mut actions = make_melee_chain(0);
+    actions.push(make_action(
+        10_000_000,
+        0,
+        "GA_Oneiroi_Skill",
+        "GE_Player_Oneiroi_Skill_Gun_Damage",
+        0,
+        12_000_000,
+    ));
+    actions.push(make_action(
+        15_000_000,
+        0,
+        "GA_Oneiroi_UltraSkill",
+        "GE_Player_Oneiroi_UltraSkill_Damage",
+        100,
+        16_000_000,
+    ));
+    req.actions = actions;
+
+    let report = run_game_scenario(&req, &ExecutionLimits::default()).unwrap();
+    assert_eq!(
+        report["execution_completed"], true,
+        "{}",
+        report["halt_diagnostic"]
+    );
+
+    let cycle = &report["final_actor_states"][0]["cycle"];
+    // Normal full 16-hit chain = 36.713; tap Skill (1 Gun + 7 Syringe + 1 Trumpet) = 7.998;
+    // Burst/Dream pulses = 0 -> total = 44.711 (44 granted, 711/1000 carry).
+    assert_eq!(cycle["granted"], 44);
+    assert_eq!(cycle["current"], 44);
+    assert_eq!(cycle["overflow"], 0);
+    assert_eq!(cycle["carry"], "711/1000");
+
+    let grants: Vec<_> = report["trace"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .filter(|e| e["event_kind"] == "packet_cycle_grant")
+        .collect();
+    assert_eq!(grants.len(), 16 + 9);
+    assert!(!grants.iter().any(|e| {
+        let id = e["data"]["damage_effect_id"].as_str().unwrap_or("");
+        id == "GE_Player_Oneiroi_Skill_Damage"
+            || id == "GE_Player_Oneiroi_UltraSkill_Damage"
+            || id == "GE_Player_Oneiroi_UltraSkill1_Damage"
+    }));
+}
+
+#[test]
+fn iroi_a4_modifies_only_regression_lamb_ai_skill_ratios_not_tap_skill_or_qte() {
+    use crate::runtime_api::{DamageContext, HitModifiers};
+
+    let base_req = request();
+    let mut a4_req = base_req.clone();
+    a4_req.actors[0].awakening = ntesim_data::AwakeningSelection::selected([4]).unwrap();
+
+    let tables = ntesim_data::skill_levels::frozen::tables();
+    let buff_stats = std::collections::BTreeMap::new();
+    let owned_status_counts = std::collections::BTreeMap::new();
+    let check_effect = |req: &GameScenarioRequest, ability_id: &str, effect_id: &str| {
+        let mut state = crate::simulation::state::GameSimulatorState::new(req);
+        state.actors[0].hp = 1000;
+        let metadata = crate::simulation::metadata::resolve_requested_action_packet(
+            &req.content_id,
+            tables,
+            &req.actors[0].character_id,
+            ability_id,
+            effect_id,
+            None,
+            &req.model_assumptions,
+        )
+        .unwrap();
+        let ctx = DamageContext {
+            world_time_us: 0,
+            foreign_dot_stacks: 0,
+            packet_group_id: None,
+            command_index: 0,
+            config: &req.actors[0],
+            start_fons: None,
+            ability_id,
+            action_metadata: &metadata.action,
+            target: &state.targets[0],
+            actor: &state.actors[0],
+            time_us: 0,
+            debuff_count: 0,
+            damage_effect_id: effect_id,
+            actor_index: 0,
+            active_actor_index: 0,
+            target_count: 1,
+            non_boss_target_count: 1,
+            target_index: 0,
+            buffs: &state.buffs,
+            buff_stats: (&buff_stats).into(),
+            owned_status_counts: &owned_status_counts,
+            team_has_three_elements: false,
+        };
+        let zero = ExactFraction::new(0, 1).unwrap();
+        crate::characters::iroi::awakenings::damage_bonus(&ctx, HitModifiers::new(zero).unwrap())
+            .unwrap()
+    };
+
+    let zero = ExactFraction::new(0, 1).unwrap();
+    for lamb_skill in [
+        "GE_Player_Oneiroi_GunAI_Skill1_Damage",
+        "GE_Player_Oneiroi_GunAI_Skill2_Damage",
+        "GE_Player_Oneiroi_SyringeAI_Skill1_Damage",
+        "GE_Player_Oneiroi_SyringeAI_Skill2_Damage",
+        "GE_Player_Oneiroi_TrumpetAI_Skill1_Damage",
+        "GE_Player_Oneiroi_TrumpetAI_Skill2_Damage",
+    ] {
+        let mods = check_effect(&a4_req, "GA_Oneiroi_Skill", lamb_skill);
+        assert_eq!(
+            mods.ratio_modify,
+            ExactFraction::new(3, 10).unwrap(),
+            "{lamb_skill}"
+        );
+        assert_eq!(mods.damage_bonus, zero, "{lamb_skill}");
+        let a0_mods = check_effect(&base_req, "GA_Oneiroi_Skill", lamb_skill);
+        assert_eq!(a0_mods.ratio_modify, zero);
+    }
+
+    for non_ai_skill in [
+        "GE_Player_Oneiroi_Skill_Damage",
+        "GE_Player_Oneiroi_Skill_Gun_Damage",
+        "GE_Player_Oneiroi_Skill_Syringe_Damage",
+        "GE_Player_Oneiroi_Skill_Trumpet_Damage",
+        "GE_Damage_sheep_gun_awaken2",
+        "GE_Damage_sheep_syringe_awaken2",
+        "GE_Damage_sheep_trumpet_awaken2",
+        "GE_Player_Oneiroi_GunAI_QTE_Guang_Damage",
+        "GE_Player_Oneiroi_GunAI_QTE_Zhou_Damage",
+        "GE_Player_Oneiroi_SyringeAI_QTE_Guang_Damage",
+        "GE_Player_Oneiroi_SyringeAI_QTE_Zhou_Damage",
+        "GE_Player_Oneiroi_TrumpetAI_QTE_Guang_Damage",
+        "GE_Player_Oneiroi_TrumpetAI_QTE_Zhou_Damage",
+    ] {
+        let mods = check_effect(&a4_req, "GA_Oneiroi_Skill", non_ai_skill);
+        assert_eq!(mods.ratio_modify, zero, "{non_ai_skill}");
+        assert_eq!(mods.damage_bonus, zero, "{non_ai_skill}");
+    }
 }

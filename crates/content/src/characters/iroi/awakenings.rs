@@ -157,19 +157,15 @@ pub(crate) fn is_lamb_ai_skill(effect: &str) -> bool {
     )
 }
 
-/// per 1075AwakenEffect.json / DT_OneiroiEffectFigure.json Buff_Oneiroi075_Level4_extra = 0.3.
+/// A4 (`Trait: Retaliatory`) increases the ATK ratio of the six Regression lamb AI
+/// Skill1/Skill2 packets by +30% of their base coefficient (`Calc_*AISheep_Skill*_AtkPerUP`).
 pub(crate) fn damage_bonus(
     ctx: &DamageContext<'_>,
     mut dmg_bonus: crate::runtime_api::HitModifiers,
 ) -> Result<crate::runtime_api::HitModifiers, String> {
     if ctx.config.character_id == "character:1075" {
-        if ctx.config.awakening.has_effect(4) {
-            if is_lamb_ai_skill(ctx.damage_effect_id) {
-                dmg_bonus = dmg_bonus.modify_ratio(ExactFraction::new(3, 10)?)?;
-            } else if ctx.ability_id == "GA_Oneiroi_Skill" {
-                let lamb_bonus = ExactFraction::new(3, 10)?;
-                dmg_bonus = dmg_bonus.add_damage(lamb_bonus)?;
-            }
+        if ctx.config.awakening.has_effect(4) && is_lamb_ai_skill(ctx.damage_effect_id) {
+            dmg_bonus = dmg_bonus.modify_ratio(ExactFraction::new(3, 10)?)?;
         }
         if ctx.config.awakening.has_resonance_6()
             && let Ok(state) = ctx.actor.character.iroi()

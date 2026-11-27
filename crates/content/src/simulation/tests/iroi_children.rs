@@ -490,7 +490,7 @@ fn iroi_awakenings_use_selected_effect_ids_while_resonance_uses_count() {
             report["hit_receipts"][0]["non_crit_damage"].clone()
         )
         .unwrap(),
-        ExactFraction::new(31_924, 15).unwrap()
+        ExactFraction::new(63_848, 39).unwrap()
     );
     assert!(
         report["trace"]

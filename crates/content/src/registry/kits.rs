@@ -2711,6 +2711,20 @@ impl CharacterKit for IroiKit {
         crate::characters::iroi::riposte::direct_packet_energy(ability, packet)
             .or_else(|| crate::characters::iroi::plunge::direct_packet_energy(ability, packet))
     }
+    fn packet_cycle_grant(
+        &self,
+        _request: &GameScenarioRequest,
+        effect: &str,
+    ) -> Result<Option<crate::runtime_api::PacketCycleGrant>, String> {
+        ntesim_data::native_damage::cycle_add(ntesim_data::skill_levels::frozen::tables(), effect)?
+            .map(|raw| {
+                Ok(crate::runtime_api::PacketCycleGrant {
+                    raw: ExactFraction::new(raw.numerator(), raw.denominator())?,
+                    hypothesis: crate::HypothesisId::CombatPacketCycleAccrualV1,
+                })
+            })
+            .transpose()
+    }
     fn on_cast(&self, ctx: &mut CastContext<'_>) -> Result<(), String> {
         if crate::characters::iroi::clock::cast(ctx)? {
             return Ok(());
