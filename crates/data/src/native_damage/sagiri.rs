@@ -1,6 +1,31 @@
 //! Consumed packet coefficients and metadata; native values in millionths.
 use super::{DamageType, Packet, SourceCategory};
 
+pub(super) fn cycle_milli(id: &str) -> Option<u64> {
+    Some(match id {
+        "GE_Player_Sagiri_AirAttack1_Damage" => 4200,
+        "GE_Player_Sagiri_Melee1_Damage" => 3353,
+        "GE_Player_Sagiri_Melee2_Damage" => 1148,
+        "GE_Player_Sagiri_Melee3_Damage" => 6302,
+        "GE_Player_Sagiri_Melee4_Damage" => 5965,
+        "GE_Player_Sagiri_Melee5_Damage" => 2754,
+        "GE_Player_Sagiri_Melee6_Damage" => 292,
+        "GE_Player_Sagiri_Melee7_Damage" => 8842,
+        "GE_Player_Sagiri_Melee8_Damage" => 135,
+        "GE_Player_Sagiri_PerfectEvadeAttack_Damage" => 8900,
+        "GE_Player_Sagiri_Skill1_Damage" => 6546,
+        "GE_Player_Sagiri_Skill2_Damage" => 9054,
+        "GE_Player_Sagiri_Skill3_Damage" => 6951,
+        "GE_Player_Sagiri_Skill4_Damage" => 11166,
+        "GE_Player_Sagiri_Skill5_Damage" => 5283,
+        "GE_Player_Sagiri_QTE1_Damage"
+        | "GE_Player_Sagiri_UltraSkill1_Damage"
+        | "GE_Player_Sagiri_UltraSkill2_Damage"
+        | "GE_Player_Sagiri_UltraSkill_Damage_LV2" => 0,
+        _ => return None,
+    })
+}
+
 pub(super) const PACKETS: &[Packet] = &[
     Packet {
         native_id: "GE_Player_Sagiri_AirAttack1_Damage",

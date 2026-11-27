@@ -232,3 +232,88 @@ fn sakiri_control_models_require_strict_acceptance_before_committing_the_cast() 
         report["halt_diagnostic"], report["rejected_action"]
     );
 }
+
+#[test]
+fn sakiri_passives_require_breakthrough_and_skill_accrues_cycle_with_16s_cooldown() {
+    let tables = ntesim_data::stat_projection::frozen_tables();
+    let proj_req = serde_json::from_value(serde_json::json!({
+        "content_id": "ntesim-current",
+        "character_id": "character:1003",
+        "level": 80,
+        "max_level": 80,
+        "refinement": 1,
+        "set_count": 0
+    }))
+    .unwrap();
+    let projection = crate::build::studio_projection::project(tables, &proj_req).unwrap();
+    let GameActionCommand::InvokeAbility { cooldown_us, .. } =
+        projection.public_actions["skill"].command
+    else {
+        panic!("expected skill ability");
+    };
+    assert_eq!(cooldown_us, 16_000_000);
+
+    let skill_action =
+        |ability_id: &str, damage_effect_id: &str, energy_cost: u64, cooldown_us: u64| {
+            GameActionCommand::InvokeAbility {
+                timestamp_us: 0,
+                actor_index: 0,
+                ability_id: ability_id.into(),
+                array_index: 0,
+                damage_effect_id: damage_effect_id.into(),
+                atk_rate: Ratio::one(),
+                scaling_stat: Default::default(),
+                energy_cost,
+                recovery_us: 1_200_000,
+                cooldown_us,
+                hit_delay_us: 0,
+            }
+        };
+
+    // Passive 2 (BT >= 4): Hold Skill (Skill4_Damage) inflicts Impish Trick DEF -10% at lvl 80/80,
+    // whereas Burst at lvl 1/20 (BT0) still Suppresses without Impish Trick DEF shred.
+    let mut bt4_req = super::sakiri_actions::request();
+    bt4_req.targets[0].control_immune = false;
+    bt4_req.targets[0].defense = 1000;
+    bt4_req.targets[0].base_defense = Some(1000);
+    bt4_req.actors[0].initial_cycle = 0;
+    bt4_req.relative_duration_us = 5_000_000;
+    bt4_req.actions = vec![skill_action(
+        "GA_Sagiri_Skill",
+        "GE_Player_Sagiri_Skill3_Damage",
+        0,
+        16_000_000,
+    )];
+    let bt4_report = run_game_scenario(&bt4_req, &ExecutionLimits::default()).unwrap();
+    assert_eq!(bt4_report["execution_completed"], true);
+    assert!(
+        super::support::final_buffs(&bt4_report)
+            .iter()
+            .any(|b| b["id"] == "sakiri.impish_trick_def")
+    );
+    // Hold Skill (Skill3 + Skill4 + Skill5) grants 6.951 + 11.166 + 5.283 = 23.400 Esper Cycle.
+    assert_eq!(bt4_report["final_actor_states"][0]["cycle"]["current"], 23);
+
+    let mut bt0_req = super::sakiri_actions::request();
+    bt0_req.actors[0].character_level = 1;
+    bt0_req.actors[0].character_max_level = Some(20);
+    bt0_req.actors[0].purchased_skill_level = 1;
+    bt0_req.actors[0].purchased_qte_level = Some(1);
+    bt0_req.actors[0].talent_levels = Some([1, 1, 1]);
+    bt0_req.actors[0].energy_capacity = 120;
+    bt0_req.actors[0].initial_energy = 120;
+    bt0_req.targets[0].control_immune = false;
+    bt0_req.actions = vec![skill_action(
+        "GA_Sagiri_UltraSkill",
+        "GE_Player_Sagiri_UltraSkill1_Damage",
+        120,
+        20_000_000,
+    )];
+    let bt0_report = run_game_scenario(&bt0_req, &ExecutionLimits::default()).unwrap();
+    assert_eq!(bt0_report["execution_completed"], true);
+    assert!(
+        !super::support::final_buffs(&bt0_report)
+            .iter()
+            .any(|b| b["id"] == "sakiri.impish_trick_def")
+    );
+}

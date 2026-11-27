@@ -73,9 +73,12 @@ while 1 {
   }
   if .zankou.support.ready { tome_supports = tome_supports + 1; }
   zankou swap;
-  zankou attack; zankou attack[hold=200ms]; zankou skill;
-  while !.zankou.enhanced_soulcross.active { zankou attack; }
-  zankou skill;
+  zankou attack; zankou attack[hold=200ms];
+  if .zankou.skill.ready {
+    zankou skill;
+    while !.zankou.enhanced_soulcross.active { zankou attack; }
+    zankou skill;
+  }
   if .zankou.burst.ready { zankou burst; }
   if .zankou.free_inferno.active && .zankou.burst.ready { zankou burst; }
   # A second Illusion chain spreads newly produced Vile Ash at A0.

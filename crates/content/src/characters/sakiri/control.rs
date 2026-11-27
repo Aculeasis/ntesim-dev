@@ -5,41 +5,21 @@ use ntesim_core::buffs::dispatch::{
 };
 
 pub(crate) fn preflight(ctx: &mut crate::runtime_api::CastContext<'_>) -> Result<(), String> {
-    if ctx.ability_id != "GA_Sagiri_UltraSkill" {
+    if !matches!(ctx.ability_id, "GA_Sagiri_UltraSkill" | "GA_Sagiri_Skill") {
         return Ok(());
     }
-    ctx.record_hypothesis(crate::HypothesisId::SakiriSuppressV1)?;
-    ctx.record_hypothesis(crate::HypothesisId::CombatControlEffectsV1)?;
+    if ctx.ability_id == "GA_Sagiri_UltraSkill" {
+        ctx.record_hypothesis(crate::HypothesisId::SakiriSuppressV1)?;
+        ctx.record_hypothesis(crate::HypothesisId::CombatControlEffectsV1)?;
+    }
     ctx.hit_time_us
         .checked_add(PARAMETERS.control_def_down_us)
         .ok_or("Sakiri control DEF deadline overflow")?;
     Ok(())
 }
 
-pub(crate) fn on_hit(ctx: &mut ActorHitContext<'_>) -> Result<(), String> {
-    if ctx.ability_id != "GA_Sagiri_UltraSkill" {
-        return Ok(());
-    }
-    crate::runtime_api::record_hypothesis_id(
-        ctx.request,
-        ctx.execution_assumptions,
-        crate::HypothesisId::SakiriSuppressV1,
-    )?;
-    if !ctx
-        .actor
-        .character
-        .sakiri_mut()?
-        .suppression_inputs
-        .insert((ctx.command_index, ctx.target_index))
-    {
-        return Ok(());
-    }
-    let duration_us = if ctx.config.awakening.has_effect(1) {
-        PARAMETERS.a1_suppress_us
-    } else {
-        PARAMETERS.suppress_us
-    };
-    if !ctx.apply_control(crate::simulation::GameControlKind::Suppress, duration_us)? {
+fn apply_impish_trick_def(ctx: &mut ActorHitContext<'_>) -> Result<(), String> {
+    if !super::passive::passive2_unlocked(ctx.config)? {
         return Ok(());
     }
     ctx.buffs
@@ -65,6 +45,44 @@ pub(crate) fn on_hit(ctx: &mut ActorHitContext<'_>) -> Result<(), String> {
             ctx.actor_index,
             ctx.world_time_us,
         )
-        .map_err(|e| format!("Sakiri control DEF application failed: {e:?}"))?;
-    Ok(())
+        .map_err(|e| format!("Sakiri control DEF application failed: {e:?}"))
+}
+
+pub(crate) fn on_hit(ctx: &mut ActorHitContext<'_>) -> Result<(), String> {
+    if ctx.ability_id == "GA_Sagiri_Skill" {
+        if ctx.damage_effect_id == "GE_Player_Sagiri_Skill4_Damage"
+            && ctx.target_alive
+            && ctx.actor.hp > 0
+            && !ctx.request.targets[ctx.target_index].control_immune
+        {
+            apply_impish_trick_def(ctx)?;
+        }
+        return Ok(());
+    }
+    if ctx.ability_id != "GA_Sagiri_UltraSkill" {
+        return Ok(());
+    }
+    crate::runtime_api::record_hypothesis_id(
+        ctx.request,
+        ctx.execution_assumptions,
+        crate::HypothesisId::SakiriSuppressV1,
+    )?;
+    if !ctx
+        .actor
+        .character
+        .sakiri_mut()?
+        .suppression_inputs
+        .insert((ctx.command_index, ctx.target_index))
+    {
+        return Ok(());
+    }
+    let duration_us = if ctx.config.awakening.has_effect(1) {
+        PARAMETERS.a1_suppress_us
+    } else {
+        PARAMETERS.suppress_us
+    };
+    if !ctx.apply_control(crate::simulation::GameControlKind::Suppress, duration_us)? {
+        return Ok(());
+    }
+    apply_impish_trick_def(ctx)
 }

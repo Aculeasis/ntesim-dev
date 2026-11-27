@@ -84,6 +84,7 @@ fn cycle_milli(id: &str) -> Option<u64> {
         .or_else(|| lacrimosa::cycle_milli(id))
         .or_else(|| nanally::cycle_milli(id))
         .or_else(|| oneiroi::cycle_milli(id))
+        .or_else(|| sagiri::cycle_milli(id))
         .or_else(|| shinku::cycle_milli(id))
         .or_else(|| zankou::cycle_milli(id))
 }
@@ -258,6 +259,7 @@ mod tests {
                 || lacrimosa::cycle_milli(id).is_some()
                 || nanally::cycle_milli(id).is_some()
                 || oneiroi::cycle_milli(id).is_some()
+                || sagiri::cycle_milli(id).is_some()
                 || shinku::cycle_milli(id).is_some()
                 || zankou::cycle_milli(id).is_some()
             {

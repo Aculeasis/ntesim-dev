@@ -45,7 +45,7 @@ while .time + 20 <= .duration {
   let round_start = .time;
   sakiri swap;
   wait(0.6);
-  sakiri skill;
+  if round > 1 { sakiri skill; }
   zero swap;
   wait(0.6);
   zero skill;

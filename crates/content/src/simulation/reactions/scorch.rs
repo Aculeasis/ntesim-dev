@@ -308,11 +308,21 @@ pub(in crate::simulation) fn settle_scorch_tick(
         ExactFraction::new(0, 1)?,
     )?;
     let resistance = element_resistance(ctx, event.target_index, &snapshot.element_key)?;
+    let scorch_final_multiplier = ExactFraction::new(1, 1)?.add(
+        crate::characters::sakiri::passive::scorch_dot_final_bonus(
+            ctx.request,
+            ctx.state,
+            event.target_index,
+            ctx.state.current_time_us,
+        )?
+        .unwrap_or(ExactFraction::new(0, 1)?),
+    )?;
     let damage = base
         .mul(intensity_factor(&snapshot)?)?
         .mul(ExactFraction::new(stacks.into(), 1)?)?
         .mul(defense)?
-        .mul(resistance)?;
+        .mul(resistance)?
+        .mul(scorch_final_multiplier)?;
     // Fixed-50 crit samples each tick with the captured crit damage,
     // regardless of the owner's ordinary crit rate.
     let sample = ctx.state.reactions.sample_scorch(snapshot.owner_index)?;

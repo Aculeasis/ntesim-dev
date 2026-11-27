@@ -4,14 +4,14 @@
   "relative_duration_us": 120000000,
   "schema_version": 1,
   "engine_version": "0.1.0",
-  "engine_source_sha256": "f3fd840f364646667e4a93d1ec5c46a84f00a66d5bc5f904cd69c81d4342a8cf",
-  "wasm_sha256": "c797c2d9d199da90db0270e8cea213ad801e9a3e7c1dfe5d0a2e6cd3cbecd29e",
+  "engine_source_sha256": "98549c5c3ba36d17b3269abebc373f07b1fe86388244d6269c82ce1a147fa9ff",
+  "wasm_sha256": "3369ea4ab5c154906aaa69d06b57fb6991f57dc47d27b3a2ec11013f280a7ec2",
   "generator_sha256": "1b3bcd64be4d91a6c43afa5f4f9ebbde0715b1bbd9d4ecfd668e863f32e1cf4d",
   "entries": [
     {
       "id": "s5",
       "label": "S5 · Mint A6 / Sakiri / Zero / Iroi",
-      "source_sha256": "5abe679b9b96256c255939ac679894f2131553e36a65186639d539b64bed4533",
+      "source_sha256": "7492f0a960568d768a5ed172baae004686d0b3292c17a83ca1a99c50e0f2ad07",
       "actors": [
         {
           "character_id": "character:1019",
@@ -104,7 +104,7 @@
         "zero.skill_packets_v1: Zero ordinary Skill delivers Skill1, Skill2, Skill3, and Skill4 once each from one admitted cast, matching the four ordered ratios in frozen neverness_zero and native DT_SkillDamageData rows. The admitted Skill fills this owner's Cycle pool to its existing capacity of 100 once, including semantic Hotori replay, independently of damage recipient count, ordinary energy and hit-generated channels. Existing charge is retained without duplicate grant or overflow. Cast-time fill is the selected interpretation of the published instant-Cycle Skill; native callback timing remains unverified. Children use the admitted primary impact time; animation intervals and travel are unresolved."
       ],
       "quality": "bounded_hypothesis",
-      "dps": { "status": "ready", "mean": 5408.692666666666 }
+      "dps": { "status": "ready", "mean": 5348.01840833333 }
     },
     {
       "id": "nanally-blossom",
@@ -235,7 +235,7 @@
     {
       "id": "zankou-insight",
       "label": "Zankou · Insight / Daffodill A3 [3,4,5]",
-      "source_sha256": "0f58ebe8695a18a73fb27c8d8c402c87b7bbdbf276b41515a15d9d9fb8f5a31f",
+      "source_sha256": "83ff94867d9df988b73a5594f4584f5bf64ffa4deb693bd07b9e247801b949d1",
       "actors": [
         {
           "character_id": "character:1036",
@@ -355,12 +355,12 @@
         "zankou.ordinary_hit_energy_v1: For Zankou character:1036 only, a modeled ordinary Normal native packet grants its exact nonnegative DT_SkillDamageData.ChargeAdd once after positive actual HP loss against target zero. Fatal damage qualifies; zero HP loss, unavailable targets and cancelled packets do not. The living source owner receives 1x; each other living configured recipient receives the explicit source-element to recipient-element coefficient from frozen DT_SkillTeamChargeRelationData (the six recipient-element rows for Zankou INCANTATION are 0.6). Each recipient applies their own Charge Efficiency and exact fractional carry, then existing capacity and overflow accounting. Delivery-time owner and source attribution survive switching. Skill, Burst, alternate forms, summons, DoT, Branch, AirAttack, QTE, non-native branches, additional targets and callbacks outside the modeled packet train remain unsupported. Eligibility, cadence, recipient and off-field rules are tested hypotheses because native caller evidence is unavailable; ChargeAdd and relation coefficients are frozen native rows."
       ],
       "quality": "bounded_hypothesis",
-      "dps": { "status": "ready", "mean": 36548.944374999985 }
+      "dps": { "status": "ready", "mean": 44078.72836666667 }
     },
     {
       "id": "zankou-blackbird",
       "label": "Zankou · Insight / Daffodill A3 / Blackbird",
-      "source_sha256": "df9c212fc89f62160a16c4b63a1452fd1942f79ccc9af766d0e07863317c23bb",
+      "source_sha256": "d85e3697debc250da91aba6907216db3a0c5766b77396e1b6827af46db617df5",
       "actors": [
         {
           "character_id": "character:1036",
@@ -492,7 +492,7 @@
         "zankou.ordinary_hit_energy_v1: For Zankou character:1036 only, a modeled ordinary Normal native packet grants its exact nonnegative DT_SkillDamageData.ChargeAdd once after positive actual HP loss against target zero. Fatal damage qualifies; zero HP loss, unavailable targets and cancelled packets do not. The living source owner receives 1x; each other living configured recipient receives the explicit source-element to recipient-element coefficient from frozen DT_SkillTeamChargeRelationData (the six recipient-element rows for Zankou INCANTATION are 0.6). Each recipient applies their own Charge Efficiency and exact fractional carry, then existing capacity and overflow accounting. Delivery-time owner and source attribution survive switching. Skill, Burst, alternate forms, summons, DoT, Branch, AirAttack, QTE, non-native branches, additional targets and callbacks outside the modeled packet train remain unsupported. Eligibility, cadence, recipient and off-field rules are tested hypotheses because native caller evidence is unavailable; ChargeAdd and relation coefficients are frozen native rows."
       ],
       "quality": "bounded_hypothesis",
-      "dps": { "status": "ready", "mean": 41765.588483333355 }
+      "dps": { "status": "ready", "mean": 50843.00180833338 }
     },
     {
       "id": "nanally-hexed",
@@ -723,6 +723,7 @@
         "owner.action_role.character_1010_qte_v1: Classify this exact frozen character action as QTE because its DT_CharacterAbilityConfig identity names the owner action as QTE while DT_CharacterAbilityEffectConfig has no row; this role is an owner-reviewed model hypothesis for this ability only.",
         "owner.action_role.character_1046_skill_v1: Classify this exact Zero action as Skill because the frozen character action identity names its normal skill and the effect-config row is absent; owner role is an explicit model hypothesis.",
         "owner.action_role.character_1046_ultimate_v1: Classify this exact Zero action as UltraSkill because the frozen character action identity names its ultimate and the effect-config row is absent; owner role is an explicit model hypothesis.",
+        "owner.action_role.character_1075_qte_v1: Classify this exact frozen character action as QTE because its DT_CharacterAbilityConfig identity names the owner action as QTE while DT_CharacterAbilityEffectConfig has no row; this role is an owner-reviewed model hypothesis for this ability only.",
         "sakiri.burst_atk_v1: Current GA_Sagiri_UltraSkill activation independently requests ordinary Buff_Sagiri003_QDamUp and, only with node4, Buff_Sagiri003_Level4_1. Each adds30percent of the source GetAtkBase to other living teammates for20 World seconds, with no self grant. The separate cap1 carriers refresh rather than stack. Base includes compiled character and equipped weapon base ATK, excluding console flat/percent and recipient ATK. The selected managed snapshot lifetime survives source defeat; dead recipients receive no new grant and existing dead carriers contribute nothing. Actual admitted activation produces the grants, without hit or damage requirements. This explicit lifetime/recipient model does not simulate multiplayer global-component routing.",
         "sakiri.ordinary_hit_energy_v1: For Sakiri character:1003 only, an ordinary Normal or Skill native packet grants its exact nonnegative DT_SkillDamageData.ChargeAdd once after positive actual HP loss against target zero. Fatal damage qualifies; zero HP loss, unavailable targets and cancelled packets do not. The living source owner receives 1x; each other living configured recipient receives the explicit source-element to recipient-element coefficient from frozen DT_SkillTeamChargeRelationData (the six recipient-element rows for Sakiri INCANTATION are 0.6). Each recipient applies their own Charge Efficiency and exact fractional carry, then existing capacity and overflow accounting. Delivery-time owner and source attribution survive switching. The explicit GE_Player_Sagiri_AirAttack1_Damage packet input is excluded from this energy adapter; native plunge energy eligibility remains unresolved. Burst, QTE, non-native branches, additional targets and callbacks outside the modeled packet train remain unsupported. Eligibility, cadence, recipient and off-field rules are tested hypotheses because native caller evidence is unavailable; ChargeAdd and relation coefficients are frozen native rows.",
         "sakiri.skill_burst_packets_v1: Sakiri Devour Whole delivers Skill1 and Skill2 once each on target zero; Feast of Gluttony delivers UltraSkill1 five times and UltraSkill2 once. All children use the admitted effective native talent coordinate and sample live modifiers independently. Ordered coincident delivery at the selected primary impact timestamp is a timing hypothesis pending animation intervals; it does not model travel, AoE coverage, eating mode or complete kit behavior.",
@@ -744,7 +745,7 @@
         "zero.skill_packets_v1: Zero ordinary Skill delivers Skill1, Skill2, Skill3, and Skill4 once each from one admitted cast, matching the four ordered ratios in frozen neverness_zero and native DT_SkillDamageData rows. The admitted Skill fills this owner's Cycle pool to its existing capacity of 100 once, including semantic Hotori replay, independently of damage recipient count, ordinary energy and hit-generated channels. Existing charge is retained without duplicate grant or overflow. Cast-time fill is the selected interpretation of the published instant-Cycle Skill; native callback timing remains unverified. Children use the admitted primary impact time; animation intervals and travel are unresolved."
       ],
       "quality": "bounded_hypothesis",
-      "dps": { "status": "ready", "mean": 21202.50956666669 }
+      "dps": { "status": "ready", "mean": 20849.59781666668 }
     },
     {
       "id": "hotori-blossom",
@@ -1113,7 +1114,7 @@
         "zankou.ordinary_hit_energy_v1: For Zankou character:1036 only, a modeled ordinary Normal native packet grants its exact nonnegative DT_SkillDamageData.ChargeAdd once after positive actual HP loss against target zero. Fatal damage qualifies; zero HP loss, unavailable targets and cancelled packets do not. The living source owner receives 1x; each other living configured recipient receives the explicit source-element to recipient-element coefficient from frozen DT_SkillTeamChargeRelationData (the six recipient-element rows for Zankou INCANTATION are 0.6). Each recipient applies their own Charge Efficiency and exact fractional carry, then existing capacity and overflow accounting. Delivery-time owner and source attribution survive switching. Skill, Burst, alternate forms, summons, DoT, Branch, AirAttack, QTE, non-native branches, additional targets and callbacks outside the modeled packet train remain unsupported. Eligibility, cadence, recipient and off-field rules are tested hypotheses because native caller evidence is unavailable; ChargeAdd and relation coefficients are frozen native rows."
       ],
       "quality": "bounded_hypothesis",
-      "dps": { "status": "ready", "mean": 31328.86208333337 }
+      "dps": { "status": "ready", "mean": 37716.47134166668 }
     },
     {
       "id": "zankou-hexed",
@@ -1347,7 +1348,7 @@
         "weapons.rose_v1: Bohemian Rose grants the wearer its frozen ATK percentage unconditionally, joining the live base-ATK-scaled ATK sum. Each time the wearer deals DoT, one Chaos Thorn stack is granted (wearer-only timed buff, 3s, refresh on retrigger, 10-stack cap, 0.3s trigger ICD); each stack adds its frozen CRIT DMG ratio to the additive critical-damage zone. A Redirect Skill cast grants 10 stacks immediately, bypassing the DoT ICD. Redirect admission grants stacks before its hits; each connected wearer DoT packet grants after damage settlement and cannot enhance that same hit. DoT delivery is identified by the owner-declared State.Damage.Dot semantic tag, including delayed off-field packets. Native lacrimosa blood DoT scheduling remains pending. Global release availability remains unverified in the frozen catalog."
       ],
       "quality": "bounded_hypothesis",
-      "dps": { "status": "ready", "mean": 29950.63575833334 }
+      "dps": { "status": "ready", "mean": 30324.053166666672 }
     },
     {
       "id": "lacrimosa-scorch",
@@ -1467,7 +1468,7 @@
         "zankou.forms_v1: Current rolling Zankou source selects Reality entry or Illusion return from live owner state. Skill has a real five-second admission cooldown; selected rate-one montage transitions commit at496507us entry and2039354us return, independently of HP loss. Illusion lasts eight World seconds, half open; enhanced Soulcross is earned during its final3500000us. Enhanced entry requires a current eligible Reality action section. Field exit discards form and permissions without restoring them on return. Pending montage contacts and transition/grant notifications cancel on replacement or interruption while committed costs, cooldowns and launched DoT trains continue. Natural expiry uses a generation guard and does not cancel an already admitted Soulcross. Source coordinates and finite transition interpretation are bounded models, not certified native playback."
       ],
       "quality": "bounded_hypothesis",
-      "dps": { "status": "ready", "mean": 38144.78784999997 }
+      "dps": { "status": "ready", "mean": 46628.28407500002 }
     },
     {
       "id": "baicang-scorch",
@@ -1603,7 +1604,7 @@
         "weapons.tuansanlang_v1: Danzaburou grants its frozen Break Intensity points to every team member (including the wearer) whose Esper Type matches the wearer's, once the team holds 3 or more characters of that Esper Type. Esper Type is the character's native CharacterElementType. Grants through this path do not stack: when several wearers qualify for the same element, the largest bonus applies. Break Intensity points join the break damage zone as 1 + BI/300 + break_bonus_sum under the separate explicit target Break models. The roster threshold counts deployed slots, including defeated matching peers, while only living carriers supply the aura. Field presence is not required. Each new Break generation captures the eligible strongest aura with the other source parameters; subsequent carrier death does not alter accepted packets. Global release availability remains unverified in the frozen catalog."
       ],
       "quality": "bounded_hypothesis",
-      "dps": { "status": "ready", "mean": 17769.809466666644 }
+      "dps": { "status": "ready", "mean": 18698.942741666673 }
     },
     {
       "id": "baicang-linko",
@@ -1697,6 +1698,7 @@
         "combat.live_break_damage_v1: Each new modeled Break generation snapshots one elemental HP-damage contribution per living deployed actor in slot order. Select the exact DT_GlobalCommonData.UnbaldamagePara key at character level 1..80. Damage is base*(1+live BI/300+eligible Break bonus)*(original capacity/3)*DEF*source-element RES*eligible special factors, with exact intermediates and one nearest-integer HP settlement per contribution. Static source BI, eligible live break_intensity/def_ignore buffs, Film - MANISH and Black Tome wearer BI, and the strongest eligible Danzaburou same-element roster aura add within their zones. Danzaburou requires three matching deployed slots and a living carrier; duplicate auras do not stack. Daffodil has intrinsic Break bonus .20 and selected A6 DEF ignore .15; reached unbound Insight A4/A5 and R6 dependencies diagnose. Contributions snapshot together after Broken admission, retain causal command/generation and individual owners, do not crit or consume RNG, ignore ordinary ATK/damage bonuses and grant no ordinary energy/Cycle/gauge/proc callbacks. Target defeat invokes shared defeat callbacks and cancels remaining group deliveries; accepted snapshots survive later source death/field changes. Source selection, living eligibility, capture and callback policy are a bounded content model, not native consumer or game-timing proof.",
         "combat.packet_cycle_accrual_v1: An owner-bound native damage packet grants its exact frozen HeterochromeAdd once after positive actual target HP loss, independent of AoE recipient count. Only the living source owner receives Cycle, scaled by declared cycle_gain_efficiency (default 1), with integer cap 100, exact fractional carry and explicit integer overflow. Qualified switches spend 100 without resetting carry; grants and spends reconcile the owner ledger. No Ultimate team distribution, Charge Efficiency, reaction damage, execute, hit-count inference or unbound owner rows grant Cycle.",
         "combat.relative_clock_policy_v1: Relative combat time is absolute elapsed microseconds minus the union of executed Ultimate cinematic and Hotori active Time Stop pauses. Retrieved pause components and owner montage end notifies inform bindings; an unavailable notify, including Zero, uses the consumed owner action-completion fallback. This is a selected bounded timer model, not recovered native countdown execution. Ordinary cooldowns, independent buffs/statuses, periodic phases, passive recovery and refund/recording windows use paused world time. Finite current-cast and permitted Hotori direct replay/Katana contexts progress; another non-exempt cinematic dominates. Object lifetime pauses in cinematics and advances in active Time Stop while ordinary autonomous production pauses; living Hotori B2 exempts Vita Bud attacks only from active Time Stop. Frozen Scorch phase and progressing deployed-object lifetime are disclosed conservative and lower-confidence choices. Charge grants no energy or deferred grants in active Time Stop. Local hitlag remains separate; waits, receipts, support rates and field-time use absolute time. Relative DPS is unavailable at zero relative duration, independently of combat completion.",
+        "combat.single_packet_support_v1: Single-packet qualified Support actions use their owner packet, purchased QTE coordinate, recovered or documented bounded timing, and owner-local recovery gates. Living in-range dummy recipients share one packet's ordinary Charge and connected owner effects.",
         "combat.unbal_value_as_target_gauge_v1: For a living target with an explicit break_profile, each positive-damage delivered packet with a positive frozen UnbalValue removes that exact value times the outgoing Break efficiency multiplier from the target gauge. The multiplier is the source-bound UnbalAccrueEfficiencyBase (or explicit scenario value, default one) plus summed live break_efficiency bonuses at ReactionOrBreak settlement, honoring buff recipients, expiry and source lifetime; zero removes no gauge. For an explicitly selected target stat pack, multiply once more by its exact nonnegative UnbalAntiAccrueEfficiencyBase (including inherited row defaults); zero prevents gauge loss. Targets without a stat pack use one. This selects a direct incoming multiplier, not one minus resistance or the enemy outgoing UnbalAccrueEfficiencyBase; the native consumer mapping remains unproved. Reaching zero applies the content-owned ntesim.status.broken tag for the profile duration, then restores gauge to capacity. Rose may extend this modeled Broken deadline only through its separate weapons.rose_break_extension_v1 hypothesis. This is an explicit scenario hypothesis: no target profile means no gauge model; no native efficiency consumer, enemy profile, break damage, BI settlement, or native recovery rule is inferred.",
         "daffodil.action_cancels_v1: Daffodil action cancels require ordinary_clock_v1. Jump and Skill use the selected native stage gates through the same owner lost-progress clock; an ordinary invalid early input does not interrupt. Accepted Jump/replacement removes unreached montage requests and resets the Normal pointer without refunding costs or captured Resonance. A new montage inherits any still-live owner pause, while World deadlines retain their exact remaining duration through shared pauses. Explicit forced interruption releases recovery and cancels pending montage work; pre-notify Skill starts3s cancel cooldown at interruption, post-notify retains its original16s deadline. A completed cast is not interrupted retroactively. This binds finite source gates and causal cancellation, not airborne geometry, paid Dodge, suspended combo or a recovered native interruption body.",
         "daffodil.branch_entry_direct_packet_energy_v1: For Daffodil character:1054 only, an explicitly modeled GA_Daffodill_Melee Branch1-7 or EntryAttack1/2/4 direct packet grants its frozen DT_SkillDamageData.ChargeAdd once after positive actual HP loss against target zero. Fatal damage qualifies; zero HP loss, unavailable targets and cancelled packets do not. The living source owner receives 1x; each other living configured recipient receives the frozen source-element to recipient-element coefficient from DT_SkillTeamChargeRelationData (3/5 for Daffodil CHAOS), then applies their own Charge Efficiency, exact fractional carry, capacity and overflow accounting. This exact direct-input policy is a tested hypothesis, not evidence of native eligibility. Natural Branch/Entry dispatch, animation, timing, target rules, jump/dodge legality, stamina, costs, cadence, extra packets, other targets and callbacks remain unresolved; Branch6/7 are frozen packet rows without a published-tip binding.",
@@ -1715,6 +1717,7 @@
         "linko.skill_four_hits_v1: One admitted GA_Radio072_Skill delivers the native Skill1 primary followed by Skill2, Skill3, and Skill4 once each on target zero, using the admitted effective Skill talent coordinate and sampling live modifiers per packet. Ordered coincident delivery at the primary impact timestamp is a timing hypothesis; animation intervals, travel, AoE, and summon behavior remain unresolved.",
         "linko.xiaozhen_pet_v1: Linko's canonical Skill retains its four bombardment packets and deploys Xiaozhen once; companion deployment does not also instantiate the separate two-packet Throw route. An explicitly selected Throw primary keeps that two-packet route. The first autonomous pulse is eight World seconds after the admitted primary delivery, six with A1, and continuing pulses use the same interval without an extra energy pool. Pulses inherit the deploying Skill's effective native talent coordinate. Recasting replaces the generation without duplicating old pulses; field exit preserves the companion, while owner defeat clears permission and invalidates its generation. Source uses existing bounded caller action timing rather than measured native montage playback. This revisable selection separates ordinary and alternate Skill packets and retains the existing pulse resource policy.",
         "owner.action_role.character_1054_qte_v1: Classify this exact frozen character action as QTE because its DT_CharacterAbilityConfig identity names the owner action as QTE while DT_CharacterAbilityEffectConfig has no row; this role is an owner-reviewed model hypothesis for this ability only.",
+        "owner.action_role.character_1072_qte_v1: Classify this exact frozen character action as QTE because its DT_CharacterAbilityConfig identity names the owner action as QTE while DT_CharacterAbilityEffectConfig has no row; this role is an owner-reviewed model hypothesis for this ability only.",
         "sakiri.burst_atk_v1: Current GA_Sagiri_UltraSkill activation independently requests ordinary Buff_Sagiri003_QDamUp and, only with node4, Buff_Sagiri003_Level4_1. Each adds30percent of the source GetAtkBase to other living teammates for20 World seconds, with no self grant. The separate cap1 carriers refresh rather than stack. Base includes compiled character and equipped weapon base ATK, excluding console flat/percent and recipient ATK. The selected managed snapshot lifetime survives source defeat; dead recipients receive no new grant and existing dead carriers contribute nothing. Actual admitted activation produces the grants, without hit or damage requirements. This explicit lifetime/recipient model does not simulate multiplayer global-component routing.",
         "sakiri.ordinary_hit_energy_v1: For Sakiri character:1003 only, an ordinary Normal or Skill native packet grants its exact nonnegative DT_SkillDamageData.ChargeAdd once after positive actual HP loss against target zero. Fatal damage qualifies; zero HP loss, unavailable targets and cancelled packets do not. The living source owner receives 1x; each other living configured recipient receives the explicit source-element to recipient-element coefficient from frozen DT_SkillTeamChargeRelationData (the six recipient-element rows for Sakiri INCANTATION are 0.6). Each recipient applies their own Charge Efficiency and exact fractional carry, then existing capacity and overflow accounting. Delivery-time owner and source attribution survive switching. The explicit GE_Player_Sagiri_AirAttack1_Damage packet input is excluded from this energy adapter; native plunge energy eligibility remains unresolved. Burst, QTE, non-native branches, additional targets and callbacks outside the modeled packet train remain unsupported. Eligibility, cadence, recipient and off-field rules are tested hypotheses because native caller evidence is unavailable; ChargeAdd and relation coefficients are frozen native rows.",
         "sakiri.skill_burst_packets_v1: Sakiri Devour Whole delivers Skill1 and Skill2 once each on target zero; Feast of Gluttony delivers UltraSkill1 five times and UltraSkill2 once. All children use the admitted effective native talent coordinate and sample live modifiers independently. Ordered coincident delivery at the selected primary impact timestamp is a timing hypothesis pending animation intervals; it does not model travel, AoE coverage, eating mode or complete kit behavior.",
@@ -1727,7 +1730,7 @@
         "weapons.moon_v1: Stellar Veil adds its frozen Psyche ratio to matching delivered packets in the additive damage-bonus zone. Dealing Psyche DMG grants one wearer stack of Crit DMG through ProcCallback up to ten stacks, with a 0.1s trigger cooldown. Each trigger refreshes the group's duration to 5s, including at cap. Switching preserves stacks and cooldown; exact expiry precedes equal-time hits. Cooldown, stacking, and world-time clocks are tested hypotheses. Global release availability remains unverified in the frozen catalog."
       ],
       "quality": "bounded_hypothesis",
-      "dps": { "status": "ready", "mean": 15354.90585833331 }
+      "dps": { "status": "ready", "mean": 16060.470183333337 }
     },
     {
       "id": "blackbird-nova",

@@ -1,6 +1,6 @@
 # Sakiri A0 continuing rotation: build from empty energy, pay Burst, and continue.
 # Normal/Skill hit energy and packet timing use the named owner hypotheses.
-options iteration=1 duration=35 crit=fixed;
+options iteration=1 duration=45 crit=fixed;
 sakiri char lvl=80/80 awakening=0 talent=8,8,8 qte=8 start_energy=0;
 mint char lvl=80/80 awakening=0 talent=8,8,8 qte=8 start_energy=0;
 hathor char lvl=80/80 awakening=0 talent=8,8,8 qte=8 start_energy=0;
@@ -9,7 +9,7 @@ active sakiri;
 
 repeat 4 { sakiri attack:5; }
 sakiri skill;
-wait(4.8);
+wait(14.8);
 sakiri skill;
 sakiri burst;
 sakiri attack:5;

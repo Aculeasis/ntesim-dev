@@ -2,6 +2,7 @@ pub(crate) mod awakenings;
 pub(crate) mod callback;
 mod control;
 mod parameters;
+pub(crate) mod passive;
 pub(crate) mod preview;
 pub(crate) mod riposte;
 pub(crate) mod skill;

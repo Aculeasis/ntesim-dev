@@ -3485,6 +3485,20 @@ impl CharacterKit for SakiriKit {
     fn on_hit(&self, ctx: &mut ActorHitContext<'_>) -> Result<(), String> {
         crate::characters::sakiri::skill::on_hit(ctx)
     }
+    fn packet_cycle_grant(
+        &self,
+        _request: &GameScenarioRequest,
+        effect: &str,
+    ) -> Result<Option<crate::runtime_api::PacketCycleGrant>, String> {
+        ntesim_data::native_damage::cycle_add(ntesim_data::skill_levels::frozen::tables(), effect)?
+            .map(|raw| {
+                Ok(crate::runtime_api::PacketCycleGrant {
+                    raw: ExactFraction::new(raw.numerator(), raw.denominator())?,
+                    hypothesis: crate::HypothesisId::CombatPacketCycleAccrualV1,
+                })
+            })
+            .transpose()
+    }
     fn primary_packet(&self, ability: &str) -> Option<&'static str> {
         crate::characters::sakiri::primary_packet(ability)
     }

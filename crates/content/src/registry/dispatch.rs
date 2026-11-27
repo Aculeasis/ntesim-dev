@@ -1608,11 +1608,7 @@ pub(crate) fn sakiri_scorch_extension_eligible(
     request: &GameScenarioRequest,
     state: &crate::simulation::state::GameSimulatorState,
 ) -> bool {
-    request.actors.iter().enumerate().any(|(i, actor)| {
-        actor.character_id == "character:1003"
-            && state.actors[i].hp > 0
-            && actor.awakening.has_effect(2)
-    })
+    crate::characters::sakiri::passive::scorch_extension_eligible(request, state)
 }
 
 /// Audit helper for Shinku Reaction AoE (DT_ReactionExtendDataTable row 1076, Buff_Shinku076_Passive1).

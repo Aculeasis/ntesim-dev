@@ -369,6 +369,15 @@ pub(super) fn evaluate(
         });
     }
     modifiers = crate::gear::damage_bonus(&damage_ctx, &metadata.packet, modifiers)?;
+    if let Some(scorch_dot_bonus) = crate::characters::sakiri::passive::packet_dot_final_bonus(
+        request,
+        state,
+        target_index,
+        &metadata.packet.semantic_tags,
+        state.current_time_us,
+    )? {
+        modifiers = modifiers.add_final(scorch_dot_bonus)?;
+    }
     modifiers = modifiers.add_damage(buff_stat("damage_bonus")?)?;
     if let Some(key) = dmg_elem_key {
         modifiers = modifiers.add_damage(buff_stat(key)?)?;

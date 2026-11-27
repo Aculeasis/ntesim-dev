@@ -16,34 +16,34 @@ Native identity: `character:1003`.
 
 | Suffix after `GE_Player_Sagiri_` | Action multiplicity and category | Coefficient 1 / 8 / 9 | Raw energy / Cycle / Break per packet |
 | --- | --- | --- | --- |
-| `Melee1_Damage` | 1 stage 1 slash / A | .403 / .691 / .746 | 2.500 / 4.200 / .500 |
-| `Melee2_Damage` | 1 stage 2 opening cut / A | .138 / .237 / .255 | .860 / 1.440 / .172 |
-| `Melee3_Damage` | 1 stage 2 follow-up thrust / A | .757 / 1.297 / 1.401 | 4.700 / 7.890 / .940 |
-| `Melee8_Damage` | 1 stage 3 small lead cut / A | .016 / .027 / .030 | .100 / .160 / .020 |
-| `Melee4_Damage` | 1 stage 3 heavy sweep / A | .716 / 1.227 / 1.325 | 4.450 / 7.460 / .890 |
-| `Melee5_Damage` | 3 stage 4 rapid thrusts / A | .331 / .567 / .613 each | 2.060 / 3.450 / .412 each |
-| `Melee6_Damage` | 1 stage 5 lead flourish / A | .035 / .060 / .065 | .220 / .360 / .044 |
-| `Melee7_Damage` | 1 stage 5 finisher cleave / A | 1.062 / 1.820 / 1.966 | 6.600 / 11.070 / 1.320 |
-| `Skill1_Damage` | 1 ground Devour Whole initial bite / E | 1.678 / 2.876 / 3.106 | 3.500 / 5.800 / .700 |
-| `Skill2_Damage` | 1 ground Devour Whole devour strike / E | 2.322 / 3.979 / 4.298 | 5.000 / 8.300 / 1.000 |
-| `Skill3_Damage` | 1 air skill opening bite / E | 1.188 / 2.036 / 2.199 | 2.500 / 4.200 / .500 |
-| `Skill4_Damage` | 1 air skill midair swallow / E | 1.909 / 3.272 / 3.533 | 4.000 / 6.700 / .800 |
-| `Skill5_Damage` | 1 air skill slam / E | .903 / 1.548 / 1.671 | 2.000 / 3.300 / .400 |
-| `UltraSkill1_Damage` | 1 Feast of Gluttony opening sweep / Q | 1.200 / 2.057 / 2.221 | 0.000 / 0.000 / 1.200 |
-| `UltraSkill2_Damage` | 1 Feast of Gluttony final execution / Q | 3.000 / 5.141 / 5.553 | 0.000 / 0.000 / 3.000 |
-| `UltraSkill_Damage_LV2` | 1 Feast of Gluttony persistent aura tick / Q | .030 / .030 / .030 | 0.000 / 0.000 / 0.000 |
+| `Melee1_Damage` | 1 stage 1 slash / A | .403 / .691 / .746 | 2.014 / 3.353 / .401 |
+| `Melee2_Damage` | 1 stage 2 opening cut / A | .138 / .237 / .255 | .690 / 1.148 / .137 |
+| `Melee3_Damage` | 1 stage 2 follow-up thrust / A | .757 / 1.297 / 1.401 | 3.785 / 6.302 / .753 |
+| `Melee8_Damage` | 1 stage 3 small lead cut / A | .016 / .027 / .030 | .081 / .135 / .016 |
+| `Melee4_Damage` | 1 stage 3 heavy sweep / A | .716 / 1.227 / 1.325 | 3.583 / 5.965 / .713 |
+| `Melee5_Damage` | 3 stage 4 rapid thrusts / A | .331 / .567 / .613 each | 1.654 / 2.754 / .329 each |
+| `Melee6_Damage` | 1 stage 5 lead flourish / A | .035 / .060 / .065 | .176 / .292 / .035 |
+| `Melee7_Damage` | 1 stage 5 finisher cleave / A | 1.062 / 1.820 / 1.966 | 5.311 / 8.842 / 1.057 |
+| `Skill1_Damage` | 1 ground Devour Whole initial bite / E | 1.678 / 2.876 / 3.106 | 3.902 / 6.546 / .797 |
+| `Skill2_Damage` | 1 ground Devour Whole devour strike / E | 2.322 / 3.979 / 4.298 | 5.398 / 9.054 / 1.103 |
+| `Skill3_Damage` | 1 air skill opening bite / E | 1.188 / 2.036 / 2.199 | 4.159 / 6.951 / .832 |
+| `Skill4_Damage` | 1 air skill midair swallow / E | 1.909 / 3.272 / 3.533 | 6.681 / 11.166 / 1.336 |
+| `Skill5_Damage` | 1 air skill slam / E | .903 / 1.548 / 1.671 | 3.161 / 5.283 / .632 |
+| `UltraSkill1_Damage` | 5 Feast of Gluttony opening sweeps / Q | 1.200 / 2.057 / 2.221 each | 0.000 / 0.000 / .333 each |
+| `UltraSkill2_Damage` | 1 Feast of Gluttony final execution / Q | 3.000 / 5.141 / 5.553 | 0.000 / 0.000 / .833 |
+| `UltraSkill_Damage_LV2` | 1 Feast of Gluttony A2 airborne extra hit (`UltraSkill.3`) / Q | .030 / .030 / .030 (scales w/ TargetMass to 6.000) | 0.000 / 0.000 / 0.000 |
 | `QTE1_Damage` | 1 Support QTE strike / H | 2.000 / 3.428 / 3.702 | 10.900 / 0.000 / 2.500 |
-| `PerfectEvadeAttack_Damage` | 1 Critical Riposte strike / Z | 2.140 / 3.668 / 3.961 | 5.500 / 9.200 / 1.100 |
+| `PerfectEvadeAttack_Damage` | 1 Critical Riposte strike / Z | 2.140 / 3.668 / 3.961 | 5.400 / 8.900 / 2.500 |
 | `AirAttack1_Damage` | 1 air plunge landing / X | .500 / .857 / .925 | 2.500 / 4.200 / .500 |
 
-**Action packet totals:** Normal 5-input chain (10 packets: 1 + 2 + 2 + 3 + 2) delivers **6.990 ATK / ~21.750 raw energy / 36.430 Cycle / 4.350 Break** at Level 8. Modeled ground Skill (`Devour Whole`: Skill1 + Skill2) delivers **6.855 ATK / ~8.500 raw energy / 14.100 Cycle / 1.700 Break**. Modeled direct Burst (`Feast of Gluttony`: UltraSkill1 + UltraSkill2) delivers **7.198 ATK / 0 raw energy / 0 Cycle / 4.200 Break**. Air Skill (3 packets) delivers **6.856 ATK / ~8.500 raw energy**. Critical Riposte delivers **3.668 ATK / 5.500 raw energy**. Support QTE delivers **3.428 ATK / 10.900 raw energy**.
+**Action packet totals:** Normal 5-input chain (10 packets: 1 + 2 + 2 + 3 + 2) delivers **6.990 ATK / 20.598 raw energy / 34.299 Cycle / 4.100 Break** at Level 8. Modeled ground Skill (`Devour Whole`: Skill1 + Skill2) delivers **6.855 ATK / 9.300 raw energy / 15.600 Cycle / 1.900 Break**. Modeled direct Burst (`Feast of Gluttony`: 5x UltraSkill1 + UltraSkill2) delivers **15.426 ATK / 0 raw energy / 0 Cycle / 2.498 Break** at Level 8. Air/Hold Skill (Skill3 + Skill4 + Skill5) delivers **6.856 ATK / 14.001 raw energy / 23.400 Cycle / 2.800 Break**. Critical Riposte delivers **3.668 ATK / 5.400 raw energy / 8.900 Cycle / 2.500 Break**. Support QTE delivers **3.428 ATK / 10.900 raw energy / 0 Cycle / 2.500 Break**.
 
 ## Selected complete timing specification
 
 **Mixed native coordinates and real-clock execution:** All action and buff timings progress along one continuous real combat time axis. Source montages advance at 1.0 source units per second, modified by hitstop and pause intervals on positive contact. Overlapping pauses on the same caster take the minimum progress rate rather than serially stacking. Cooldowns and the DPS denominator continue uninterrupted during pauses.
 
-- **Ground Skill (`GA_Sagiri_Skill`, Devour Whole):** Cooldown notify starts at **0.120s** (`AnimNotify_TriggerCooldown`); packets land at **0.150s** (`Skill1`) and **0.450s** (`Skill2`). Cancel window activates at **0.650s** (`BreakSkill_AnySkill`); full montage duration is **1.100s**. Real cooldown is **12.0s** (tooltip 6.0s nominal in fast rotation scenarios), continuing off field. Interruption before notify uses cancel cooldown 2.0s; completed casts maintain 12.0s without surcharge.
-- **Burst (`GA_Sagiri_UltraSkill`, Feast of Gluttony):** Cooldown **20.0s** (tooltip 15.0s nominal) starts at commitment. Direct gameplay events land at **0.400s** (`UltraSkill1`) and **1.850s** (`UltraSkill2`); cancel window activates at **2.100s** (`BreakSkill_AnySkill`); total montage duration is **2.600s**. Commit costs **100 energy**. Direct hits do not generate ordinary energy.
+- **Ground Skill (`GA_Sagiri_Skill`, Devour Whole):** Cooldown notify starts at **0.120s** (`AnimNotify_TriggerCooldown`); packets land at **0.150s** (`Skill1`) and **0.450s** (`Skill2`). Cancel window activates at **0.650s** (`BreakSkill_AnySkill`); full montage duration is **1.100s**. Native `CoolDwonCurveTable["GA_Sagiri_Skill"]` / `["GA_Sagiri_Skill2"]` cooldown is **16.0s** (legacy partial tests may still construct explicit 6.0s/12.0s commands), continuing off field.
+- **Burst (`GA_Sagiri_UltraSkill`, Feast of Gluttony):** Native cooldown **20.0s** (`CoolDwonCurveTable["GA_Sagiri_UltraSkill"]`) starts at commitment. Commit costs **120 energy** (`Sagiri_base.ChargeMax = 120`, `DT_GameplayAbilityCostData["GA_Sagiri_UltraSkill"].GACost = 120`). Direct hits do not generate ordinary energy or Cycle.
 - **Normal Attack chain (`GA_Sagiri_Melee`):** Five input stages progress with hits at 0.140s (stage 1: Melee1), 0.120s / 0.260s (stage 2: Melee2, Melee3), 0.100s / 0.240s (stage 3: Melee8, Melee4), 0.120s / 0.240s / 0.360s (stage 4: Melee5 x3), and 0.100s / 0.300s (stage 5: Melee6, Melee7). Queued full chain completes in **3.200s** (effective total ~4.000s with recovery). An input gap >2.0s resets the chain; legal queued transitions continue.
 - **QTE (`GA_Sagiri_QTE`):** Support switch-in delivers damage at **0.100s**, recovery window **0.600s**. The switch must trigger a qualifying reaction.
 - **Critical Riposte (`GA_Sagiri_Dodge` / `PerfectEvadeAttack`):** Evade counter strike lands at **0.180s**, cancel window **0.600s**, total duration **0.750s**.
@@ -52,9 +52,9 @@ Native identity: `character:1003`.
 
 **Mixed source facts and checked gameplay rules:** Resources, status effects, passives, and forms are modeled as an integrated state machine:
 
-- **Energy and gauges:** Ultimate energy cap is 100; UltraSkill commits 100 energy. Ordinary energy awards follow per-packet ChargeAdd upon positive target HP loss: 1/1 to active Sakiri, 3/5 to living off-field allies, with individual Charge Efficiency, integer capacity, fractional carry, and overflow tracking. Cycle gauge has capacity 100, earned on hits; qualifying switch consumes 100.
-- **A1 (Skill & Burst CD / Damage Scaling):** Enhances damage of Devour Whole and Feast of Gluttony against airborne or debuffed enemies.
-- **A2 (Gluttonous Hunger Aura):** Deploys persistent aura tick `UltraSkill_Damage_LV2` (0.030 ATK) throughout Feast of Gluttony.
+- **Energy and gauges:** Ultimate energy cap is 120 (`Sagiri_base.ChargeMax = 120`); UltraSkill commits 120 energy (`DT_GameplayAbilityCostData["GA_Sagiri_UltraSkill"].GACost = 120`). Ordinary energy (`ChargeAdd`) and Esper Cycle (`HeterochromeAdd`) awards follow per-packet grants upon positive target HP loss (`ChargeAdd` uses 1/1 to active Sakiri, 3/5 to living off-field allies, with individual Charge Efficiency, integer capacity, fractional carry, and overflow tracking; Cycle gauge has capacity 100 and qualifying switch consumes 100).
+- **A1 (Suppress Duration):** Extends Suppress duration on `GA_Sagiri_UltraSkill` from 3s (`Sagiri_Suppress`) to 6s (`Sagiri_lv1_Suppress`).
+- **A2 (Floating Extra Damage):** `UltraSkill_Damage_LV2` (0.030 base ATK) triggers once at `Event.Montage.Player.UltraSkill.3` when `Con_Sagiri_Lv2` and `Con_Sagiri_Lv2_TargetFloating` pass; `Buff_Sagiri003_Level2` adds `DamageUpGeneralAdd = clamp(TargetMass * 1.0, 0, 199)` (up to 6.000 = 600% ATK). Unmodeled in dummy scenarios lacking `TargetMass`.
 - **A3 (Feast Stacks on Defeat):** When an enemy is defeated while Sakiri is active or by her team, grants +6% Skill and Burst DMG (`Sagiri_Lv3_DamUp = 0.06`) per stack for 15.0s (`Sagiri_Lv3_DamUpDur = 15.0`), stacking up to 10 times (+60% DMG max).
 - **Ordinary Burst ATK:** Admitted UltraSkill grants other living teammates flat ATK equal to30% of source base ATK through `Buff_Sagiri003_QDamUp` for20 paused-world seconds.
 - **A4 (Wishful Reliance):** The same activation independently grants another30% of source base ATK through `Buff_Sagiri003_Level4_1`, also for20 seconds. Each carrier excludes Sakiri and refreshes without stacking itself; A4 does not replace the ordinary contribution.
@@ -194,7 +194,7 @@ The scenario tests the authored compiled timeline in Rust and browser consumers.
 
 The consumed constant EffectFigure values live in the owner `parameters.rs`; unused/display rows stay outside Git. Seconds become exact microseconds; the .12 debuff bonus cap and .03 increment permit four contributions. Rust checks independently cover ten capped 6% defeat stacks, exact 15s expiry and a continuing second lifetime, the additive 3%-per-debuff cap, and the existing 30%-of-source-base-ATK team grant with self-exclusion. This data migration preserves the bounded runtime recipients and does not establish the remaining kit branches.
 
-- Natural AirAttack/plunge dispatch, hold/eating modes, Scorch Enhancement, Impish Trick DEF debuff, and remaining awakening effects remain unimplemented; the explicit one-packet AirAttack input is available under the hypothesis above.
+- Natural AirAttack/plunge dispatch, hold/eating modes (Satiety/Swallow vs weak enemies/props), and A2 (`UltraSkill_Damage_LV2` `TargetMass` scaling) remain unmodeled in anonymous-dummy simulations; Scorch Enhancement (BT >= 2), Impish Trick DEF debuff (BT >= 4), packet Esper Cycle (`HeterochromeAdd`), and 16s Skill cooldown are implemented.
 
 ## Full-kit source investigation (October 17–18, 2026)
 

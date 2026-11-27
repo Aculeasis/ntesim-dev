@@ -299,13 +299,13 @@ fn scorch_ticks_sample_fixed_fifty_crit_and_keep_phase_on_refresh() {
             super::support::hit_metadata(&report, hit)["packet"]["fixed_crit_rate"],
             json!("1/2")
         );
-        assert_eq!(hit["non_crit_damage"], json!("1080/1"));
-        assert_eq!(hit["crit_damage"], json!("1620/1"));
+        assert_eq!(hit["non_crit_damage"], json!("1350/1"));
+        assert_eq!(hit["crit_damage"], json!("2025/1"));
         let expected = if hit["critical"].as_bool().unwrap() {
-            // 2700*1/2*4/5 = 1080 non-crit; captured CD 0.5 gives 1620.
-            1620
+            // 2700*1/2*4/5 = 1080 base Scorch; Lv100 Sakiri BT>=2 Passive 1 (1 handle) -> * 5/4 = 1350 non-crit; CD 0.5 -> 2025.
+            2025
         } else {
-            1080
+            1350
         };
         assert_eq!(
             hit["damage"],
@@ -314,6 +314,32 @@ fn scorch_ticks_sample_fixed_fifty_crit_and_keep_phase_on_refresh() {
             hit["time_us"]
         );
     }
+}
+
+#[test]
+fn sakiri_passive1_scorch_dot_bonus_requires_bt2_and_counts_dot_handles() {
+    let mut bt0_req = request(&[(0, "character:1004", 100, 0), (1, "character:1003", 0, 0)]);
+    bt0_req.actors[1].character_level = 1;
+    bt0_req.actors[1].character_max_level = Some(20);
+    bt0_req.actors[1].talent_levels = Some([1, 1, 1]);
+    bt0_req.actors[1].purchased_skill_level = 1;
+    bt0_req.actors[1].purchased_qte_level = Some(1);
+    bt0_req.actions = vec![switch(0, 1)];
+    bt0_req.relative_duration_us = 2_000_000;
+    let bt0_report = run(&bt0_req);
+    let bt0_ticks = reaction_hits(&bt0_report, "ntesim.reaction.scorch");
+    assert_eq!(bt0_ticks.len(), 2);
+    // Lv100 Lacrimosa base Scorch: 2700 * 1/2 (DEF 1000) * 4/5 (resist 0.2) = 1080, no BT2 bonus.
+    assert_eq!(bt0_ticks[0]["non_crit_damage"], json!("1080/1"));
+
+    let mut bt2_req = request(&[(0, "character:1004", 100, 0), (1, "character:1003", 0, 0)]);
+    bt2_req.actions = vec![switch(0, 1)];
+    bt2_req.relative_duration_us = 2_000_000;
+    let bt2_report = run(&bt2_req);
+    let bt2_ticks = reaction_hits(&bt2_report, "ntesim.reaction.scorch");
+    assert_eq!(bt2_ticks.len(), 2);
+    // Lv100 Sakiri BT>=2 adds +25% FinalDamageUp for active Scorch handle -> 1080 * 5/4 = 1350.
+    assert_eq!(bt2_ticks[0]["non_crit_damage"], json!("1350/1"));
 }
 
 #[test]
@@ -850,12 +876,13 @@ fn character_reaction_passives_audit_and_dispatch() {
 
     let mut sakiri_req = request(&[(0, "character:1003", 100, 0)]);
     let sakiri_state = crate::simulation::state::GameSimulatorState::new(&sakiri_req);
-    assert!(!crate::registry::sakiri_scorch_extension_eligible(
+    assert!(crate::registry::sakiri_scorch_extension_eligible(
         &sakiri_req,
         &sakiri_state
     ));
-    sakiri_req.actors[0].awakening = ntesim_data::AwakeningSelection::selected([2]).unwrap();
-    assert!(crate::registry::sakiri_scorch_extension_eligible(
+    sakiri_req.actors[0].character_level = 1;
+    sakiri_req.actors[0].character_max_level = Some(20);
+    assert!(!crate::registry::sakiri_scorch_extension_eligible(
         &sakiri_req,
         &sakiri_state
     ));

@@ -275,6 +275,9 @@ pub(super) fn project(
             _ => return Err(format!("unsupported native primary input role {kind}")),
         };
         let mut hit_delay_us = 0;
+        if character == "character:1003" && kind == "skill" {
+            cooldown_us = 16_000_000;
+        }
         if character == "character:1004" && kind == "skill" {
             cooldown_us = crate::characters::lacrimosa::sleep_in::COOLDOWN_US;
         }
