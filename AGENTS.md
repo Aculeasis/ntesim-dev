@@ -24,7 +24,7 @@ No backward compatibility: update current contracts, consumers and tests togethe
 
 ## Checks and delivery
 
-Preserve unrelated edits. Local tools and children share at most four logical CPUs through `tools/cpu_limit.py`; run one validator at a time. Only the GitHub Pages deployment build opts into available runner CPUs with both `GITHUB_ACTIONS=true` and `NTESIM_BUILD_CPUS=all`; smaller caller limits survive. Use `tools/cargo.py`, `tools/web.mjs`, `tools/openspec.py` or `python tools/check.py -- COMMAND ARGS`. Scratch belongs in `cache/`; builds in `target/`. Read bounded excerpts and logs.
+Preserve unrelated edits. Local tools and children share at most four logical CPUs through `tools/cpu_limit.py`; run one validator at a time. Only the GitHub Pages deployment build opts into available runner CPUs with both `GITHUB_ACTIONS=true` and `NTESIM_BUILD_CPUS=all`; smaller caller limits survive. Use `tools/cargo.py`, `tools/web.mjs`, `tools/openspec.py` or `python tools/check.py -- COMMAND ARGS`. Scratch belongs in `cache/`; builds in `target/`. Read bounded excerpts and logs. The workspace holds large raw data, scratch scripts, and caches, so never run full-workspace text searches; search tracked code with `git grep`.
 
 Inspect existing coverage before adding tests. Rust tests own mechanics and independent numeric/causal checks; extend the relevant existing boundary. Integration checks need a distinct transport, package, replay or UI risk. Do not introduce test-count or line-count quotas, copied kit suites or new `tools/verify_*.py` scripts.
 
