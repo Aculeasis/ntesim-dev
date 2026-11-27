@@ -202,6 +202,13 @@ assert.equal(
 );
 assert.equal(
   sourceLabel({
+    ability_id: 'GA_Akane_Passive_1',
+    effect_id: 'GE_Reaction_3_new_1057_Damage',
+  }),
+  'Perfect Pitch',
+);
+assert.equal(
+  sourceLabel({
     ability_id: 'weapon:fork_PoliceRat:arc',
     effect_id: 'weapon:fork_PoliceRat:whisker_attack',
   }),
@@ -249,6 +256,7 @@ assert.equal(resolveAbilityTitle('passive:nanally.fair_duel'), 'Fair Duel');
 assert.equal(resolveAbilityTitle('passive:nanally.authority_a3'), 'Authority (A3)');
 assert.equal(resolveAbilityTitle('GA_Mitsuki070_Passive_1'), 'Harmonics');
 assert.equal(resolveAbilityTitle('GA_Chaos_Passive_1'), 'Justice in Time');
+assert.equal(resolveAbilityTitle('GA_Akane_Passive_1'), 'Perfect Pitch');
 
 // Unmapped and humanization fallback
 assert.equal(
